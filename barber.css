@@ -1,18 +1,28 @@
 /* =========================================================================
    PAGE BARBER  -  feuille de style
    -------------------------------------------------------------------------
-   Cette page reprend la maquette Adobe XD "Page Barber".
-   Elle est organisee en sections, de haut en bas :
-     1. Hero (grande image + carte de fidelite)
-     2. Separateur "bulles"
-     3. Zone brune : formules, produits, equipe, galerie
-     4. Bande "Decouvrir notre bar"
-     5. Pied de page
+   OBJECTIF : coller le plus possible a la maquette Adobe XD.
 
-   Les couleurs du site sont regroupees ci-dessous sous forme de "variables".
-   Pour changer une couleur partout, il suffit de la modifier ici une fois.
+   COMMENT CA MARCHE (a lire une fois, c'est la cle de tout le fichier) :
+   La maquette XD fait 1920 px de large. Pour que la page ressemble a la
+   maquette QUELLE QUE SOIT la taille de l'ecran, on definit une "unite" qui
+   vaut 1 pixel de la maquette :
+
+        --u  =  100vw / 1920
+
+   - Sur un ecran de 1920 px de large : --u = 1 px  (taille identique a XD)
+   - Sur un ecran de 1280 px de large : --u = 0,67 px (tout est reduit de 33%)
+   - etc.
+
+   Du coup, quand la maquette dit "ce titre fait 30 px", on ecrit :
+        font-size: calc(var(--u) * 30);
+   et le titre garde TOUJOURS la meme proportion que dans XD.
+
+   Tout en bas du fichier, une section "MOBILE" reorganise la page en une
+   seule colonne lisible pour les telephones.
    ========================================================================= */
 
+/* Couleurs relevees dans la maquette */
 :root {
   --brun: #695E45;    /* fond de la grande zone centrale */
   --creme: #FFFEF8;   /* blanc casse (textes clairs, pastilles) */
@@ -21,12 +31,16 @@
   --noir: #1A1A1E;    /* fond du pied de page */
 }
 
+/* L'unite de mesure = 1 pixel de la maquette XD (voir explication en haut) */
+body {
+  --u: calc(100vw / 1920);
+}
+
 /* =========================================================================
-   NAVBAR : on ajuste seulement la taille du logo
-   (le reste de la navbar est deja gere dans Accueil.css)
+   NAVBAR : taille du logo
    ========================================================================= */
 .logo-navbar {
-  height: 46px;   /* hauteur du logo dans la barre du haut */
+  height: calc(var(--u) * 78);
   width: auto;
 }
 
@@ -34,9 +48,9 @@
    1. SECTION HERO
    ========================================================================= */
 .hero-barber {
-  position: relative;   /* repere pour placer la carte de fidelite par-dessus */
+  position: relative;                 /* repere pour la carte de fidelite */
   width: 100%;
-  height: 70vh;         /* hauteur = 70% de la hauteur de l'ecran */
+  height: calc(var(--u) * 1010);      /* hauteur de la maquette */
   overflow: hidden;
 }
 
@@ -54,35 +68,34 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);   /* centre le bloc dans le hero */
-  width: min(90%, 520px);
-  padding: 2rem;
+  width: calc(var(--u) * 760);
+  padding: calc(var(--u) * 50) calc(var(--u) * 40);
   text-align: center;
   color: var(--creme);
-  background: rgba(0, 0, 0, 0.28);     /* voile sombre translucide */
+  background: rgba(0, 0, 0, 0.25);     /* voile sombre translucide */
   backdrop-filter: blur(6px);          /* effet "verre depoli" */
-  border-radius: 24px;
+  border-radius: calc(var(--u) * 30);
 }
 
 .carte-fidelite-texte {
-  font-size: 1.6rem;
+  font-size: calc(var(--u) * 36);      /* 36 px dans la maquette */
   font-weight: 400;
-  line-height: 2;
-  margin-bottom: 1.5rem;
+  line-height: 1.9;
+  margin-bottom: calc(var(--u) * 30);
 }
-/* Le nom de la carte, mis en avant */
 .carte-fidelite-texte strong {
-  font-weight: 800;
+  font-weight: 800;                    /* le nom de la carte, en gras */
 }
 
 /* Bouton "Creer mon compte" */
 .bouton-creer-compte {
   display: inline-block;
-  padding: 0.6rem 1.8rem;
+  padding: calc(var(--u) * 14) calc(var(--u) * 40);
   background: var(--rouge);
   color: var(--creme);
   font-weight: 800;
-  font-size: 1.4rem;
-  border-radius: 999px;   /* coins tres arrondis = forme de pilule */
+  font-size: calc(var(--u) * 25);
+  border-radius: 999px;                /* forme de pilule */
 }
 .bouton-creer-compte:hover {
   color: var(--creme);
@@ -92,34 +105,40 @@
 /* Petit visuel de la carte de fidelite qui flotte a droite */
 .carte-fidelite-visuel {
   position: absolute;
-  top: 30%;
-  right: 8%;
-  width: 130px;
+  top: 28%;
+  right: 7%;
+  width: calc(var(--u) * 150);
   transform: rotate(8deg);
 }
 
 /* =========================================================================
-   3. GRANDE ZONE BRUNE
+   2. GRANDE ZONE BRUNE + SEPARATEUR "BULLES"
    ========================================================================= */
 .section-brune {
-  position: relative;   /* repere pour la rangee de bulles */
+  position: relative;                  /* repere pour poser les bulles */
   background: var(--brun);
   color: var(--creme);
-  padding: 3rem 0 4rem;
+  padding-top: calc(var(--u) * 70);    /* laisse la place a la rangee de bulles */
+  padding-bottom: calc(var(--u) * 120);
 }
 
-/* SEPARATEUR "BULLES" : on n'affiche que la rangee du haut du dessin.
-   On le remonte pour qu'il chevauche le bas du hero : le haut des bulles
-   se detache sur la photo, le bas se detache sur le brun. */
+/* SEPARATEUR "BULLES" : la rangee de bulles qui fait la transition entre le
+   hero (au-dessus) et la zone brune (en dessous).
+   - place en "absolu" tout en haut de la zone brune : il ne pousse donc pas
+     le contenu vers le bas (pas de grand vide)
+   - remonte de moitie (translateY -55%) pour chevaucher la frontiere : le
+     haut des bulles se detache sur la photo du hero, le bas sur le brun. */
 .separateur-bulles {
-  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 70px;
-  object-fit: cover;          /* on recadre l'image... */
-  object-position: center top;/* ...pour ne garder que la rangee du haut */
-  margin-top: -3.5rem;        /* remonte pour chevaucher le hero */
-  position: relative;
-  z-index: 2;
+  height: calc(var(--u) * 140);        /* on garde la rangee de bulles */
+  object-fit: cover;
+  object-position: center top;
+  transform: translateY(-55%);
+  z-index: 3;
+  pointer-events: none;
 }
 
 /* --- Invitation "Pour voir nos differentes formules" --- */
@@ -127,96 +146,98 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  font-size: 1.6rem;
-  margin: 1rem 0 2rem;
+  gap: calc(var(--u) * 16);
+  font-size: calc(var(--u) * 31);
+  font-weight: 400;
+  margin: calc(var(--u) * 20) 0 calc(var(--u) * 60);
 }
+.invite-formules strong { font-weight: 700; }
 .fleche-bas {
-  width: 26px;   /* petite fleche vers le bas */
+  width: calc(var(--u) * 46);
 }
 
 /* --- Titre "Nos Formules" --- */
 .titre-formules {
   text-align: center;
   font-weight: 700;
-  font-size: 1.9rem;
+  font-size: calc(var(--u) * 30);
   margin: 0;
 }
 .note-formules {
   text-align: center;
-  font-weight: 100;    /* tres fin */
-  font-size: 0.9rem;
-  margin: 0.4rem 0 2.5rem;
+  font-weight: 100;                    /* tres fin */
+  font-size: calc(var(--u) * 16);
+  margin: calc(var(--u) * 10) 0 calc(var(--u) * 50);
 }
 
 /* --- Liste des formules (defilement horizontal) --- */
 .formules-piste {
   display: flex;
-  gap: 1.5rem;
-  padding: 0 4vw 1rem;
-  overflow-x: auto;              /* on peut faire glisser vers la droite */
-  scroll-snap-type: x mandatory; /* les cartes "s'accrochent" au defilement */
+  justify-content: flex-start;         /* demarre a gauche : toutes les cartes
+                                          restent accessibles au defilement */
+  gap: calc(var(--u) * 40);
+  padding: 0 calc(var(--u) * 90) calc(var(--u) * 20);
+  overflow-x: auto;                    /* on fait glisser pour voir les 5 formules */
 }
 
-/* Une carte de formule */
+/* Une carte de formule (rectangle arrondi au contour clair) */
 .formule-carte {
   position: relative;
-  flex: 0 0 300px;       /* largeur fixe de 300px, ne se comprime pas */
-  scroll-snap-align: center;
-  min-height: 420px;
-  padding: 1.8rem 1.5rem 5rem;
-  border: 2px solid var(--creme);   /* contour clair */
-  border-radius: 26px;
+  flex: 0 0 calc(var(--u) * 430);      /* largeur fixe facon maquette */
+  min-height: calc(var(--u) * 620);
+  padding: calc(var(--u) * 40) calc(var(--u) * 35) calc(var(--u) * 150);
+  border: calc(var(--u) * 2) solid var(--creme);
+  border-radius: calc(var(--u) * 34);
 }
 .formule-titre {
   text-align: center;
   font-weight: 700;
-  font-size: 1.35rem;
-  margin-bottom: 1.2rem;
-  min-height: 3.4rem;   /* meme hauteur pour aligner les titres */
+  font-size: calc(var(--u) * 22);      /* 22 px dans la maquette */
+  margin-bottom: calc(var(--u) * 26);
+  min-height: calc(var(--u) * 60);     /* aligne les titres entre eux */
 }
 .formule-liste {
-  list-style: none;      /* pas de puces rondes par defaut */
+  list-style: none;
   padding: 0;
   margin: 0;
   font-weight: 100;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: calc(var(--u) * 16);      /* 16 px dans la maquette */
+  line-height: 1.9;
 }
 .formule-liste li::before {
-  content: "- ";         /* on ajoute un tiret devant chaque ligne */
+  content: "- ";                       /* tiret devant chaque ligne */
 }
 
 /* Pastille ronde du prix, en bas de la carte */
 .formule-prix {
   position: absolute;
-  bottom: 1.4rem;
+  bottom: calc(var(--u) * 30);
   left: 50%;
   transform: translateX(-50%);
-  width: 88px;
-  height: 88px;
+  width: calc(var(--u) * 96);
+  height: calc(var(--u) * 96);
   display: grid;
-  place-content: center;   /* centre le texte du prix dans le rond */
+  place-content: center;
   background: var(--creme);
   color: var(--brun);
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: calc(var(--u) * 29);
   border-radius: 50%;
 }
 
 /* Carte qui contient une photo de produits */
 .formule-carte-photo .formule-photo {
   width: 100%;
-  border-radius: 14px;
-  margin-top: 1rem;
+  border-radius: calc(var(--u) * 14);
+  margin-top: calc(var(--u) * 16);
 }
 
 /* --- Petite phrase d'aide sous les formules --- */
 .aide-reservation {
   text-align: center;
   font-weight: 100;
-  font-size: 1.2rem;
-  margin: 2rem 0 4rem;
+  font-size: calc(var(--u) * 23);
+  margin: calc(var(--u) * 40) 0 calc(var(--u) * 110);
 }
 
 /* =========================================================================
@@ -224,16 +245,17 @@
    ========================================================================= */
 .bloc-produits {
   position: relative;
-  width: min(90%, 780px);
-  margin: 0 auto 5rem;
+  width: calc(var(--u) * 900);
+  max-width: 92%;
+  margin: 0 auto calc(var(--u) * 130);
 }
 
 /* Photo posee derriere le haut de la carte rose */
 .produits-photo-fond {
   display: block;
-  width: 260px;
-  border-radius: 14px;
-  margin: 0 auto -30px;   /* le -30px fait passer la carte par-dessus */
+  width: calc(var(--u) * 300);
+  border-radius: calc(var(--u) * 14);
+  margin: 0 auto calc(var(--u) * -34);  /* la carte passe par-dessus */
   position: relative;
   z-index: 0;
 }
@@ -243,38 +265,38 @@
   position: relative;
   z-index: 1;
   background: var(--rouge);
-  border-radius: 26px;
-  padding: 2rem 2.2rem;
+  border-radius: calc(var(--u) * 30);
+  padding: calc(var(--u) * 40) calc(var(--u) * 45);
 }
 .produits-titre {
   font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: calc(var(--u) * 31);
+  margin-bottom: calc(var(--u) * 20);
 }
 .produits-texte {
   font-weight: 400;
-  font-size: 1rem;
+  font-size: calc(var(--u) * 18);
   line-height: 1.7;
   margin: 0;
 }
 /* Fleur decorative en haut a droite de la carte */
 .produits-fleur {
   position: absolute;
-  top: 1.5rem;
-  right: 1.8rem;
-  width: 46px;
+  top: calc(var(--u) * 30);
+  right: calc(var(--u) * 40);
+  width: calc(var(--u) * 60);
 }
 
 /* Bouton "En savoir plus" qui depasse en bas de la carte */
 .bouton-en-savoir-plus {
   display: block;
   width: max-content;
-  margin: -1.2rem auto 0;   /* remonte pour chevaucher le bas de la carte */
-  padding: 0.6rem 1.8rem;
+  margin: calc(var(--u) * -26) auto 0;  /* chevauche le bas de la carte */
+  padding: calc(var(--u) * 14) calc(var(--u) * 40);
   background: var(--rouge);
   color: var(--creme);
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: calc(var(--u) * 25);
   border-radius: 999px;
 }
 .bouton-en-savoir-plus:hover {
@@ -288,124 +310,122 @@
 .titre-pros {
   text-align: center;
   font-weight: 700;
-  font-size: 1.7rem;
-  margin-bottom: 1rem;
+  font-size: calc(var(--u) * 30);
+  margin-bottom: calc(var(--u) * 20);
 }
 .texte-pros {
-  width: min(90%, 640px);
-  margin: 0 auto 3rem;
+  width: calc(var(--u) * 720);
+  max-width: 90%;
+  margin: 0 auto calc(var(--u) * 70);
   text-align: center;
   font-weight: 400;
+  font-size: calc(var(--u) * 18);
   line-height: 1.7;
 }
 
-/* Les 3 membres cote a cote (passent a la ligne si l'ecran est petit) */
+/* Les 3 membres cote a cote */
 .equipe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2.5rem;
-  margin-bottom: 5rem;
+  gap: calc(var(--u) * 90);
+  margin-bottom: calc(var(--u) * 130);
 }
 .equipe-membre {
-  width: 240px;
+  width: calc(var(--u) * 300);
   margin: 0;
   text-align: center;
 }
 .equipe-illus {
-  width: 180px;      /* taille de l'illustration du visage */
+  width: calc(var(--u) * 260);        /* taille de l'illustration du visage */
   height: auto;
 }
 .equipe-nom {
   font-weight: 700;
-  font-size: 1.6rem;
-  margin-top: 0.5rem;
+  font-size: calc(var(--u) * 31);
+  margin-top: calc(var(--u) * 10);
 }
 .equipe-desc {
   font-weight: 400;
-  font-size: 0.95rem;
+  font-size: calc(var(--u) * 18);
 }
 
 /* =========================================================================
    GALERIE DES COUPES
-   Une grille de photos qui s'adapte a la largeur de l'ecran.
    ========================================================================= */
 .titre-galerie {
   text-align: center;
   font-weight: 700;
-  font-size: 1.7rem;
-  margin-bottom: 2rem;
+  font-size: calc(var(--u) * 30);
+  margin-bottom: calc(var(--u) * 50);
 }
 .galerie {
   display: grid;
-  /* autant de colonnes que possible, chaque photo faisant au moins 160px.
-     Resultat : ~7 colonnes sur grand ecran, 2 colonnes sur telephone. */
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
-  width: min(92%, 1600px);
+  grid-template-columns: repeat(4, 1fr);   /* 4 colonnes comme la maquette */
+  gap: calc(var(--u) * 24);
+  width: calc(var(--u) * 1640);
+  max-width: 92%;
   margin: 0 auto;
 }
 .galerie-photo {
   width: 100%;
-  aspect-ratio: 3 / 4;    /* toutes les photos ont la meme proportion */
+  aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: calc(var(--u) * 20);
 }
 
 /* =========================================================================
-   4. BANDE "DECOUVRIR NOTRE BAR A BIERES"
+   3. BANDE "DECOUVRIR NOTRE BAR A BIERES"
    ========================================================================= */
 .bande-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 1.4rem 1rem;
+  gap: calc(var(--u) * 40);
+  padding: calc(var(--u) * 30) calc(var(--u) * 20);
   background: var(--beige);
   color: var(--brun);
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: calc(var(--u) * 41);
   text-decoration: none;
   overflow: hidden;
-  white-space: nowrap;   /* le texte reste sur une seule ligne */
+  white-space: nowrap;
 }
 .bande-bar:hover {
   color: var(--brun);
   opacity: 0.9;
 }
 .bande-bar-picto {
-  height: 34px;   /* petit picto entre les textes */
+  height: calc(var(--u) * 44);
 }
 
 /* =========================================================================
-   5. PIED DE PAGE
+   4. PIED DE PAGE
    ========================================================================= */
 .pied-de-page {
   background: var(--noir);
   color: var(--creme);
-  padding: 3rem 4vw;
+  padding: calc(var(--u) * 60) calc(var(--u) * 90);
 }
-
-/* Les colonnes du pied de page (passent a la ligne sur petit ecran) */
 .pied-colonnes {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: calc(var(--u) * 60);
   justify-content: space-between;
-  max-width: 1400px;
+  max-width: calc(var(--u) * 1740);
   margin: 0 auto;
 }
 .pied-colonne h3 {
   font-weight: 700;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+  font-size: calc(var(--u) * 25);
+  margin-bottom: calc(var(--u) * 18);
 }
 .pied-colonne p {
   font-weight: 500;
+  font-size: calc(var(--u) * 18);
   line-height: 1.8;
   margin: 0;
 }
-/* Les liens legaux : blancs, soulignes au survol */
 .pied-colonne a {
   color: var(--creme);
   text-decoration: none;
@@ -413,57 +433,98 @@
 .pied-colonne a:hover {
   text-decoration: underline;
 }
-
-/* Colonne de droite : newsletter + reseaux */
 .pied-colonne-droite {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: calc(var(--u) * 30);
   align-items: flex-start;
 }
-/* Champ d'inscription a la newsletter */
 .pied-newsletter {
-  width: 320px;
+  width: calc(var(--u) * 460);
   max-width: 100%;
-  padding: 0.8rem 1.4rem;
+  padding: calc(var(--u) * 16) calc(var(--u) * 28);
   background: transparent;
-  border: 2px solid var(--creme);
+  border: calc(var(--u) * 2) solid var(--creme);
   border-radius: 999px;
   color: var(--creme);
   font-weight: 100;
-  font-size: 1.05rem;
+  font-size: calc(var(--u) * 23);
 }
 .pied-newsletter::placeholder {
   color: var(--creme);
   opacity: 0.85;
 }
-/* Icones des reseaux sociaux */
 .pied-reseaux {
-  height: 42px;
+  height: calc(var(--u) * 60);
 }
 
 /* =========================================================================
-   RESPONSIVE : ajustements pour les ecrans etroits (telephones)
+   MOBILE  (ecrans etroits, <= 768 px)
+   Ici on ne suit plus la maquette 1920 : on empile tout en une colonne
+   lisible, avec des tailles de texte fixes et confortables.
    ========================================================================= */
 @media (max-width: 768px) {
-  .hero-barber {
-    height: 60vh;
+
+  /* Le hero prend une hauteur raisonnable sur telephone */
+  .hero-barber { height: 60vh; }
+  .carte-fidelite-bloc { width: 88%; padding: 1.5rem; }
+  .carte-fidelite-texte { font-size: 1.1rem; line-height: 1.7; }
+  .bouton-creer-compte { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
+  .carte-fidelite-visuel { display: none; }  /* on cache le visuel flottant */
+
+  /* Bulles de transition : on remonte moins fort */
+  .separateur-bulles { margin-top: -6vw; }
+
+  /* Textes courants ramenes a des tailles fixes lisibles */
+  .invite-formules { font-size: 1.2rem; flex-wrap: wrap; text-align: center; }
+  .titre-formules,
+  .titre-pros,
+  .titre-galerie,
+  .produits-titre { font-size: 1.5rem; }
+  .note-formules { font-size: 0.85rem; }
+  .aide-reservation { font-size: 1.1rem; margin: 1.5rem 0 3rem; }
+
+  /* Les formules : une carte presque pleine largeur, on garde le glissement */
+  .formules-piste { justify-content: flex-start; gap: 1rem; padding: 0 1rem 1rem; }
+  .formule-carte {
+    flex: 0 0 80vw;
+    min-height: auto;
+    padding: 1.5rem 1.3rem 5rem;
+    border-radius: 22px;
   }
-  .carte-fidelite-texte {
-    font-size: 1.2rem;
-  }
-  /* La carte de fidelite flottante gene sur petit ecran : on la cache */
-  .carte-fidelite-visuel {
-    display: none;
-  }
-  .invite-formules {
-    font-size: 1.2rem;
-  }
-  /* Les textes qui defilent se mettent les uns sous les autres */
-  .bande-bar {
-    font-size: 1.1rem;
-    flex-wrap: wrap;
-    white-space: normal;
-    text-align: center;
-  }
+  .formule-titre { font-size: 1.2rem; min-height: 0; margin-bottom: 1rem; }
+  .formule-liste { font-size: 0.95rem; line-height: 1.7; }
+  .formule-prix { width: 70px; height: 70px; font-size: 1.4rem; bottom: 1.2rem; }
+
+  /* Bloc produits */
+  .bloc-produits { width: 92%; margin-bottom: 3rem; }
+  .produits-photo-fond { width: 180px; margin-bottom: -24px; }
+  .produits-carte { padding: 1.5rem; border-radius: 20px; }
+  .produits-texte { font-size: 0.95rem; }
+  .produits-fleur { width: 36px; }
+  .bouton-en-savoir-plus { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
+
+  /* Equipe : les 3 membres passent les uns sous les autres */
+  .texte-pros { font-size: 0.95rem; margin-bottom: 2rem; }
+  .equipe { gap: 2rem; margin-bottom: 3rem; }
+  .equipe-membre { width: 60%; }
+  .equipe-illus { width: 150px; }
+  .equipe-nom { font-size: 1.4rem; }
+  .equipe-desc { font-size: 0.9rem; }
+
+  /* Galerie : 2 colonnes sur telephone */
+  .galerie { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .galerie-photo { border-radius: 12px; }
+
+  /* Bande "Decouvrir notre bar" : le texte peut passer a la ligne */
+  .bande-bar { font-size: 1.1rem; flex-wrap: wrap; white-space: normal; text-align: center; gap: 1rem; }
+  .bande-bar-picto { height: 28px; }
+
+  /* Pied de page : colonnes empilees */
+  .pied-de-page { padding: 2rem 1.2rem; }
+  .pied-colonnes { gap: 2rem; }
+  .pied-colonne h3 { font-size: 1.2rem; }
+  .pied-colonne p { font-size: 0.95rem; }
+  .pied-newsletter { width: 100%; font-size: 1rem; padding: 0.7rem 1.2rem; }
+  .pied-reseaux { height: 38px; }
 }
