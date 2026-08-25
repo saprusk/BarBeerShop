@@ -1,30 +1,469 @@
-/* ===== Page Barber : image de fond + texte + bouton ===== */
-.hero-page {
-  position: relative;
+/* =========================================================================
+   PAGE BARBER  -  feuille de style
+   -------------------------------------------------------------------------
+   Cette page reprend la maquette Adobe XD "Page Barber".
+   Elle est organisee en sections, de haut en bas :
+     1. Hero (grande image + carte de fidelite)
+     2. Separateur "bulles"
+     3. Zone brune : formules, produits, equipe, galerie
+     4. Bande "Decouvrir notre bar"
+     5. Pied de page
+
+   Les couleurs du site sont regroupees ci-dessous sous forme de "variables".
+   Pour changer une couleur partout, il suffit de la modifier ici une fois.
+   ========================================================================= */
+
+:root {
+  --brun: #695E45;    /* fond de la grande zone centrale */
+  --creme: #FFFEF8;   /* blanc casse (textes clairs, pastilles) */
+  --rouge: #E13950;   /* rouge d'accent (boutons, carte produits) */
+  --beige: #DDCDB0;   /* beige clair (bande "Decouvrir notre bar") */
+  --noir: #1A1A1E;    /* fond du pied de page */
+}
+
+/* =========================================================================
+   NAVBAR : on ajuste seulement la taille du logo
+   (le reste de la navbar est deja gere dans Accueil.css)
+   ========================================================================= */
+.logo-navbar {
+  height: 46px;   /* hauteur du logo dans la barre du haut */
+  width: auto;
+}
+
+/* =========================================================================
+   1. SECTION HERO
+   ========================================================================= */
+.hero-barber {
+  position: relative;   /* repere pour placer la carte de fidelite par-dessus */
   width: 100%;
-  height: 60vh;
+  height: 70vh;         /* hauteur = 70% de la hauteur de l'ecran */
   overflow: hidden;
 }
 
-.hero-page img {
+/* L'image de fond remplit toute la section sans se deformer */
+.hero-barber-fond {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.hero-page-contenu {
+/* Panneau semi-transparent avec le texte de la carte de fidelite */
+.carte-fidelite-bloc {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
+  transform: translate(-50%, -50%);   /* centre le bloc dans le hero */
+  width: min(90%, 520px);
+  padding: 2rem;
   text-align: center;
-  color: #FFFEF8;
+  color: var(--creme);
+  background: rgba(0, 0, 0, 0.28);     /* voile sombre translucide */
+  backdrop-filter: blur(6px);          /* effet "verre depoli" */
+  border-radius: 24px;
 }
 
-.hero-page-bouton {
+.carte-fidelite-texte {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2;
+  margin-bottom: 1.5rem;
+}
+/* Le nom de la carte, mis en avant */
+.carte-fidelite-texte strong {
+  font-weight: 800;
+}
+
+/* Bouton "Creer mon compte" */
+.bouton-creer-compte {
+  display: inline-block;
+  padding: 0.6rem 1.8rem;
+  background: var(--rouge);
+  color: var(--creme);
+  font-weight: 800;
+  font-size: 1.4rem;
+  border-radius: 999px;   /* coins tres arrondis = forme de pilule */
+}
+.bouton-creer-compte:hover {
+  color: var(--creme);
+  opacity: 0.9;
+}
+
+/* Petit visuel de la carte de fidelite qui flotte a droite */
+.carte-fidelite-visuel {
+  position: absolute;
+  top: 30%;
+  right: 8%;
+  width: 130px;
+  transform: rotate(8deg);
+}
+
+/* =========================================================================
+   3. GRANDE ZONE BRUNE
+   ========================================================================= */
+.section-brune {
+  position: relative;   /* repere pour la rangee de bulles */
+  background: var(--brun);
+  color: var(--creme);
+  padding: 3rem 0 4rem;
+}
+
+/* SEPARATEUR "BULLES" : on n'affiche que la rangee du haut du dessin.
+   On le remonte pour qu'il chevauche le bas du hero : le haut des bulles
+   se detache sur la photo, le bas se detache sur le brun. */
+.separateur-bulles {
+  display: block;
+  width: 100%;
+  height: 70px;
+  object-fit: cover;          /* on recadre l'image... */
+  object-position: center top;/* ...pour ne garder que la rangee du haut */
+  margin-top: -3.5rem;        /* remonte pour chevaucher le hero */
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Invitation "Pour voir nos differentes formules" --- */
+.invite-formules {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1.6rem;
+  margin: 1rem 0 2rem;
+}
+.fleche-bas {
+  width: 26px;   /* petite fleche vers le bas */
+}
+
+/* --- Titre "Nos Formules" --- */
+.titre-formules {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.9rem;
+  margin: 0;
+}
+.note-formules {
+  text-align: center;
+  font-weight: 100;    /* tres fin */
+  font-size: 0.9rem;
+  margin: 0.4rem 0 2.5rem;
+}
+
+/* --- Liste des formules (defilement horizontal) --- */
+.formules-piste {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0 4vw 1rem;
+  overflow-x: auto;              /* on peut faire glisser vers la droite */
+  scroll-snap-type: x mandatory; /* les cartes "s'accrochent" au defilement */
+}
+
+/* Une carte de formule */
+.formule-carte {
+  position: relative;
+  flex: 0 0 300px;       /* largeur fixe de 300px, ne se comprime pas */
+  scroll-snap-align: center;
+  min-height: 420px;
+  padding: 1.8rem 1.5rem 5rem;
+  border: 2px solid var(--creme);   /* contour clair */
+  border-radius: 26px;
+}
+.formule-titre {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.35rem;
+  margin-bottom: 1.2rem;
+  min-height: 3.4rem;   /* meme hauteur pour aligner les titres */
+}
+.formule-liste {
+  list-style: none;      /* pas de puces rondes par defaut */
+  padding: 0;
+  margin: 0;
+  font-weight: 100;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.formule-liste li::before {
+  content: "- ";         /* on ajoute un tiret devant chaque ligne */
+}
+
+/* Pastille ronde du prix, en bas de la carte */
+.formule-prix {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-content: center;   /* centre le texte du prix dans le rond */
+  background: var(--creme);
+  color: var(--brun);
+  font-weight: 700;
+  font-size: 1.7rem;
+  border-radius: 50%;
+}
+
+/* Carte qui contient une photo de produits */
+.formule-carte-photo .formule-photo {
+  width: 100%;
+  border-radius: 14px;
   margin-top: 1rem;
-  background-color: #000;
-  color: #fff;
+}
+
+/* --- Petite phrase d'aide sous les formules --- */
+.aide-reservation {
+  text-align: center;
+  font-weight: 100;
+  font-size: 1.2rem;
+  margin: 2rem 0 4rem;
+}
+
+/* =========================================================================
+   BLOC "NOS PRODUITS UTILISES" (carte rose)
+   ========================================================================= */
+.bloc-produits {
+  position: relative;
+  width: min(90%, 780px);
+  margin: 0 auto 5rem;
+}
+
+/* Photo posee derriere le haut de la carte rose */
+.produits-photo-fond {
+  display: block;
+  width: 260px;
+  border-radius: 14px;
+  margin: 0 auto -30px;   /* le -30px fait passer la carte par-dessus */
+  position: relative;
+  z-index: 0;
+}
+
+/* La carte rose */
+.produits-carte {
+  position: relative;
+  z-index: 1;
+  background: var(--rouge);
+  border-radius: 26px;
+  padding: 2rem 2.2rem;
+}
+.produits-titre {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.produits-texte {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+/* Fleur decorative en haut a droite de la carte */
+.produits-fleur {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.8rem;
+  width: 46px;
+}
+
+/* Bouton "En savoir plus" qui depasse en bas de la carte */
+.bouton-en-savoir-plus {
+  display: block;
+  width: max-content;
+  margin: -1.2rem auto 0;   /* remonte pour chevaucher le bas de la carte */
+  padding: 0.6rem 1.8rem;
+  background: var(--rouge);
+  color: var(--creme);
+  font-weight: 800;
+  font-size: 1.3rem;
+  border-radius: 999px;
+}
+.bouton-en-savoir-plus:hover {
+  color: var(--creme);
+  opacity: 0.9;
+}
+
+/* =========================================================================
+   BLOC "NOS PROFESSIONNELS CAPILLAIRES" (l'equipe)
+   ========================================================================= */
+.titre-pros {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+.texte-pros {
+  width: min(90%, 640px);
+  margin: 0 auto 3rem;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Les 3 membres cote a cote (passent a la ligne si l'ecran est petit) */
+.equipe {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 5rem;
+}
+.equipe-membre {
+  width: 240px;
+  margin: 0;
+  text-align: center;
+}
+.equipe-illus {
+  width: 180px;      /* taille de l'illustration du visage */
+  height: auto;
+}
+.equipe-nom {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-top: 0.5rem;
+}
+.equipe-desc {
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+/* =========================================================================
+   GALERIE DES COUPES
+   Une grille de photos qui s'adapte a la largeur de l'ecran.
+   ========================================================================= */
+.titre-galerie {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.7rem;
+  margin-bottom: 2rem;
+}
+.galerie {
+  display: grid;
+  /* autant de colonnes que possible, chaque photo faisant au moins 160px.
+     Resultat : ~7 colonnes sur grand ecran, 2 colonnes sur telephone. */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  width: min(92%, 1600px);
+  margin: 0 auto;
+}
+.galerie-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;    /* toutes les photos ont la meme proportion */
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* =========================================================================
+   4. BANDE "DECOUVRIR NOTRE BAR A BIERES"
+   ========================================================================= */
+.bande-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.4rem 1rem;
+  background: var(--beige);
+  color: var(--brun);
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;   /* le texte reste sur une seule ligne */
+}
+.bande-bar:hover {
+  color: var(--brun);
+  opacity: 0.9;
+}
+.bande-bar-picto {
+  height: 34px;   /* petit picto entre les textes */
+}
+
+/* =========================================================================
+   5. PIED DE PAGE
+   ========================================================================= */
+.pied-de-page {
+  background: var(--noir);
+  color: var(--creme);
+  padding: 3rem 4vw;
+}
+
+/* Les colonnes du pied de page (passent a la ligne sur petit ecran) */
+.pied-colonnes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.pied-colonne h3 {
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.pied-colonne p {
+  font-weight: 500;
+  line-height: 1.8;
+  margin: 0;
+}
+/* Les liens legaux : blancs, soulignes au survol */
+.pied-colonne a {
+  color: var(--creme);
+  text-decoration: none;
+}
+.pied-colonne a:hover {
+  text-decoration: underline;
+}
+
+/* Colonne de droite : newsletter + reseaux */
+.pied-colonne-droite {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+/* Champ d'inscription a la newsletter */
+.pied-newsletter {
+  width: 320px;
+  max-width: 100%;
+  padding: 0.8rem 1.4rem;
+  background: transparent;
+  border: 2px solid var(--creme);
+  border-radius: 999px;
+  color: var(--creme);
+  font-weight: 100;
+  font-size: 1.05rem;
+}
+.pied-newsletter::placeholder {
+  color: var(--creme);
+  opacity: 0.85;
+}
+/* Icones des reseaux sociaux */
+.pied-reseaux {
+  height: 42px;
+}
+
+/* =========================================================================
+   RESPONSIVE : ajustements pour les ecrans etroits (telephones)
+   ========================================================================= */
+@media (max-width: 768px) {
+  .hero-barber {
+    height: 60vh;
+  }
+  .carte-fidelite-texte {
+    font-size: 1.2rem;
+  }
+  /* La carte de fidelite flottante gene sur petit ecran : on la cache */
+  .carte-fidelite-visuel {
+    display: none;
+  }
+  .invite-formules {
+    font-size: 1.2rem;
+  }
+  /* Les textes qui defilent se mettent les uns sous les autres */
+  .bande-bar {
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+    white-space: normal;
+    text-align: center;
+  }
 }

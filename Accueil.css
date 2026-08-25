@@ -1,3 +1,69 @@
+/* =========================================================================
+   POLICES DU SITE
+   -------------------------------------------------------------------------
+   Ce bloc charge les polices de la maquette pour TOUTES les pages
+   (ce fichier Accueil.css est relie par chaque page du site).
+
+   1) PP Formula : c'est la police principale, utilisee pour tout le texte.
+      Les fichiers sont dans le dossier "sources/fonts/".
+      Chaque "@font-face" declare une graisse (epaisseur) differente :
+        - Thin      = tres fin      (font-weight: 100)
+        - Regular   = normal        (font-weight: 400)
+        - Medium    = moyen         (font-weight: 500)
+        - Bold      = gras          (font-weight: 700)
+        - Extrabold = tres gras     (font-weight: 800)
+        - Black     = le plus gras  (font-weight: 900)
+      Pour utiliser une graisse, on ecrit par exemple :
+        font-family: "PP Formula";  font-weight: 700;   (= Bold)
+
+   2) DeLittle Chromatic : la police "fantaisie" du logo et du mot Instagram.
+      Elle vient d'Adobe Fonts, chargee via un lien dans le <head> de chaque
+      page HTML (<link ... use.typekit.net ...>). On l'utilise ainsi :
+        font-family: "delittle-chromatic";
+   ========================================================================= */
+
+@font-face {
+  font-family: "PP Formula";
+  src: url("sources/fonts/PPFormula-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Formula";
+  src: url("sources/fonts/PPFormula-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Formula";
+  src: url("sources/fonts/PPFormula-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Formula";
+  src: url("sources/fonts/PPFormula-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Formula";
+  src: url("sources/fonts/PPFormula-Extrabold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Formula";
+  src: url("sources/fonts/PPFormula-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* On applique PP Formula a toute la page par defaut */
+body {
+  font-family: "PP Formula", system-ui, sans-serif;
+}
+
 /* Aligne le bouton et le menu à la suite du logo au lieu de les pousser à droite */
 .navbar > .container-fluid {
   justify-content: flex-start;
