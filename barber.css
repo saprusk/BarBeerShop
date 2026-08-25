@@ -118,25 +118,24 @@ body {
   position: relative;                  /* repere pour poser les bulles */
   background: var(--brun);
   color: var(--creme);
-  padding-top: calc(var(--u) * 70);    /* laisse la place a la rangee de bulles */
+  padding-top: calc(var(--u) * 110);   /* laisse la place a la rangee de bulles */
   padding-bottom: calc(var(--u) * 120);
 }
 
-/* SEPARATEUR "BULLES" : la rangee de bulles qui fait la transition entre le
-   hero (au-dessus) et la zone brune (en dessous).
-   - place en "absolu" tout en haut de la zone brune : il ne pousse donc pas
-     le contenu vers le bas (pas de grand vide)
-   - remonte de moitie (translateY -55%) pour chevaucher la frontiere : le
-     haut des bulles se detache sur la photo du hero, le bas sur le brun. */
+/* SEPARATEUR "BULLES" : le champ de bulles entier (rangee dense + bulles
+   eparpillees) qui fait la transition entre le hero et la zone brune.
+   Les bulles sont de la meme couleur brune que la zone : elles "remontent"
+   donc dans la photo du hero (c'est la que l'oeil les voit), exactement comme
+   dans la maquette XD.
+   - place en "absolu" en haut de la zone brune (ne pousse pas le contenu)
+   - remonte pour que la rangee dense chevauche la frontiere hero / brun. */
 .separateur-bulles {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(var(--u) * 140);        /* on garde la rangee de bulles */
-  object-fit: cover;
-  object-position: center top;
-  transform: translateY(-55%);
+  height: auto;                        /* on montre TOUTES les bulles */
+  transform: translateY(-17%);
   z-index: 3;
   pointer-events: none;
 }
@@ -170,31 +169,64 @@ body {
   margin: calc(var(--u) * 10) 0 calc(var(--u) * 50);
 }
 
-/* --- Liste des formules (defilement horizontal) --- */
-.formules-piste {
+/* --- CARROUSEL DES FORMULES ---
+   [ fleche gauche ] [ fenetre montrant 3 cartes ] [ fleche droite ] */
+.formules-carrousel {
   display: flex;
-  justify-content: flex-start;         /* demarre a gauche : toutes les cartes
-                                          restent accessibles au defilement */
-  gap: calc(var(--u) * 40);
-  padding: 0 calc(var(--u) * 90) calc(var(--u) * 20);
-  overflow-x: auto;                    /* on fait glisser pour voir les 5 formules */
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 20);
 }
 
-/* Une carte de formule (rectangle arrondi au contour clair) */
+/* Les fleches blanches de chaque cote */
+.formule-fleche {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: var(--creme);                 /* fleche blanche */
+  font-size: calc(var(--u) * 70);
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 calc(var(--u) * 10);
+  transition: opacity 0.2s;
+}
+.formule-fleche:hover { opacity: 0.6; }
+
+/* La fenetre : elle ne laisse voir que 3 cartes (3 cartes + 2 ecarts) */
+.formules-viewport {
+  width: calc(var(--u) * (461 * 3 + 40 * 2));
+  max-width: 100%;
+  overflow-x: auto;                    /* glissement trackpad / doigt possible */
+  scroll-snap-type: x mandatory;       /* les cartes s'accrochent */
+  scrollbar-width: none;               /* on cache la barre de defilement */
+}
+.formules-viewport::-webkit-scrollbar { display: none; }
+
+/* La piste qui contient les 5 cartes en ligne */
+.formules-piste {
+  display: flex;
+  align-items: flex-start;             /* cartes alignees par le haut */
+  gap: calc(var(--u) * 40);
+  padding-bottom: calc(var(--u) * 230);/* place pour les prix et l'image qui depassent en bas */
+}
+
+/* Une carte de formule (rectangle arrondi au contour blanc).
+   La hauteur du cadre = la hauteur du texte (le cadre "s'arrete au texte"). */
 .formule-carte {
   position: relative;
-  flex: 0 0 calc(var(--u) * 430);      /* largeur fixe facon maquette */
-  min-height: calc(var(--u) * 620);
-  padding: calc(var(--u) * 40) calc(var(--u) * 35) calc(var(--u) * 150);
-  border: calc(var(--u) * 2) solid var(--creme);
-  border-radius: calc(var(--u) * 34);
+  flex: 0 0 calc(var(--u) * 461);      /* largeur exacte de la maquette */
+  scroll-snap-align: start;
+  padding: calc(var(--u) * 36) calc(var(--u) * 34) calc(var(--u) * 55);
+  border: calc(var(--u) * 5) solid var(--creme);
+  border-radius: calc(var(--u) * 69);
+  overflow: visible;                   /* laisse depasser le prix / l'image */
 }
 .formule-titre {
   text-align: center;
   font-weight: 700;
   font-size: calc(var(--u) * 22);      /* 22 px dans la maquette */
   margin-bottom: calc(var(--u) * 26);
-  min-height: calc(var(--u) * 60);     /* aligne les titres entre eux */
+  min-height: calc(var(--u) * 60);     /* aligne les titres sur 1 ou 2 lignes */
 }
 .formule-liste {
   list-style: none;
@@ -208,12 +240,12 @@ body {
   content: "- ";                       /* tiret devant chaque ligne */
 }
 
-/* Pastille ronde du prix, en bas de la carte */
+/* Pastille ronde du prix : A CHEVAL sur le bord bas du cadre, centree */
 .formule-prix {
   position: absolute;
-  bottom: calc(var(--u) * 30);
+  bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 50%);     /* moitie au-dessus, moitie en dessous du trait */
   width: calc(var(--u) * 96);
   height: calc(var(--u) * 96);
   display: grid;
@@ -225,11 +257,25 @@ body {
   border-radius: 50%;
 }
 
-/* Carte qui contient une photo de produits */
-.formule-carte-photo .formule-photo {
+/* --- Carte particuliere avec image (Formule Soin Signature) ---
+   Ici l'image depasse en bas du cadre, et le prix est pose sur l'arete
+   basse de l'image. */
+.formule-image-zone {
+  position: relative;
+  /* marge basse negative : le cadre remonte, l'image depasse en dessous */
+  margin: calc(var(--u) * 16) 0 calc(var(--u) * -150);
+}
+.formule-image-zone .formule-photo {
+  display: block;
   width: 100%;
+  height: calc(var(--u) * 300);
+  object-fit: cover;
   border-radius: calc(var(--u) * 14);
-  margin-top: calc(var(--u) * 16);
+}
+/* Prix pose sur l'arete basse de l'image */
+.formule-prix-image {
+  background: var(--creme);
+  color: var(--brun);
 }
 
 /* --- Petite phrase d'aide sous les formules --- */
@@ -245,9 +291,10 @@ body {
    ========================================================================= */
 .bloc-produits {
   position: relative;
-  width: calc(var(--u) * 900);
+  width: calc(var(--u) * 830);          /* largeur de la maquette */
   max-width: 92%;
-  margin: 0 auto calc(var(--u) * 130);
+  /* colle a gauche : marge gauche de la maquette (155 px), pas de centrage */
+  margin: 0 0 calc(var(--u) * 130) calc(var(--u) * 155);
 }
 
 /* Photo posee derriere le haut de la carte rose */
@@ -260,13 +307,13 @@ body {
   z-index: 0;
 }
 
-/* La carte rose */
+/* La carte rose (le bouton CTA se pose dans son coin bas-droit) */
 .produits-carte {
   position: relative;
   z-index: 1;
   background: var(--rouge);
   border-radius: calc(var(--u) * 30);
-  padding: calc(var(--u) * 40) calc(var(--u) * 45);
+  padding: calc(var(--u) * 40) calc(var(--u) * 45) calc(var(--u) * 90);
 }
 .produits-titre {
   font-weight: 700;
@@ -287,21 +334,25 @@ body {
   width: calc(var(--u) * 60);
 }
 
-/* Bouton "En savoir plus" qui depasse en bas de la carte */
+/* Bouton "En savoir plus" : dans le coin BAS-DROIT de la carte.
+   Au repos : fond blanc, texte rouge. Au survol : fond rouge, texte blanc. */
 .bouton-en-savoir-plus {
-  display: block;
-  width: max-content;
-  margin: calc(var(--u) * -26) auto 0;  /* chevauche le bas de la carte */
-  padding: calc(var(--u) * 14) calc(var(--u) * 40);
-  background: var(--rouge);
-  color: var(--creme);
+  position: absolute;
+  right: calc(var(--u) * 40);
+  bottom: calc(var(--u) * -24);         /* deborde legerement en bas */
+  padding: calc(var(--u) * 14) calc(var(--u) * 36);
+  background: var(--creme);             /* fond blanc */
+  color: var(--rouge);                  /* texte rouge */
   font-weight: 800;
   font-size: calc(var(--u) * 25);
+  border: calc(var(--u) * 2) solid var(--rouge);
   border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
 }
 .bouton-en-savoir-plus:hover {
-  color: var(--creme);
-  opacity: 0.9;
+  background: var(--rouge);             /* au survol : fond rouge */
+  color: var(--creme);                  /* au survol : texte blanc */
 }
 
 /* =========================================================================
@@ -323,11 +374,15 @@ body {
   line-height: 1.7;
 }
 
-/* Les 3 membres cote a cote */
+/* Les 3 membres cote a cote, PARFAITEMENT alignes :
+   - meme largeur de colonne
+   - illustrations calees sur la meme hauteur et alignees par le bas
+   - noms et descriptions donc alignes entre eux */
 .equipe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-end;              /* aligne les illustrations par le bas */
   gap: calc(var(--u) * 90);
   margin-bottom: calc(var(--u) * 130);
 }
@@ -335,19 +390,25 @@ body {
   width: calc(var(--u) * 300);
   margin: 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+/* zone de hauteur fixe pour que les 3 illustrations occupent la meme place */
 .equipe-illus {
-  width: calc(var(--u) * 260);        /* taille de l'illustration du visage */
-  height: auto;
+  height: calc(var(--u) * 300);       /* meme hauteur pour les 3 */
+  width: auto;
+  object-fit: contain;
 }
 .equipe-nom {
   font-weight: 700;
   font-size: calc(var(--u) * 31);
-  margin-top: calc(var(--u) * 10);
+  margin-top: calc(var(--u) * 16);
 }
 .equipe-desc {
   font-weight: 400;
   font-size: calc(var(--u) * 18);
+  margin: calc(var(--u) * 6) 0 0;
 }
 
 /* =========================================================================
@@ -473,7 +534,7 @@ body {
   .carte-fidelite-visuel { display: none; }  /* on cache le visuel flottant */
 
   /* Bulles de transition : on remonte moins fort */
-  .separateur-bulles { margin-top: -6vw; }
+  .separateur-bulles { transform: translateY(-25%); }
 
   /* Textes courants ramenes a des tailles fixes lisibles */
   .invite-formules { font-size: 1.2rem; flex-wrap: wrap; text-align: center; }
@@ -484,31 +545,36 @@ body {
   .note-formules { font-size: 0.85rem; }
   .aide-reservation { font-size: 1.1rem; margin: 1.5rem 0 3rem; }
 
-  /* Les formules : une carte presque pleine largeur, on garde le glissement */
-  .formules-piste { justify-content: flex-start; gap: 1rem; padding: 0 1rem 1rem; }
+  /* Carrousel des formules : on cache les fleches (on glisse au doigt),
+     une carte presque pleine largeur */
+  .formule-fleche { display: none; }
+  .formules-viewport { width: 100%; }
+  .formules-piste { gap: 1rem; padding: 0 1rem 4rem; }
   .formule-carte {
     flex: 0 0 80vw;
-    min-height: auto;
-    padding: 1.5rem 1.3rem 5rem;
+    padding: 1.5rem 1.3rem 2rem;
+    border-width: 3px;
     border-radius: 22px;
   }
   .formule-titre { font-size: 1.2rem; min-height: 0; margin-bottom: 1rem; }
   .formule-liste { font-size: 0.95rem; line-height: 1.7; }
-  .formule-prix { width: 70px; height: 70px; font-size: 1.4rem; bottom: 1.2rem; }
+  .formule-prix { width: 64px; height: 64px; font-size: 1.3rem; }
+  .formule-image-zone { margin-bottom: -70px; }
+  .formule-image-zone .formule-photo { height: 160px; }
 
-  /* Bloc produits */
-  .bloc-produits { width: 92%; margin-bottom: 3rem; }
+  /* Bloc produits : centre et pleine largeur sur telephone */
+  .bloc-produits { width: 92%; margin: 0 auto 3rem; }
   .produits-photo-fond { width: 180px; margin-bottom: -24px; }
-  .produits-carte { padding: 1.5rem; border-radius: 20px; }
+  .produits-carte { padding: 1.5rem 1.5rem 3.5rem; border-radius: 20px; }
   .produits-texte { font-size: 0.95rem; }
   .produits-fleur { width: 36px; }
-  .bouton-en-savoir-plus { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
+  .bouton-en-savoir-plus { font-size: 1rem; padding: 0.5rem 1.2rem; right: 1rem; bottom: -20px; border-width: 2px; }
 
   /* Equipe : les 3 membres passent les uns sous les autres */
   .texte-pros { font-size: 0.95rem; margin-bottom: 2rem; }
   .equipe { gap: 2rem; margin-bottom: 3rem; }
   .equipe-membre { width: 60%; }
-  .equipe-illus { width: 150px; }
+  .equipe-illus { height: 180px; }
   .equipe-nom { font-size: 1.4rem; }
   .equipe-desc { font-size: 0.9rem; }
 

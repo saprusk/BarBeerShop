@@ -105,94 +105,112 @@
       <!-- Petite note sous le titre -->
       <p class="note-formules">Formule avec nos produits de la gamme ayurvédique*</p>
 
-      <!-- Liste des formules : on peut la faire defiler horizontalement -->
-      <div class="formules-piste">
+      <!-- CARROUSEL DES FORMULES
+           3 formules visibles a la fois. On navigue avec les fleches de
+           gauche/droite OU en glissant (trackpad / doigt). -->
+      <div class="formules-carrousel">
 
-        <!-- FORMULE 1 : Coupe Express -->
-        <article class="formule-carte">
-          <h3 class="formule-titre">Coupe Express</h3>
-          <ul class="formule-liste">
-            <li>Diagnostic rapide du style</li>
-            <li>Coupe cheveux</li>
-            <li>Coiffage simple</li>
-          </ul>
-          <!-- Prix affiche dans une pastille ronde -->
-          <span class="formule-prix">15€</span>
-        </article>
+        <!-- Fleche precedente (gauche) -->
+        <button type="button" class="formule-fleche formule-fleche-gauche" aria-label="Formules précédentes">&#10094;</button>
 
-        <!-- FORMULE 2 : Coupe + Rituel Masque Ayurvedique -->
-        <article class="formule-carte">
-          <h3 class="formule-titre">Coupe<br>+ Rituel Masque Ayurvédique</h3>
-          <ul class="formule-liste">
-            <li>Coupe personnalisée</li>
-            <li>Application d’un masque ayurvédique nourrissant</li>
-            <li>Massage du cuir chevelu</li>
-            <li>Coiffage final</li>
-          </ul>
-          <span class="formule-prix">22€</span>
-        </article>
+        <!-- Fenetre qui ne montre que 3 formules -->
+        <div class="formules-viewport">
+          <div class="formules-piste">
 
-        <!-- FORMULE 3 : Formule Soin Signature (avec photo produits) -->
-        <article class="formule-carte formule-carte-photo">
-          <h3 class="formule-titre">Formule Soin Signature</h3>
-          <ul class="formule-liste">
-            <li>Coupe personnalisée</li>
-            <li>Shampoing ayurvédique adapté au type de cheveux</li>
-            <li>Masque nourrissant</li>
-            <li>Sérum ou huile capillaire</li>
-            <li>Massage cuir chevelu</li>
-            <li>Coiffage premium</li>
-          </ul>
-          <!-- Photo des produits utilises dans cette formule -->
-          <img src="sources/produits-barber.webp" alt="Produits de soin utilises" class="formule-photo">
-          <span class="formule-prix">30€</span>
-        </article>
+            <!-- FORMULE 1 : Coupe Express -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Coupe Express</h3>
+              <ul class="formule-liste">
+                <li>Diagnostic rapide du style</li>
+                <li>Coupe cheveux</li>
+                <li>Coiffage simple</li>
+              </ul>
+              <!-- Prix : pastille ronde a cheval sur le bord bas du cadre -->
+              <span class="formule-prix">15€</span>
+            </article>
 
-        <!-- FORMULE 4 : Rituel Total Ayurvedique -->
-        <article class="formule-carte">
-          <h3 class="formule-titre">Rituel Total Ayurvédique</h3>
-          <ul class="formule-liste">
-            <li>Coupe premium personnalisée</li>
-            <li>Shampoing ayurvédique</li>
-            <li>Après-shampoing / soin profond</li>
-            <li>Masque réparateur intense</li>
-            <li>Huile fortifiante</li>
-            <li>Massage relaxant du cuir chevelu</li>
-            <li>Coiffage détaillé + finition</li>
-          </ul>
-          <span class="formule-prix">39€</span>
-        </article>
+            <!-- FORMULE 2 : Coupe + Rituel Masque Ayurvedique -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Coupe<br>+ Rituel Masque Ayurvédique</h3>
+              <ul class="formule-liste">
+                <li>Coupe personnalisée</li>
+                <li>Application d’un masque ayurvédique nourrissant</li>
+                <li>Massage du cuir chevelu</li>
+                <li>Coiffage final</li>
+              </ul>
+              <span class="formule-prix">22€</span>
+            </article>
 
-        <!-- FORMULE 5 : Formule VIP Barber & Relax -->
-        <article class="formule-carte">
-          <h3 class="formule-titre">Formule VIP Barber<br>& Relax</h3>
-          <ul class="formule-liste">
-            <li>Diagnostic personnalisé cheveux & style</li>
-            <li>Coupe signature barber</li>
-            <li>Rituel complet ayurvédique (gamme entière)</li>
-            <li>Massage cuir chevelu prolongé</li>
-            <li>Serviette chaude relaxante</li>
-            <li>Coiffage premium + conseils entretien</li>
-          </ul>
-          <span class="formule-prix">60€</span>
-        </article>
+            <!-- FORMULE 3 : Formule Soin Signature
+                 Cas particulier : l'image depasse en bas du cadre et le prix
+                 est pose sur l'arete basse de l'image. -->
+            <article class="formule-carte formule-carte-image">
+              <h3 class="formule-titre">Formule Soin Signature</h3>
+              <ul class="formule-liste">
+                <li>Coupe personnalisée</li>
+                <li>Shampoing ayurvédique adapté au type de cheveux</li>
+                <li>Masque nourrissant</li>
+                <li>Sérum ou huile capillaire</li>
+                <li>Massage cuir chevelu</li>
+                <li>Coiffage premium</li>
+              </ul>
+              <!-- L'image + son prix, qui debordent du cadre -->
+              <div class="formule-image-zone">
+                <img src="sources/produits-barber.webp" alt="Produits de soin utilises" class="formule-photo">
+                <span class="formule-prix formule-prix-image">30€</span>
+              </div>
+            </article>
 
+            <!-- FORMULE 4 : Rituel Total Ayurvedique -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Rituel Total Ayurvédique</h3>
+              <ul class="formule-liste">
+                <li>Coupe premium personnalisée</li>
+                <li>Shampoing ayurvédique</li>
+                <li>Après-shampoing / soin profond</li>
+                <li>Masque réparateur intense</li>
+                <li>Huile fortifiante</li>
+                <li>Massage relaxant du cuir chevelu</li>
+                <li>Coiffage détaillé + finition</li>
+              </ul>
+              <span class="formule-prix">39€</span>
+            </article>
+
+            <!-- FORMULE 5 : Formule VIP Barber & Relax -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Formule VIP Barber<br>& Relax</h3>
+              <ul class="formule-liste">
+                <li>Diagnostic personnalisé cheveux & style</li>
+                <li>Coupe signature barber</li>
+                <li>Rituel complet ayurvédique (gamme entière)</li>
+                <li>Massage cuir chevelu prolongé</li>
+                <li>Serviette chaude relaxante</li>
+                <li>Coiffage premium + conseils entretien</li>
+              </ul>
+              <span class="formule-prix">60€</span>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Fleche suivante (droite) -->
+        <button type="button" class="formule-fleche formule-fleche-droite" aria-label="Formules suivantes">&#10095;</button>
       </div>
 
       <!-- Petite phrase d'aide sous les formules -->
       <p class="aide-reservation">Sélectionnez votre formule pour réserver votre RDV</p>
 
       <!-- =====================================================================
-           BLOC "Nos produits utilises" (carte rose)
+           BLOC "Nos produits utilises" (carte rose, collee a gauche)
            ===================================================================== -->
       <div class="bloc-produits">
         <!-- Photo posee derriere le haut de la carte -->
         <img src="sources/produits-barber.webp" alt="" class="produits-photo-fond">
 
-        <!-- Carte rose avec le texte -->
+        <!-- Carte rose : le bouton CTA est place dans son coin bas-droit -->
         <div class="produits-carte">
           <h3 class="produits-titre">Nos produits utilisés</h3>
-          <!-- Petites fleurs decoratives -->
+          <!-- Petite fleur decorative -->
           <img src="sources/Grande-fleur-rouge.png" alt="" class="produits-fleur">
           <p class="produits-texte">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -200,9 +218,9 @@
             Ut wisi enim ad minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
             suscipit lobortis nisl ut aliquip ex ea
           </p>
+          <!-- Bouton "En savoir plus" dans le coin bas-droit -->
+          <a href="#" class="bouton-en-savoir-plus">En savoir plus</a>
         </div>
-        <!-- Bouton "En savoir plus" -->
-        <a href="#" class="btn bouton-en-savoir-plus">En savoir plus</a>
       </div>
 
       <!-- =====================================================================
@@ -311,5 +329,35 @@
         </div>
       </div>
     </footer>
+
+    <!-- =====================================================================
+         SCRIPT DU CARROUSEL DES FORMULES
+         Fait defiler la "fenetre" d'une formule vers la gauche ou la droite
+         quand on clique sur les fleches. Le glissement au trackpad/doigt
+         fonctionne tout seul (la fenetre est deja defilable).
+         ===================================================================== -->
+    <script>
+      // On recupere la fenetre defilante et les 2 fleches
+      const fenetreFormules = document.querySelector('.formules-viewport');
+      const flecheGauche = document.querySelector('.formule-fleche-gauche');
+      const flecheDroite = document.querySelector('.formule-fleche-droite');
+
+      if (fenetreFormules && flecheGauche && flecheDroite) {
+        // De combien on avance a chaque clic = la largeur d'une carte + son ecart
+        function pasDefilement() {
+          const carte = document.querySelector('.formule-carte');
+          const ecart = parseFloat(getComputedStyle(document.querySelector('.formules-piste')).columnGap) || 0;
+          return carte.getBoundingClientRect().width + ecart;
+        }
+        // Clic sur la fleche gauche : on recule d'une carte
+        flecheGauche.addEventListener('click', () => {
+          fenetreFormules.scrollBy({ left: -pasDefilement(), behavior: 'smooth' });
+        });
+        // Clic sur la fleche droite : on avance d'une carte
+        flecheDroite.addEventListener('click', () => {
+          fenetreFormules.scrollBy({ left: pasDefilement(), behavior: 'smooth' });
+        });
+      }
+    </script>
   </body>
 </html>
