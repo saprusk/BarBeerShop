@@ -1,30 +1,596 @@
-/* ===== Page Barber : image de fond + texte + bouton ===== */
-.hero-page {
-  position: relative;
+/* =========================================================================
+   PAGE BARBER  -  feuille de style
+   -------------------------------------------------------------------------
+   OBJECTIF : coller le plus possible a la maquette Adobe XD.
+
+   COMMENT CA MARCHE (a lire une fois, c'est la cle de tout le fichier) :
+   La maquette XD fait 1920 px de large. Pour que la page ressemble a la
+   maquette QUELLE QUE SOIT la taille de l'ecran, on definit une "unite" qui
+   vaut 1 pixel de la maquette :
+
+        --u  =  100vw / 1920
+
+   - Sur un ecran de 1920 px de large : --u = 1 px  (taille identique a XD)
+   - Sur un ecran de 1280 px de large : --u = 0,67 px (tout est reduit de 33%)
+   - etc.
+
+   Du coup, quand la maquette dit "ce titre fait 30 px", on ecrit :
+        font-size: calc(var(--u) * 30);
+   et le titre garde TOUJOURS la meme proportion que dans XD.
+
+   Tout en bas du fichier, une section "MOBILE" reorganise la page en une
+   seule colonne lisible pour les telephones.
+   ========================================================================= */
+
+/* Couleurs relevees dans la maquette */
+:root {
+  --brun: #695E45;    /* fond de la grande zone centrale */
+  --creme: #FFFEF8;   /* blanc casse (textes clairs, pastilles) */
+  --rouge: #E13950;   /* rouge d'accent (boutons, carte produits) */
+  --beige: #DDCDB0;   /* beige clair (bande "Decouvrir notre bar") */
+  --noir: #1A1A1E;    /* fond du pied de page */
+}
+
+/* L'unite de mesure = 1 pixel de la maquette XD (voir explication en haut) */
+body {
+  --u: calc(100vw / 1920);
+}
+
+/* =========================================================================
+   NAVBAR : taille du logo
+   ========================================================================= */
+.logo-navbar {
+  height: calc(var(--u) * 78);
+  width: auto;
+}
+
+/* =========================================================================
+   1. SECTION HERO
+   ========================================================================= */
+.hero-barber {
+  position: relative;                 /* repere pour la carte de fidelite */
   width: 100%;
-  height: 60vh;
+  height: calc(var(--u) * 1010);      /* hauteur de la maquette */
   overflow: hidden;
 }
 
-.hero-page img {
+/* L'image de fond remplit toute la section sans se deformer */
+.hero-barber-fond {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.hero-page-contenu {
+/* Panneau semi-transparent avec le texte de la carte de fidelite */
+.carte-fidelite-bloc {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
+  transform: translate(-50%, -50%);   /* centre le bloc dans le hero */
+  width: calc(var(--u) * 760);
+  padding: calc(var(--u) * 50) calc(var(--u) * 40);
   text-align: center;
-  color: #FFFEF8;
+  color: var(--creme);
+  background: rgba(0, 0, 0, 0.25);     /* voile sombre translucide */
+  backdrop-filter: blur(6px);          /* effet "verre depoli" */
+  border-radius: calc(var(--u) * 30);
 }
 
-.hero-page-bouton {
-  margin-top: 1rem;
-  background-color: #000;
-  color: #fff;
+.carte-fidelite-texte {
+  font-size: calc(var(--u) * 36);      /* 36 px dans la maquette */
+  font-weight: 400;
+  line-height: 1.9;
+  margin-bottom: calc(var(--u) * 30);
+}
+.carte-fidelite-texte strong {
+  font-weight: 800;                    /* le nom de la carte, en gras */
+}
+
+/* Bouton "Creer mon compte" */
+.bouton-creer-compte {
+  display: inline-block;
+  padding: calc(var(--u) * 14) calc(var(--u) * 40);
+  background: var(--rouge);
+  color: var(--creme);
+  font-weight: 800;
+  font-size: calc(var(--u) * 25);
+  border-radius: 999px;                /* forme de pilule */
+}
+.bouton-creer-compte:hover {
+  color: var(--creme);
+  opacity: 0.9;
+}
+
+/* Petit visuel de la carte de fidelite qui flotte a droite */
+.carte-fidelite-visuel {
+  position: absolute;
+  top: 28%;
+  right: 7%;
+  width: calc(var(--u) * 150);
+  transform: rotate(8deg);
+}
+
+/* =========================================================================
+   2. GRANDE ZONE BRUNE + SEPARATEUR "BULLES"
+   ========================================================================= */
+.section-brune {
+  position: relative;                  /* repere pour poser les bulles */
+  background: var(--brun);
+  color: var(--creme);
+  padding-top: calc(var(--u) * 110);   /* laisse la place a la rangee de bulles */
+  padding-bottom: calc(var(--u) * 120);
+}
+
+/* SEPARATEUR "BULLES" : le champ de bulles entier (rangee dense + bulles
+   eparpillees) qui fait la transition entre le hero et la zone brune.
+   Les bulles sont de la meme couleur brune que la zone : elles "remontent"
+   donc dans la photo du hero (c'est la que l'oeil les voit), exactement comme
+   dans la maquette XD.
+   - place en "absolu" en haut de la zone brune (ne pousse pas le contenu)
+   - remonte pour que la rangee dense chevauche la frontiere hero / brun. */
+.separateur-bulles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;                        /* on montre TOUTES les bulles */
+  transform: translateY(-17%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* --- Invitation "Pour voir nos differentes formules" --- */
+.invite-formules {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 16);
+  font-size: calc(var(--u) * 31);
+  font-weight: 400;
+  margin: calc(var(--u) * 20) 0 calc(var(--u) * 60);
+}
+.invite-formules strong { font-weight: 700; }
+.fleche-bas {
+  width: calc(var(--u) * 46);
+}
+
+/* --- Titre "Nos Formules" --- */
+.titre-formules {
+  text-align: center;
+  font-weight: 700;
+  font-size: calc(var(--u) * 30);
+  margin: 0;
+}
+.note-formules {
+  text-align: center;
+  font-weight: 100;                    /* tres fin */
+  font-size: calc(var(--u) * 16);
+  margin: calc(var(--u) * 10) 0 calc(var(--u) * 50);
+}
+
+/* --- CARROUSEL DES FORMULES ---
+   [ fleche gauche ] [ fenetre montrant 3 cartes ] [ fleche droite ] */
+.formules-carrousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 20);
+}
+
+/* Les fleches blanches de chaque cote */
+.formule-fleche {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: var(--creme);                 /* fleche blanche */
+  font-size: calc(var(--u) * 70);
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 calc(var(--u) * 10);
+  transition: opacity 0.2s;
+}
+.formule-fleche:hover { opacity: 0.6; }
+
+/* La fenetre : elle ne laisse voir que 3 cartes (3 cartes + 2 ecarts) */
+.formules-viewport {
+  width: calc(var(--u) * (461 * 3 + 40 * 2));
+  max-width: 100%;
+  overflow-x: auto;                    /* glissement trackpad / doigt possible */
+  scroll-snap-type: x mandatory;       /* les cartes s'accrochent */
+  scrollbar-width: none;               /* on cache la barre de defilement */
+}
+.formules-viewport::-webkit-scrollbar { display: none; }
+
+/* La piste qui contient les 5 cartes en ligne */
+.formules-piste {
+  display: flex;
+  align-items: flex-start;             /* cartes alignees par le haut */
+  gap: calc(var(--u) * 40);
+  padding-bottom: calc(var(--u) * 230);/* place pour les prix et l'image qui depassent en bas */
+}
+
+/* Une carte de formule (rectangle arrondi au contour blanc).
+   La hauteur du cadre = la hauteur du texte (le cadre "s'arrete au texte"). */
+.formule-carte {
+  position: relative;
+  flex: 0 0 calc(var(--u) * 461);      /* largeur exacte de la maquette */
+  scroll-snap-align: start;
+  padding: calc(var(--u) * 36) calc(var(--u) * 34) calc(var(--u) * 55);
+  border: calc(var(--u) * 5) solid var(--creme);
+  border-radius: calc(var(--u) * 69);
+  overflow: visible;                   /* laisse depasser le prix / l'image */
+}
+.formule-titre {
+  text-align: center;
+  font-weight: 700;
+  font-size: calc(var(--u) * 22);      /* 22 px dans la maquette */
+  margin-bottom: calc(var(--u) * 26);
+  min-height: calc(var(--u) * 60);     /* aligne les titres sur 1 ou 2 lignes */
+}
+.formule-liste {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 100;
+  font-size: calc(var(--u) * 16);      /* 16 px dans la maquette */
+  line-height: 1.9;
+}
+.formule-liste li::before {
+  content: "- ";                       /* tiret devant chaque ligne */
+}
+
+/* Pastille ronde du prix : A CHEVAL sur le bord bas du cadre, centree */
+.formule-prix {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);     /* moitie au-dessus, moitie en dessous du trait */
+  width: calc(var(--u) * 96);
+  height: calc(var(--u) * 96);
+  display: grid;
+  place-content: center;
+  background: var(--creme);
+  color: var(--brun);
+  font-weight: 700;
+  font-size: calc(var(--u) * 29);
+  border-radius: 50%;
+}
+
+/* --- Carte particuliere avec image (Formule Soin Signature) ---
+   Ici l'image depasse en bas du cadre, et le prix est pose sur l'arete
+   basse de l'image. */
+.formule-image-zone {
+  position: relative;
+  /* marge basse negative : le cadre remonte, l'image depasse en dessous */
+  margin: calc(var(--u) * 16) 0 calc(var(--u) * -150);
+}
+.formule-image-zone .formule-photo {
+  display: block;
+  width: 100%;
+  height: calc(var(--u) * 300);
+  object-fit: cover;
+  border-radius: calc(var(--u) * 14);
+}
+/* Prix pose sur l'arete basse de l'image */
+.formule-prix-image {
+  background: var(--creme);
+  color: var(--brun);
+}
+
+/* --- Petite phrase d'aide sous les formules --- */
+.aide-reservation {
+  text-align: center;
+  font-weight: 100;
+  font-size: calc(var(--u) * 23);
+  margin: calc(var(--u) * 40) 0 calc(var(--u) * 110);
+}
+
+/* =========================================================================
+   BLOC "NOS PRODUITS UTILISES" (carte rose)
+   ========================================================================= */
+.bloc-produits {
+  position: relative;
+  width: calc(var(--u) * 830);          /* largeur de la maquette */
+  max-width: 92%;
+  /* colle a gauche : marge gauche de la maquette (155 px), pas de centrage */
+  margin: 0 0 calc(var(--u) * 130) calc(var(--u) * 155);
+}
+
+/* Photo posee derriere le haut de la carte rose */
+.produits-photo-fond {
+  display: block;
+  width: calc(var(--u) * 300);
+  border-radius: calc(var(--u) * 14);
+  margin: 0 auto calc(var(--u) * -34);  /* la carte passe par-dessus */
+  position: relative;
+  z-index: 0;
+}
+
+/* La carte rose (le bouton CTA se pose dans son coin bas-droit) */
+.produits-carte {
+  position: relative;
+  z-index: 1;
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 30);
+  padding: calc(var(--u) * 40) calc(var(--u) * 45) calc(var(--u) * 90);
+}
+.produits-titre {
+  font-weight: 700;
+  font-size: calc(var(--u) * 31);
+  margin-bottom: calc(var(--u) * 20);
+}
+.produits-texte {
+  font-weight: 400;
+  font-size: calc(var(--u) * 18);
+  line-height: 1.7;
+  margin: 0;
+}
+/* Fleur decorative en haut a droite de la carte */
+.produits-fleur {
+  position: absolute;
+  top: calc(var(--u) * 30);
+  right: calc(var(--u) * 40);
+  width: calc(var(--u) * 60);
+}
+
+/* Bouton "En savoir plus" : dans le coin BAS-DROIT de la carte.
+   Au repos : fond blanc, texte rouge. Au survol : fond rouge, texte blanc. */
+.bouton-en-savoir-plus {
+  position: absolute;
+  right: calc(var(--u) * 40);
+  bottom: calc(var(--u) * -24);         /* deborde legerement en bas */
+  padding: calc(var(--u) * 14) calc(var(--u) * 36);
+  background: var(--creme);             /* fond blanc */
+  color: var(--rouge);                  /* texte rouge */
+  font-weight: 800;
+  font-size: calc(var(--u) * 25);
+  border: calc(var(--u) * 2) solid var(--rouge);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.bouton-en-savoir-plus:hover {
+  background: var(--rouge);             /* au survol : fond rouge */
+  color: var(--creme);                  /* au survol : texte blanc */
+}
+
+/* =========================================================================
+   BLOC "NOS PROFESSIONNELS CAPILLAIRES" (l'equipe)
+   ========================================================================= */
+.titre-pros {
+  text-align: center;
+  font-weight: 700;
+  font-size: calc(var(--u) * 30);
+  margin-bottom: calc(var(--u) * 20);
+}
+.texte-pros {
+  width: calc(var(--u) * 720);
+  max-width: 90%;
+  margin: 0 auto calc(var(--u) * 70);
+  text-align: center;
+  font-weight: 400;
+  font-size: calc(var(--u) * 18);
+  line-height: 1.7;
+}
+
+/* Les 3 membres cote a cote, PARFAITEMENT alignes :
+   - meme largeur de colonne
+   - illustrations calees sur la meme hauteur et alignees par le bas
+   - noms et descriptions donc alignes entre eux */
+.equipe {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;              /* aligne les illustrations par le bas */
+  gap: calc(var(--u) * 90);
+  margin-bottom: calc(var(--u) * 130);
+}
+.equipe-membre {
+  width: calc(var(--u) * 300);
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* zone de hauteur fixe pour que les 3 illustrations occupent la meme place */
+.equipe-illus {
+  height: calc(var(--u) * 300);       /* meme hauteur pour les 3 */
+  width: auto;
+  object-fit: contain;
+}
+.equipe-nom {
+  font-weight: 700;
+  font-size: calc(var(--u) * 31);
+  margin-top: calc(var(--u) * 16);
+}
+.equipe-desc {
+  font-weight: 400;
+  font-size: calc(var(--u) * 18);
+  margin: calc(var(--u) * 6) 0 0;
+}
+
+/* =========================================================================
+   GALERIE DES COUPES
+   ========================================================================= */
+.titre-galerie {
+  text-align: center;
+  font-weight: 700;
+  font-size: calc(var(--u) * 30);
+  margin-bottom: calc(var(--u) * 50);
+}
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   /* 4 colonnes comme la maquette */
+  gap: calc(var(--u) * 24);
+  width: calc(var(--u) * 1640);
+  max-width: 92%;
+  margin: 0 auto;
+}
+.galerie-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: calc(var(--u) * 20);
+}
+
+/* =========================================================================
+   3. BANDE "DECOUVRIR NOTRE BAR A BIERES"
+   ========================================================================= */
+.bande-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 40);
+  padding: calc(var(--u) * 30) calc(var(--u) * 20);
+  background: var(--beige);
+  color: var(--brun);
+  font-weight: 700;
+  font-size: calc(var(--u) * 41);
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.bande-bar:hover {
+  color: var(--brun);
+  opacity: 0.9;
+}
+.bande-bar-picto {
+  height: calc(var(--u) * 44);
+}
+
+/* =========================================================================
+   4. PIED DE PAGE
+   ========================================================================= */
+.pied-de-page {
+  background: var(--noir);
+  color: var(--creme);
+  padding: calc(var(--u) * 60) calc(var(--u) * 90);
+}
+.pied-colonnes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--u) * 60);
+  justify-content: space-between;
+  max-width: calc(var(--u) * 1740);
+  margin: 0 auto;
+}
+.pied-colonne h3 {
+  font-weight: 700;
+  font-size: calc(var(--u) * 25);
+  margin-bottom: calc(var(--u) * 18);
+}
+.pied-colonne p {
+  font-weight: 500;
+  font-size: calc(var(--u) * 18);
+  line-height: 1.8;
+  margin: 0;
+}
+.pied-colonne a {
+  color: var(--creme);
+  text-decoration: none;
+}
+.pied-colonne a:hover {
+  text-decoration: underline;
+}
+.pied-colonne-droite {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 30);
+  align-items: flex-start;
+}
+.pied-newsletter {
+  width: calc(var(--u) * 460);
+  max-width: 100%;
+  padding: calc(var(--u) * 16) calc(var(--u) * 28);
+  background: transparent;
+  border: calc(var(--u) * 2) solid var(--creme);
+  border-radius: 999px;
+  color: var(--creme);
+  font-weight: 100;
+  font-size: calc(var(--u) * 23);
+}
+.pied-newsletter::placeholder {
+  color: var(--creme);
+  opacity: 0.85;
+}
+.pied-reseaux {
+  height: calc(var(--u) * 60);
+}
+
+/* =========================================================================
+   MOBILE  (ecrans etroits, <= 768 px)
+   Ici on ne suit plus la maquette 1920 : on empile tout en une colonne
+   lisible, avec des tailles de texte fixes et confortables.
+   ========================================================================= */
+@media (max-width: 768px) {
+
+  /* Le hero prend une hauteur raisonnable sur telephone */
+  .hero-barber { height: 60vh; }
+  .carte-fidelite-bloc { width: 88%; padding: 1.5rem; }
+  .carte-fidelite-texte { font-size: 1.1rem; line-height: 1.7; }
+  .bouton-creer-compte { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
+  .carte-fidelite-visuel { display: none; }  /* on cache le visuel flottant */
+
+  /* Bulles de transition : on remonte moins fort */
+  .separateur-bulles { transform: translateY(-25%); }
+
+  /* Textes courants ramenes a des tailles fixes lisibles */
+  .invite-formules { font-size: 1.2rem; flex-wrap: wrap; text-align: center; }
+  .titre-formules,
+  .titre-pros,
+  .titre-galerie,
+  .produits-titre { font-size: 1.5rem; }
+  .note-formules { font-size: 0.85rem; }
+  .aide-reservation { font-size: 1.1rem; margin: 1.5rem 0 3rem; }
+
+  /* Carrousel des formules : on cache les fleches (on glisse au doigt),
+     une carte presque pleine largeur */
+  .formule-fleche { display: none; }
+  .formules-viewport { width: 100%; }
+  .formules-piste { gap: 1rem; padding: 0 1rem 4rem; }
+  .formule-carte {
+    flex: 0 0 80vw;
+    padding: 1.5rem 1.3rem 2rem;
+    border-width: 3px;
+    border-radius: 22px;
+  }
+  .formule-titre { font-size: 1.2rem; min-height: 0; margin-bottom: 1rem; }
+  .formule-liste { font-size: 0.95rem; line-height: 1.7; }
+  .formule-prix { width: 64px; height: 64px; font-size: 1.3rem; }
+  .formule-image-zone { margin-bottom: -70px; }
+  .formule-image-zone .formule-photo { height: 160px; }
+
+  /* Bloc produits : centre et pleine largeur sur telephone */
+  .bloc-produits { width: 92%; margin: 0 auto 3rem; }
+  .produits-photo-fond { width: 180px; margin-bottom: -24px; }
+  .produits-carte { padding: 1.5rem 1.5rem 3.5rem; border-radius: 20px; }
+  .produits-texte { font-size: 0.95rem; }
+  .produits-fleur { width: 36px; }
+  .bouton-en-savoir-plus { font-size: 1rem; padding: 0.5rem 1.2rem; right: 1rem; bottom: -20px; border-width: 2px; }
+
+  /* Equipe : les 3 membres passent les uns sous les autres */
+  .texte-pros { font-size: 0.95rem; margin-bottom: 2rem; }
+  .equipe { gap: 2rem; margin-bottom: 3rem; }
+  .equipe-membre { width: 60%; }
+  .equipe-illus { height: 180px; }
+  .equipe-nom { font-size: 1.4rem; }
+  .equipe-desc { font-size: 0.9rem; }
+
+  /* Galerie : 2 colonnes sur telephone */
+  .galerie { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .galerie-photo { border-radius: 12px; }
+
+  /* Bande "Decouvrir notre bar" : le texte peut passer a la ligne */
+  .bande-bar { font-size: 1.1rem; flex-wrap: wrap; white-space: normal; text-align: center; gap: 1rem; }
+  .bande-bar-picto { height: 28px; }
+
+  /* Pied de page : colonnes empilees */
+  .pied-de-page { padding: 2rem 1.2rem; }
+  .pied-colonnes { gap: 2rem; }
+  .pied-colonne h3 { font-size: 1.2rem; }
+  .pied-colonne p { font-size: 0.95rem; }
+  .pied-newsletter { width: 100%; font-size: 1rem; padding: 0.7rem 1.2rem; }
+  .pied-reseaux { height: 38px; }
 }

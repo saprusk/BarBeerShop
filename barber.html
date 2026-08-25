@@ -1,61 +1,363 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BarBeerShop - Barber</title>
+
+    <!-- Icone de l'onglet du navigateur -->
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
+    <!-- Bootstrap : la boite a outils CSS de base (grille, boutons, navbar...) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Police "DeLittle Chromatic" (celle du logo), fournie par Adobe Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+
+    <!-- Accueil.css : feuille de style COMMUNE a tout le site (polices + navbar) -->
     <link href="Accueil.css" rel="stylesheet">
+    <!-- barber.css : feuille de style PROPRE a cette page Barber -->
     <link href="barber.css" rel="stylesheet">
   </head>
+
   <body>
+    <!-- Bootstrap : la partie JavaScript (menu deroulant, etc.) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-    <!-- NAVBAR -->
-    <!-- Couleur de la navbar -->
+    <!-- =====================================================================
+         BARRE DE NAVIGATION (identique sur toutes les pages)
+         ===================================================================== -->
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
       <div class="container-fluid">
-        <!-- Logo dans la navbar -->
-        <a class="navbar-brand" href="Accueil.html">BarBeerShop</a>
-        <!-- Boutons de la navbar -->
+
+        <!-- Logo du site : image cliquable qui ramene a l'accueil -->
+        <a class="navbar-brand" href="Accueil.html">
+          <img src="sources/Logo.png" alt="BarBeerShop" class="logo-navbar">
+        </a>
+
+        <!-- Bouton "Prendre RDV" -->
         <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
+        <!-- Bouton "Reserver une table" -->
         <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
-        <!-- Bouton burger -->
+
+        <!-- Bouton "burger" : apparait sur petit ecran pour ouvrir le menu -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- Bouton rond Compte -->
+
+        <!-- Bouton rond du compte client (photo de profil) -->
         <button type="button" class="bouton-rond">
-          <img src="sources/Image-temporaire.webp" alt="photo de profil">
+          <img src="sources/Compte-julien.png" alt="photo de profil">
         </button>
-        <!-- Menu de la navbar -->
+
+        <!-- Liens du menu -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Accueil.html">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Bar.html">Bar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="barber.html">Barber</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="notre-concept.html">Notre Concept</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="Accueil.html">Accueil</a></li>
+            <li class="nav-item"><a class="nav-link" href="Bar.html">Bar</a></li>
+            <!-- "active" = page actuelle, mise en avant dans le menu -->
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="barber.html">Barber</a></li>
+            <li class="nav-item"><a class="nav-link" href="notre-concept.html">Notre Concept</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- Bloc image de fond + texte + bouton -->
-    <div class="hero-page">
-      <img src="sources/Image-temporaire.webp" alt="image temporaire">
-      <div class="hero-page-contenu">
-        <h1>Notre Barber</h1>
-        <p>Texte de presentation temporaire du barber.</p>
-        <button type="button" class="btn btn-lg hero-page-bouton">Prendre RDV</button>
+    <!-- =====================================================================
+         SECTION HERO : grande image du salon + carte de fidelite
+         ===================================================================== -->
+    <section class="hero-barber">
+      <!-- Image de fond du salon de coiffure -->
+      <img src="sources/hero-barber.webp" alt="Interieur du salon de coiffure BarBeerShop" class="hero-barber-fond">
+
+      <!-- Carte de fidelite : texte pose sur un panneau semi-transparent -->
+      <div class="carte-fidelite-bloc">
+        <p class="carte-fidelite-texte">
+          Obtenez dès maintenant notre<br>
+          <strong>Carte de Fidélité Digitalisée</strong><br>
+          Grâce à la création d’un compte
+        </p>
+        <!-- Bouton pour creer un compte -->
+        <a href="#" class="btn bouton-creer-compte">Créer mon compte</a>
       </div>
-    </div>
+
+      <!-- Petit visuel de la carte de fidelite qui "flotte" a droite -->
+      <img src="sources/carte-fidelite.svg" alt="" class="carte-fidelite-visuel">
+    </section>
+
+    <!-- =====================================================================
+         SECTION FORMULES (fond brun)
+         ===================================================================== -->
+    <section class="section-brune">
+
+      <!-- Separateur "bulles" : rangee de bulles qui fait la jonction entre
+           le hero (au-dessus) et la zone brune (en dessous). -->
+      <img src="sources/separateur-barber.svg" alt="" class="separateur-bulles">
+
+      <!-- Invitation a regarder les formules, avec une fleche vers le bas -->
+      <p class="invite-formules">
+        Pour voir nos <strong>différentes formules</strong>
+        <img src="sources/fleche-bas.svg" alt="" class="fleche-bas">
+      </p>
+
+      <!-- Titre de la section -->
+      <h2 class="titre-formules">Nos Formules</h2>
+      <!-- Petite note sous le titre -->
+      <p class="note-formules">Formule avec nos produits de la gamme ayurvédique*</p>
+
+      <!-- CARROUSEL DES FORMULES
+           3 formules visibles a la fois. On navigue avec les fleches de
+           gauche/droite OU en glissant (trackpad / doigt). -->
+      <div class="formules-carrousel">
+
+        <!-- Fleche precedente (gauche) -->
+        <button type="button" class="formule-fleche formule-fleche-gauche" aria-label="Formules précédentes">&#10094;</button>
+
+        <!-- Fenetre qui ne montre que 3 formules -->
+        <div class="formules-viewport">
+          <div class="formules-piste">
+
+            <!-- FORMULE 1 : Coupe Express -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Coupe Express</h3>
+              <ul class="formule-liste">
+                <li>Diagnostic rapide du style</li>
+                <li>Coupe cheveux</li>
+                <li>Coiffage simple</li>
+              </ul>
+              <!-- Prix : pastille ronde a cheval sur le bord bas du cadre -->
+              <span class="formule-prix">15€</span>
+            </article>
+
+            <!-- FORMULE 2 : Coupe + Rituel Masque Ayurvedique -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Coupe<br>+ Rituel Masque Ayurvédique</h3>
+              <ul class="formule-liste">
+                <li>Coupe personnalisée</li>
+                <li>Application d’un masque ayurvédique nourrissant</li>
+                <li>Massage du cuir chevelu</li>
+                <li>Coiffage final</li>
+              </ul>
+              <span class="formule-prix">22€</span>
+            </article>
+
+            <!-- FORMULE 3 : Formule Soin Signature
+                 Cas particulier : l'image depasse en bas du cadre et le prix
+                 est pose sur l'arete basse de l'image. -->
+            <article class="formule-carte formule-carte-image">
+              <h3 class="formule-titre">Formule Soin Signature</h3>
+              <ul class="formule-liste">
+                <li>Coupe personnalisée</li>
+                <li>Shampoing ayurvédique adapté au type de cheveux</li>
+                <li>Masque nourrissant</li>
+                <li>Sérum ou huile capillaire</li>
+                <li>Massage cuir chevelu</li>
+                <li>Coiffage premium</li>
+              </ul>
+              <!-- L'image + son prix, qui debordent du cadre -->
+              <div class="formule-image-zone">
+                <img src="sources/produits-barber.webp" alt="Produits de soin utilises" class="formule-photo">
+                <span class="formule-prix formule-prix-image">30€</span>
+              </div>
+            </article>
+
+            <!-- FORMULE 4 : Rituel Total Ayurvedique -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Rituel Total Ayurvédique</h3>
+              <ul class="formule-liste">
+                <li>Coupe premium personnalisée</li>
+                <li>Shampoing ayurvédique</li>
+                <li>Après-shampoing / soin profond</li>
+                <li>Masque réparateur intense</li>
+                <li>Huile fortifiante</li>
+                <li>Massage relaxant du cuir chevelu</li>
+                <li>Coiffage détaillé + finition</li>
+              </ul>
+              <span class="formule-prix">39€</span>
+            </article>
+
+            <!-- FORMULE 5 : Formule VIP Barber & Relax -->
+            <article class="formule-carte">
+              <h3 class="formule-titre">Formule VIP Barber<br>& Relax</h3>
+              <ul class="formule-liste">
+                <li>Diagnostic personnalisé cheveux & style</li>
+                <li>Coupe signature barber</li>
+                <li>Rituel complet ayurvédique (gamme entière)</li>
+                <li>Massage cuir chevelu prolongé</li>
+                <li>Serviette chaude relaxante</li>
+                <li>Coiffage premium + conseils entretien</li>
+              </ul>
+              <span class="formule-prix">60€</span>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Fleche suivante (droite) -->
+        <button type="button" class="formule-fleche formule-fleche-droite" aria-label="Formules suivantes">&#10095;</button>
+      </div>
+
+      <!-- Petite phrase d'aide sous les formules -->
+      <p class="aide-reservation">Sélectionnez votre formule pour réserver votre RDV</p>
+
+      <!-- =====================================================================
+           BLOC "Nos produits utilises" (carte rose, collee a gauche)
+           ===================================================================== -->
+      <div class="bloc-produits">
+        <!-- Photo posee derriere le haut de la carte -->
+        <img src="sources/produits-barber.webp" alt="" class="produits-photo-fond">
+
+        <!-- Carte rose : le bouton CTA est place dans son coin bas-droit -->
+        <div class="produits-carte">
+          <h3 class="produits-titre">Nos produits utilisés</h3>
+          <!-- Petite fleur decorative -->
+          <img src="sources/Grande-fleur-rouge.png" alt="" class="produits-fleur">
+          <p class="produits-texte">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Ut wisi enim ad minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+            suscipit lobortis nisl ut aliquip ex ea
+          </p>
+          <!-- Bouton "En savoir plus" dans le coin bas-droit -->
+          <a href="#" class="bouton-en-savoir-plus">En savoir plus</a>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           BLOC "Nos Professionnels Capillaires" (l'equipe)
+           ===================================================================== -->
+      <h2 class="titre-pros">Nos Professionnels Capillaires</h2>
+      <p class="texte-pros">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+
+      <!-- Les 3 membres de l'equipe, cote a cote -->
+      <div class="equipe">
+        <!-- Membre : Thomas -->
+        <figure class="equipe-membre">
+          <img src="sources/illus-thomas.svg" alt="Illustration de Thomas" class="equipe-illus">
+          <figcaption class="equipe-nom">Thomas</figcaption>
+          <p class="equipe-desc">Lorem ipsum dolor sit amet, consectetuer</p>
+        </figure>
+        <!-- Membre : Yves -->
+        <figure class="equipe-membre">
+          <img src="sources/illus-yves.svg" alt="Illustration de Yves" class="equipe-illus">
+          <figcaption class="equipe-nom">Yves</figcaption>
+          <p class="equipe-desc">Lorem ipsum dolor sit amet, consectetuer</p>
+        </figure>
+        <!-- Membre : Rosalie -->
+        <figure class="equipe-membre">
+          <img src="sources/illus-rosalie.svg" alt="Illustration de Rosalie" class="equipe-illus">
+          <figcaption class="equipe-nom">Rosalie</figcaption>
+          <p class="equipe-desc">Lorem ipsum dolor sit amet, consectetuer</p>
+        </figure>
+      </div>
+
+      <!-- =====================================================================
+           GALERIE des coupes realisees
+           ===================================================================== -->
+      <h2 class="titre-galerie">Galerie des Coupes Réalisées</h2>
+      <div class="galerie">
+        <img src="sources/coupe-1.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-2.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-3.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-4.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-5.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-6.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-7.webp" alt="Coupe realisee au salon" class="galerie-photo">
+        <img src="sources/coupe-8.webp" alt="Coupe realisee au salon" class="galerie-photo">
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         BANDE "DECOUVRIR NOTRE BAR A BIERES" (lien vers la page Bar)
+         ===================================================================== -->
+    <a href="Bar.html" class="bande-bar">
+      <img src="sources/Picto-Bar.png" alt="" class="bande-bar-picto">
+      <span>DÉCOUVRIR NOTRE BAR À BIÈRES</span>
+      <img src="sources/Picto-Bar.png" alt="" class="bande-bar-picto">
+      <span>DÉCOUVRIR NOTRE BAR À BIÈRES</span>
+      <img src="sources/Picto-Bar.png" alt="" class="bande-bar-picto">
+    </a>
+
+    <!-- =====================================================================
+         PIED DE PAGE (identique sur toutes les pages)
+         ===================================================================== -->
+    <footer class="pied-de-page">
+      <div class="pied-colonnes">
+
+        <!-- Colonne 1 : les horaires -->
+        <div class="pied-colonne">
+          <h3>Horaires</h3>
+          <p>
+            <strong>Barber :</strong><br>
+            Du lundi au samedi de 9h à 19h<br>
+            <strong>Bar à bière :</strong><br>
+            Du Mardi au Dimanche de 11h à 23h<br>
+            Samedi et événement spécial 1h
+          </p>
+        </div>
+
+        <!-- Colonne 2 : le contact -->
+        <div class="pied-colonne">
+          <h3>Contact</h3>
+          <p>
+            +33 00 00 00 00<br>
+            Barbeer.shop@gmail.com
+          </p>
+        </div>
+
+        <!-- Colonne 3 : les liens legaux -->
+        <div class="pied-colonne">
+          <h3>Légal</h3>
+          <p>
+            <a href="#">Mentions légales</a><br>
+            <a href="#">Réglementation liées à l’alcool</a><br>
+            <a href="#">Cookies</a><br>
+            <a href="#">Notre engagement RSE</a>
+          </p>
+        </div>
+
+        <!-- Colonne 4 : inscription a la newsletter + reseaux sociaux -->
+        <div class="pied-colonne pied-colonne-droite">
+          <!-- Champ d'inscription (decoratif pour l'instant) -->
+          <input type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+          <!-- Icones des reseaux sociaux -->
+          <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+        </div>
+      </div>
+    </footer>
+
+    <!-- =====================================================================
+         SCRIPT DU CARROUSEL DES FORMULES
+         Fait defiler la "fenetre" d'une formule vers la gauche ou la droite
+         quand on clique sur les fleches. Le glissement au trackpad/doigt
+         fonctionne tout seul (la fenetre est deja defilable).
+         ===================================================================== -->
+    <script>
+      // On recupere la fenetre defilante et les 2 fleches
+      const fenetreFormules = document.querySelector('.formules-viewport');
+      const flecheGauche = document.querySelector('.formule-fleche-gauche');
+      const flecheDroite = document.querySelector('.formule-fleche-droite');
+
+      if (fenetreFormules && flecheGauche && flecheDroite) {
+        // De combien on avance a chaque clic = la largeur d'une carte + son ecart
+        function pasDefilement() {
+          const carte = document.querySelector('.formule-carte');
+          const ecart = parseFloat(getComputedStyle(document.querySelector('.formules-piste')).columnGap) || 0;
+          return carte.getBoundingClientRect().width + ecart;
+        }
+        // Clic sur la fleche gauche : on recule d'une carte
+        flecheGauche.addEventListener('click', () => {
+          fenetreFormules.scrollBy({ left: -pasDefilement(), behavior: 'smooth' });
+        });
+        // Clic sur la fleche droite : on avance d'une carte
+        flecheDroite.addEventListener('click', () => {
+          fenetreFormules.scrollBy({ left: pasDefilement(), behavior: 'smooth' });
+        });
+      }
+    </script>
   </body>
 </html>
