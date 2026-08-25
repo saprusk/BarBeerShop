@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BarBeerShop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="Accueil.css" rel="stylesheet">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- NAVBAR -->
+    <!-- Couleur de la navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+      <div class="container-fluid">
+        <!-- Logo dans la navbar -->
+        <a class="navbar-brand" href="#">BarBeerShop</a>
+        <!-- Boutons de la navbar -->
+        <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
+        <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
+        <!-- Bouton burger -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Bouton rond Compte -->
+        <button type="button" class="bouton-rond">
+          <img src="sources/Image-temporaire.webp" alt="photo de profil">
+        </button>
+        <!-- Menu de la navbar -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="Accueil.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Bar.html">Bar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="barber.html">Barber</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="notre-concept.html">Notre Concept</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- CARROUSSEL -->
+    <!-- défilement automatique toutes les 4 secondes-->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+      <div class="carousel-inner">
+        <!-- 1ère slide, visible au chargement -->
+        <div class="carousel-item active">
+          <img src="sources/Fond noir.webp" class="d-block w-100" alt="Fond noir avec bulles et photos bar et barber">
+          <!-- petites photos carrées de chaque coté du texte -->
+          <img src="sources/Image-temporaire.webp" class="photo-carrousel1 photo-carrousel1-gauche" alt="une photo du bar">
+          <img src="sources/Image-temporaire.webp" class="photo-carrousel1 photo-carrousel1-droite" alt="une photo du salon ">
+          <!-- texte Concept -->
+          <p class="texte-carrousel1">
+            VOUS NE CONNAISSEZ <br> PAS NOTRE CONCEPT ?
+          </p>
+        </div>
+        <!-- 2ème slide -->
+        <div class="carousel-item">
+          <img src="sources/Image-temporaire.webp" class="d-block w-100" alt="images boissons alcoolisées">
+          <!-- texte Soirée -->
+          <p class="texte-carrousel2">
+            ET SI VOUS VENIEZ <br> À NOTRE PROCHAINE SOIRÉE ?
+          </p>
+          <!-- CTA Soirée -->
+          <button type="button" class="btn bouton-carrousel">Voir la soirée</button>
+        </div>
+    </div>
+    <div class="slide-vers-le-bas-ligne">
+      <p class="slide-vers-le-bas">
+        On vous en dit plus ici
+      </p>
+      <button type="button" class="bouton-fleche">
+        <img src="sources/Image-temporaire.webp" alt="flèche">
+      </button>
+    </div>
+
+    <!-- NOTRE CONCEPT -->
+    <div class="container bloc-concept">
+      <!-- Introduction 1 -->
+      <div class="container presentation py-5">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h2>Barber et Bar à Metz</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <br> nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam <br> erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci <br> tation ullamcorper </p>
+          </div>
+          <div class="col-md-6">
+            <img src="sources/Image-temporaire.webp" class="img-fluid1" alt="Photo du salon">
+          </div>
+        </div>
+      </div>
+
+      <!-- Introduction 2 -->
+      <div class="container presentation py-5">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <img src="sources/Image-temporaire.webp" class="img-fluid2" alt="Photo du Bar">
+          </div>
+          <div class="col-md-6 texte-concept2">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <br> sed diam nonummy nibh euismod tincidunt ut laoreet <br> dolore magna aliquam erat volutpat. Ut wisi enim ad <br> minim veniam, quis nostrud exerci tation ullamcorper <br>
+              suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
+            <button type="button" class="btn btn-lg CTA-en-savoir-plus">En savoir +</button>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOS AVIS -->
+    <!-- Titrage -->
+    <div>
+      <h2 class="titre-avis">Vos avis sur le BarBeerShop</h2>
+    </div>
+
+    <!-- Animation fléchage -->
+    <div class="container">
+      <div class="avis-carousel">
+
+        <button type="button" class="avis-fleche" id="avis-precedent" aria-label="Avis precedents">&#10094;</button>
+
+        <div class="avis-viewport">
+          <div class="avis-piste" id="avis-piste">
+
+            <!-- Avis 1 -->
+            <div class="avis-carte">
+              <div class="avis-fond">
+                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                </svg>
+                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
+                <h4>Skyfe44</h4>
+              </div>
+            </div>
+
+            <!-- Avis 2 -->
+            <div class="avis-carte">
+              <div class="avis-fond">
+                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                </svg>
+                <p>Lorem ipsum dolor sit amet, <br> consectetuer adipiscing elit, sed <br> diam nonummy nibh euismod <br> tincidunt ut laoreet dolore <br> magna aliquam erat volutpat. <br> Ut wisi enim ad minim </p>
+                <h4>Jeff Rich</h4>
+              </div>
+            </div>
+
+            <!-- Avis 3 -->
+            <div class="avis-carte">
+              <div class="avis-fond">
+                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                </svg>
+                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
+                <h4>Skyfe44</h4>
+              </div>
+            </div>
+
+            <!-- Avis 4 -->
+            <div class="avis-carte">
+              <div class="avis-fond">
+                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                </svg>
+                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
+                <h4>Skyfe44</h4>
+              </div>
+            </div>
+
+            <!-- Avis 5 -->
+            <div class="avis-carte">
+              <div class="avis-fond">
+                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                </svg>
+                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
+                <h4>Skyfe44</h4>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button type="button" class="avis-fleche" id="avis-suivant" aria-label="Avis suivants">&#10095;</button>
+
+      </div>
+    </div>
+
+    <script>
+      // Slider d'avis : 5 avis dans la piste, 3 visibles a la fois (1 caché de chaque coté au depart)
+      const pisteAvis = document.getElementById('avis-piste');
+      const largeurCarteAvis = 20; // chaque carte fait 20% de la largeur de la piste (100% / 5 cartes)
+      const etapeMax = 2; // 3 positions possibles : 0 (avis 1-2-3), 1 (avis 2-3-4), 2 (avis 3-4-5)
+      let etapeAvis = 1; // position de depart : avis 2-3-4 visibles, 1 caché a gauche et 1 caché a droite
+
+      function afficherEtapeAvis() {
+        pisteAvis.style.transform = `translateX(-${etapeAvis * largeurCarteAvis}%)`;
+      }
+
+      document.getElementById('avis-precedent').addEventListener('click', () => {
+        if (etapeAvis > 0) {
+          etapeAvis--;
+          afficherEtapeAvis();
+        }
+      });
+
+      document.getElementById('avis-suivant').addEventListener('click', () => {
+        if (etapeAvis < etapeMax) {
+          etapeAvis++;
+          afficherEtapeAvis();
+        }
+      });
+
+      afficherEtapeAvis();
+    </script>
+
+    <!-- ESPACE BAR -->
+    <div class="demi-cercles-section">
+
+      <!-- Demi-cercle -->
+      <div class="demi-cercle"></div>
+
+      <!-- Rectangle couleur -->
+      <div class="demi-cercle-fond"></div>
+
+      <!-- Image demi-cercle -->
+      <div class="demi-cercle demi-cercle-image">
+        <img src="sources/Image-temporaire.webp" alt="image temporaire">
+      </div>
+
+      <!-- Titre + texte + bouton : toujours au dessus des demi-cercles -->
+      <h2 class="titre-avis titre-bar-artisanale">Notre bar à bière artisanale</h2>
+      <p class="texte-bar-artisanale">Lorem ipsum dolor sit amet, <br> consectetuer adipiscing elit, sed diam <br> nonummy nibh euismod tincidunt <br> ut laoreet dolore magna aliquam.</p>
+      <button type="button" class="btn btn-lg CTA-voir-la-carte">Voir la carte</button>
+
+    </div>
+  </body>
+</html>

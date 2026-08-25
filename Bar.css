@@ -1,0 +1,39 @@
+/* ===== Page Bar : image de fond (meme hauteur que la hero section de l'accueil) + carte evenement + bouton reserver ===== */
+.hero-page {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.hero-page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Carte blanche arrondie, opacite baissee, centree sur l'image */
+.hero-page-carte {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: 80%;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  font-size: 25px;
+}
+
+/* Bouton "Reserver" a cheval sur le bord bas de la carte */
+.hero-page-bouton-reserver {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  background-color: #000;
+  color: #fff;
+}

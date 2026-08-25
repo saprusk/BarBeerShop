@@ -1,0 +1,323 @@
+/* Aligne le bouton et le menu à la suite du logo au lieu de les pousser à droite */
+.navbar > .container-fluid {
+  justify-content: flex-start;
+}
+.navbar-toggler {
+  margin-left: 1rem;
+}
+
+/* Hauteur Hero Section */
+.carousel-item img {
+  height: 80vh;
+  object-fit: cover;
+}
+
+/* Petites photos carrées de chaque coté du texte de la 1ère slide */
+.carousel-item img.photo-carrousel1 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.carousel-item img.photo-carrousel1-gauche {
+  left: 15%;
+  top: 60%;
+}
+
+.carousel-item img.photo-carrousel1-droite {
+  right: 15%;
+  top: 40%;
+}
+
+/* Texte Concept */
+.texte-carrousel1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  color: #FFFEF8;
+  font-size: 25px;
+}
+
+/* Texte Soirée */
+.texte-carrousel2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  color: #000;
+  font-size: 25px;
+}
+
+/* Bouton rond avec une image a l'interieur */
+.bouton-rond {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.bouton-rond img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CTA Soirée */
+.bouton-carrousel {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  color: #fff;
+}
+
+/* Regroupe les 2 lignes "Notre Concept" */
+.bloc-concept {
+  position: relative;
+}
+
+/* Image / Intro1 */
+.img-fluid1 {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 280px;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* Image / Intro2 */
+.img-fluid2 {
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+}
+
+/* 2eme texte + bouton : centres entre les 2 images */
+.texte-concept2 {
+  text-align: center;
+}
+
+.texte-concept2 .CTA-en-savoir-plus {
+  display: block;
+  margin: 2rem auto 0;
+}
+
+/* CTA En savoir plus */
+.CTA-en-savoir-plus {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Aligne le texte et le picto flèche */
+.slide-vers-le-bas-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.slide-vers-le-bas {
+  position: relative;
+  top: 13px;
+  font-size: 25px;
+}
+
+/* Bouton flèche */
+.bouton-fleche {
+  position: relative;
+  top: 6px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.bouton-fleche img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Taille des titres h2 */
+h2 {
+  font-size: 30px;
+}
+
+/* Titrage avis */
+.titre-avis {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Slider d'avis : fleches + fenetre visible + piste coulissante */
+.avis-carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 50px;
+}
+
+.avis-fleche {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.avis-viewport {
+  flex: 1;
+  overflow: hidden;
+}
+
+.avis-piste {
+  display: flex;
+  width: 166.6667%;
+  gap: 0.5rem;
+  transition: transform 0.4s ease;
+}
+
+/* Carte d'avis alignement*/
+.avis-carte {
+  flex: 0 0 20%;
+  text-align: center;
+}
+
+/* Avis taille et fond */
+.avis-fond {
+  position: relative;
+  width: 280px;
+  height: 190px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avis-fond svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.avis-fond svg rect {
+  fill: #000;
+}
+
+.avis-fond p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 1rem;
+  color: #fffEF8;
+  font-size: 16px;
+}
+
+.avis-fond h4 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #fffEF8;
+  font-size: 16px;
+}
+
+/* Regroupe les 3 demi-cercles dans son propre contexte d'empilement, pour que les z-index ci dessous ne soient compares qu'entre eux */
+.demi-cercles-section {
+  position: relative;
+}
+
+/* demi cercle */
+.demi-cercle {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 2.4 / 1;
+  background-color: #D9D9D9;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  margin-top: 8rem;
+  overflow: hidden;
+}
+
+/* Rectangle couleur */
+.demi-cercle-fond {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 250px;
+  background-color: #D9D9D9;
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CTA Voir la carte*/
+.CTA-voir-la-carte {
+  background-color: #000;
+  color: #fff;
+}
+
+/* CTA Voir la carte position */
+.demi-cercles-section .CTA-voir-la-carte {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -820px;
+  z-index: 4;
+}
+
+/* Titre Notre bar a biere artisanale */
+.titre-bar-artisanale {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -850px;
+  width: 100%;
+  text-align: center;
+  z-index: 4;
+}
+
+/* Texte bar à bière */
+.texte-bar-artisanale {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -840px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  z-index: 4;
+}
+
+/* Image demi cercle */
+.demi-cercle-image {
+  position: relative;
+  z-index: 3;
+  margin-top: -610px;
+}
+
+.demi-cercle-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
