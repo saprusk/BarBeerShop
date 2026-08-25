@@ -1,3 +1,31 @@
+/* =========================================================================
+   POLICES DU SITE
+   -------------------------------------------------------------------------
+   Ce fichier est relie par TOUTES les pages : les polices declarees ici sont
+   donc disponibles partout.
+
+   1) PP Formula = la police principale, pour tout le texte du site.
+      Fichiers dans "sources/fonts/". Une declaration par graisse :
+        Thin 100 · Regular 400 · Medium 500 · Bold 700 · Extrabold 800 · Black 900
+      Utilisation :  font-family: "PP Formula";  font-weight: 700;
+
+   2) DeLittle Chromatic = la police fantaisie du logo. Elle vient d'Adobe
+      Fonts, chargee par le <link> place dans le <head> de chaque page.
+      Utilisation :  font-family: "delittle-chromatic";
+   ========================================================================= */
+
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Thin.woff2")      format("woff2"); font-weight: 100; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Regular.woff2")   format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Medium.woff2")    format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Bold.woff2")      format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Extrabold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Black.woff2")     format("woff2"); font-weight: 900; font-display: swap; }
+
+/* PP Formula s'applique a toute la page par defaut */
+body {
+  font-family: "PP Formula", system-ui, sans-serif;
+}
+
 /* Aligne le bouton et le menu à la suite du logo au lieu de les pousser à droite */
 .navbar > .container-fluid {
   justify-content: flex-start;

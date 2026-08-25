@@ -1,61 +1,490 @@
 <!doctype html>
-<html lang="en">
+<!-- =========================================================================
+     BARBEERSHOP - PAGE BARBER
+     -------------------------------------------------------------------------
+     Reproduction de la maquette Adobe XD "Page Barber - 3" (1920 x 5378 px).
+
+     Base : Bootstrap 5 (reset, boutons, formulaires, utilitaires).
+     Le reste est du CSS sur mesure, car la maquette est une composition libre
+     (bulles, cercles, cartes qui debordent) et non une mise en page sur grille.
+
+     Toutes les tailles suivent la maquette grace a l'unite "--u" definie dans
+     barber.css : 1 unite = 1 pixel de la maquette. La page garde donc les
+     memes proportions que XD quelle que soit la largeur de l'ecran.
+
+     Ordre des sections, de haut en bas :
+       1. Barre de navigation
+       2. Hero (photo du salon + carte de fidelite)
+       3. Bulles de transition
+       4. Zone brune : formules, produits, equipe, galerie
+       5. Bande "Decouvrir notre bar a bieres"
+       6. Pied de page
+     ========================================================================= -->
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BarBeerShop - Barber</title>
+
+    <!-- Icone affichee dans l'onglet du navigateur -->
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
+    <!-- Bootstrap : la boite a outils CSS de base -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Police "DeLittle Chromatic" (celle du logo), hebergee par Adobe Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+
+    <!-- Accueil.css : styles COMMUNS a tout le site (polices, navbar) -->
     <link href="Accueil.css" rel="stylesheet">
+    <!-- barber.css : styles PROPRES a cette page -->
     <link href="barber.css" rel="stylesheet">
   </head>
+
   <body>
+    <!-- Bootstrap : partie JavaScript (menu deroulant sur petit ecran) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-    <!-- NAVBAR -->
-    <!-- Couleur de la navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-      <div class="container-fluid">
-        <!-- Logo dans la navbar -->
-        <a class="navbar-brand" href="Accueil.html">BarBeerShop</a>
-        <!-- Boutons de la navbar -->
-        <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
-        <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
-        <!-- Bouton burger -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Bouton rond Compte -->
-        <button type="button" class="bouton-rond">
-          <img src="sources/Image-temporaire.webp" alt="photo de profil">
-        </button>
-        <!-- Menu de la navbar -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Accueil.html">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Bar.html">Bar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="barber.html">Barber</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="notre-concept.html">Notre Concept</a>
-            </li>
-          </ul>
+    <!-- =====================================================================
+         1. BARRE DE NAVIGATION
+         Elle est posee par-dessus la photo du hero (fond noir translucide).
+         ===================================================================== -->
+    <header class="barre-nav">
+
+      <!-- #logo : ramene a l'accueil -->
+      <a class="nav-logo" href="Accueil.html">
+        <img src="sources/Logo.png" alt="BarBeerShop">
+      </a>
+
+      <!-- #groupe des deux boutons de reservation
+           Une pilule blanche qui contient le bouton rouge "Prendre RDV" a
+           gauche, et le lien "Reserver ma soiree" a droite. -->
+      <div class="nav-reservation">
+        <!-- #bouton prendre rdv (rouge) -->
+        <a class="nav-btn-rdv" href="#rdv">Prendre RDV</a>
+        <!-- #bouton reserver ma soiree (sur le fond blanc) -->
+        <a class="nav-btn-soiree" href="#soiree">Réserver<br>ma soirée</a>
+      </div>
+
+      <!-- #bouton bascule jour / nuit
+           Change l'ambiance de la page (mode "Night Shift" de la maquette :
+           les surfaces claires prennent une teinte plus chaude). -->
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+
+      <!-- #acces au compte client (photo de profil ronde) -->
+      <a class="nav-compte" href="#compte" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+
+      <!-- #menu principal -->
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <!-- "actif" = page en cours -->
+        <a href="barber.html" class="actif" aria-current="page">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="nav-menu-deux-lignes">NOTRE<br>CONCEPT</a>
+      </nav>
+    </header>
+
+    <!-- =====================================================================
+         2. HERO : photo du salon + carte de fidelite
+         ===================================================================== -->
+    <section class="hero">
+
+      <!-- #photo de fond du salon -->
+      <img src="sources/hero-barber.webp" alt="Intérieur du salon BarBeerShop" class="hero-photo">
+
+      <!-- #bouton remonter en haut de page (colle au bord gauche) -->
+      <a class="bouton-remonter" href="#" aria-label="Remonter en haut de page">
+        <img src="sources/bouton-remonter.svg" alt="">
+      </a>
+
+      <!-- #panneau carte de fidelite (effet verre depoli sur la photo) -->
+      <div class="carte-fidelite">
+        <p class="carte-fidelite-texte">
+          Obtenez dès maintenant notre<br><br>
+          <strong>Carte de Fidélité Digitalisée</strong><br><br>
+          Grâce à la création d’un compte
+        </p>
+        <!-- #bouton creer mon compte -->
+        <a class="btn-creer-compte" href="#creer-compte">Créer mon compte</a>
+      </div>
+
+      <!-- #visuel de la carte de fidelite, penche a droite du panneau -->
+      <img src="sources/carte-fidelite.svg" alt="" class="carte-fidelite-visuel">
+    </section>
+
+    <!-- =====================================================================
+         3 + 4. ZONE BRUNE (avec les bulles de transition en haut)
+         ===================================================================== -->
+    <section class="zone-brune">
+
+      <!-- #bulles de transition
+           Six couches de bulles superposees, reprises telles quelles de la
+           maquette. Elles remontent au-dessus de la zone brune : la partie
+           haute se detache sur la photo du hero (c'est l'effet recherche),
+           la partie basse se confond avec le brun. -->
+      <div class="bulles" aria-hidden="true">
+        <img src="sources/bulles-495.svg" alt="" class="bulle bulle-495">
+        <img src="sources/bulles-522.svg" alt="" class="bulle bulle-522">
+        <img src="sources/bulles-521.svg" alt="" class="bulle bulle-521">
+        <img src="sources/bulles-496.svg" alt="" class="bulle bulle-496">
+        <img src="sources/bulles-546.svg" alt="" class="bulle bulle-546">
+        <img src="sources/bulles-523.svg" alt="" class="bulle bulle-523">
+      </div>
+
+      <!-- #fleche vers le bas (invite a descendre) -->
+      <img src="sources/fleche-bas.svg" alt="" class="fleche-bas">
+
+      <!-- #titre de la section formules -->
+      <h2 class="titre-formules">Nos Formules</h2>
+
+      <!-- #note sous le titre, avec une petite fleur devant -->
+      <p class="note-formules">
+        <img src="sources/fleur-3.svg" alt="" class="note-fleur">
+        Formule avec nos produits de la gamme ayurvédique*
+      </p>
+
+      <!-- #carrousel des formules
+           3 formules visibles a la fois. On navigue avec les fleches, ou en
+           faisant glisser (trackpad, doigt). -->
+      <div class="formules">
+
+        <!-- #fleche precedente -->
+        <button type="button" class="formules-fleche formules-fleche-gauche"
+                id="formulePrecedente" aria-label="Formules précédentes">&#10094;</button>
+
+        <!-- fenetre qui laisse voir exactement 3 cartes -->
+        <div class="formules-fenetre" id="formulesFenetre">
+          <div class="formules-piste">
+
+            <!-- #formule : Formule VIP Barber & Relax -->
+            <article class="formule">
+              <h3 class="formule-titre">Formule VIP Barber<br>& Relax</h3>
+              <ul class="formule-liste">
+                <li>Diagnostic personnalisé cheveux &amp; style</li>
+                <li>Coupe signature barber</li>
+                <li>Rituel complet ayurvédique (gamme entière)</li>
+                <li>Massage cuir chevelu prolongé</li>
+                <li>Serviette chaude relaxante</li>
+                <li>Coiffage premium + conseils entretien</li>
+              </ul>
+              <!-- #prix : pastille a cheval sur le trait du bas -->
+              <span class="formule-prix">60€</span>
+            </article>
+
+            <!-- #formule : Coupe Express -->
+            <article class="formule">
+              <h3 class="formule-titre">Coupe Express</h3>
+              <ul class="formule-liste">
+                <li>Diagnostic rapide du style</li>
+                <li>Coupe cheveux</li>
+                <li>Coiffage simple</li>
+              </ul>
+              <span class="formule-prix">15€</span>
+            </article>
+
+            <!-- #formule : Formule Soin Signature
+                 Cas particulier : la photo deborde sous le cadre et le prix
+                 se pose sur l'arete basse de la photo. -->
+            <article class="formule formule-avec-photo">
+              <h3 class="formule-titre">Formule Soin Signature</h3>
+              <ul class="formule-liste">
+                <li>Coupe personnalisée</li>
+                <li>Shampoing ayurvédique adapté au type de cheveux</li>
+                <li>Masque nourrissant</li>
+                <li>Sérum ou huile capillaire</li>
+                <li>Massage cuir chevelu</li>
+                <li>Coiffage premium</li>
+              </ul>
+              <!-- la photo et son prix, qui depassent du cadre -->
+              <div class="formule-photo-zone">
+                <img src="sources/produits.webp" alt="Produits de soin utilisés" class="formule-photo">
+                <span class="formule-prix formule-prix-photo">30€</span>
+              </div>
+            </article>
+
+            <!-- #formule : Coupe + Rituel Masque Ayurvedique -->
+            <article class="formule">
+              <h3 class="formule-titre">Coupe<br>+ Rituel Masque Ayurvédique</h3>
+              <ul class="formule-liste">
+                <li>Coupe personnalisée</li>
+                <li>Application d’un masque ayurvédique nourrissant</li>
+                <li>Massage du cuir chevelu</li>
+                <li>Coiffage final</li>
+              </ul>
+              <span class="formule-prix">22€</span>
+            </article>
+
+            <!-- #formule : Rituel Total Ayurvedique -->
+            <article class="formule">
+              <h3 class="formule-titre">Rituel Total Ayurvédique</h3>
+              <ul class="formule-liste">
+                <li>Coupe premium personnalisée</li>
+                <li>Shampoing ayurvédique</li>
+                <li>Après-shampoing / soin profond</li>
+                <li>Masque réparateur intense</li>
+                <li>Huile fortifiante</li>
+                <li>Massage relaxant du cuir chevelu</li>
+                <li>Coiffage détaillé + finition</li>
+              </ul>
+              <span class="formule-prix">39€</span>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- #fleche suivante -->
+        <button type="button" class="formules-fleche formules-fleche-droite"
+                id="formuleSuivante" aria-label="Formules suivantes">&#10095;</button>
+      </div>
+
+      <!-- #aide a la reservation, posee a droite avec une fleche bouclee -->
+      <div class="aide-reservation">
+        <p>Sélectionnez votre formule<br>pour réserver<br>votre RDV</p>
+        <!-- fleche bouclee dessinee directement en SVG -->
+        <svg class="aide-fleche" viewBox="0 0 200 120" aria-hidden="true">
+          <path d="M188 8 C188 60 150 96 108 96 C78 96 58 78 58 58 C58 42 70 30 84 30
+                   C96 30 106 39 106 51 C106 66 92 76 74 76 C50 76 32 60 26 40"
+                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path d="M26 40 L18 22 M26 40 L44 34" fill="none" stroke="currentColor"
+                stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- =================================================================
+           #bloc "Nos produits utilises"
+           Carte rouge collee a gauche, avec la photo posee derriere le haut.
+           ================================================================= -->
+      <div class="produits">
+        <!-- photo qui depasse derriere le haut de la carte -->
+        <img src="sources/produits.webp" alt="" class="produits-photo">
+
+        <!-- carte rouge -->
+        <div class="produits-carte">
+          <h3 class="produits-titre">Nos produits utilisés</h3>
+
+          <!-- fleurs decoratives en haut a droite -->
+          <img src="sources/fleur-2.svg" alt="" class="produits-fleur produits-fleur-a">
+          <img src="sources/fleur-1.svg" alt="" class="produits-fleur produits-fleur-b">
+
+          <p class="produits-texte">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+            erat volutpat. Ut wisi enim ad minim veniam, quis
+            <strong>nostrud exerci tation ullamcorper</strong> suscipit lobortis nisl ut aliquip ex ea
+          </p>
+
+          <!-- #bouton en savoir plus, dans le coin bas-droit -->
+          <a class="btn-en-savoir-plus" href="#produits">En savoir plus</a>
         </div>
       </div>
-    </nav>
 
-    <!-- Bloc image de fond + texte + bouton -->
-    <div class="hero-page">
-      <img src="sources/Image-temporaire.webp" alt="image temporaire">
-      <div class="hero-page-contenu">
-        <h1>Notre Barber</h1>
-        <p>Texte de presentation temporaire du barber.</p>
-        <button type="button" class="btn btn-lg hero-page-bouton">Prendre RDV</button>
+      <!-- =================================================================
+           #bloc "Nos Professionnels Capillaires" (l'equipe)
+           ================================================================= -->
+      <h2 class="titre-equipe">Nos Professionnels Capillaires</h2>
+      <p class="texte-equipe">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+
+      <!-- Les 3 membres, places exactement comme dans la maquette
+           (leurs hauteurs sont volontairement legerement differentes). -->
+      <div class="equipe">
+        <!-- #membre : Thomas -->
+        <figure class="membre membre-thomas">
+          <img src="sources/illus-thomas.svg" alt="Illustration de Thomas" class="membre-illus">
+          <figcaption class="membre-nom">Thomas</figcaption>
+          <p class="membre-desc">Lorem ipsum dolor sit amet, consectetuer</p>
+        </figure>
+
+        <!-- #membre : Yves -->
+        <figure class="membre membre-yves">
+          <img src="sources/illus-yves.svg" alt="Illustration de Yves" class="membre-illus">
+          <figcaption class="membre-nom">Yves</figcaption>
+          <p class="membre-desc">Lorem ipsum dolor sit amet, consectetuer</p>
+        </figure>
+
+        <!-- #membre : Rosalie -->
+        <figure class="membre membre-rosalie">
+          <img src="sources/illus-rosalie.svg" alt="Illustration de Rosalie" class="membre-illus">
+          <figcaption class="membre-nom">Rosalie</figcaption>
+          <p class="membre-desc">Lorem ipsum dolor sit amet, consectetuer</p>
+        </figure>
       </div>
-    </div>
+
+      <!-- =================================================================
+           #galerie des coupes realisees
+           Deux rangees que l'on peut faire glisser horizontalement. Les
+           photos debordent volontairement des deux cotes de l'ecran.
+           ================================================================= -->
+      <h2 class="titre-galerie">Galerie des Coupes Réalisées</h2>
+
+      <!-- rangee 1 -->
+      <div class="galerie-rangee galerie-rangee-1">
+        <img src="sources/g1-1.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g1-2.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g1-3.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g1-4.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g1-5.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g1-6.webp" alt="Coupe réalisée au salon">
+      </div>
+
+      <!-- rangee 2 (decalee par rapport a la premiere) -->
+      <div class="galerie-rangee galerie-rangee-2">
+        <img src="sources/g2-1.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g2-2.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g2-3.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g2-4.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g2-5.webp" alt="Coupe réalisée au salon">
+        <img src="sources/g2-6.webp" alt="Coupe réalisée au salon">
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         5. BANDE "DECOUVRIR NOTRE BAR A BIERES"
+         Le texte est repete, separe par des pastilles rondes.
+         ===================================================================== -->
+    <a class="bande-bar" href="Bar.html">
+      <span class="bande-pastille"></span>
+      <span class="bande-texte">DÉCOUVRIR NOTRE BAR À BIÈRES</span>
+      <span class="bande-pastille"></span>
+      <span class="bande-texte">DÉCOUVRIR NOTRE BAR À BIÈRES</span>
+      <span class="bande-pastille"></span>
+    </a>
+
+    <!-- =====================================================================
+         6. PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <!-- #colonne horaires -->
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p>
+          <strong>Barber :</strong><br>
+          Du lundi au samedi de 9h à 19h<br>
+          <strong>Bar à bière :</strong><br>
+          Du Mardi au Dimanche de 11h à 23h<br>
+          Samedi et événement spécial 1h
+        </p>
+      </div>
+
+      <!-- #colonne contact -->
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p>
+          <a href="tel:+33000000000">+33 00 00 00 00</a><br>
+          <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a>
+        </p>
+      </div>
+
+      <!-- #colonne mentions legales -->
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p>
+          <a href="#mentions">Mentions légales</a><br>
+          <a href="#alcool">Réglementation liées à l’alcool</a><br>
+          <a href="#cookies">Cookies</a><br>
+          <a href="#rse">Notre engagement RSE</a>
+        </p>
+      </div>
+
+      <!-- #colonne newsletter + reseaux sociaux -->
+      <div class="pied-colonne pied-colonne-droite">
+        <label class="visually-hidden" for="courriel">Adresse e-mail</label>
+        <input id="courriel" type="email" class="pied-newsletter"
+               placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <!-- =====================================================================
+         SCRIPTS DE LA PAGE
+         ===================================================================== -->
+    <script>
+      /* ------------------------------------------------------------------
+         #unite de mesure de la page
+         Toute la mise en page est calee sur la maquette grace a la variable
+         "--u" : 1 unite = 1 pixel de la maquette (qui fait 1920 de large).
+         On la recalcule ici avec la largeur REELLE de la page, car l'unite
+         "vw" du CSS compte aussi la barre de defilement verticale, ce qui
+         decalerait tout d'environ 1 %.
+         ------------------------------------------------------------------ */
+      function reglerUnite() {
+        const largeurReelle = document.documentElement.clientWidth;
+        document.body.style.setProperty('--u', (largeurReelle / 1920) + 'px');
+      }
+      reglerUnite();                                  // au chargement
+      window.addEventListener('resize', reglerUnite); // et quand on redimensionne
+
+      /* ------------------------------------------------------------------
+         #carrousel des formules
+         Les fleches font avancer ou reculer la fenetre d'une carte.
+         Le glissement au trackpad ou au doigt fonctionne tout seul, car la
+         fenetre est deja defilable (overflow-x: auto en CSS).
+         ------------------------------------------------------------------ */
+      const fenetreFormules = document.getElementById('formulesFenetre');
+      const boutonPrecedente = document.getElementById('formulePrecedente');
+      const boutonSuivante = document.getElementById('formuleSuivante');
+
+      if (fenetreFormules && boutonPrecedente && boutonSuivante) {
+        // largeur d'une carte + l'ecart qui la separe de la suivante
+        function pasDUneCarte() {
+          const carte = document.querySelector('.formule');
+          const piste = document.querySelector('.formules-piste');
+          const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
+          return carte.getBoundingClientRect().width + ecart;
+        }
+        // On modifie directement la position de defilement. Le mouvement est
+        // rendu doux par la regle "scroll-behavior: smooth" du fichier CSS.
+        boutonPrecedente.addEventListener('click', () => {
+          fenetreFormules.scrollLeft -= pasDUneCarte();
+        });
+        boutonSuivante.addEventListener('click', () => {
+          fenetreFormules.scrollLeft += pasDUneCarte();
+        });
+
+        // Au chargement, on se cale sur la 2e carte pour retrouver le cadrage
+        // de la maquette : Coupe Express / Soin Signature / Coupe + Rituel.
+        // On coupe le defilement doux le temps de ce calage, sinon la page
+        // s'ouvrirait sur une animation.
+        function calerSurLaMaquette() {
+          fenetreFormules.style.scrollBehavior = 'auto';
+          fenetreFormules.scrollLeft = pasDUneCarte();
+          // on remet le defilement doux pour les clics sur les fleches
+          requestAnimationFrame(() => { fenetreFormules.style.scrollBehavior = ''; });
+        }
+        window.addEventListener('load', calerSurLaMaquette);
+        // et on refait le calage si la fenetre change de taille
+        window.addEventListener('resize', calerSurLaMaquette);
+      }
+
+      /* ------------------------------------------------------------------
+         #bascule jour / nuit
+         Ajoute ou retire la classe "nuit" sur la page. En mode nuit, les
+         surfaces claires prennent une teinte plus chaude (mode "Night Shift"
+         de la maquette). Le choix est retenu d'une visite a l'autre.
+         ------------------------------------------------------------------ */
+      const boutonBascule = document.getElementById('basculeJourNuit');
+
+      // On applique le mode enregistre lors de la visite precedente
+      if (localStorage.getItem('modeNuit') === 'oui') {
+        document.documentElement.classList.add('nuit');
+        if (boutonBascule) boutonBascule.setAttribute('aria-pressed', 'true');
+      }
+
+      if (boutonBascule) {
+        boutonBascule.addEventListener('click', () => {
+          const enModeNuit = document.documentElement.classList.toggle('nuit');
+          boutonBascule.setAttribute('aria-pressed', enModeNuit ? 'true' : 'false');
+          localStorage.setItem('modeNuit', enModeNuit ? 'oui' : 'non');
+        });
+      }
+    </script>
   </body>
 </html>

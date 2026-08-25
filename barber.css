@@ -1,30 +1,938 @@
-/* ===== Page Barber : image de fond + texte + bouton ===== */
-.hero-page {
-  position: relative;
-  width: 100%;
-  height: 60vh;
-  overflow: hidden;
+/* =========================================================================
+   PAGE BARBER  -  feuille de style
+   -------------------------------------------------------------------------
+   Reproduction de la maquette Adobe XD "Page Barber - 3" (1920 x 5378 px).
+
+   COMMENT LIRE CE FICHIER (a lire une fois, c'est la cle de tout)
+   La maquette fait 1920 px de large. Pour que la page ressemble a la maquette
+   QUELLE QUE SOIT la taille de l'ecran, on definit une unite qui vaut
+   1 pixel de la maquette :
+
+        --u  =  largeur reelle de la page / 1920
+
+   - ecran de 1920 px -> --u = 1 px    (taille identique a la maquette)
+   - ecran de 1280 px -> --u = 0,67 px (tout est reduit d'un tiers)
+
+   Donc quand la maquette dit "ce titre fait 30 px", on ecrit :
+        font-size: calc(var(--u) * 30);
+
+   Les hauteurs de sections viennent directement de la maquette :
+        Hero .......    0 -> 1017   (1017 px)
+        Zone brune .. 1017 -> 4861   (3844 px)
+        Bande bar ... 4861 -> 5021   ( 160 px)
+        Pied ........ 5021 -> 5378   ( 357 px)
+
+   Tout en bas du fichier, une section MOBILE reorganise la page en une
+   colonne lisible sur telephone.
+   ========================================================================= */
+
+/* =========================================================================
+   #couleurs et unite de mesure
+   ========================================================================= */
+
+:root {
+  /* Couleurs relevees dans la maquette */
+  --brun: #695E45;        /* grande zone centrale */
+  --creme: #FFFEF8;       /* blanc casse : textes clairs, pastilles */
+  --rouge: #E13950;       /* accents, boutons */
+  --rouge-carte: #E23950; /* carte "Nos produits utilises" */
+  --beige: #DDCDB0;       /* bande "Decouvrir notre bar" */
+  --noir: #1A1A1E;        /* barre de navigation et pied de page */
+
+  /* Polices */
+  --police: "PP Formula", system-ui, sans-serif;
+  --police-logo: "delittle-chromatic", "PP Formula", sans-serif;
 }
 
-.hero-page img {
+/* #mode nuit ("Night Shift" de la maquette)
+   La bascule de la navbar ajoute la classe "nuit" sur la page.
+   En comparant les deux versions de la maquette (jour et Night Shift), une
+   seule couleur change : le creme #FFFEF8 devient le ton chaud #FDF2DD.
+   Le brun, le beige, le noir et le rouge restent identiques. On reproduit
+   donc exactement cela, et rien de plus. */
+html.nuit {
+  --creme: #FDF2DD;
+}
+
+/* overflow-x sur html ET body : plusieurs elements (bulles, galerie) sortent
+   volontairement du cadre, comme dans la maquette. On les rogne aux bords de
+   la page pour qu'aucune barre de defilement horizontale n'apparaisse. */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  /* L'unite du site : 1 unite = 1 pixel de la maquette (voir en-tete).
+     Cette valeur de depart utilise "vw", qui compte malheureusement aussi la
+     barre de defilement verticale. Un petit script en bas de la page la
+     recalcule avec la largeur REELLE, pour tomber au pixel pres. */
+  --u: calc(100vw / 1920);
+  font-family: var(--police);
+  /* on ecrit "background-color" et non "background" : le raccourci empeche la
+     transition de reprendre une couleur qui vient d'une variable */
+  background-color: var(--creme);
+  overflow-x: hidden;
+  transition: background-color 0.3s; /* passage jour/nuit en douceur */
+}
+
+/* Toutes les boites incluent leur bordure dans la largeur annoncee.
+   Sans cela, un cadre de 461 px avec un trait de 5 px mesurerait 471 px. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================================
+   #barre de navigation
+   Posee par-dessus la photo du hero. Hauteur 212 px dans la maquette.
+   ========================================================================= */
+
+.barre-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--u) * 212);
+  background: var(--noir);
+  z-index: 20;
+}
+
+/* #logo (maquette : x 140, hauteur 78) */
+.nav-logo {
+  position: absolute;
+  left: calc(var(--u) * 140);
+  top: calc(var(--u) * 42);
+}
+.nav-logo img {
+  height: calc(var(--u) * 78);
+  width: auto;
+  display: block;
+}
+
+/* #groupe des boutons de reservation
+   Pilule blanche (maquette : x 716, y 43, 494 x 73, rayon 36) */
+.nav-reservation {
+  position: absolute;
+  left: calc(var(--u) * 716);
+  top: calc(var(--u) * 43);
+  width: calc(var(--u) * 494);
+  height: calc(var(--u) * 73);
+  background: #fff;
+  border-radius: calc(var(--u) * 36);
+  display: flex;
+  align-items: center;
+  padding: calc(var(--u) * 2);
+}
+
+/* #bouton prendre rdv : pilule rouge dans la pilule blanche
+   (maquette : 245 x 69) */
+.nav-btn-rdv {
+  width: calc(var(--u) * 245);
+  height: calc(var(--u) * 69);
+  display: grid;
+  place-content: center;
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 36);
+  color: #fff;
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-btn-rdv:hover { color: #fff; opacity: 0.92; }
+
+/* #bouton reserver ma soiree : sur le fond blanc, sur deux lignes */
+.nav-btn-soiree {
+  flex: 1;
+  text-align: center;
+  color: var(--noir);
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  line-height: 1.05;
+  text-decoration: none;
+}
+.nav-btn-soiree:hover { color: var(--rouge); }
+
+/* #bascule jour / nuit (maquette : x 1247, y 54, 52 x 52) */
+.nav-bascule {
+  position: absolute;
+  left: calc(var(--u) * 1247);
+  top: calc(var(--u) * 54);
+  width: calc(var(--u) * 52);
+  height: calc(var(--u) * 52);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.nav-bascule img { width: 100%; height: 100%; display: block; }
+.nav-bascule:hover { transform: rotate(25deg); }
+/* En mode nuit, l'icone soleil s'assombrit et pivote */
+html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
+html.nuit .nav-bascule { transform: rotate(180deg); }
+
+/* #photo de profil du compte (maquette : x 1674, y 35, cercle) */
+.nav-compte {
+  position: absolute;
+  left: calc(var(--u) * 1674);
+  top: calc(var(--u) * 44);
+  width: calc(var(--u) * 86);
+  height: calc(var(--u) * 86);
+  border-radius: 50%;
+  overflow: hidden;
+}
+.nav-compte img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center 22%;   /* recadre sur le visage */
+}
+
+/* #menu principal (maquette : liens a y 170) */
+.nav-menu {
+  position: absolute;
+  top: calc(var(--u) * 148);
+  left: 0;
+  width: 100%;
+  height: calc(var(--u) * 64);
+}
+.nav-menu a {
+  position: absolute;
+  color: #fff;
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  text-decoration: none;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.nav-menu a:hover { color: var(--rouge); }
+/* Position exacte de chaque lien, relevee dans la maquette */
+.nav-menu a:nth-child(1) { left: calc(var(--u) * 652); top: calc(var(--u) * 12); }
+.nav-menu a:nth-child(2) { left: calc(var(--u) * 854); top: calc(var(--u) * 12); }
+.nav-menu a:nth-child(3) { left: calc(var(--u) * 1061); top: calc(var(--u) * 12); }
+.nav-menu a:nth-child(4) {
+  left: calc(var(--u) * 1275);
+  top: 0;
+  font-size: calc(var(--u) * 22);
+  text-align: center;
+}
+/* Le lien de la page en cours */
+.nav-menu a.actif { color: var(--creme); }
+
+/* =========================================================================
+   #hero  (0 -> 1017)
+   ========================================================================= */
+
+.hero {
+  position: relative;
+  height: calc(var(--u) * 1017);
+  overflow: hidden;             /* la photo est rognee en bas de la section */
+  background: var(--noir);
+}
+
+/* #photo du salon (maquette : x -32, y -175, 1984 x 1487) */
+.hero-photo {
+  position: absolute;
+  left: calc(var(--u) * -32);
+  top: calc(var(--u) * -175);
+  width: calc(var(--u) * 1984);
+  height: calc(var(--u) * 1487);
   object-fit: cover;
   display: block;
 }
 
-.hero-page-contenu {
+/* #bouton remonter (maquette : x -36, y 464) : depasse a gauche */
+.bouton-remonter {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
+  left: calc(var(--u) * -36);
+  top: calc(var(--u) * 464);
+  width: calc(var(--u) * 120);
+  z-index: 5;
+}
+.bouton-remonter img { width: 100%; display: block; }
+
+/* #panneau carte de fidelite (maquette : x 650, y 423, 646 x 290) */
+.carte-fidelite {
+  position: absolute;
+  left: calc(var(--u) * 650);
+  top: calc(var(--u) * 423);
+  width: calc(var(--u) * 646);
+  min-height: calc(var(--u) * 290);
+  /* peu de marge sur les cotes : le texte tient ainsi sur une seule ligne,
+     comme dans la maquette */
+  padding: calc(var(--u) * 30) calc(var(--u) * 12) calc(var(--u) * 24);
   text-align: center;
-  color: #FFFEF8;
+  color: #fff;
+  /* effet verre depoli : voile clair + flou de ce qu'il y a derriere */
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(calc(var(--u) * 14));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 14));
+  border-radius: calc(var(--u) * 34);
+  z-index: 4;
+}
+.carte-fidelite-texte {
+  margin: 0 0 calc(var(--u) * 18);
+  font-size: calc(var(--u) * 36);
+  font-weight: 400;
+  line-height: 1.15;
+}
+.carte-fidelite-texte strong { font-weight: 700; }
+
+/* #bouton creer mon compte (maquette : 313 x 68, fond rouge) */
+.btn-creer-compte {
+  display: inline-grid;
+  place-content: center;
+  width: calc(var(--u) * 313);
+  height: calc(var(--u) * 68);
+  /* dans la maquette le bouton n'est pas parfaitement centre : il est
+     legerement decale vers la droite */
+  margin-left: calc(var(--u) * 27);
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+}
+.btn-creer-compte:hover { color: var(--creme); opacity: 0.92; }
+
+/* #visuel de la carte de fidelite (maquette : x 1222, y 461, 175 x 148) */
+.carte-fidelite-visuel {
+  position: absolute;
+  left: calc(var(--u) * 1222);
+  top: calc(var(--u) * 461);
+  width: calc(var(--u) * 175);
+  z-index: 5;
 }
 
-.hero-page-bouton {
-  margin-top: 1rem;
-  background-color: #000;
-  color: #fff;
+/* =========================================================================
+   #zone brune  (1017 -> 4861)
+   ========================================================================= */
+
+.zone-brune {
+  position: relative;
+  height: calc(var(--u) * 3844);
+  background-color: var(--brun);
+  transition: background-color 0.3s;
+}
+
+/* #bulles de transition
+   Les six couches sont posees en absolu avec un decalage vers le haut :
+   elles remontent dans la photo du hero. Comme elles sont de la meme
+   couleur que le brun, seule la partie qui depasse sur la photo se voit. */
+.bulles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;                 /* n'occupe aucune place dans le flux */
+  pointer-events: none;
+  z-index: 3;
+}
+.bulle {
+  position: absolute;
+  display: block;
+}
+/* Position de chaque couche, relevee dans la maquette
+   (les valeurs "top" sont negatives car les bulles remontent dans le hero) */
+.bulle-495 { left: 0;                       top: calc(var(--u) * -396); width: calc(var(--u) * 1923); }
+.bulle-522 { left: calc(var(--u) * -39);    top: calc(var(--u) * -134); width: calc(var(--u) * 1920); }
+.bulle-521 { left: calc(var(--u) * -71);    top: calc(var(--u) * -115); width: calc(var(--u) * 1920); }
+.bulle-496 { left: calc(var(--u) * -11);    top: calc(var(--u) * -115); width: calc(var(--u) * 2494); }
+.bulle-546 { left: calc(var(--u) * -727);   top: calc(var(--u) * -113); width: calc(var(--u) * 2806); }
+.bulle-523 { left: calc(var(--u) * -2);     top: calc(var(--u) * -102); width: calc(var(--u) * 1920); }
+
+/* #fleche vers le bas (maquette : x 1234, y 1025 -> 8 dans la zone) */
+.fleche-bas {
+  position: absolute;
+  left: calc(var(--u) * 1234);
+  top: calc(var(--u) * 8);
+  width: calc(var(--u) * 46);
+  z-index: 4;
+}
+
+/* #titre "Nos Formules" (maquette : y 1151 -> 134) */
+.titre-formules {
+  position: absolute;
+  top: calc(var(--u) * 118);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--creme);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+
+/* #note sous le titre (maquette : y 1171 -> 154) */
+.note-formules {
+  position: absolute;
+  top: calc(var(--u) * 148);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 8);
+  color: var(--creme);
+  font-size: calc(var(--u) * 16);
+  font-weight: 100;
+}
+.note-fleur { width: calc(var(--u) * 25); }
+
+/* -------------------------------------------------------------------------
+   #carrousel des formules  (maquette : cartes a y 1266 -> 249)
+   ------------------------------------------------------------------------- */
+.formules {
+  position: absolute;
+  top: calc(var(--u) * 249);
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: calc(var(--u) * 24);
+}
+
+/* #fleches de navigation, de chaque cote (maquette : y ~1398 -> 132) */
+.formules-fleche {
+  flex: 0 0 auto;
+  margin-top: calc(var(--u) * 110);
+  padding: 0 calc(var(--u) * 6);
+  background: none;
+  border: none;
+  color: var(--creme);
+  font-size: calc(var(--u) * 60);
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.formules-fleche:hover { opacity: 0.55; }
+
+/* Fenetre qui laisse voir exactement 3 cartes
+   (3 cartes de 461 + 2 ecarts de 40 = 1463) */
+.formules-fenetre {
+  width: calc(var(--u) * 1463);
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;            /* defilement doux au clic sur les fleches */
+  scrollbar-width: none;              /* barre de defilement masquee */
+}
+.formules-fenetre::-webkit-scrollbar { display: none; }
+
+/* La piste qui contient les 5 cartes en ligne */
+.formules-piste {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--u) * 40);
+  /* place en bas pour les prix et la photo qui debordent des cadres */
+  padding-bottom: calc(var(--u) * 380);
+}
+
+/* #une carte de formule
+   Cadre blanc de 461 de large, rayon 69, trait 5. La HAUTEUR n'est pas
+   fixee : le cadre s'arrete au texte, comme dans la maquette. */
+.formule {
+  position: relative;
+  flex: 0 0 calc(var(--u) * 461);
+  /* Beaucoup de marge en bas : c'est la place que la maquette laisse sous la
+     liste, avant le trait du cadre (le prix vient s'y poser a cheval). */
+  padding: calc(var(--u) * 34) calc(var(--u) * 34) calc(var(--u) * 76);
+  border: calc(var(--u) * 5) solid var(--creme);
+  border-radius: calc(var(--u) * 69);
+  color: var(--creme);
+}
+.formule-titre {
+  margin: 0 0 calc(var(--u) * 22);
+  text-align: center;
+  font-size: calc(var(--u) * 22);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.formule-liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: calc(var(--u) * 16);
+  font-weight: 100;
+  line-height: 1.75;
+}
+.formule-liste li::before { content: "- "; }
+
+/* #prix : pastille creme A CHEVAL sur le trait du bas, centree */
+.formule-prix {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);   /* moitie dedans, moitie dehors */
+  width: calc(var(--u) * 96);
+  height: calc(var(--u) * 96);
+  display: grid;
+  place-content: center;
+  background: var(--creme);
+  color: var(--brun);
+  border-radius: 50%;
+  font-size: calc(var(--u) * 29);
+  font-weight: 700;
+}
+
+/* #carte avec photo (Formule Soin Signature)
+   La photo fait toute la largeur de la carte et DEBORDE sous le cadre.
+   Le prix se pose alors sur l'arete basse de la photo. */
+.formule-avec-photo { padding-bottom: calc(var(--u) * 20); }
+.formule-photo-zone {
+  position: relative;
+  /* la marge negative fait sortir la photo du cadre par le bas */
+  margin: calc(var(--u) * 18) calc(var(--u) * -34) calc(var(--u) * -308);
+}
+.formule-photo {
+  display: block;
+  width: 100%;                       /* toute la largeur interieure du cadre */
+  height: calc(var(--u) * 616);
+  object-fit: cover;
+  border-radius: calc(var(--u) * 14);
+}
+/* le prix de cette carte se cale sur le bas de la photo, pas du cadre */
+.formule-prix-photo { bottom: 0; }
+
+/* #aide a la reservation, a droite (maquette : x ~1440, y 1809 -> 792) */
+.aide-reservation {
+  position: absolute;
+  left: calc(var(--u) * 1400);
+  top: calc(var(--u) * 780);
+  width: calc(var(--u) * 400);
+  text-align: center;
+  color: var(--creme);
+}
+.aide-reservation p {
+  margin: 0;
+  font-size: calc(var(--u) * 23);
+  font-weight: 100;
+  line-height: 1.5;
+}
+/* fleche bouclee sous le texte */
+.aide-fleche {
+  width: calc(var(--u) * 200);
+  height: calc(var(--u) * 120);
+  margin-top: calc(var(--u) * 10);
+  color: var(--creme);
+}
+
+/* -------------------------------------------------------------------------
+   #bloc "Nos produits utilises"  (maquette : y 2195 -> 1178)
+   ------------------------------------------------------------------------- */
+.produits {
+  position: absolute;
+  left: calc(var(--u) * 155);        /* colle a gauche, comme la maquette */
+  top: calc(var(--u) * 1074);
+  width: calc(var(--u) * 812);
+}
+
+/* photo qui depasse derriere le haut de la carte */
+.produits-photo {
+  display: block;
+  width: calc(var(--u) * 340);
+  height: calc(var(--u) * 200);
+  object-fit: cover;
+  object-position: center 30%;
+  margin-left: calc(var(--u) * 66);
+  border-radius: calc(var(--u) * 14);
+  position: relative;
+  z-index: 0;
+}
+
+/* la carte rouge (maquette : 812 x 324) */
+.produits-carte {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(var(--u) * -85);   /* la carte recouvre le bas de la photo */
+  min-height: calc(var(--u) * 324);
+  padding: calc(var(--u) * 34) calc(var(--u) * 56) calc(var(--u) * 80);
+  background: var(--rouge-carte);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  /* legere ombre portee, comme le double rectangle de la maquette */
+  box-shadow: calc(var(--u) * -16) calc(var(--u) * -11) 0 rgba(226, 57, 80, 0.55);
+}
+.produits-titre {
+  margin: 0 0 calc(var(--u) * 22);
+  font-size: calc(var(--u) * 31);
+  font-weight: 700;
+}
+.produits-texte {
+  margin: 0;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.65;
+}
+.produits-texte strong { font-weight: 700; }
+
+/* fleurs decoratives en haut a droite de la carte */
+.produits-fleur { position: absolute; }
+.produits-fleur-a { top: calc(var(--u) * 40); right: calc(var(--u) * 90); width: calc(var(--u) * 48); }
+.produits-fleur-b { top: calc(var(--u) * 68); right: calc(var(--u) * 34); width: calc(var(--u) * 61); }
+
+/* #bouton en savoir plus : coin bas-droit, fond rouge et texte blanc
+   (comme la maquette). Au survol, les couleurs s'inversent. */
+.btn-en-savoir-plus {
+  position: absolute;
+  right: calc(var(--u) * -20);
+  bottom: calc(var(--u) * -26);
+  display: inline-grid;
+  place-content: center;
+  min-width: calc(var(--u) * 260);
+  height: calc(var(--u) * 68);
+  padding: 0 calc(var(--u) * 30);
+  background: var(--rouge);
+  border: calc(var(--u) * 3) solid var(--rouge);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-en-savoir-plus:hover {
+  background: var(--creme);
+  color: var(--rouge);
+}
+
+/* -------------------------------------------------------------------------
+   #equipe  (maquette : titre y 2750 -> 1733)
+   ------------------------------------------------------------------------- */
+.titre-equipe {
+  position: absolute;
+  top: calc(var(--u) * 1715);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--creme);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+.texte-equipe {
+  position: absolute;
+  top: calc(var(--u) * 1800);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--u) * 700);
+  margin: 0;
+  text-align: center;
+  color: var(--creme);
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.6;
+}
+.texte-equipe strong { font-weight: 700; }
+
+/* Les 3 membres sont places un par un, aux coordonnees exactes de la
+   maquette : leurs hauteurs y sont volontairement legerement differentes. */
+.membre {
+  position: absolute;
+  margin: 0;
+  color: var(--creme);
+}
+.membre-illus { display: block; }
+.membre-nom {
+  margin: calc(var(--u) * 22) 0 0;
+  font-size: calc(var(--u) * 31);
+  font-weight: 700;
+}
+.membre-desc {
+  margin: calc(var(--u) * 8) 0 0;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+}
+
+/* Thomas (maquette : illustration x 299, y 3054 -> 2037) */
+.membre-thomas { left: calc(var(--u) * 299); top: calc(var(--u) * 2037); }
+.membre-thomas .membre-illus { width: calc(var(--u) * 323); }
+.membre-thomas .membre-nom { margin-left: calc(var(--u) * 40); }
+.membre-thomas .membre-desc { margin-left: calc(var(--u) * 176); }
+
+/* Yves (maquette : illustration x 830, y 3027 -> 2010, un peu plus haut) */
+.membre-yves { left: calc(var(--u) * 830); top: calc(var(--u) * 2010); }
+.membre-yves .membre-illus { width: calc(var(--u) * 307); }
+.membre-yves .membre-nom { margin-left: calc(var(--u) * -31); }
+.membre-yves .membre-desc { margin-left: calc(var(--u) * 130); }
+
+/* Rosalie (maquette : illustration x 1259, y 3051 -> 2034) */
+.membre-rosalie { left: calc(var(--u) * 1259); top: calc(var(--u) * 2034); }
+.membre-rosalie .membre-illus { width: calc(var(--u) * 339); }
+.membre-rosalie .membre-nom { margin-left: calc(var(--u) * 42); }
+.membre-rosalie .membre-desc { margin-left: calc(var(--u) * 182); }
+
+/* -------------------------------------------------------------------------
+   #galerie des coupes  (maquette : titre y 3802 -> 2785)
+   ------------------------------------------------------------------------- */
+.titre-galerie {
+  position: absolute;
+  top: calc(var(--u) * 2769);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--creme);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+  z-index: 2;
+}
+
+/* Deux rangees que l'on peut faire glisser. Les photos debordent
+   volontairement des deux cotes de l'ecran, comme dans la maquette. */
+.galerie-rangee {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: calc(var(--u) * 86);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.galerie-rangee::-webkit-scrollbar { display: none; }
+/* Format des vignettes releve sur la maquette : 462 x 356 */
+.galerie-rangee img {
+  flex: 0 0 calc(var(--u) * 462);
+  width: calc(var(--u) * 462);
+  height: calc(var(--u) * 356);
+  object-fit: cover;
+  border-radius: calc(var(--u) * 24);
+}
+/* rangee 1 (maquette : y 3906 -> 2889 dans la zone brune) */
+.galerie-rangee-1 {
+  top: calc(var(--u) * 2889);
+  padding-left: calc(var(--u) * 87);
+}
+/* rangee 2 (maquette : y 4330 -> 3313), decalee vers la gauche : sa premiere
+   vignette depasse hors de l'ecran, comme dans la maquette */
+.galerie-rangee-2 {
+  top: calc(var(--u) * 3313);
+  margin-left: calc(var(--u) * -100);
+  gap: calc(var(--u) * 90);
+}
+
+/* =========================================================================
+   #bande "Decouvrir notre bar a bieres"  (4861 -> 5021)
+   ========================================================================= */
+
+.bande-bar {
+  height: calc(var(--u) * 160);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 60);
+  background-color: var(--beige);
+  color: var(--brun);
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+.bande-bar:hover { color: var(--brun); opacity: 0.92; }
+.bande-texte {
+  font-size: calc(var(--u) * 41);
+  font-weight: 700;
+}
+/* pastilles rondes entre les textes (maquette : ~40 de diametre) */
+.bande-pastille {
+  flex: 0 0 auto;
+  width: calc(var(--u) * 40);
+  height: calc(var(--u) * 40);
+  border-radius: 50%;
+  background: var(--brun);
+}
+
+/* =========================================================================
+   #pied de page  (5021 -> 5378)
+   ========================================================================= */
+
+.pied {
+  height: calc(var(--u) * 357);
+  padding: calc(var(--u) * 52) calc(var(--u) * 140) 0;
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--u) * 40);
+  background: var(--noir);
+  color: var(--creme);
+}
+.pied-colonne h3 {
+  margin: 0 0 calc(var(--u) * 16);
+  font-size: calc(var(--u) * 25);
+  font-weight: 700;
+}
+.pied-colonne p {
+  margin: 0;
+  font-size: calc(var(--u) * 18);
+  font-weight: 500;
+  line-height: 1.75;
+}
+.pied-colonne a {
+  color: var(--creme);
+  text-decoration: none;
+}
+.pied-colonne a:hover { text-decoration: underline; }
+
+/* colonne de droite : champ newsletter puis reseaux sociaux */
+.pied-colonne-droite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 34);
+}
+.pied-newsletter {
+  width: calc(var(--u) * 518);
+  height: calc(var(--u) * 68);
+  padding: 0 calc(var(--u) * 30);
+  background: transparent;
+  border: calc(var(--u) * 2) solid var(--creme);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-family: var(--police);
+  font-size: calc(var(--u) * 23);
+  font-weight: 100;
+}
+.pied-newsletter::placeholder { color: var(--creme); opacity: 0.85; }
+/* les 3 icones (Facebook, Instagram, TikTok) mesurent 76 de haut
+   pour environ 320 de large dans la maquette */
+.pied-reseaux { height: calc(var(--u) * 76); }
+
+/* =========================================================================
+   #mobile  (ecrans etroits, <= 768 px)
+   On abandonne la mise en page 1920 : tout est empile en une colonne, avec
+   des tailles fixes confortables a lire sur telephone.
+   ========================================================================= */
+
+@media (max-width: 768px) {
+
+  /* --- barre de navigation : logo + bascule + compte sur une ligne --- */
+  .barre-nav {
+    position: static;
+    height: auto;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .nav-logo, .nav-reservation, .nav-bascule, .nav-compte, .nav-menu {
+    position: static;
+    transform: none;
+  }
+  .nav-logo img { height: 38px; }
+  .nav-reservation {
+    order: 4;
+    width: 100%;
+    height: 46px;
+    margin-top: 0.4rem;
+  }
+  .nav-btn-rdv { width: 50%; height: 42px; font-size: 0.95rem; }
+  .nav-btn-soiree { font-size: 0.9rem; }
+  .nav-bascule { width: 34px; height: 34px; margin-left: auto; }
+  .nav-compte { width: 40px; height: 40px; }
+  .nav-menu {
+    order: 5;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+  }
+  .nav-menu a { position: static; font-size: 0.85rem; text-align: center; }
+
+  /* --- hero --- */
+  .hero { height: 65vh; }
+  .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .carte-fidelite {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 88%;
+    min-height: 0;
+    padding: 1.4rem 1.2rem;
+    border-radius: 22px;
+  }
+  .carte-fidelite-texte { font-size: 1.05rem; margin-bottom: 1rem; }
+  .btn-creer-compte { width: auto; height: auto; padding: 0.55rem 1.4rem; font-size: 1rem; }
+  .carte-fidelite-visuel { display: none; }
+  .bouton-remonter { width: 62px; top: 60%; }
+
+  /* --- zone brune : on repasse en flux normal --- */
+  .zone-brune { height: auto; padding: 2.5rem 0 3rem; }
+  .bulles { display: none; }         /* les bulles ne rendent pas bien en etroit */
+  .fleche-bas { display: none; }
+  .titre-formules, .note-formules, .titre-equipe, .texte-equipe,
+  .titre-galerie, .formules, .produits, .membre, .galerie-rangee {
+    position: static;
+    transform: none;
+    width: auto;
+    top: auto;
+    left: auto;
+  }
+  .titre-formules { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .note-formules { font-size: 0.85rem; margin-bottom: 1.6rem; }
+
+  /* carrousel : on cache les fleches, on glisse au doigt */
+  .formules { gap: 0; }
+  .formules-fleche { display: none; }
+  .formules-fenetre { width: 100%; }
+  .formules-piste { gap: 1rem; padding: 0 1rem 4.5rem; }
+  .formule {
+    flex: 0 0 78vw;
+    padding: 1.4rem 1.2rem 2rem;
+    border-width: 3px;
+    border-radius: 26px;
+  }
+  .formule-titre { font-size: 1.15rem; margin-bottom: 0.9rem; }
+  .formule-liste { font-size: 0.9rem; line-height: 1.65; }
+  .formule-prix { width: 62px; height: 62px; font-size: 1.25rem; }
+  .formule-photo-zone { margin: 0.8rem -1.2rem -2.2rem; }
+  .formule-photo { width: 100%; height: 190px; }
+
+  .aide-reservation { position: static; width: auto; margin: 0.5rem auto 2.5rem; }
+  .aide-reservation p { font-size: 1rem; }
+  .aide-fleche { width: 120px; height: 70px; }
+
+  /* bloc produits */
+  .produits { width: 90%; margin: 0 auto 3rem; }
+  .produits-photo { width: 180px; height: 130px; margin: 0 auto; }
+  .produits-carte { margin-top: -50px; min-height: 0; padding: 1.4rem 1.2rem 3.2rem; border-radius: 22px; box-shadow: none; }
+  .produits-titre { font-size: 1.3rem; }
+  .produits-texte { font-size: 0.92rem; }
+  .produits-fleur-a { width: 32px; top: 1rem; right: 3.2rem; }
+  .produits-fleur-b { width: 40px; top: 1.6rem; right: 1rem; }
+  .btn-en-savoir-plus {
+    right: 1rem; bottom: -18px;
+    min-width: 0; height: auto; padding: 0.5rem 1.2rem;
+    font-size: 1rem; border-width: 2px;
+  }
+
+  /* equipe : les 3 membres les uns sous les autres, centres */
+  .titre-equipe { font-size: 1.5rem; margin-bottom: 0.8rem; }
+  .texte-equipe { font-size: 0.92rem; width: 88%; margin: 0 auto 2rem; }
+  .equipe { display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-bottom: 3rem; }
+  .membre { text-align: center; }
+  .membre-illus { width: 170px !important; margin: 0 auto; }
+  .membre .membre-nom, .membre .membre-desc { margin-left: 0 !important; }
+  .membre-nom { font-size: 1.35rem; }
+  .membre-desc { font-size: 0.9rem; }
+
+  /* galerie : deux rangees que l'on fait glisser */
+  .titre-galerie { font-size: 1.5rem; margin-bottom: 1.2rem; }
+  .galerie-rangee { gap: 0.7rem; padding: 0 1rem 0.7rem; margin-bottom: 0.7rem; }
+  .galerie-rangee-2 { padding-left: 3rem; }
+  .galerie-rangee img { flex: 0 0 190px; width: 190px; height: 254px; border-radius: 14px; }
+
+  /* bande + pied de page */
+  .bande-bar { height: auto; padding: 1rem; gap: 1rem; flex-wrap: wrap; white-space: normal; text-align: center; }
+  .bande-texte { font-size: 1.05rem; }
+  .bande-pastille { width: 16px; height: 16px; }
+
+  .pied { height: auto; flex-direction: column; padding: 2rem 1.2rem; gap: 1.8rem; }
+  .pied-colonne h3 { font-size: 1.2rem; }
+  .pied-colonne p { font-size: 0.92rem; }
+  .pied-colonne-droite { align-items: flex-start; }
+  .pied-newsletter { width: 100%; height: 46px; font-size: 1rem; padding: 0 1.2rem; border-width: 2px; }
+  .pied-reseaux { height: 38px; }
 }
