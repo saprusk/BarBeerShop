@@ -1,0 +1,183 @@
+<!doctype html>
+<!-- =========================================================================
+     BARBEERSHOP - MON ESPACE COMPTE
+     Reproduction de la maquette Adobe XD "Compte" (1920 x 3792 px).
+     ========================================================================= -->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BarBeerShop - Mon espace compte</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Police du logo (Adobe Fonts) -->
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <!-- Reenie Beanie : la police manuscrite du mot "Merci" sur la carte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+    <link href="commun.css" rel="stylesheet">
+    <link href="compte.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- =====================================================================
+         BARRE DE NAVIGATION (version reduite)
+         ===================================================================== -->
+    <header class="barre-nav barre-nav--simple">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html">NOTRE<br>CONCEPT</a>
+      </nav>
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+    </header>
+
+    <main class="page-espace">
+
+      <!-- #bulles bleues : transition sous la barre de navigation -->
+      <img src="sources/bulles-compte.svg" alt="" class="bulles-haut">
+
+      <!-- #bouton remonter en haut de page -->
+      <a class="bouton-remonter" href="#" aria-label="Remonter en haut de page">
+        <img src="sources/bouton-remonter.svg" alt="">
+      </a>
+
+      <!-- #titre de la page -->
+      <h1 class="espace-titre">MON ESPACE<br>COMPTE</h1>
+
+      <!-- #photo de profil du client -->
+      <div class="espace-photo"><img src="sources/avatar-compte.webp" alt="Photo de profil de Julien NITCH"></div>
+
+      <!-- #nom du client -->
+      <p class="espace-nom">Julien NITCH</p>
+
+      <!-- =================================================================
+           #fiche d'informations personnelles (cadre rouge)
+           ================================================================= -->
+      <section class="fiche">
+        <p class="fiche-ligne">Julien</p>
+        <p class="fiche-ligne">Nitch</p>
+        <p class="fiche-ligne">09 <span>/</span> 12 <span>/</span> 1992</p>
+        <p class="fiche-ligne">Julien.Nitch@icloud.com</p>
+        <p class="fiche-vide">Pas de numéro renseignée…</p>
+        <!-- #bouton vers la page de modification -->
+        <a class="btn-modifier" href="modification-compte.html">Modifier mes informations</a>
+      </section>
+
+      <!-- =================================================================
+           #encart du prochain rendez-vous (bloc bleu)
+           ================================================================= -->
+      <section class="prochain-rdv">
+        <h2>Mon prochain RDV</h2>
+        <p>Vous n’avez pas encore<br>réserver votre prochain rendez-vous<br>…</p>
+      </section>
+
+      <!-- =================================================================
+           #carte de fidelite
+           ================================================================= -->
+      <h2 class="fidelite-titre">Votre carte fidélité</h2>
+      <p class="fidelite-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam<br>
+        nonummy nibh euismod tincidunt
+      </p>
+
+      <div class="carte-zone">
+        <!-- la carte rouge inclinee, avec ses 10 cases -->
+        <img src="sources/carte-fidelite-grande.svg" alt="" class="carte-visuel">
+
+        <!-- les mots manuscrits poses sur la carte -->
+        <p class="carte-surtitre">Toute l’équipe vous dit</p>
+        <p class="carte-merci">Merci d’être notre meilleur client !</p>
+
+        <!-- les tampons deja obtenus (4 cases sur 10) -->
+        <img src="sources/tampon-1.svg" alt="" class="tampon tampon-1">
+        <img src="sources/tampon-2.svg" alt="" class="tampon tampon-2">
+        <img src="sources/tampon-3.svg" alt="" class="tampon tampon-3">
+        <img src="sources/tampon-4.svg" alt="" class="tampon tampon-4">
+
+        <!-- la mention en bas de la carte -->
+        <p class="carte-mention">
+          Votre carte de fidélité prend en compte vos rendez-vous<br>
+          ( prochainement vos achats de produits également )
+        </p>
+
+        <!-- la fleche bouclee et son texte, a droite de la carte -->
+        <img src="sources/fleche-bouclee.svg" alt="" class="carte-fleche">
+        <p class="carte-recompense">
+          Une fois la carte rempli<br>obtenez <strong>une boisson gratuite !</strong>
+        </p>
+      </div>
+
+      <!-- =================================================================
+           #foire aux questions
+           Chaque question s'ouvre au clic (balises <details> du HTML :
+           aucun JavaScript necessaire).
+           ================================================================= -->
+      <h2 class="faq-titre">FAQ <span>( Foire Aux Questions )</span></h2>
+
+      <div class="faq">
+        <details class="faq-item">
+          <summary>OÙ POUVONS NOUS ACHETER VOS PRODUITS CAPILLAIRES ?</summary>
+          <p>Nos produits de la gamme ayurvédique sont disponibles directement au salon,
+             12 rue Pierre Perrat à Metz.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>PUIS-JE ANNULER MON RENDEZ-VOUS<br>DIRECTEMENT EN LIGNE ?</summary>
+          <p>Oui, depuis votre espace compte, jusqu’à 24 heures avant l’heure du rendez-vous.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>COMMENT NOUS REJOINDRE ?</summary>
+          <p>12 rue Pierre Perrat, quartier Impérial, 57000 Metz.
+             Parking 7 Place du Roi George. Bus lignes L2, L4, C14 et C13, Métis MA et MB.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>POUR TOUTES AUTRES QUESTIONS<br>NOUS CONTACTER PAR MAIL</summary>
+          <p>Écrivez-nous à Barbeer.shop@gmail.com, nous répondons sous 48 heures.</p>
+        </details>
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p><strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+           <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+           Samedi et événement spécial 1h</p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
+        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="commun.js"></script>
+  </body>
+</html>

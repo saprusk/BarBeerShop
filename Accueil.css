@@ -1,351 +1,495 @@
 /* =========================================================================
-   POLICES DU SITE
+   PAGE D'ACCUEIL
    -------------------------------------------------------------------------
-   Ce fichier est relie par TOUTES les pages : les polices declarees ici sont
-   donc disponibles partout.
+   Reproduction de la maquette Adobe XD "Page Accueil" (1920 x 5725 px).
+   Rappel : "--u" vaut 1 pixel de la maquette (voir commun.css).
 
-   1) PP Formula = la police principale, pour tout le texte du site.
-      Fichiers dans "sources/fonts/". Une declaration par graisse :
-        Thin 100 · Regular 400 · Medium 500 · Bold 700 · Extrabold 800 · Black 900
-      Utilisation :  font-family: "PP Formula";  font-weight: 700;
-
-   2) DeLittle Chromatic = la police fantaisie du logo. Elle vient d'Adobe
-      Fonts, chargee par le <link> place dans le <head> de chaque page.
-      Utilisation :  font-family: "delittle-chromatic";
+   Decoupage vertical :
+     Hero .............    0 -> 1150   (1150)
+     Concept ..........  1150 -> 2250   (1100)
+     Avis .............  2250 -> 2683   ( 433)
+     Bar a biere ......  2683 -> 3790   (1107)
+     Infos pratiques ..  3790 -> 4440   ( 650)
+     Instagram ........  4440 -> 5211   ( 771)
+     Bandeau sante ....  5211 -> 5368   ( 157)
+     Pied de page .....  5368 -> 5725   ( 357)
    ========================================================================= */
 
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Thin.woff2")      format("woff2"); font-weight: 100; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Regular.woff2")   format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Medium.woff2")    format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Bold.woff2")      format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Extrabold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Black.woff2")     format("woff2"); font-weight: 900; font-display: swap; }
+/* =========================================================================
+   #hero  (0 -> 1150)
+   ========================================================================= */
 
-/* PP Formula s'applique a toute la page par defaut */
-body {
-  font-family: "PP Formula", system-ui, sans-serif;
-}
-
-/* Aligne le bouton et le menu à la suite du logo au lieu de les pousser à droite */
-.navbar > .container-fluid {
-  justify-content: flex-start;
-}
-.navbar-toggler {
-  margin-left: 1rem;
-}
-
-/* Hauteur Hero Section */
-.carousel-item img {
-  height: 80vh;
-  object-fit: cover;
-}
-
-/* Petites photos carrées de chaque coté du texte de la 1ère slide */
-.carousel-item img.photo-carrousel1 {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-}
-
-.carousel-item img.photo-carrousel1-gauche {
-  left: 15%;
-  top: 60%;
-}
-
-.carousel-item img.photo-carrousel1-droite {
-  right: 15%;
-  top: 40%;
-}
-
-/* Texte Concept */
-.texte-carrousel1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: #FFFEF8;
-  font-size: 25px;
-}
-
-/* Texte Soirée */
-.texte-carrousel2 {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: #000;
-  font-size: 25px;
-}
-
-/* Bouton rond avec une image a l'interieur */
-.bouton-rond {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
+.hero {
+  position: relative;
+  height: calc(var(--u) * 1150);
+  background: var(--noir);
   overflow: hidden;
 }
 
-.bouton-rond img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.bouton-remonter { top: calc(var(--u) * 464); }
 
-/* CTA Soirée */
-.bouton-carrousel {
+/* #photos rondes du hero */
+.hero-rond { position: absolute; border-radius: 50%; overflow: hidden; }
+.hero-rond img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* gauche : le salon (maquette : x 140, y 195, 419 de diametre) */
+.hero-rond-gauche { left: calc(var(--u) * 140);  top: calc(var(--u) * 195); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+/* droite : le comptoir (maquette : x 1430, y 170, 350 de diametre) */
+.hero-rond-droite { left: calc(var(--u) * 1430); top: calc(var(--u) * 170); width: calc(var(--u) * 350); height: calc(var(--u) * 350); }
+
+/* #titre principal (maquette : y 515, centre) */
+.hero-titre {
   position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #000;
-  color: #fff;
-}
-
-/* Regroupe les 2 lignes "Notre Concept" */
-.bloc-concept {
-  position: relative;
-}
-
-/* Image / Intro1 */
-.img-fluid1 {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  width: 280px;
-  height: 420px;
-  object-fit: cover;
-}
-
-/* Image / Intro2 */
-.img-fluid2 {
-  width: 220px;
-  height: 280px;
-  object-fit: cover;
-}
-
-/* 2eme texte + bouton : centres entre les 2 images */
-.texte-concept2 {
-  text-align: center;
-}
-
-.texte-concept2 .CTA-en-savoir-plus {
-  display: block;
-  margin: 2rem auto 0;
-}
-
-/* CTA En savoir plus */
-.CTA-en-savoir-plus {
-  background-color: #000;
-  color: #fff;
-}
-
-/* Aligne le texte et le picto flèche */
-.slide-vers-le-bas-ligne {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.slide-vers-le-bas {
-  position: relative;
-  top: 13px;
-  font-size: 25px;
-}
-
-/* Bouton flèche */
-.bouton-fleche {
-  position: relative;
-  top: 6px;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  overflow: hidden;
-}
-
-.bouton-fleche img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Taille des titres h2 */
-h2 {
-  font-size: 30px;
-}
-
-/* Titrage avis */
-.titre-avis {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-/* Slider d'avis : fleches + fenetre visible + piste coulissante */
-.avis-carousel {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 50px;
-}
-
-.avis-fleche {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  line-height: 1;
-  cursor: pointer;
-  flex: 0 0 auto;
-}
-
-.avis-viewport {
-  flex: 1;
-  overflow: hidden;
-}
-
-.avis-piste {
-  display: flex;
-  width: 166.6667%;
-  gap: 0.5rem;
-  transition: transform 0.4s ease;
-}
-
-/* Carte d'avis alignement*/
-.avis-carte {
-  flex: 0 0 20%;
-  text-align: center;
-}
-
-/* Avis taille et fond */
-.avis-fond {
-  position: relative;
-  width: 280px;
-  height: 190px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.avis-fond svg {
-  position: absolute;
-  top: 0;
+  top: calc(var(--u) * 495);
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
-.avis-fond svg rect {
-  fill: #000;
-}
-
-.avis-fond p {
-  position: relative;
-  z-index: 1;
   margin: 0;
-  padding: 1rem;
-  color: #fffEF8;
-  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 36);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: calc(var(--u) * 0.5);
 }
+.hero-titre strong { font-weight: 800; }
 
-.avis-fond h4 {
-  position: relative;
-  z-index: 1;
+/* #griffonnages decoratifs */
+.deco { position: absolute; pointer-events: none; }
+.deco-loupe   { left: calc(var(--u) * 643);  top: calc(var(--u) * 576); width: calc(var(--u) * 143); }
+.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 391); width: calc(var(--u) * 52); }
+.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 600); width: calc(var(--u) * 229); }
+.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 395); width: calc(var(--u) * 127); }
+.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 567); width: calc(var(--u) * 96); }
+
+/* #mousse de biere : deux couches qui font la transition vers le creme */
+.mousse { position: absolute; left: 0; pointer-events: none; }
+.mousse-haut { top: calc(var(--u) * 796); width: calc(var(--u) * 1923); }
+.mousse-bas  { top: calc(var(--u) * 954); width: calc(var(--u) * 1920); }
+
+/* #accroche "On vous en dit plus ici" (maquette : y 1033) */
+.accroche {
+  position: absolute;
+  top: calc(var(--u) * 1033);
+  left: 0;
+  width: 100%;
   margin: 0;
-  color: #fffEF8;
-  font-size: 16px;
-}
-
-/* Regroupe les 3 demi-cercles dans son propre contexte d'empilement, pour que les z-index ci dessous ne soient compares qu'entre eux */
-.demi-cercles-section {
-  position: relative;
-}
-
-/* demi cercle */
-.demi-cercle {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  aspect-ratio: 2.4 / 1;
-  background-color: #D9D9D9;
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  margin-top: 8rem;
-  overflow: hidden;
-}
-
-/* Rectangle couleur */
-.demi-cercle-fond {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 250px;
-  background-color: #D9D9D9;
-  margin-top: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: calc(var(--u) * 18);
+  color: var(--rouge);
+  font-size: calc(var(--u) * 31);
+  font-weight: 400;
+  z-index: 2;
+}
+.accroche strong { font-weight: 700; }
+.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); }
+
+/* =========================================================================
+   #concept  (1150 -> 2250)
+   Les coordonnees internes sont comptees depuis 1150.
+   ========================================================================= */
+
+.concept {
+  position: relative;
+  height: calc(var(--u) * 1100);
+  background: var(--creme);
 }
 
-/* CTA Voir la carte*/
-.CTA-voir-la-carte {
-  background-color: #000;
+/* #titre (maquette : y 1200 -> 50) */
+.concept-titre {
+  position: absolute;
+  left: calc(var(--u) * 140);
+  top: calc(var(--u) * 34);
+  width: calc(var(--u) * 560);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 35);
+  font-weight: 700;
+}
+
+/* #textes */
+.concept-texte-1,
+.concept-texte-2 {
+  position: absolute;
+  color: #000;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.85;
+}
+.concept-texte-1 { left: calc(var(--u) * 140); top: calc(var(--u) * 92);  width: calc(var(--u) * 620); margin: 0; }
+.concept-texte-2 { left: calc(var(--u) * 692); top: calc(var(--u) * 429); width: calc(var(--u) * 580); }
+.concept-texte-2 p { margin: 0 0 calc(var(--u) * 24); }
+.concept-texte-1 strong, .concept-texte-2 strong { font-weight: 700; }
+
+/* #photos rondes du concept */
+.rond { position: absolute; border-radius: 50%; overflow: hidden; }
+.rond img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* mur de briques (maquette : x 1090, y 1074 -> -76) */
+.rond-briques  { left: calc(var(--u) * 1090); top: calc(var(--u) * -76); width: calc(var(--u) * 276); height: calc(var(--u) * 276); }
+/* grande vue de l'ambiance (maquette : x 1323, y 1378 -> 228) */
+.rond-ambiance { left: calc(var(--u) * 1323); top: calc(var(--u) * 228); width: calc(var(--u) * 713); height: calc(var(--u) * 713); }
+/* fauteuils du barber (maquette : x 64, y 1673 -> 523) */
+.rond-salon    { left: calc(var(--u) * 64);   top: calc(var(--u) * 523); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+
+/* #bulles de legende posees sur les photos */
+.legende {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--petrole);
   color: #fff;
-}
-
-/* CTA Voir la carte position */
-.demi-cercles-section .CTA-voir-la-carte {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -820px;
-  z-index: 4;
-}
-
-/* Titre Notre bar a biere artisanale */
-.titre-bar-artisanale {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -850px;
-  width: 100%;
-  text-align: center;
-  z-index: 4;
-}
-
-/* Texte bar à bière */
-.texte-bar-artisanale {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -840px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  z-index: 4;
-}
-
-/* Image demi cercle */
-.demi-cercle-image {
-  position: relative;
+  font-size: calc(var(--u) * 24);
+  font-weight: 800;
+  line-height: 1.2;
   z-index: 3;
-  margin-top: -610px;
+}
+.legende small { display: block; font-size: calc(var(--u) * 24); font-weight: 800; }
+/* BAR a bieres (maquette : x 1363, y 1425 -> 275) */
+.legende-bar    { left: calc(var(--u) * 1363); top: calc(var(--u) * 257); width: calc(var(--u) * 135); height: calc(var(--u) * 135); }
+/* BARBER (maquette : x 400, y 1655 -> 505) */
+.legende-barber { left: calc(var(--u) * 400);  top: calc(var(--u) * 468); width: calc(var(--u) * 140); height: calc(var(--u) * 140); }
+
+/* #pastilles bleues decoratives */
+.pastille { position: absolute; border-radius: 50%; background: var(--petrole); }
+.p1 { left: calc(var(--u) * 1756); top: calc(var(--u) * -61);  width: calc(var(--u) * 116); height: calc(var(--u) * 116); }
+.p2 { left: calc(var(--u) * 1444); top: calc(var(--u) * 104);  width: calc(var(--u) * 60);  height: calc(var(--u) * 60); }
+.p3 { left: calc(var(--u) * 338);  top: calc(var(--u) * 267);  width: calc(var(--u) * 62);  height: calc(var(--u) * 62); }
+.p4 { left: calc(var(--u) * 169);  top: calc(var(--u) * 344);  width: calc(var(--u) * 99);  height: calc(var(--u) * 99); }
+.deco-fleurs-tige { left: calc(var(--u) * 1558); top: calc(var(--u) * 126); width: calc(var(--u) * 113); }
+
+/* #bouton "Notre concept" (maquette : x 822, y 2059 -> 909) */
+.btn-rouge {
+  display: grid;
+  place-content: center;
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+}
+.btn-rouge:hover { color: var(--creme); opacity: 0.92; }
+.concept-cta {
+  position: absolute;
+  left: calc(var(--u) * 822);
+  top: calc(var(--u) * 909);
+  width: calc(var(--u) * 276);
+  height: calc(var(--u) * 68);
+  z-index: 4;
 }
 
-.demi-cercle-image img {
+/* =========================================================================
+   #avis  (2250 -> 2683)
+   ========================================================================= */
+
+.avis {
+  position: relative;
+  height: calc(var(--u) * 433);
+  background: var(--creme);
+}
+
+/* #titre (maquette : y 2271 -> 21) */
+.avis-titre {
+  position: absolute;
+  top: calc(var(--u) * 5);
+  left: 0;
   width: 100%;
-  height: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+
+/* les formes des cartes viennent de la maquette ; elles debordent des deux
+   cotes de l'ecran, comme prevu (maquette : x -551, y 2337 -> 87) */
+.avis-cartes {
+  position: absolute;
+  left: calc(var(--u) * -551);
+  top: calc(var(--u) * 87);
+  width: calc(var(--u) * 2939);
+}
+
+/* #temoignages : blocs de texte pivotes, poses sur les cartes.
+   L'angle est passe par la variable --angle depuis le HTML.
+   Les positions du HTML sont en pixels de maquette : on les convertit ici. */
+.avis-carte {
+  position: absolute;
+  /* --x et --y sont donnes dans le HTML, en pixels de la maquette */
+  left: calc(var(--u) * var(--x));
+  top: calc(var(--u) * var(--y));
+  width: calc(var(--u) * 300);
+  margin: 0;
+  color: #fff;
+  transform: rotate(var(--angle));
+  transform-origin: left top;
+}
+.avis-carte blockquote { margin: 0; font-size: calc(var(--u) * 18); font-weight: 400; line-height: 1.35; }
+.avis-carte figcaption { margin-top: calc(var(--u) * 26); font-size: calc(var(--u) * 22); font-weight: 800; }
+
+/* =========================================================================
+   #bar a biere  (2683 -> 3790)
+   ========================================================================= */
+
+.bar {
+  position: relative;
+  height: calc(var(--u) * 1107);
+  background: var(--creme);
+}
+
+/* les trois arches superposees de la maquette, du fond vers l'avant */
+.arche { position: absolute; border-radius: 50%; }
+.arche-jaune { left: calc(var(--u) * -101); top: 0;                    width: calc(var(--u) * 2109); height: calc(var(--u) * 976); background: #FBDF9A; }
+.arche-brune { left: calc(var(--u) * -24);  top: calc(var(--u) * 35);  width: calc(var(--u) * 1963); height: calc(var(--u) * 874); background: #968251; }
+.arche-beige { left: calc(var(--u) * -44);  top: calc(var(--u) * 51);  width: calc(var(--u) * 2003); height: calc(var(--u) * 899); background: var(--beige); }
+/* le socle prolonge l'arche beige jusqu'au bas de la section */
+.arche-socle {
+  position: absolute;
+  left: calc(var(--u) * -143);
+  top: calc(var(--u) * 372);
+  width: calc(var(--u) * 2198);
+  height: calc(var(--u) * 735);
+  background: var(--beige);
+}
+
+/* #contenu texte (maquette : titre y 2864 -> 181) */
+.bar-contenu {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 165);
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+.bar-contenu h2 {
+  margin: 0 0 calc(var(--u) * 18);
+  color: var(--brun);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+.bar-contenu p {
+  width: calc(var(--u) * 820);
+  margin: 0 auto calc(var(--u) * 30);
+  color: #000;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.85;
+}
+.bar-contenu strong { font-weight: 700; }
+
+/* #bouton "Voir notre carte" */
+.btn-beige {
+  display: inline-grid;
+  place-content: center;
+  width: calc(var(--u) * 276);
+  height: calc(var(--u) * 68);
+  background: var(--brun);
+  border-radius: calc(var(--u) * 34);
+  color: var(--beige);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+}
+.btn-beige:hover { color: var(--beige); opacity: 0.92; }
+
+/* #grande photo du bar, rognee en demi-cercle par le haut */
+.bar-photo {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 400);
+  width: calc(var(--u) * 1920);
+  height: calc(var(--u) * 680);
+  overflow: hidden;
+  border-radius: calc(var(--u) * 900) calc(var(--u) * 900) 0 0;
+}
+.bar-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* #mention legale, en bas a gauche de la photo (maquette : y 3695 -> 1012) */
+.mention-alcool {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 1005);
+  margin: 0;
+  padding: calc(var(--u) * 5) calc(var(--u) * 10);
+  color: #fff;
+  font-size: calc(var(--u) * 16);
+  font-weight: 500;
+  z-index: 3;
+}
+
+/* #frise rayee (maquette : y 3717 -> 1034) */
+.rayures {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 1034);
+  width: calc(var(--u) * 1935);
+  z-index: 3;
+}
+
+/* =========================================================================
+   #infos pratiques  (3790 -> 4440)
+   ========================================================================= */
+
+.infos {
+  position: relative;
+  height: calc(var(--u) * 650);
+  background: var(--creme);
+}
+
+/* #plan d'acces (maquette : x 140, y 3824 -> 34) */
+.infos-plan {
+  position: absolute;
+  left: calc(var(--u) * 140);
+  top: calc(var(--u) * 34);
+  width: calc(var(--u) * 633);
+  height: calc(var(--u) * 521);
+  border: calc(var(--u) * 2) solid var(--brun);
+  border-radius: calc(var(--u) * 22);
+  overflow: hidden;
+}
+.infos-plan img { width: 100%; height: 100%; object-fit: cover; }
+
+/* #coordonnees (maquette : x 967, y 3865 -> 75) */
+.infos-liste {
+  position: absolute;
+  left: calc(var(--u) * 967);
+  top: calc(var(--u) * 60);
+  width: calc(var(--u) * 520);
+}
+.infos-liste h3 {
+  margin: 0 0 calc(var(--u) * 8);
+  padding-left: calc(var(--u) * 62);
+  color: #000;
+  font-size: calc(var(--u) * 25);
+  font-weight: 700;
+}
+.infos-liste p {
+  margin: 0 0 calc(var(--u) * 34);
+  color: #000;
+  font-size: calc(var(--u) * 18);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* =========================================================================
+   #instagram  (4440 -> 5211)
+   ========================================================================= */
+
+.instagram {
+  position: relative;
+  height: calc(var(--u) * 771);
+  background: var(--creme);
+  text-align: center;
+}
+.instagram-titre {
+  margin: 0;
+  padding-top: calc(var(--u) * 32);
+  color: #000;
+  font-size: calc(var(--u) * 25);
+  font-weight: 700;
+}
+/* le mot "Instagram" est ecrit dans la police du logo */
+.instagram-lien {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 16);
+  margin-top: calc(var(--u) * 14);
+  text-decoration: none;
+}
+.instagram-lien img { width: calc(var(--u) * 41); height: calc(var(--u) * 41); border-radius: calc(var(--u) * 10); }
+.instagram-lien span {
+  font-family: var(--police-logo);
+  font-size: calc(var(--u) * 35);
+  color: var(--noir);
+}
+
+/* #galerie : cinq photos legerement inclinees (maquette : y 4472 -> 32) */
+.instagram-galerie {
+  position: absolute;
+  left: calc(var(--u) * 98);
+  top: calc(var(--u) * 130);
+  display: flex;
+  gap: calc(var(--u) * 40);
+}
+.instagram-galerie img {
+  width: calc(var(--u) * 340);
+  height: calc(var(--u) * 455);
   object-fit: cover;
-  display: block;
+  border-radius: calc(var(--u) * 8);
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 18) rgba(0,0,0,0.18);
+}
+/* les inclinaisons relevees dans la maquette */
+.instagram-galerie img:nth-child(1) { transform: rotate(-1.2deg); }
+.instagram-galerie img:nth-child(2) { transform: rotate(0.8deg)  translateY(calc(var(--u) * -6)); }
+.instagram-galerie img:nth-child(3) { transform: rotate(-0.6deg) translateY(calc(var(--u) * -14)); }
+.instagram-galerie img:nth-child(4) { transform: rotate(1deg)    translateY(calc(var(--u) * -22)); }
+.instagram-galerie img:nth-child(5) { transform: rotate(-1.4deg) translateY(calc(var(--u) * -16)); }
+
+/* =========================================================================
+   #bandeau reglementaire  (5211 -> 5368)
+   ========================================================================= */
+
+.bandeau-sante {
+  height: calc(var(--u) * 157);
+  background: var(--gris-bandeau, #525252);
+  display: grid;
+  place-content: center;
+}
+.bandeau-sante img { width: calc(var(--u) * 1282); height: auto; }
+
+/* =========================================================================
+   #mobile
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  /* le hero garde une hauteur d'ecran, les ronds sont plus petits */
+  .hero { height: 78vh; }
+  .hero-rond-gauche { left: 4%;  top: 16%; width: 34vw; height: 34vw; }
+  .hero-rond-droite { right: 4%; left: auto; top: 12%; width: 30vw; height: 30vw; }
+  .hero-titre { top: 46%; font-size: 1.25rem; padding: 0 1rem; }
+  .deco { display: none; }
+  .mousse-haut { top: auto; bottom: 8%; width: 130%; }
+  .mousse-bas  { top: auto; bottom: -2%; width: 130%; }
+  .accroche { top: auto; bottom: 2%; font-size: 1.05rem; }
+  .bouton-remonter { top: 40%; }
+
+  /* toutes les sections repassent en flux normal */
+  .concept, .avis, .bar, .infos, .instagram { height: auto; padding: 2rem 1.2rem; }
+  .concept-titre, .concept-texte-1, .concept-texte-2, .concept-cta,
+  .avis-titre, .bar-contenu, .infos-plan, .infos-liste, .instagram-galerie {
+    position: static;
+    left: auto; top: auto; width: auto;
+  }
+  .concept-titre { font-size: 1.35rem; margin-bottom: 1rem; }
+  .concept-texte-1, .concept-texte-2 { font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.2rem; }
+  .rond, .legende, .pastille, .deco-fleurs-tige { display: none; }
+  .concept-cta { width: 100%; height: 48px; font-size: 1.05rem; }
+
+  .avis-titre { font-size: 1.3rem; margin-bottom: 1rem; }
+  .avis-cartes { position: static; width: 200%; margin-left: -50%; }
+  .avis-carte { display: none; }
+
+  /* la section bar est simplifiee : plus d'arches superposees */
+  .arche, .arche-socle { display: none; }
+  .bar { background: var(--beige); }
+  .bar-contenu h2 { font-size: 1.3rem; }
+  .bar-contenu p { width: auto; font-size: 0.95rem; }
+  .btn-beige { width: 100%; height: 48px; font-size: 1.05rem; }
+  .bar-photo { position: static; width: 100%; height: 220px; border-radius: 120px 120px 0 0; margin-top: 1.5rem; }
+  .mention-alcool { position: static; font-size: 0.7rem; color: var(--brun); }
+  .rayures { position: static; width: 130%; margin: 0 -15%; }
+
+  .infos-plan { height: 240px; margin-bottom: 1.5rem; }
+  .infos-liste h3 { padding-left: 0; font-size: 1.2rem; }
+  .infos-liste p { font-size: 0.95rem; margin-bottom: 1.2rem; }
+
+  .instagram-titre { font-size: 1.2rem; padding-top: 0; }
+  .instagram-lien span { font-size: 1.6rem; }
+  .instagram-galerie { display: flex; gap: 0.6rem; overflow-x: auto; margin-top: 1.2rem; }
+  .instagram-galerie img { flex: 0 0 150px; width: 150px; height: 200px; transform: none !important; }
+
+  .bandeau-sante { height: auto; padding: 1.2rem; }
+  .bandeau-sante img { width: 100%; }
 }

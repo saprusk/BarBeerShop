@@ -1,0 +1,301 @@
+/* =========================================================================
+   PAGES "CREATION DE COMPTE" ET "MODIFICATION DE COMPTE"
+   -------------------------------------------------------------------------
+   Les deux pages partagent exactement la meme mise en page (maquette Adobe XD
+   "Creation compte" et "Modification compte", 1920 x 1838 px).
+   Seule difference : sur la page de modification, les champs sont deja
+   remplis, en vert, avec une petite etiquette au-dessus et une pastille de
+   validation a droite.
+
+   Rappel : "--u" vaut 1 pixel de la maquette (voir commun.css).
+   Chaque ligne de formulaire recoit sa position verticale via la variable
+   "--ligne", ecrite directement dans le HTML : c'est la valeur relevee dans
+   la maquette.
+   ========================================================================= */
+
+/* Zone de la page comprise entre la barre de navigation et le pied de page.
+   La barre de navigation est posee en absolu : elle ne prend pas de place
+   dans le flux, on la compense donc avec une marge en haut.
+   Hauteur = 1838 (page entiere) - 112 (navbar) - 357 (pied) = 1369 */
+.page-compte {
+  position: relative;
+  margin-top: calc(var(--u) * 112);
+  height: calc(var(--u) * 1369);
+  background: var(--creme);
+}
+
+/* #titre de la page (maquette : y 267, centre) */
+.compte-titre {
+  position: absolute;
+  top: calc(var(--u) * 138);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 30);
+  font-weight: 800;
+}
+
+/* #mention "Remplissage du champ obligatoire" (maquette : y 365, x 416) */
+.compte-obligatoire {
+  position: absolute;
+  top: calc(var(--u) * 245);
+  left: calc(var(--u) * 416);
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--u) * 8);
+  color: var(--rouge);
+  font-size: calc(var(--u) * 16);
+  font-weight: 800;
+}
+.compte-obligatoire strong { font-weight: 800; }
+
+/* #etoile rouge des champs obligatoires */
+.etoile {
+  color: var(--rouge);
+  font-size: calc(var(--u) * 45);
+  font-weight: 500;
+  line-height: 0.6;
+}
+
+/* -------------------------------------------------------------------------
+   #champs du formulaire
+   Chaque ligne est placee grace a la variable "--ligne" definie dans le HTML.
+   On retire la hauteur de la navbar (112) pour passer en coordonnees locales.
+   ------------------------------------------------------------------------- */
+.champ-ligne {
+  position: absolute;
+  left: calc(var(--u) * 321);
+  top: calc(var(--u) * (var(--ligne) - 112));
+  width: calc(var(--u) * 560);
+}
+
+/* le champ lui-meme : rectangle arrondi bleu-gris */
+.champ {
+  width: calc(var(--u) * 560);
+  height: calc(var(--u) * 60);
+  padding: 0 calc(var(--u) * 26);
+  background: var(--champ);
+  border: none;
+  border-radius: calc(var(--u) * 30);
+  color: #fff;
+  font-family: var(--police);
+  font-size: calc(var(--u) * 23);
+  font-weight: 500;
+}
+.champ::placeholder { color: #fff; opacity: 1; }
+.champ:focus { outline: calc(var(--u) * 3) solid var(--petrole); }
+
+/* l'etoile posee a droite du champ (maquette : x 880, soit 559 apres le bord) */
+.etoile-champ {
+  position: absolute;
+  left: calc(var(--u) * 559);
+  top: calc(var(--u) * -8);
+}
+
+/* -------------------------------------------------------------------------
+   #photo de profil : grand rond gris avec un "+" au centre
+   (maquette : x 1228, y 451, 414 x 414)
+   ------------------------------------------------------------------------- */
+.photo-profil {
+  position: absolute;
+  left: calc(var(--u) * 1228);
+  top: calc(var(--u) * 339);
+  width: calc(var(--u) * 414);
+  text-align: center;
+}
+.photo-rond {
+  width: calc(var(--u) * 414);
+  height: calc(var(--u) * 414);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #5A5A5A;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+/* le "+" est dessine avec deux barres croisees */
+.photo-plus::before,
+.photo-plus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #C2C2C3;
+}
+.photo-plus::before { width: calc(var(--u) * 96); height: calc(var(--u) * 10); }
+.photo-plus::after  { width: calc(var(--u) * 10); height: calc(var(--u) * 96); }
+/* la photo choisie remplit le rond (page de modification) */
+.photo-rond img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; }
+.photo-legende {
+  margin: calc(var(--u) * 30) 0 0;
+  color: #000;
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+}
+
+/* -------------------------------------------------------------------------
+   #cases a cocher
+   ------------------------------------------------------------------------- */
+.case-ligne {
+  position: absolute;
+  left: calc(var(--u) * 321);
+  top: calc(var(--u) * (var(--ligne) - 112));
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--u) * 30);
+}
+
+/* la case : carre a coins arrondis, contour bleu petrole */
+.case {
+  flex: 0 0 auto;
+  width: calc(var(--u) * 55);
+  height: calc(var(--u) * 56);
+  margin: 0;
+  appearance: none;          /* on retire l'apparence par defaut du navigateur */
+  background: var(--creme);
+  border: calc(var(--u) * 5) solid var(--petrole);
+  border-radius: calc(var(--u) * 12);
+  cursor: pointer;
+  position: relative;
+}
+/* une fois cochee, la case affiche une croix bleue (comme dans la maquette) */
+.case:checked::before,
+.case:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 52);
+  height: calc(var(--u) * 5);
+  background: var(--petrole);
+}
+.case:checked::before { transform: translate(-50%, -50%) rotate(45deg); }
+.case:checked::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.case-texte {
+  margin: calc(var(--u) * 6) 0 0;
+  color: #000;
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.etoile-case { margin-top: calc(var(--u) * 14); }
+
+/* #cercles decoratifs bleus poses entre les deux cases
+   (maquette : un grand vers x 947, un petit vers x 896) */
+.rond-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--petrole);
+}
+.rond-deco-grand { left: calc(var(--u) * 947); top: calc(var(--u) * 901); width: calc(var(--u) * 45); height: calc(var(--u) * 45); }
+.rond-deco-petit { left: calc(var(--u) * 896); top: calc(var(--u) * 963); width: calc(var(--u) * 22); height: calc(var(--u) * 22); }
+
+/* -------------------------------------------------------------------------
+   #bouton d'envoi (maquette : x 722, y 1340, 484 x 68)
+   ------------------------------------------------------------------------- */
+.btn-enregistrer {
+  position: absolute;
+  left: calc(var(--u) * 722);
+  top: calc(var(--u) * 1228);
+  width: calc(var(--u) * 484);
+  height: calc(var(--u) * 68);
+  background: var(--rouge);
+  border: none;
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-family: var(--police);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-enregistrer:hover { opacity: 0.9; }
+
+/* =========================================================================
+   #variante "modification de compte"
+   Les champs sont deja remplis : fond vert, petite etiquette au-dessus,
+   pastille de validation a droite.
+   ========================================================================= */
+
+.champ--rempli {
+  background: var(--champ-ok);
+  padding-right: calc(var(--u) * 70);   /* place pour la pastille */
+}
+
+/* petite etiquette bleue posee a cheval sur le bord haut du champ */
+.champ-etiquette {
+  position: absolute;
+  top: calc(var(--u) * -22);
+  left: calc(var(--u) * 18);
+  padding: calc(var(--u) * 3) calc(var(--u) * 14);
+  background: var(--etiquette);
+  border: calc(var(--u) * 2) solid var(--petrole);
+  border-radius: calc(var(--u) * 14);
+  color: var(--petrole);
+  font-size: calc(var(--u) * 16);
+  font-weight: 500;
+}
+
+/* pastille verte avec une coche, a droite du champ rempli */
+.champ-valide {
+  position: absolute;
+  right: calc(var(--u) * 14);
+  top: calc(var(--u) * 10);
+  width: calc(var(--u) * 40);
+  height: calc(var(--u) * 40);
+  border-radius: 50%;
+  background: var(--check);
+  display: grid;
+  place-content: center;
+}
+.champ-valide svg { width: calc(var(--u) * 22); height: calc(var(--u) * 22); }
+
+/* =========================================================================
+   #mobile
+   Tout repasse en flux normal, sur une seule colonne.
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  .page-compte { height: auto; margin-top: 0; padding: 2rem 1.2rem 3rem; }
+
+  .compte-titre, .compte-obligatoire, .champ-ligne, .case-ligne,
+  .photo-profil, .btn-enregistrer {
+    position: static;
+    left: auto; top: auto;
+    width: auto;
+  }
+  .compte-titre { font-size: 1.35rem; margin-bottom: 1.2rem; }
+  .compte-obligatoire { font-size: 0.85rem; margin-bottom: 1.4rem; }
+  .etoile { font-size: 1.6rem; }
+
+  /* la photo de profil passe avant les champs, centree */
+  .photo-profil { margin: 0 auto 1.8rem; width: 170px; }
+  .photo-rond { width: 170px; height: 170px; }
+  .photo-plus::before { width: 46px; height: 6px; }
+  .photo-plus::after  { width: 6px; height: 46px; }
+  .photo-legende { font-size: 0.95rem; margin-top: 0.8rem; }
+
+  .champ-ligne { margin-bottom: 1.1rem; position: relative; }
+  .champ { width: 100%; height: 48px; font-size: 1rem; padding: 0 1.1rem; border-radius: 24px; }
+  .champ--rempli { padding-right: 3rem; }
+  .etoile-champ { position: absolute; right: -0.9rem; top: 0.2rem; }
+  .champ-etiquette { top: -0.7rem; font-size: 0.75rem; padding: 2px 8px; border-width: 1px; }
+  .champ-valide { width: 28px; height: 28px; right: 10px; top: 10px; }
+  .champ-valide svg { width: 16px; height: 16px; }
+
+  .case-ligne { margin-bottom: 1rem; gap: 0.8rem; position: relative; }
+  .case { width: 34px; height: 34px; border-width: 3px; border-radius: 8px; }
+  .case:checked::before, .case:checked::after { width: 30px; height: 3px; }
+  .case-texte { font-size: 0.95rem; margin-top: 0; }
+  .etoile-case { margin-top: 0; }
+  .rond-deco { display: none; }
+
+  .btn-enregistrer { width: 100%; height: 52px; font-size: 1.05rem; margin-top: 1.5rem; }
+}

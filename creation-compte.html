@@ -1,0 +1,156 @@
+<!doctype html>
+<!-- =========================================================================
+     BARBEERSHOP - CREATION DE COMPTE
+     Reproduction de la maquette Adobe XD "Creation compte" (1920 x 1838 px).
+     ========================================================================= -->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BarBeerShop - Créer mon compte</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
+    <!-- Bootstrap : base CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Police du logo (Adobe Fonts) -->
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <!-- Styles communs a tout le site, puis styles de cette page -->
+    <link href="commun.css" rel="stylesheet">
+    <link href="compte-formulaire.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- =====================================================================
+         BARRE DE NAVIGATION (version reduite : pas de boutons de reservation)
+         ===================================================================== -->
+    <header class="barre-nav barre-nav--simple">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="nav-menu-deux-lignes">NOTRE<br>CONCEPT</a>
+      </nav>
+
+      <!-- #bouton bascule jour / nuit -->
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+    </header>
+
+    <!-- =====================================================================
+         FORMULAIRE DE CREATION DE COMPTE
+         ===================================================================== -->
+    <main class="page-compte">
+
+      <!-- #titre de la page -->
+      <h1 class="compte-titre">Prenez le temps de créer votre compte …</h1>
+
+      <!-- #mention des champs obligatoires -->
+      <p class="compte-obligatoire">
+        <span class="etoile">*</span> Remplissage du champ <strong>obligatoire</strong>
+      </p>
+
+      <form class="compte-form">
+
+        <!-- #champ prénom (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 417">
+          <label class="hors-ecran" for="prenom">Prénom</label>
+          <input class="champ" id="prenom" type="text" placeholder="Prénom…">
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ nom (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 545">
+          <label class="hors-ecran" for="nom">Nom</label>
+          <input class="champ" id="nom" type="text" placeholder="Nom…">
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ date de naissance (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 674">
+          <label class="hors-ecran" for="naissance">Date de naissance</label>
+          <input class="champ" id="naissance" type="text" placeholder="Date de naissance 00 / 00 / 0000">
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ e-mail (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 802">
+          <label class="hors-ecran" for="email">Adresse e-mail</label>
+          <input class="champ" id="email" type="email" placeholder="Nom.prénom@mail.com..">
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ téléphone (facultatif : pas d'étoile) -->
+        <div class="champ-ligne" style="--ligne: 930">
+          <label class="hors-ecran" for="tel">Téléphone</label>
+          <input class="champ" id="tel" type="tel" placeholder="Téléphone +33 00 00 00 00">
+        </div>
+
+        <!-- #photo de profil : gros rond gris avec un "+" -->
+        <div class="photo-profil">
+          <button type="button" class="photo-rond" aria-label="Ajouter une photo de profil">
+            <span class="photo-plus" aria-hidden="true"></span>
+          </button>
+          <p class="photo-legende">Ajouter une photo de profil</p>
+        </div>
+
+        <!-- #case à cocher : conditions générales (obligatoire) -->
+        <div class="case-ligne" style="--ligne: 1061">
+          <input class="case" id="cgu" type="checkbox">
+          <label class="case-texte" for="cgu">J’accepte les conditions général<br>d’utilisations CGU</label>
+          <span class="etoile etoile-case">*</span>
+        </div>
+
+        <!-- #case à cocher : newsletter (facultatif) -->
+        <div class="case-ligne" style="--ligne: 1185">
+          <input class="case" id="newsletter" type="checkbox">
+          <label class="case-texte" for="newsletter">Je veux recevoir la Newsletter</label>
+        </div>
+
+        <!-- #cercles décoratifs bleus, à droite des cases -->
+        <span class="rond-deco rond-deco-grand" aria-hidden="true"></span>
+        <span class="rond-deco rond-deco-petit" aria-hidden="true"></span>
+
+        <!-- #bouton d'envoi -->
+        <button type="submit" class="btn-enregistrer">Enregistrer mes informations</button>
+      </form>
+    </main>
+
+    <!-- =====================================================================
+         PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p>
+          <strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+          <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+          Samedi et événement spécial 1h
+        </p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
+        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="commun.js"></script>
+  </body>
+</html>

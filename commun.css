@@ -1,0 +1,343 @@
+/* =========================================================================
+   STYLES COMMUNS A TOUTES LES PAGES
+   -------------------------------------------------------------------------
+   Ce fichier contient ce qui se repete sur chaque page :
+     - les polices du site
+     - l'unite de mesure calee sur la maquette
+     - les couleurs
+     - la barre de navigation (2 variantes)
+     - le bouton "remonter en haut"
+     - le pied de page
+
+   L'UNITE "--u" (le principe de tout le site)
+   La maquette Adobe XD fait 1920 px de large. Pour que la page ressemble a
+   la maquette QUELLE QUE SOIT la taille de l'ecran, on definit une unite
+   qui vaut 1 pixel de la maquette :
+        --u = largeur reelle de la page / 1920
+   Ainsi, quand la maquette dit "ce titre fait 30 px", on ecrit :
+        font-size: calc(var(--u) * 30);
+   Le fichier commun.js recalcule cette valeur au chargement et au
+   redimensionnement de la fenetre.
+   ========================================================================= */
+
+/* =========================================================================
+   #polices
+   PP Formula = police principale (fichiers dans sources/fonts/)
+   DeLittle Chromatic = police du logo, chargee depuis Adobe Fonts par le
+   <link> place dans le <head> de chaque page
+   ========================================================================= */
+
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Thin.woff2")      format("woff2"); font-weight: 100; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Regular.woff2")   format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Medium.woff2")    format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Bold.woff2")      format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Extrabold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Black.woff2")     format("woff2"); font-weight: 900; font-display: swap; }
+
+/* =========================================================================
+   #couleurs de la charte (relevees dans la maquette)
+   ========================================================================= */
+
+:root {
+  --noir: #1A1A1E;         /* barre de navigation et pied de page */
+  --creme: #FFFEF8;        /* fond clair et textes clairs */
+  --rouge: #E13950;        /* accents, boutons */
+  --brun: #695E45;         /* grande zone de la page Barber */
+  --beige: #DDCDB0;        /* bandes de bas de page */
+  --petrole: #18536C;      /* cercles et bulles decoratives */
+  --champ: #91ACB6;        /* fond des champs de formulaire */
+  --champ-ok: #7FCB8B;     /* champ rempli et valide */
+  --check: #8EE09B;        /* pastille de validation */
+  --etiquette: #DBE4E8;    /* petite etiquette au-dessus d'un champ rempli */
+  --gris-bandeau: #525252; /* bandeau reglementaire en bas des pages */
+
+  --police: "PP Formula", system-ui, sans-serif;
+  --police-logo: "delittle-chromatic", "PP Formula", sans-serif;
+}
+
+/* #mode nuit ("Night Shift" de la maquette)
+   En comparant les deux versions de la maquette, une seule couleur change :
+   le creme devient un ton plus chaud. On ne touche a rien d'autre. */
+html.nuit {
+  --creme: #FDF2DD;
+}
+
+/* =========================================================================
+   #base
+   ========================================================================= */
+
+html {
+  overflow-x: hidden;   /* certains elements debordent volontairement */
+}
+
+body {
+  /* valeur de depart ; commun.js la recalcule avec la largeur reelle */
+  --u: calc(100vw / 1920);
+  margin: 0;
+  font-family: var(--police);
+  background-color: var(--creme);
+  overflow-x: hidden;
+  transition: background-color 0.3s;
+}
+
+/* Les bordures sont comptees dans la largeur annoncee */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Masque un texte a l'ecran tout en le laissant lisible par les lecteurs
+   d'ecran (utilise pour les etiquettes de formulaire) */
+.hors-ecran {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================================================
+   #barre de navigation
+   Deux variantes :
+     .barre-nav              -> version complete (Accueil, Barber, Bar,
+                                Notre Concept) : logo, boutons de reservation,
+                                bascule jour/nuit, compte, menu
+     .barre-nav--simple      -> version reduite (pages de compte) :
+                                logo, menu, bascule jour/nuit
+   ========================================================================= */
+
+.barre-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--u) * 212);
+  background: var(--noir);
+  z-index: 20;
+}
+
+/* #logo */
+.nav-logo {
+  position: absolute;
+  left: calc(var(--u) * 140);
+  top: calc(var(--u) * 42);
+}
+.nav-logo img { height: calc(var(--u) * 78); width: auto; display: block; }
+
+/* #groupe des boutons de reservation : pilule blanche contenant le bouton
+   rouge "Prendre RDV" a gauche et le lien "Reserver ma soiree" a droite */
+.nav-reservation {
+  position: absolute;
+  left: calc(var(--u) * 716);
+  top: calc(var(--u) * 43);
+  width: calc(var(--u) * 494);
+  height: calc(var(--u) * 73);
+  padding: calc(var(--u) * 2);
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: calc(var(--u) * 36);
+}
+.nav-btn-rdv {
+  width: calc(var(--u) * 245);
+  height: calc(var(--u) * 69);
+  display: grid;
+  place-content: center;
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 36);
+  color: #fff;
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-btn-rdv:hover { color: #fff; opacity: 0.92; }
+.nav-btn-soiree {
+  flex: 1;
+  text-align: center;
+  color: var(--noir);
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  line-height: 1.05;
+  text-decoration: none;
+}
+.nav-btn-soiree:hover { color: var(--rouge); }
+
+/* #bouton bascule jour / nuit */
+.nav-bascule {
+  position: absolute;
+  left: calc(var(--u) * 1247);
+  top: calc(var(--u) * 54);
+  width: calc(var(--u) * 52);
+  height: calc(var(--u) * 52);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.nav-bascule img { width: 100%; height: 100%; display: block; }
+.nav-bascule:hover { transform: rotate(25deg); }
+html.nuit .nav-bascule { transform: rotate(180deg); }
+html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
+
+/* #photo de profil du compte */
+.nav-compte {
+  position: absolute;
+  left: calc(var(--u) * 1674);
+  top: calc(var(--u) * 44);
+  width: calc(var(--u) * 86);
+  height: calc(var(--u) * 86);
+  border-radius: 50%;
+  overflow: hidden;
+}
+.nav-compte img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
+
+/* #menu principal */
+.nav-menu {
+  position: absolute;
+  top: calc(var(--u) * 148);
+  left: 0;
+  width: 100%;
+  height: calc(var(--u) * 64);
+}
+.nav-menu a {
+  position: absolute;
+  color: #fff;
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-menu a:hover { color: var(--rouge); }
+.nav-menu a:nth-child(1) { left: calc(var(--u) * 652);  top: calc(var(--u) * 12); }
+.nav-menu a:nth-child(2) { left: calc(var(--u) * 854);  top: calc(var(--u) * 12); }
+.nav-menu a:nth-child(3) { left: calc(var(--u) * 1061); top: calc(var(--u) * 12); }
+.nav-menu a:nth-child(4) { left: calc(var(--u) * 1275); top: 0; font-size: calc(var(--u) * 22); text-align: center; }
+/* la page en cours est soulignee, comme dans la maquette */
+.nav-menu a.actif { text-decoration: underline; text-underline-offset: calc(var(--u) * 5); }
+
+/* --- variante reduite, utilisee par les pages de compte ---
+   Le menu est remonte au centre de la barre, la bascule passe a droite,
+   et il n'y a ni boutons de reservation ni photo de profil. */
+.barre-nav--simple { height: calc(var(--u) * 112); }
+.barre-nav--simple .nav-logo { top: calc(var(--u) * 18); }
+.barre-nav--simple .nav-menu { top: calc(var(--u) * 48); height: calc(var(--u) * 64); }
+.barre-nav--simple .nav-menu a:nth-child(1) { left: calc(var(--u) * 649); top: 0; }
+.barre-nav--simple .nav-menu a:nth-child(2) { left: calc(var(--u) * 851); top: 0; }
+.barre-nav--simple .nav-menu a:nth-child(3) { left: calc(var(--u) * 1058); top: 0; }
+.barre-nav--simple .nav-menu a:nth-child(4) { left: calc(var(--u) * 1272); top: calc(var(--u) * -13); }
+.barre-nav--simple .nav-bascule { left: calc(var(--u) * 1427); top: calc(var(--u) * 31); }
+
+/* =========================================================================
+   #bouton "remonter en haut de page"
+   Pastille rouge collee au bord gauche, elle depasse volontairement.
+   ========================================================================= */
+
+.bouton-remonter {
+  position: absolute;
+  left: calc(var(--u) * -36);
+  width: calc(var(--u) * 120);
+  z-index: 15;
+}
+.bouton-remonter img { width: 100%; display: block; }
+
+/* =========================================================================
+   #pied de page (identique sur toutes les pages)
+   ========================================================================= */
+
+.pied {
+  height: calc(var(--u) * 357);
+  padding: calc(var(--u) * 52) calc(var(--u) * 140) 0;
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--u) * 40);
+  background: var(--noir);
+  color: var(--creme);
+}
+.pied-colonne h3 {
+  margin: 0 0 calc(var(--u) * 16);
+  font-size: calc(var(--u) * 25);
+  font-weight: 700;
+}
+.pied-colonne p {
+  margin: 0;
+  font-size: calc(var(--u) * 18);
+  font-weight: 500;
+  line-height: 1.75;
+}
+.pied-colonne a { color: var(--creme); text-decoration: none; }
+.pied-colonne a:hover { text-decoration: underline; }
+.pied-colonne-droite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 34);
+}
+.pied-newsletter {
+  width: calc(var(--u) * 518);
+  height: calc(var(--u) * 68);
+  padding: 0 calc(var(--u) * 30);
+  background: transparent;
+  border: calc(var(--u) * 2) solid var(--creme);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-family: var(--police);
+  font-size: calc(var(--u) * 23);
+  font-weight: 100;
+}
+.pied-newsletter::placeholder { color: var(--creme); opacity: 0.85; }
+.pied-reseaux { height: calc(var(--u) * 76); }
+
+/* =========================================================================
+   #mobile : reglages communs (ecrans etroits)
+   ========================================================================= */
+
+@media (max-width: 768px) {
+
+  /* barre de navigation : tout passe en flux normal, sur plusieurs lignes */
+  .barre-nav {
+    position: static;
+    height: auto;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .nav-logo, .nav-reservation, .nav-bascule, .nav-compte, .nav-menu {
+    position: static;
+    transform: none;
+  }
+  .nav-logo img { height: 38px; }
+  .nav-reservation { order: 4; width: 100%; height: 46px; margin-top: 0.4rem; }
+  .nav-btn-rdv { width: 50%; height: 42px; font-size: 0.95rem; }
+  .nav-btn-soiree { font-size: 0.9rem; }
+  .nav-bascule { width: 34px; height: 34px; margin-left: auto; }
+  .nav-compte { width: 40px; height: 40px; }
+  .nav-menu {
+    order: 5;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+  }
+  .nav-menu a { position: static; font-size: 0.85rem; text-align: center; }
+  .barre-nav--simple { height: auto; }
+
+  .bouton-remonter { width: 62px; }
+
+  /* pied de page : colonnes empilees */
+  .pied {
+    height: auto;
+    flex-direction: column;
+    padding: 2rem 1.2rem;
+    gap: 1.8rem;
+  }
+  .pied-colonne h3 { font-size: 1.2rem; }
+  .pied-colonne p { font-size: 0.92rem; }
+  .pied-colonne-droite { align-items: flex-start; }
+  .pied-newsletter { width: 100%; height: 46px; font-size: 1rem; padding: 0 1.2rem; border-width: 2px; }
+  .pied-reseaux { height: 38px; }
+}

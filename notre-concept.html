@@ -1,61 +1,249 @@
 <!doctype html>
-<html lang="en">
+<!-- =========================================================================
+     BARBEERSHOP - NOTRE CONCEPT
+     Reproduction de la maquette Adobe XD "Concept" (1920 x 6025 px).
+
+     Decoupage vertical :
+       Bulles du concept ....    0 -> 1230
+       Deux services ........ 1230 -> 1960
+       Produits ayurvediques  1960 -> 4000
+       Notre equipe ......... 4000 -> 4900
+       Instagram ............ 4900 -> 5668
+       Pied de page ......... 5668 -> 6025
+     ========================================================================= -->
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BarBeerShop - Notre Concept</title>
+    <title>BarBeerShop - Notre concept</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="Accueil.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <link href="commun.css" rel="stylesheet">
     <link href="notre-concept.css" rel="stylesheet">
   </head>
+
   <body>
+    <!-- =====================================================================
+         BARRE DE NAVIGATION
+         ===================================================================== -->
+    <header class="barre-nav">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+      <div class="nav-reservation">
+        <a class="nav-btn-rdv" href="#rdv">Prendre RDV</a>
+        <a class="nav-btn-soiree" href="#soiree">Réserver<br>ma soirée</a>
+      </div>
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+      <a class="nav-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="actif" aria-current="page">NOTRE<br>CONCEPT</a>
+      </nav>
+    </header>
+
+    <!-- =====================================================================
+         1. LES TROIS BULLES DU CONCEPT
+         Trois photos rondes reliees par des traits rouges, avec les bulles
+         de legende BARBER, BAR et Notre CONCEPT.
+         ===================================================================== -->
+    <section class="bulles-concept">
+      <a class="bouton-remonter" href="#" aria-label="Remonter en haut de page">
+        <img src="sources/bouton-remonter.svg" alt="">
+      </a>
+
+      <!-- #traits rouges qui relient les trois bulles entre elles -->
+      <svg class="liens" viewBox="0 0 1920 1230" aria-hidden="true" preserveAspectRatio="none">
+        <path d="M548 700 C560 800 660 830 760 810" fill="none" stroke="#E13950" stroke-width="3"/>
+        <path d="M947 560 C990 660 900 780 830 800" fill="none" stroke="#E13950" stroke-width="3"/>
+        <path d="M760 830 C560 900 330 980 250 1200" fill="none" stroke="#E13950" stroke-width="3"/>
+        <path d="M860 790 C1050 720 1180 640 1230 560" fill="none" stroke="#E13950" stroke-width="3"/>
+      </svg>
+
+      <!-- #photo ronde : le salon (a gauche) -->
+      <div class="cercle cercle-salon"><img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure"></div>
+      <!-- #photo ronde : le mur de briques (au centre) -->
+      <div class="cercle cercle-briques"><img src="sources/bar-briques.webp" alt="La salle du bar"></div>
+      <!-- #photo ronde : l'ambiance du bar (a droite, la plus grande) -->
+      <div class="cercle cercle-ambiance"><img src="sources/bar-ambiance.webp" alt="L'ambiance du bar à bières"></div>
+
+      <!-- #bulles de legende -->
+      <span class="bulle bulle-barber">BARBER</span>
+      <span class="bulle bulle-bar">BAR<small>À bières</small></span>
+      <span class="bulle bulle-concept">Notre<br><strong>CONCEPT</strong></span>
+
+      <!-- #fleur rouge decorative -->
+      <img class="deco fleur-tige" src="sources/fleur-rouge-tige.svg" alt="">
+
+      <!-- #texte d'introduction -->
+      <p class="intro-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         2. DEUX SERVICES
+         ===================================================================== -->
+    <section class="services">
+      <!-- #photo ronde qui deborde a droite -->
+      <div class="cercle cercle-piano"><img src="sources/concept-piano.webp" alt="Le coin salon du bar"></div>
+      <!-- #photo ronde qui deborde a gauche -->
+      <div class="cercle cercle-briques-2"><img src="sources/bar-briques.webp" alt="Le mur de briques du bar"></div>
+
+      <h2 class="services-titre">Deux Services</h2>
+
+      <p class="services-texte-1">
+        suscipit lobortis nisl ut aliquip ex ea commodo consequat. <strong>Duis autem</strong> vel eum iriure dolor in
+        hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+        eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
+        dolore te feugait nulla facilisi.<br>Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam
+      </p>
+
+      <p class="services-texte-2">
+        Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip
+        ex ea commodo consequat.<br>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+      </p>
+
+      <p class="services-texte-3">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         3. GAMME DE PRODUITS AYURVEDIQUES
+         Une grille de 12 produits, 3 par rangee.
+         ===================================================================== -->
+    <section class="produits-ayur">
+      <h2 class="produits-titre">Notre gammes de produits Ayurvédiques</h2>
+
+      <p class="produits-texte">
+        suscipit lobortis nisl ut aliquip ex ea commodo consequat. <strong>Duis autem</strong> vel eum iriure dolor in
+        hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+        eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
+        dolore te feugait nulla facilisi.<br>Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam
+      </p>
+
+      <!-- #fleurs rouges decoratives autour de la grille -->
+      <img class="deco fleur-p1" src="sources/fleur-c3.svg" alt="">
+      <img class="deco fleur-p2" src="sources/fleur-c4.svg" alt="">
+      <img class="deco fleur-p3" src="sources/fleur-c1.svg" alt="">
+      <img class="deco fleur-p4" src="sources/fleur-c2.svg" alt="">
+
+      <!-- #grille des produits -->
+      <div class="grille-produits">
+        <figure><img src="sources/produit-1.webp"  alt="Brume parfumée à la rose"><figcaption>Brume parfumée à la rose</figcaption></figure>
+        <figure><img src="sources/produit-2.webp"  alt="Après-shampoing Hydratant"><figcaption>Après-shampoing Hydratant</figcaption></figure>
+        <figure><img src="sources/produit-3.webp"  alt="Spray Coiffant à la rose"><figcaption>Spray Coiffant à la rose</figcaption></figure>
+        <figure><img src="sources/produit-4.webp"  alt="Masque brillance"><figcaption>Masque brillance</figcaption></figure>
+        <figure><img src="sources/produit-5.webp"  alt="Huile pour les cheveux"><figcaption>Huile pour les cheveux</figcaption></figure>
+        <figure><img src="sources/produit-6.webp"  alt="Shampoing rééquilibrant"><figcaption>Shampoing rééquilibrant</figcaption></figure>
+        <figure><img src="sources/produit-7.webp"  alt="Masque exfoliant à la rose"><figcaption>Masque exfoliant à la rose</figcaption></figure>
+        <figure><img src="sources/produit-8.webp"  alt="Shampoing détox concentré"><figcaption>Shampoing détox concentré</figcaption></figure>
+        <figure><img src="sources/produit-9.webp"  alt="Brume parfumée à la rose"><figcaption>Brume parfumée à la rose</figcaption></figure>
+        <figure><img src="sources/produit-10.webp" alt="Après shampoing volume"><figcaption>Après shampoing volume</figcaption></figure>
+        <figure><img src="sources/produit-11.webp" alt="Shampoing Hydratant"><figcaption>Shampoing Hydratant</figcaption></figure>
+        <figure><img src="sources/produit-12.webp" alt="Huile cheveux à la rose"><figcaption>Huile cheveux à la rose</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4. NOTRE EQUIPE : les cinq membres, en illustrations
+         ===================================================================== -->
+    <section class="equipe-concept">
+      <h2 class="equipe-titre">Notre Équipe</h2>
+
+      <div class="equipe-liste">
+        <figure class="membre">
+          <img src="sources/eq-thomas.svg" alt="Illustration de Thomas">
+          <figcaption><strong>Thomas</strong><span>Barber</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-rosalie.svg" alt="Illustration de Rosalie">
+          <figcaption><strong>Rosalie</strong><span>Coiffeuse</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-cassandre.svg" alt="Illustration de Cassandre">
+          <figcaption><strong>Cassandre</strong><span>Serveuse</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-julie.svg" alt="Illustration de Julie">
+          <figcaption><strong>Julie</strong><span>Serveuse</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-yves.svg" alt="Illustration de Yves">
+          <figcaption><strong>Yves</strong><span>Barber</span></figcaption>
+        </figure>
+      </div>
+
+      <p class="equipe-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         5. INSTAGRAM : l'equipe a l'oeuvre
+         ===================================================================== -->
+    <section class="instagram-concept">
+      <h2 class="instagram-titre">Pour voir notre équipe à l’oeuvre :</h2>
+
+      <div class="instagram-galerie">
+        <img src="sources/insta-1.webp" alt="Coloration en cours au salon">
+        <img src="sources/insta-2.webp" alt="Les produits capillaires du salon">
+        <img src="sources/insta-3.webp" alt="Coupe homme terminée">
+        <img src="sources/insta-4.webp" alt="Service au bar à bières">
+        <img src="sources/insta-5.webp" alt="Dégradé et finitions">
+      </div>
+
+      <a class="instagram-lien" href="https://instagram.com" target="_blank" rel="noopener">
+        <img src="sources/icone-instagram.webp" alt="">
+        <span>Instagram</span>
+      </a>
+    </section>
+
+    <!-- =====================================================================
+         PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p><strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+           <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+           Samedi et événement spécial 1h</p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
+        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
-    <!-- NAVBAR -->
-    <!-- Couleur de la navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-      <div class="container-fluid">
-        <!-- Logo dans la navbar -->
-        <a class="navbar-brand" href="Accueil.html">BarBeerShop</a>
-        <!-- Boutons de la navbar -->
-        <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
-        <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
-        <!-- Bouton burger -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Bouton rond Compte -->
-        <button type="button" class="bouton-rond">
-          <img src="sources/Image-temporaire.webp" alt="photo de profil">
-        </button>
-        <!-- Menu de la navbar -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Accueil.html">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Bar.html">Bar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="barber.html">Barber</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="notre-concept.html">Notre Concept</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Bloc image de fond + texte + bouton -->
-    <div class="hero-page">
-      <img src="sources/Image-temporaire.webp" alt="image temporaire">
-      <div class="hero-page-contenu">
-        <h1>Notre Concept</h1>
-        <p>Texte de presentation temporaire du concept.</p>
-        <button type="button" class="btn btn-lg hero-page-bouton">En savoir plus</button>
-      </div>
-    </div>
+    <script src="commun.js"></script>
   </body>
 </html>
