@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
 
     <!-- commun.css : styles COMMUNS a tout le site (polices, navbar, pied) -->
-    <link href="commun.css" rel="stylesheet">
+    <link href="commun.css?v=2" rel="stylesheet">
     <!-- barber.css : styles PROPRES a cette page -->
-    <link href="barber.css" rel="stylesheet">
+    <link href="barber.css?v=2" rel="stylesheet">
   </head>
 
   <body>
@@ -85,7 +85,7 @@
         <!-- "actif" = page en cours -->
         <a href="barber.html" class="actif" aria-current="page">BARBER</a>
         <a href="Bar.html">BAR</a>
-        <a href="notre-concept.html" class="nav-menu-deux-lignes">NOTRE<br>CONCEPT</a>
+        <a href="notre-concept.html">NOTRE<br>CONCEPT</a>
       </nav>
     </header>
 
@@ -109,12 +109,12 @@
           <strong>Carte de Fidélité Digitalisée</strong><br><br>
           Grâce à la création d’un compte
         </p>
-        <!-- #bouton creer mon compte -->
+        <!-- #bouton creer mon compte : pose a cheval sur l'arete basse -->
         <a class="btn-creer-compte" href="#creer-compte">Créer mon compte</a>
-      </div>
 
-      <!-- #visuel de la carte de fidelite, penche a droite du panneau -->
-      <img src="sources/carte-fidelite.svg" alt="" class="carte-fidelite-visuel">
+        <!-- #visuel de la carte de fidelite, cale sur l'angle haut-droit -->
+        <img src="sources/carte-fidelite.svg" alt="" class="carte-fidelite-visuel">
+      </div>
     </section>
 
     <!-- =====================================================================
@@ -136,8 +136,11 @@
         <img src="sources/bulles-523.svg" alt="" class="bulle bulle-523">
       </div>
 
-      <!-- #fleche vers le bas (invite a descendre) -->
-      <img src="sources/fleche-bas.svg" alt="" class="fleche-bas">
+      <!-- #invitation a descendre vers les formules, avec sa fleche -->
+      <p class="invite-formules">
+        Pour voir nos <strong>différentes formules</strong>
+        <img src="sources/fleche-bas.svg" alt="" class="fleche-bas">
+      </p>
 
       <!-- #titre de la section formules -->
       <h2 class="titre-formules">Nos Formules</h2>
@@ -163,7 +166,9 @@
 
             <!-- #formule : Formule VIP Barber & Relax -->
             <article class="formule">
-              <h3 class="formule-titre">Formule VIP Barber<br>& Relax</h3>
+              <h3 class="formule-titre">Formule VIP Barber<br>&amp; Relax</h3>
+              <!-- picto fleur : formule de la gamme ayurvedique -->
+              <img src="sources/fleur-3.svg" alt="" class="formule-fleur">
               <ul class="formule-liste">
                 <li>Diagnostic personnalisé cheveux &amp; style</li>
                 <li>Coupe signature barber</li>
@@ -192,6 +197,8 @@
                  se pose sur l'arete basse de la photo. -->
             <article class="formule formule-avec-photo">
               <h3 class="formule-titre">Formule Soin Signature</h3>
+              <!-- picto fleur : formule de la gamme ayurvedique -->
+              <img src="sources/fleur-3.svg" alt="" class="formule-fleur">
               <ul class="formule-liste">
                 <li>Coupe personnalisée</li>
                 <li>Shampoing ayurvédique adapté au type de cheveux</li>
@@ -210,6 +217,8 @@
             <!-- #formule : Coupe + Rituel Masque Ayurvedique -->
             <article class="formule">
               <h3 class="formule-titre">Coupe<br>+ Rituel Masque Ayurvédique</h3>
+              <!-- picto fleur : formule de la gamme ayurvedique -->
+              <img src="sources/fleur-3.svg" alt="" class="formule-fleur">
               <ul class="formule-liste">
                 <li>Coupe personnalisée</li>
                 <li>Application d’un masque ayurvédique nourrissant</li>
@@ -222,6 +231,8 @@
             <!-- #formule : Rituel Total Ayurvedique -->
             <article class="formule">
               <h3 class="formule-titre">Rituel Total Ayurvédique</h3>
+              <!-- picto fleur : formule de la gamme ayurvedique -->
+              <img src="sources/fleur-3.svg" alt="" class="formule-fleur">
               <ul class="formule-liste">
                 <li>Coupe premium personnalisée</li>
                 <li>Shampoing ayurvédique</li>
@@ -246,12 +257,22 @@
       <div class="aide-reservation">
         <p>Sélectionnez votre formule<br>pour réserver<br>votre RDV</p>
         <!-- fleche bouclee dessinee directement en SVG -->
-        <svg class="aide-fleche" viewBox="0 0 200 120" aria-hidden="true">
-          <path d="M188 8 C188 60 150 96 108 96 C78 96 58 78 58 58 C58 42 70 30 84 30
-                   C96 30 106 39 106 51 C106 66 92 76 74 76 C50 76 32 60 26 40"
-                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-          <path d="M26 40 L18 22 M26 40 L44 34" fill="none" stroke="currentColor"
-                stroke-width="3" stroke-linecap="round"/>
+        <!-- Elle part du texte, fait une boucle, et pointe vers les formules
+             situees a gauche. -->
+        <svg class="aide-fleche" viewBox="0 0 260 150" aria-hidden="true">
+          <!-- le trait : descend, boucle une fois, puis file vers la gauche -->
+          <path d="M232 10
+                   C232 62 214 104 176 118
+                   C150 128 126 116 126 96
+                   C126 80 142 72 156 80
+                   C172 89 170 116 150 126
+                   C122 140 78 136 40 124"
+                fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- la pointe de la fleche -->
+          <path d="M40 124 L62 122 M40 124 L58 138"
+                fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
@@ -260,8 +281,14 @@
            Carte rouge collee a gauche, avec la photo posee derriere le haut.
            ================================================================= -->
       <div class="produits">
-        <!-- photo qui depasse derriere le haut de la carte -->
+        <!-- #effet "pot de bouchon"
+             Trois couches superposees, comme dans la maquette :
+               1. la photo des produits, tout au fond
+               2. une plaque grisatre translucide qui floute la photo
+               3. la carte rouge, elle aussi translucide et floutee
+             C'est ce qui donne l'impression d'un couvercle pose sur un pot. -->
         <img src="sources/produits.webp" alt="" class="produits-photo">
+        <div class="produits-bouchon"></div>
 
         <!-- carte rouge -->
         <div class="produits-carte">

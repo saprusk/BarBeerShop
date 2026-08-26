@@ -91,7 +91,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(var(--u) * 212);
+  height: calc(var(--u) * 226);
   background: var(--noir);
   z-index: 20;
 }
@@ -100,7 +100,7 @@ body {
 .nav-logo {
   position: absolute;
   left: calc(var(--u) * 140);
-  top: calc(var(--u) * 42);
+  top: calc(var(--u) * 49);
 }
 .nav-logo img {
   height: calc(var(--u) * 78);
@@ -110,10 +110,15 @@ body {
 
 /* #groupe des boutons de reservation
    Pilule blanche (maquette : x 716, y 43, 494 x 73, rayon 36) */
+/* #groupe des deux boutons de reservation
+   Une pilule blanche qui contient DEUX liens et, derriere eux, une pastille
+   rouge qui GLISSE de l'un a l'autre au survol. Le lien survole passe en
+   blanc, l'autre revient au noir. */
 .nav-reservation {
+  position: relative;
   position: absolute;
   left: calc(var(--u) * 716);
-  top: calc(var(--u) * 43);
+  top: calc(var(--u) * 50);
   width: calc(var(--u) * 494);
   height: calc(var(--u) * 73);
   background: #fff;
@@ -123,40 +128,55 @@ body {
   padding: calc(var(--u) * 2);
 }
 
-/* #bouton prendre rdv : pilule rouge dans la pilule blanche
-   (maquette : 245 x 69) */
-.nav-btn-rdv {
+/* la pastille rouge qui coulisse : posee derriere les deux liens */
+.nav-reservation::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * 2);
+  top: calc(var(--u) * 2);
   width: calc(var(--u) * 245);
   height: calc(var(--u) * 69);
-  display: grid;
-  place-content: center;
   background: var(--rouge);
   border-radius: calc(var(--u) * 36);
-  color: #fff;
+  transition: transform 0.3s ease;
+}
+/* au survol de "Reserver ma soiree", la pastille glisse vers la droite */
+.nav-reservation:has(.nav-btn-soiree:hover)::before {
+  transform: translateX(calc(var(--u) * 245));
+}
+
+.nav-btn-rdv,
+.nav-btn-soiree {
+  position: relative;      /* passe devant la pastille rouge */
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  height: calc(var(--u) * 69);
   font-size: calc(var(--u) * 23);
   font-weight: 800;
+  text-align: center;
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.3s;
 }
-.nav-btn-rdv:hover { color: #fff; opacity: 0.92; }
+/* au repos : "Prendre RDV" est sur le rouge, donc en blanc */
+.nav-btn-rdv    { width: calc(var(--u) * 245); color: #fff; }
+.nav-btn-soiree { flex: 1; color: var(--noir); line-height: 1.05; }
 
-/* #bouton reserver ma soiree : sur le fond blanc, sur deux lignes */
-.nav-btn-soiree {
-  flex: 1;
-  text-align: center;
-  color: var(--noir);
-  font-size: calc(var(--u) * 23);
-  font-weight: 800;
-  line-height: 1.05;
-  text-decoration: none;
-}
-.nav-btn-soiree:hover { color: var(--rouge); }
+/* on annule les survols simples herites du fichier commun : ici c'est la
+   pastille qui glisse qui porte tout l'effet */
+.nav-btn-rdv:hover    { color: #fff; opacity: 1; }
+.nav-btn-soiree:hover { color: var(--noir); }
+
+/* quand la pastille glisse a droite, les couleurs s'inversent */
+.nav-reservation:has(.nav-btn-soiree:hover) .nav-btn-rdv    { color: var(--noir); }
+.nav-reservation:has(.nav-btn-soiree:hover) .nav-btn-soiree { color: #fff; }
 
 /* #bascule jour / nuit (maquette : x 1247, y 54, 52 x 52) */
 .nav-bascule {
   position: absolute;
   left: calc(var(--u) * 1247);
-  top: calc(var(--u) * 54);
+  top: calc(var(--u) * 61);
   width: calc(var(--u) * 52);
   height: calc(var(--u) * 52);
   padding: 0;
@@ -175,7 +195,7 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
 .nav-compte {
   position: absolute;
   left: calc(var(--u) * 1674);
-  top: calc(var(--u) * 44);
+  top: calc(var(--u) * 51);
   width: calc(var(--u) * 86);
   height: calc(var(--u) * 86);
   border-radius: 50%;
@@ -186,38 +206,48 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   height: 100%;
   object-fit: cover;
   object-position: center 22%;   /* recadre sur le visage */
+  transition: transform 0.25s;
 }
+/* la photo grossit legerement au survol */
+.nav-compte:hover img { transform: scale(1.12); }
 
 /* #menu principal (maquette : liens a y 170) */
+/* #menu principal
+   Les quatre entrees sont posees sur une meme ligne, avec un ecart
+   RIGOUREUSEMENT EGAL entre elles (c'est le role de "gap"). */
 .nav-menu {
   position: absolute;
-  top: calc(var(--u) * 148);
-  left: 0;
-  width: 100%;
+  top: calc(var(--u) * 150);
+  left: calc(var(--u) * 620);
+  width: calc(var(--u) * 840);
   height: calc(var(--u) * 64);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* ecart IDENTIQUE entre chaque entree du menu */
+  gap: calc(var(--u) * 70);
 }
 .nav-menu a {
-  position: absolute;
+  /* on annule le positionnement absolu herite du fichier commun :
+     ici les entrees se placent d'elles-memes, a ecart egal */
+  position: static;
   color: #fff;
   font-size: calc(var(--u) * 23);
   font-weight: 800;
   text-decoration: none;
   line-height: 1.1;
   white-space: nowrap;
-}
-.nav-menu a:hover { color: var(--rouge); }
-/* Position exacte de chaque lien, relevee dans la maquette */
-.nav-menu a:nth-child(1) { left: calc(var(--u) * 652); top: calc(var(--u) * 12); }
-.nav-menu a:nth-child(2) { left: calc(var(--u) * 854); top: calc(var(--u) * 12); }
-.nav-menu a:nth-child(3) { left: calc(var(--u) * 1061); top: calc(var(--u) * 12); }
-.nav-menu a:nth-child(4) {
-  left: calc(var(--u) * 1275);
-  top: 0;
-  font-size: calc(var(--u) * 22);
   text-align: center;
+  /* trait de soulignement, masque au repos */
+  border-bottom: calc(var(--u) * 3) solid transparent;
+  padding-bottom: calc(var(--u) * 4);
+  transition: border-color 0.2s, color 0.2s;
 }
-/* Le lien de la page en cours */
-.nav-menu a.actif { color: var(--creme); }
+/* le soulignement apparait au survol et sur la page en cours */
+.nav-menu a:hover,
+.nav-menu a.actif { border-bottom-color: var(--creme); }
+/* la 4e entree tient sur deux lignes : police un peu plus petite */
+.nav-menu a:nth-child(4) { font-size: calc(var(--u) * 22); }
 
 /* =========================================================================
    #hero  (0 -> 1017)
@@ -254,13 +284,12 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
 /* #panneau carte de fidelite (maquette : x 650, y 423, 646 x 290) */
 .carte-fidelite {
   position: absolute;
-  left: calc(var(--u) * 650);
+  /* panneau elargi (demande de la designer) : 646 -> 760, recentre */
+  left: calc(var(--u) * 580);
   top: calc(var(--u) * 423);
-  width: calc(var(--u) * 646);
+  width: calc(var(--u) * 760);
   min-height: calc(var(--u) * 290);
-  /* peu de marge sur les cotes : le texte tient ainsi sur une seule ligne,
-     comme dans la maquette */
-  padding: calc(var(--u) * 30) calc(var(--u) * 12) calc(var(--u) * 24);
+  padding: calc(var(--u) * 34) calc(var(--u) * 40) calc(var(--u) * 54);
   text-align: center;
   color: #fff;
   /* effet verre depoli : voile clair + flou de ce qu'il y a derriere */
@@ -279,28 +308,40 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
 .carte-fidelite-texte strong { font-weight: 700; }
 
 /* #bouton creer mon compte (maquette : 313 x 68, fond rouge) */
+/* #bouton "Creer mon compte"
+   Pose a cheval sur l'arete basse du panneau : moitie dedans, moitie dehors.
+   Au survol, le fond et le texte echangent leurs couleurs. */
 .btn-creer-compte {
-  display: inline-grid;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  display: grid;
   place-content: center;
   width: calc(var(--u) * 313);
   height: calc(var(--u) * 68);
-  /* dans la maquette le bouton n'est pas parfaitement centre : il est
-     legerement decale vers la droite */
-  margin-left: calc(var(--u) * 27);
   background: var(--rouge);
+  border: calc(var(--u) * 3) solid var(--rouge);
   border-radius: calc(var(--u) * 34);
   color: var(--creme);
   font-size: calc(var(--u) * 25);
   font-weight: 800;
   text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s;
 }
-.btn-creer-compte:hover { color: var(--creme); opacity: 0.92; }
+.btn-creer-compte:hover {
+  background: var(--creme);
+  color: var(--rouge);
+}
 
-/* #visuel de la carte de fidelite (maquette : x 1222, y 461, 175 x 148) */
+/* #visuel de la carte de fidelite
+   Cale PILE sur l'angle haut-droit du panneau : son centre tombe sur le coin. */
 .carte-fidelite-visuel {
   position: absolute;
-  left: calc(var(--u) * 1222);
-  top: calc(var(--u) * 461);
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
   width: calc(var(--u) * 175);
   z-index: 5;
 }
@@ -320,6 +361,8 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
    Les six couches sont posees en absolu avec un decalage vers le haut :
    elles remontent dans la photo du hero. Comme elles sont de la meme
    couleur que le brun, seule la partie qui depasse sur la photo se voit. */
+/* La zone des bulles reste DERRIERE le contenu de la page : sans cela,
+   certaines bulles passaient par-dessus les cartes de formules. */
 .bulles {
   position: absolute;
   top: 0;
@@ -327,7 +370,7 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   width: 100%;
   height: 0;                 /* n'occupe aucune place dans le flux */
   pointer-events: none;
-  z-index: 3;
+  z-index: 0;
 }
 .bulle {
   position: absolute;
@@ -393,6 +436,7 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   align-items: flex-start;
   justify-content: center;
   gap: calc(var(--u) * 24);
+  z-index: 2;                /* passe devant les bulles */
 }
 
 /* #fleches de navigation, de chaque cote (maquette : y ~1398 -> 132) */
@@ -450,6 +494,15 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   font-weight: 700;
   line-height: 1.2;
 }
+
+/* #picto fleur : signale une formule de la gamme ayurvedique.
+   Il est pose dans l'angle haut-droit du cadre. */
+.formule-fleur {
+  position: absolute;
+  right: calc(var(--u) * 26);
+  top: calc(var(--u) * 22);
+  width: calc(var(--u) * 34);
+}
 .formule-liste {
   margin: 0;
   padding: 0;
@@ -484,12 +537,12 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
 .formule-photo-zone {
   position: relative;
   /* la marge negative fait sortir la photo du cadre par le bas */
-  margin: calc(var(--u) * 18) calc(var(--u) * -34) calc(var(--u) * -308);
+  margin: calc(var(--u) * 18) calc(var(--u) * -34) calc(var(--u) * -190);
 }
 .formule-photo {
   display: block;
   width: 100%;                       /* toute la largeur interieure du cadre */
-  height: calc(var(--u) * 616);
+  height: calc(var(--u) * 400);      /* hauteur maximale voulue par la designer */
   object-fit: cover;
   border-radius: calc(var(--u) * 14);
 }
@@ -513,10 +566,12 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
 }
 /* fleche bouclee sous le texte */
 .aide-fleche {
-  width: calc(var(--u) * 200);
-  height: calc(var(--u) * 120);
-  margin-top: calc(var(--u) * 10);
+  display: block;
+  width: calc(var(--u) * 260);
+  height: calc(var(--u) * 150);
+  margin: calc(var(--u) * 10) auto 0;
   color: var(--creme);
+  overflow: visible;
 }
 
 /* -------------------------------------------------------------------------
@@ -529,7 +584,7 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   width: calc(var(--u) * 812);
 }
 
-/* photo qui depasse derriere le haut de la carte */
+/* --- couche 1 : la photo des produits, tout au fond --- */
 .produits-photo {
   display: block;
   width: calc(var(--u) * 340);
@@ -542,18 +597,36 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   z-index: 0;
 }
 
-/* la carte rouge (maquette : 812 x 324) */
+/* --- couche 2 : la plaque grisatre translucide ---
+   Elle floute la photo qui se trouve derriere ("backdrop-filter") et forme
+   le rebord clair du pot, qui depasse en haut de la carte rouge. */
+.produits-bouchon {
+  position: absolute;
+  left: calc(var(--u) * 30);
+  top: calc(var(--u) * 96);
+  width: calc(var(--u) * 420);
+  height: calc(var(--u) * 130);
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(calc(var(--u) * 16));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 16));
+  border-radius: calc(var(--u) * 20);
+  z-index: 1;
+}
+
+/* --- couche 3 : la carte rouge, translucide et floutee elle aussi --- */
 .produits-carte {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin-top: calc(var(--u) * -85);   /* la carte recouvre le bas de la photo */
   min-height: calc(var(--u) * 324);
   padding: calc(var(--u) * 34) calc(var(--u) * 56) calc(var(--u) * 80);
-  background: var(--rouge-carte);
+  background: rgba(226, 57, 80, 0.88);
+  backdrop-filter: blur(calc(var(--u) * 18));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 18));
   border-radius: calc(var(--u) * 34);
   color: var(--creme);
-  /* legere ombre portee, comme le double rectangle de la maquette */
-  box-shadow: calc(var(--u) * -16) calc(var(--u) * -11) 0 rgba(226, 57, 80, 0.55);
+  /* le leger decalage clair du fond, comme le double rectangle de la maquette */
+  box-shadow: calc(var(--u) * -16) calc(var(--u) * -11) 0 rgba(226, 57, 80, 0.45);
 }
 .produits-titre {
   margin: 0 0 calc(var(--u) * 22);
@@ -627,16 +700,35 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
 }
 .texte-equipe strong { font-weight: 700; }
 
-/* Les 3 membres sont places un par un, aux coordonnees exactes de la
-   maquette : leurs hauteurs y sont volontairement legerement differentes. */
-.membre {
+/* #les trois membres de l'equipe
+   Chaque bloc (illustration + prenom + descriptif) est CENTRE sur lui-meme,
+   et les trois blocs sont ALIGNES horizontalement : meme hauteur d'image,
+   meme ligne de base pour les prenoms et les descriptifs. */
+.equipe {
   position: absolute;
+  left: calc(var(--u) * 200);
+  top: calc(var(--u) * 2010);
+  width: calc(var(--u) * 1520);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.membre {
   margin: 0;
+  width: calc(var(--u) * 430);
+  text-align: center;          /* centre l'illustration et les textes */
   color: var(--creme);
 }
-.membre-illus { display: block; }
+/* meme hauteur pour les trois illustrations : les prenoms tombent alignes */
+.membre-illus {
+  display: block;
+  height: calc(var(--u) * 428);
+  width: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
 .membre-nom {
-  margin: calc(var(--u) * 22) 0 0;
+  margin: calc(var(--u) * 24) 0 0;
   font-size: calc(var(--u) * 31);
   font-weight: 700;
 }
@@ -645,24 +737,6 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   font-size: calc(var(--u) * 18);
   font-weight: 400;
 }
-
-/* Thomas (maquette : illustration x 299, y 3054 -> 2037) */
-.membre-thomas { left: calc(var(--u) * 299); top: calc(var(--u) * 2037); }
-.membre-thomas .membre-illus { width: calc(var(--u) * 323); }
-.membre-thomas .membre-nom { margin-left: calc(var(--u) * 40); }
-.membre-thomas .membre-desc { margin-left: calc(var(--u) * 176); }
-
-/* Yves (maquette : illustration x 830, y 3027 -> 2010, un peu plus haut) */
-.membre-yves { left: calc(var(--u) * 830); top: calc(var(--u) * 2010); }
-.membre-yves .membre-illus { width: calc(var(--u) * 307); }
-.membre-yves .membre-nom { margin-left: calc(var(--u) * -31); }
-.membre-yves .membre-desc { margin-left: calc(var(--u) * 130); }
-
-/* Rosalie (maquette : illustration x 1259, y 3051 -> 2034) */
-.membre-rosalie { left: calc(var(--u) * 1259); top: calc(var(--u) * 2034); }
-.membre-rosalie .membre-illus { width: calc(var(--u) * 339); }
-.membre-rosalie .membre-nom { margin-left: calc(var(--u) * 42); }
-.membre-rosalie .membre-desc { margin-left: calc(var(--u) * 182); }
 
 /* -------------------------------------------------------------------------
    #galerie des coupes  (maquette : titre y 3802 -> 2785)
@@ -705,10 +779,12 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   top: calc(var(--u) * 2889);
   padding-left: calc(var(--u) * 87);
 }
-/* rangee 2 (maquette : y 4330 -> 3313), decalee vers la gauche : sa premiere
-   vignette depasse hors de l'ecran, comme dans la maquette */
+/* rangee 2 (maquette : y 4330 -> 3313)
+   Elle est decalee vers la gauche : sa premiere vignette sort de l'ecran et
+   la derniere va jusqu'au bord droit, comme la premiere rangee. */
 .galerie-rangee-2 {
   top: calc(var(--u) * 3313);
+  width: calc(100% + var(--u) * 100);
   margin-left: calc(var(--u) * -100);
   gap: calc(var(--u) * 90);
 }
@@ -794,6 +870,16 @@ html.nuit .nav-bascule { transform: rotate(180deg); }
   font-weight: 100;
 }
 .pied-newsletter::placeholder { color: var(--creme); opacity: 0.85; }
+/* #effet de survol du champ newsletter : le fond s'eclaire et le texte passe
+   en sombre, pour montrer que le champ est actif */
+.pied-newsletter:hover,
+.pied-newsletter:focus {
+  background: var(--creme);
+  color: var(--noir);
+  outline: none;
+}
+.pied-newsletter:hover::placeholder,
+.pied-newsletter:focus::placeholder { color: var(--noir); opacity: 0.7; }
 /* les 3 icones (Facebook, Instagram, TikTok) mesurent 76 de haut
    pour environ 320 de large dans la maquette */
 .pied-reseaux { height: calc(var(--u) * 76); }
