@@ -219,6 +219,26 @@ body {
 .bulle-546 { left: calc(var(--u) * -727);   top: calc(var(--u) * -113); width: calc(var(--u) * 2806); }
 .bulle-523 { left: calc(var(--u) * -2);     top: calc(var(--u) * -102); width: calc(var(--u) * 1920); }
 
+/* #invitation "Pour voir nos differentes formules"
+   (maquette : ligne de base a 1047, soit 30 dans la zone brune qui
+   commence a 1017 ; la fleche est juste a sa droite) */
+.invite-formules {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 1);
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 18);
+  color: var(--creme);
+  font-size: calc(var(--u) * 31);
+  font-weight: 400;
+  z-index: 4;
+}
+.invite-formules strong { font-weight: 700; }
+
 /* #fleche vers le bas (maquette : x 1234, y 1025 -> 8 dans la zone) */
 .fleche-bas {
   position: absolute;
@@ -244,7 +264,7 @@ body {
 /* #note sous le titre (maquette : y 1171 -> 154) */
 .note-formules {
   position: absolute;
-  top: calc(var(--u) * 148);
+  top: calc(var(--u) * 153);
   left: 0;
   width: 100%;
   margin: 0;
@@ -429,23 +449,17 @@ body {
   height: calc(var(--u) * 487);
   object-fit: cover;
   object-position: center 30%;
-  border-radius: calc(var(--u) * 14);
+  border-radius: calc(var(--u) * 64);
+  /* le flou est porte par la photo elle-meme : ainsi il n'y a plus de
+     rectangle plus clair pose par-dessus */
+  filter: blur(calc(var(--u) * 7));
   z-index: 0;
 }
 
-/* --- couche 2 : la vitre qui floute la photo ---
-   Elle occupe exactement la zone du fichier de fond, pour que le voile
-   blanc de ce dernier se pose sur une photo deja adoucie. */
-.produits-vitre {
-  position: absolute;
-  left: calc(var(--u) * -46);
-  top: calc(var(--u) * -28);
-  width: calc(var(--u) * 899);
-  height: calc(var(--u) * 535);   /* elle couvre toute la photo, jusqu'en bas */
-  backdrop-filter: blur(calc(var(--u) * 16));
-  -webkit-backdrop-filter: blur(calc(var(--u) * 16));
-  z-index: 1;
-}
+/* --- couche 2 : plus de vitre ---
+   Le fichier de la designer porte deja son propre voile degrade ; y ajouter
+   un flou faisait apparaitre un rectangle plus clair par-dessus. */
+.produits-vitre { display: none; }
 
 /* --- couche 3 : le fond rouge fourni par la designer ---
    Le rectangle rouge de la maquette fait 844 x 342 et se pose en x 139,

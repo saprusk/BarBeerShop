@@ -146,7 +146,61 @@ function brancherCarrousel(idFenetre, idPrecedent, idSuivant, selecteurCarte) {
 }
 
 // carrousel des avis (page d'accueil)
-brancherCarrousel('avisFenetre', 'avisPrecedent', 'avisSuivant', '.avis-carte');
+/* -------------------------------------------------------------------------
+   #carrousel des avis
+   Cinq avis, trois visibles a la fois. Les fleches font tourner d'un cran.
+   L'inclinaison depend de la PLACE occupee et non de la carte :
+       la place du milieu ...... 0 degre
+       ses deux voisines ....... 7 degres (a droite) / -7 (a gauche)
+       les deux qui attendent .. 14 degres / -14
+   Ainsi, quand une carte arrive au centre elle se redresse toute seule.
+   ------------------------------------------------------------------------- */
+function brancherAvis() {
+  const piste = document.querySelector('.avis-piste');
+  const precedent = document.getElementById('avisPrecedent');
+  const suivant = document.getElementById('avisSuivant');
+  if (!piste || !precedent || !suivant) return;
+
+  const cartes = [...piste.querySelectorAll('.avis-carte')];
+  if (!cartes.length) return;
+  let centre = Math.floor(cartes.length / 2);   // on demarre sur celle du milieu
+
+  /* "anime" vaut vrai seulement quand on clique une fleche : au chargement
+     et au redimensionnement, la piste se place d'un coup, sans glissement. */
+  function placer(anime) {
+    const largeur = cartes[0].getBoundingClientRect().width;
+    const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
+    const fenetre = piste.parentElement.getBoundingClientRect().width;
+    if (!largeur || !fenetre) return;          // la page n'est pas encore mesurable
+    const pas = largeur + ecart;
+    // on fait glisser la piste pour amener la carte choisie pile au milieu
+    const decalage = fenetre / 2 - largeur / 2 - centre * pas;
+    if (!anime) piste.style.transition = 'none';
+    piste.style.transform = `translateX(${decalage}px)`;
+    cartes.forEach((carte, i) => {
+      const place = Math.max(-2, Math.min(2, i - centre));   // -2 .. +2
+      carte.style.setProperty('--angle', (place * 7) + 'deg');
+    });
+    if (!anime) {
+      piste.getBoundingClientRect();           // on force le calcul...
+      piste.style.transition = '';             // ...avant de rendre le glissement
+    }
+  }
+
+  precedent.addEventListener('click', () => {
+    centre = Math.max(0, centre - 1);
+    placer(true);
+  });
+  suivant.addEventListener('click', () => {
+    centre = Math.min(cartes.length - 1, centre + 1);
+    placer(true);
+  });
+
+  placer(false);
+  window.addEventListener('resize', () => placer(false));
+  window.addEventListener('load', () => placer(false));
+}
+brancherAvis();
 
 /* -------------------------------------------------------------------------
    #fiche produit (page "Notre concept")
@@ -224,4 +278,140 @@ if (ficheFond) {
   // au chargement, la maquette montre les bieres rouges ouvertes
   const rouges = [...colonnes].find(c => /rouges/i.test(c.querySelector('h3').textContent));
   if (rouges) rouges.dataset.ouvert = 'oui';
+})();
+
+
+/* -------------------------------------------------------------------------
+   #carte du bar sur grand ecran : les fleches font tourner 3 colonnes
+   La fenetre laisse voir trois colonnes ; un clic amene les trois
+   suivantes. Le glissement au doigt ou au pave tactile marche aussi, la
+   fenetre etant deja defilable.
+   ------------------------------------------------------------------------- */
+(function brancherCarteGrandEcran() {
+  const fenetre = document.getElementById('carteFenetre');
+  const precedente = document.getElementById('cartePrecedente');
+  const suivante = document.getElementById('carteSuivante');
+  if (!fenetre || !precedente || !suivante) return;
+
+  function pasDeTroisColonnes() {
+    const colonne = fenetre.querySelector('.colonne');
+    const piste = fenetre.querySelector('.carte-colonnes');
+    if (!colonne || !piste) return 0;
+    const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
+    return (colonne.getBoundingClientRect().width + ecart) * 3;
+  }
+  precedente.addEventListener('click', () => { fenetre.scrollLeft -= pasDeTroisColonnes(); });
+  suivante.addEventListener('click',   () => { fenetre.scrollLeft += pasDeTroisColonnes(); });
+})();
+
+
+/* -------------------------------------------------------------------------
+   #glissieres du telephone
+   Sur petit ecran, plusieurs blocs ne montrent qu'un element a la fois :
+   les avis, les photos Instagram, l'equipe... On leur ajoute deux fleches
+   qui font passer d'un element au suivant. Le glissement au doigt continue
+   de fonctionner : les fleches ne font que deplacer le defilement.
+   Chaque glissiere est decrite par la classe de son conteneur.
+   ------------------------------------------------------------------------- */
+function brancherGlissiere(selecteurBande, selecteurElement) {
+  const bande = document.querySelector(selecteurBande);
+  if (!bande || bande.dataset.glissiere === 'oui') return;
+
+  const elements = [...bande.querySelectorAll(selecteurElement)];
+  if (elements.length < 2) return;
+  bande.dataset.glissiere = 'oui';
+
+  const faire = (sens) => {
+    const a = elements[0].getBoundingClientRect();
+    const b = elements[1].getBoundingClientRect();
+    const pas = b.left - a.left;      // largeur d'un element + son ecart
+    bande.scrollLeft += sens * pas;
+  };
+
+  const fleche = (sens, texte, cote) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'glissiere-fleche glissiere-fleche-' + cote;
+    b.setAttribute('aria-label', sens < 0 ? 'Précédent' : 'Suivant');
+    b.innerHTML = texte;
+    b.addEventListener('click', () => faire(sens));
+    return b;
+  };
+
+  // les fleches sont posees dans le parent, de part et d'autre de la bande
+  const cadre = bande.parentElement;
+  if (getComputedStyle(cadre).position === 'static') cadre.style.position = 'relative';
+  cadre.appendChild(fleche(-1, '&#9664;', 'gauche'));
+  cadre.appendChild(fleche(1, '&#9654;', 'droite'));
+}
+
+/* On ne les branche que sur telephone, et on rebranche si la fenetre change
+   de taille (par exemple quand on tourne l'appareil). */
+function brancherLesGlissieres() {
+  if (document.documentElement.clientWidth >= BASCULE_MOBILE) return;
+  brancherGlissiere('.instagram-galerie', 'a, img');
+  brancherGlissiere('.avis-fenetre', '.avis-carte');
+  brancherGlissiere('.equipe', '.membre');
+  brancherGlissiere('.grille-produits', 'figure');
+}
+brancherLesGlissieres();
+window.addEventListener('resize', brancherLesGlissieres);
+
+
+/* -------------------------------------------------------------------------
+   #formules du barber sur telephone
+   Une pression sur une formule l'ouvre et montre ce qu'elle contient ; une
+   seule reste ouverte a la fois. Sur grand ecran, rien ne change : les
+   formules sont deja completes.
+   ------------------------------------------------------------------------- */
+(function brancherFormulesTelephone() {
+  const formules = document.querySelectorAll('.formule');
+  if (!formules.length) return;
+  formules.forEach(formule => {
+    const titre = formule.querySelector('.formule-titre');
+    if (!titre) return;
+    formule.style.cursor = 'pointer';
+    formule.setAttribute('role', 'button');
+    formule.setAttribute('tabindex', '0');
+    const basculer = () => {
+      if (document.documentElement.clientWidth >= BASCULE_MOBILE) return;
+      const ouverte = formule.dataset.ouverte === 'oui';
+      formules.forEach(f => { f.dataset.ouverte = 'non'; });
+      formule.dataset.ouverte = ouverte ? 'non' : 'oui';
+    };
+    formule.addEventListener('click', basculer);
+    formule.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); basculer(); }
+    });
+  });
+})();
+
+
+/* -------------------------------------------------------------------------
+   #FAQ de l'espace compte sur telephone
+   Les blocs de la page sont poses en absolu : la section ne grandit donc
+   pas toute seule quand une reponse s'ouvre, et le pied de page passerait
+   par-dessus. On recalcule sa hauteur a chaque ouverture.
+   ------------------------------------------------------------------------- */
+(function ajusterEspaceCompte() {
+  const page = document.querySelector('.page-espace');
+  const faq = document.querySelector('.faq');
+  if (!page || !faq) return;
+
+  function ajuster() {
+    page.style.height = '';
+    if (document.documentElement.clientWidth >= BASCULE_MOBILE) return;
+    const basDeLaFaq = faq.offsetTop + faq.offsetHeight;
+    const marge = parseFloat(getComputedStyle(document.body).getPropertyValue('--u')) * 40;
+    if (basDeLaFaq + marge > page.offsetHeight) {
+      page.style.height = (basDeLaFaq + marge) + 'px';
+    }
+  }
+
+  page.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('toggle', ajuster);
+  });
+  window.addEventListener('resize', ajuster);
+  window.addEventListener('load', ajuster);
+  ajuster();
 })();

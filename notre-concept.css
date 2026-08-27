@@ -34,12 +34,12 @@
 
 .bulles-concept {
   position: relative;
-  height: calc(var(--u) * 1230);
+  height: calc(var(--u) * 1270);   /* +40 : tout le haut de page descend */
   /* pas de fond ici : le fichier de forme deborde sur la section suivante,
      et le creme est deja pose sur la page entiere */
 }
 
-.bouton-remonter { top: calc(var(--u) * 464); }
+.bouton-remonter { top: calc(var(--u) * 504); }
 
 /* #traits rouges qui relient les bulles entre elles */
 .liens {
@@ -54,14 +54,14 @@
 /* #fond de forme du haut de page
    Il est cale sur le grand rond de droite et deborde volontairement a
    gauche de l'ecran, exactement comme dans la maquette. */
-.fond-forme-concept { left: calc(var(--u) * -250); top: calc(var(--u) * 181); width: calc(var(--u) * 1964); }
+.fond-forme-concept { left: calc(var(--u) * -250); top: calc(var(--u) * 221); width: calc(var(--u) * 1964); }
 
 /* #photos rondes
    Chaque photo est centree dans son rond de fond, en laissant depasser
    le contour bleu tout autour. */
-.cercle-salon    { left: calc(var(--u) * 152);  top: calc(var(--u) * 636); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
-.cercle-briques  { left: calc(var(--u) * 606);  top: calc(var(--u) * 319); width: calc(var(--u) * 276); height: calc(var(--u) * 276); }
-.cercle-ambiance { left: calc(var(--u) * 1004); top: calc(var(--u) * 190); width: calc(var(--u) * 694); height: calc(var(--u) * 694); }
+.cercle-salon    { left: calc(var(--u) * 152);  top: calc(var(--u) * 676); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+.cercle-briques  { left: calc(var(--u) * 606);  top: calc(var(--u) * 359); width: calc(var(--u) * 276); height: calc(var(--u) * 276); }
+.cercle-ambiance { left: calc(var(--u) * 1004); top: calc(var(--u) * 230); width: calc(var(--u) * 694); height: calc(var(--u) * 694); }
 /* #cadrage des photos rondes
    (coordonnees de la maquette, haut de page)
    Dans la maquette, chaque photo est posee en grand derriere son rond,
@@ -90,20 +90,20 @@
 .bulle small,
 .bulle strong { display: block; font-size: calc(var(--u) * 24); font-weight: 800; }
 /* BARBER : entre le salon et le mur de briques */
-.bulle-barber  { left: calc(var(--u) * 456); top: calc(var(--u) * 495); width: calc(var(--u) * 185); height: calc(var(--u) * 185); background: var(--petrole); }
+.bulle-barber  { left: calc(var(--u) * 456); top: calc(var(--u) * 535); width: calc(var(--u) * 185); height: calc(var(--u) * 185); background: var(--petrole); }
 /* BAR a bieres : entre le mur de briques et l'ambiance */
-.bulle-bar     { left: calc(var(--u) * 874); top: calc(var(--u) * 378); width: calc(var(--u) * 146); height: calc(var(--u) * 146); background: var(--petrole); }
+.bulle-bar     { left: calc(var(--u) * 874); top: calc(var(--u) * 418); width: calc(var(--u) * 146); height: calc(var(--u) * 146); background: var(--petrole); }
 /* Notre CONCEPT : la bulle rouge, au centre bas */
-.bulle-concept { left: calc(var(--u) * 706); top: calc(var(--u) * 722); width: calc(var(--u) * 159); height: calc(var(--u) * 159); background: var(--rouge); font-size: calc(var(--u) * 21); }
+.bulle-concept { left: calc(var(--u) * 706); top: calc(var(--u) * 762); width: calc(var(--u) * 159); height: calc(var(--u) * 159); background: var(--rouge); font-size: calc(var(--u) * 21); }
 
 /* #fleur rouge decorative (maquette : x 176, y 550) */
-.fleur-tige { left: calc(var(--u) * 176); top: calc(var(--u) * 550); width: calc(var(--u) * 104); }
+.fleur-tige { left: calc(var(--u) * 176); top: calc(var(--u) * 590); width: calc(var(--u) * 104); }
 
 /* #texte d'introduction (maquette : x 676, y 994) */
 .intro-texte {
   position: absolute;
   left: calc(var(--u) * 676);
-  top: calc(var(--u) * 975);
+  top: calc(var(--u) * 1015);
   width: calc(var(--u) * 700);
   margin: 0;
   color: #000;
@@ -213,8 +213,8 @@
 /* #fleurs rouges decoratives autour de la grille */
 .fleur-p1 { left: calc(var(--u) * 1391); top: calc(var(--u) * -16);  width: calc(var(--u) * 69); }
 .fleur-p2 { left: calc(var(--u) * 1484); top: calc(var(--u) * 120);  width: calc(var(--u) * 36); }
-.fleur-p3 { left: calc(var(--u) * 240);  top: calc(var(--u) * 1915); width: calc(var(--u) * 58); }
-.fleur-p4 { left: calc(var(--u) * 372);  top: calc(var(--u) * 2017); width: calc(var(--u) * 49); }
+.fleur-p3 { left: calc(var(--u) * 240);  top: calc(var(--u) * 1855); width: calc(var(--u) * 58); }
+.fleur-p4 { left: calc(var(--u) * 372);  top: calc(var(--u) * 1940); width: calc(var(--u) * 49); }
 
 /* #grille des 12 produits, 3 par rangee (maquette : x 394, y 2373 -> 413) */
 .grille-produits {
@@ -465,83 +465,176 @@
 }
 .fiche-fond[hidden] { display: none; }
 
-/* la fiche elle-meme */
+/* la fiche elle-meme
+   Le decor (le grand rond blanc a gauche, le panneau rouge a droite et la
+   fleur du haut) vient du fichier de la designer : on ne fait que poser le
+   contenu par-dessus, aux places prevues. */
 .fiche-produit {
   position: relative;
-  width: calc(var(--u) * 1100);
-  max-width: 92vw;
-  padding: calc(var(--u) * 40) calc(var(--u) * 50) calc(var(--u) * 50);
-  background: var(--creme);
-  border: calc(var(--u) * 5) solid var(--rouge);
-  border-radius: calc(var(--u) * 40);
+  width: calc(var(--u) * 1365);
+  height: calc(var(--u) * 947);
+  max-width: 94vw;
+  padding: 0;
+  background: url("sources/fond-fiche-produit.webp") no-repeat center / contain;
+  border: none;
+  border-radius: 0;
 }
 
-/* #fil d'Ariane : la suite des pages qui menent au produit */
-.fil-ariane {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: calc(var(--u) * 10);
-  margin-bottom: calc(var(--u) * 30);
+/* #mention dans la fleur blanche du haut */
+.fiche-achat {
+  position: absolute;
+  left: calc(var(--u) * 868);
+  top: calc(var(--u) * 56);
+  width: calc(var(--u) * 250);
+  margin: 0;
+  text-align: center;
+  color: var(--noir);
   font-size: calc(var(--u) * 17);
-  font-weight: 500;
+  font-weight: 700;
+  line-height: 1.35;
+  z-index: 2;
 }
-.fil-ariane a { color: var(--rouge); text-decoration: none; }
-.fil-ariane a:hover { text-decoration: underline; }
-.fil-ariane span { color: var(--brun); }
-.fil-ariane-actuel { font-weight: 700; }
+.fiche-achat span { font-weight: 400; }
 
-/* #bouton de fermeture, en haut a droite */
+/* #bouton de fermeture, dans le coin du panneau rouge */
 .fiche-fermer {
   position: absolute;
-  right: calc(var(--u) * 26);
-  top: calc(var(--u) * 20);
+  right: calc(var(--u) * 60);
+  top: calc(var(--u) * 190);
   width: calc(var(--u) * 54);
   height: calc(var(--u) * 54);
   background: none;
   border: none;
-  color: var(--rouge);
+  color: #fff;
   font-size: calc(var(--u) * 46);
   line-height: 1;
   cursor: pointer;
+  z-index: 2;
 }
 .fiche-fermer:hover { opacity: 0.6; }
 
-/* la photo a gauche, le texte a droite */
-.fiche-corps {
-  display: flex;
-  gap: calc(var(--u) * 50);
-  align-items: flex-start;
-}
+.fiche-corps { display: block; }
+
+/* #la photo, posee dans le grand rond blanc (centre 296 / 325, diametre 560) */
 .fiche-corps img {
-  flex: 0 0 calc(var(--u) * 380);
-  width: calc(var(--u) * 380);
-  height: calc(var(--u) * 380);
-  object-fit: cover;
-  border: calc(var(--u) * 5) solid var(--rouge);
-  border-radius: calc(var(--u) * 40);
+  position: absolute;
+  left: calc(var(--u) * 66);
+  top: calc(var(--u) * 95);
+  width: calc(var(--u) * 460);
+  height: calc(var(--u) * 460);
+  object-fit: contain;
+  border: none;
+  border-radius: 50%;
+}
+
+/* #le texte, dans le panneau rouge */
+.fiche-texte {
+  position: absolute;
+  left: calc(var(--u) * 790);
+  top: calc(var(--u) * 300);
+  width: calc(var(--u) * 500);
+  color: #fff;
 }
 .fiche-texte h3 {
-  margin: 0 0 calc(var(--u) * 20);
-  color: #000;
+  margin: 0 0 calc(var(--u) * 12);
+  color: #fff;
   font-size: calc(var(--u) * 31);
   font-weight: 700;
 }
-.fiche-texte p {
-  margin: 0 0 calc(var(--u) * 20);
-  color: #000;
-  font-size: calc(var(--u) * 18);
+
+/* #fil d'Ariane, sous le titre */
+.fil-ariane {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: calc(var(--u) * 8);
+  margin: 0 0 calc(var(--u) * 26);
+  font-size: calc(var(--u) * 15);
   font-weight: 400;
-  line-height: 1.7;
+}
+.fil-ariane a { color: #FFD9DF; text-decoration: none; }
+.fil-ariane a:hover { text-decoration: underline; }
+.fil-ariane span { color: #FFD9DF; }
+.fil-ariane-actuel { font-weight: 700; }
+
+/* #prix, et le stock a sa droite */
+.fiche-prix-ligne {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--u) * 16);
+  margin: 0 0 calc(var(--u) * 26);
 }
 .fiche-prix {
-  color: var(--rouge) !important;
-  font-size: calc(var(--u) * 27) !important;
+  color: #fff !important;
+  font-size: calc(var(--u) * 44) !important;
   font-weight: 800;
 }
-.fiche-cta {
-  width: max-content;
-  padding: calc(var(--u) * 12) calc(var(--u) * 34);
+.fiche-stock {
+  position: relative;
+  padding-left: calc(var(--u) * 20);
+  color: #fff;
+  font-size: calc(var(--u) * 15);
+  font-weight: 400;
+}
+/* la pastille verte qui signale la disponibilite */
+.fiche-stock::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--u) * 12);
+  height: calc(var(--u) * 12);
+  border-radius: 50%;
+  background: #8EE09B;
+}
+
+.fiche-soustitre {
+  margin: 0 0 calc(var(--u) * 10);
+  font-size: calc(var(--u) * 16);
+  font-weight: 700;
+  letter-spacing: calc(var(--u) * 0.5);
+}
+.fiche-texte p {
+  margin: 0 0 calc(var(--u) * 22);
+  color: #fff;
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* #les deux volets "detail du produit" et "ingredients" */
+.fiche-volet {
+  margin-bottom: calc(var(--u) * 14);
+  border: calc(var(--u) * 2) solid #fff;
+  border-radius: calc(var(--u) * 26);
+}
+.fiche-volet summary {
+  position: relative;
+  padding: calc(var(--u) * 14) calc(var(--u) * 54) calc(var(--u) * 14) calc(var(--u) * 24);
+  list-style: none;
+  cursor: pointer;
+  font-size: calc(var(--u) * 16);
+  font-weight: 700;
+  letter-spacing: calc(var(--u) * 0.5);
+}
+.fiche-volet summary::-webkit-details-marker { display: none; }
+.fiche-volet summary::after {
+  content: "";
+  position: absolute;
+  right: calc(var(--u) * 24);
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: calc(var(--u) * 10) solid transparent;
+  border-right: calc(var(--u) * 10) solid transparent;
+  border-top: calc(var(--u) * 12) solid #fff;
+  transition: transform 0.2s;
+}
+.fiche-volet[open] summary::after { transform: translateY(-50%) rotate(180deg); }
+.fiche-volet p {
+  margin: 0;
+  padding: 0 calc(var(--u) * 24) calc(var(--u) * 16);
+  font-size: calc(var(--u) * 15);
 }
 
 @media (max-width: 768px) {
@@ -555,3 +648,11 @@
   .fiche-prix { font-size: 1.3rem !important; }
   .produit-vignette { border-width: 3px; border-radius: 22px; }
 }
+
+/* Cassandre etait legerement trop a droite : on la recale de 7 px. */
+.equipe-liste .membre:nth-child(3) { position: relative; left: calc(var(--u) * -7); }
+
+/* #galerie Instagram : chaque photo mene au compte */
+.instagram-galerie a { display: block; line-height: 0; }
+.instagram-galerie a img { transition: transform 0.25s; }
+.instagram-galerie a:hover img { transform: scale(1.03); }

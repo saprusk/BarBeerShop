@@ -100,15 +100,20 @@
 
 .zone-brune {
   position: relative;
-  z-index: 0;
+  z-index: 2;   /* au-dessus du hero, sinon les bulles qui remontent sont cachees */
   height: calc(var(--u) * 2899);
-  background: var(--brun);
-  overflow: hidden;   /* les carrousels debordent volontairement */
+  /* Pas de fond ici : c'est le calque ci-dessous qui le pose, en partant
+     plus bas. Ainsi ce sont les BULLES qui font la jonction avec la photo,
+     et non un trait droit.
+     Pas de rognage non plus : les bulles remontent volontairement sur la
+     photo du hero. Les carrousels ont deja leur propre rognage. */
 }
 .zone-brune::after {
   content: "";
   position: absolute;
-  top: 0; bottom: 0; left: 50%;
+  top: 0;
+  bottom: 0;
+  left: 50%;
   width: 100vw;
   transform: translateX(-50%);
   background: var(--brun);
@@ -117,22 +122,26 @@
 
 /* #bulles de transition, remontees sur la photo du hero
    (maquette : 1097 de large en x -261, y 791) */
+/* Elles sont dessinees dans le HERO et non dans la zone brune : celle-ci
+   rogne ce qui depasse, les bulles y etaient donc invisibles.
+   (maquette : 1097 de large en x -261, y 791) */
 .bulles { position: static; }
 .bulle { display: none; }
 .zone-brune::before {
   content: "";
   position: absolute;
   left: calc(var(--u) * -261);
-  top: calc(var(--u) * -65);
+  top: calc(var(--u) * -65);    /* 791 - 856 : la frise se pose sur la photo */
   width: calc(var(--u) * 1097);
   height: calc(var(--u) * 246);
-  background: url("sources/mob-bulles-barber-page.svg") no-repeat center / contain;
-  z-index: 2;
+  background: url("sources/mob-bulles-barber-page.svg") no-repeat center / 100% 100%;
+  z-index: 1;
 }
 
 /* #invitation a descendre (maquette : ligne de base a 880, centre) */
 .invite-formules {
   position: absolute;
+  z-index: 3;   /* devant les bulles */
   top: calc(var(--u) * 7);
   left: 0;
   width: 100%;
@@ -222,11 +231,11 @@
   right: calc(var(--u) * -22);
   top: 50%;
   transform: translateY(-50%);
-  width: calc(var(--u) * 54);
-  height: calc(var(--u) * 52);
+  width: calc(var(--u) * 56);
+  height: calc(var(--u) * 64);
   display: grid;
   place-content: center;
-  background: url("sources/fleur-2.svg") no-repeat center / contain;
+  background: url("sources/fleur-2.svg") no-repeat center / 100% 100%;
   color: var(--brun);
   font-size: calc(var(--u) * 14);
   font-weight: 700;
@@ -381,8 +390,8 @@
 .membre-illus {
   width: calc(var(--u) * 178);
   height: calc(var(--u) * 277);
-  object-fit: cover;
-  border-radius: calc(var(--u) * 16);
+  /* "contain" : l'illustration entiere reste visible, sans etre rognee */
+  object-fit: contain;
   display: block;
 }
 .membre-nom {
@@ -482,14 +491,47 @@
   font-weight: 700;
 }
 .bande-texte:nth-of-type(2) { display: none; }
+/* une fleur de chaque cote de la phrase (et non deux ronds a gauche) */
 .bande-pastille {
   position: absolute;
-  top: calc(var(--u) * 21);
-  width: calc(var(--u) * 15);
-  height: calc(var(--u) * 15);
-  border-radius: 50%;
-  background: var(--brun);
+  top: calc(var(--u) * 14);
+  width: calc(var(--u) * 28);
+  height: calc(var(--u) * 28);
+  border-radius: 0;
+  background: url("sources/fleur-bande.svg") no-repeat center / contain;
 }
-.bande-pastille:nth-of-type(1) { left: calc(var(--u) * 14); }
-.bande-pastille:nth-of-type(2) { right: calc(var(--u) * 14); }
-.bande-pastille:nth-of-type(3) { display: none; }
+/* le HTML alterne pastilles et textes : la premiere pastille est le 1er
+   span, la deuxieme le 3e, la troisieme le 5e. */
+.bande-bar .bande-pastille:nth-of-type(1) { left: calc(var(--u) * 16); right: auto; }
+.bande-bar .bande-pastille:nth-of-type(3) { right: calc(var(--u) * 16); left: auto; }
+.bande-bar .bande-pastille:nth-of-type(5) { display: none; }
+
+/* =========================================================================
+   #formules qui s'ouvrent
+   Au toucher, la pastille s'allonge et laisse voir le detail de la formule.
+   Elle passe alors PAR-DESSUS les autres : ainsi rien ne se decale, et la
+   suite de la page reste a sa place.
+   ========================================================================= */
+.formule[data-ouverte="oui"] {
+  height: auto !important;
+  min-height: calc(var(--u) * 104);
+  z-index: 10;
+  padding: calc(var(--u) * 18) calc(var(--u) * 74) calc(var(--u) * 20) calc(var(--u) * 22);
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: calc(var(--u) * 28);
+  background: var(--brun);
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 20) rgba(0, 0, 0, 0.28);
+}
+.formule[data-ouverte="oui"] .formule-liste {
+  display: block;
+  margin: calc(var(--u) * 12) 0 0;
+  padding: 0;
+  list-style: none;
+  color: #fff;
+  font-size: calc(var(--u) * 14);
+  font-weight: 100;
+  line-height: 1.6;
+}
+.formule[data-ouverte="oui"] .formule-liste li { margin-bottom: calc(var(--u) * 4); }
+.formule[data-ouverte="oui"] .formule-liste li::before { content: "- "; }

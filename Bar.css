@@ -116,7 +116,8 @@ body { background-color: var(--beige); }
   font-weight: 800;
   text-decoration: none;
 }
-.btn-reserver:hover { color: var(--creme); opacity: 0.92; }
+/* au survol, c'est le style cta-1 qui agit : fond vide, texte marron */
+.btn-reserver:hover { opacity: 0.92; }
 
 /* #mousse : transition vers le fond beige */
 .mousse { position: absolute; left: 0; pointer-events: none; z-index: 2; }
@@ -176,13 +177,16 @@ body { background-color: var(--beige); }
 }
 .carte-intro strong { font-weight: 700; }
 
-/* #la fenetre qui laisse voir trois colonnes a la fois
-   (maquette : le composant commence a x -400 et fait 2720 de large) */
+/* #la fenetre laisse voir TROIS colonnes a la fois : les deux autres
+   attendent hors du cadre. On les fait venir avec les fleches, ou en
+   faisant glisser au doigt / au pave tactile. */
 .carte-fenetre {
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   top: calc(var(--u) * 330);
-  width: 100%;
+  width: calc(var(--u) * 1470);
+  max-width: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -193,9 +197,27 @@ body { background-color: var(--beige); }
 .carte-colonnes {
   display: flex;
   gap: calc(var(--u) * 60);
-  padding: 0 calc(var(--u) * 140);
+  padding: 0 calc(var(--u) * 15);
   width: max-content;
 }
+
+/* #les deux fleches, posees de chaque cote de la carte */
+.carte-fleche {
+  position: absolute;
+  top: calc(var(--u) * 700);
+  padding: 0 calc(var(--u) * 10);
+  border: none;
+  background: none;
+  color: var(--brun);
+  font-size: calc(var(--u) * 54);
+  line-height: 1;
+  cursor: pointer;
+  z-index: 5;
+  transition: opacity 0.2s;
+}
+.carte-fleche:hover { opacity: 0.55; }
+.carte-fleche-gauche { left: calc(var(--u) * 90); }
+.carte-fleche-droite { right: calc(var(--u) * 90); }
 
 /* une colonne de la carte */
 .colonne { width: calc(var(--u) * 430); }
@@ -209,8 +231,16 @@ body { background-color: var(--beige); }
   font-size: calc(var(--u) * 25);
   font-weight: 700;
 }
-/* le petit pictogramme place devant le nom de la colonne */
-.colonne-picto { height: calc(var(--u) * 44); width: auto; }
+/* Le pictogramme n'est plus a cote du titre : il prend sa place DANS la
+   colonne, entre deux boissons, et ne depasse jamais 100 px de haut. */
+.colonne li.ligne-picto {
+  padding: 0;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+}
+.colonne-picto { height: calc(var(--u) * 100); width: auto; display: block; }
 .colonne ul { margin: 0; padding: 0; list-style: none; }
 
 /* une ligne de la carte : nom, description et prix dans une gousse arrondie */
@@ -355,7 +385,7 @@ body { background-color: var(--beige); }
   font-weight: 800;
   text-decoration: none;
 }
-.btn-reserver-table:hover { color: var(--creme); opacity: 0.92; }
+.btn-reserver-table:hover { opacity: 0.92; }
 
 /* =========================================================================
    #d'ou proviennent nos bieres  (4300 -> 5743)
@@ -367,14 +397,13 @@ body { background-color: var(--beige); }
   background: var(--beige);
 }
 
-/* #bouteilles : chacune est posee sur une plaque creme legerement inclinee */
+/* #bouteilles : posees directement sur le beige, sans plaque ni cadre
+   derriere elles (le fond des photos a ete rendu transparent). */
 .biere {
   position: absolute;
   width: calc(var(--u) * 340);
-  padding: calc(var(--u) * 16);
-  background: var(--creme);
-  border-radius: calc(var(--u) * 24);
-  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(0,0,0,0.12);
+  padding: 0;
+  background: none;
   transition: transform 0.3s ease;
 }
 /* au survol, la bouteille pivote legerement */
@@ -387,9 +416,9 @@ body { background-color: var(--beige); }
 .biere-h2 { left: calc(var(--u) * 699);  top: calc(var(--u) * -358); }
 .biere-h3 { left: calc(var(--u) * 1144); top: calc(var(--u) * -317); transform: rotate(6deg); }
 /* rangee du bas (maquette : y 5277 -> 977) */
-.biere-b1 { left: calc(var(--u) * 295);  top: calc(var(--u) * 977);  transform: rotate(-6deg); }
-.biere-b2 { left: calc(var(--u) * 733);  top: calc(var(--u) * 1040); }
-.biere-b3 { left: calc(var(--u) * 1146); top: calc(var(--u) * 944);  transform: rotate(6deg); }
+.biere-b1 { left: calc(var(--u) * 295);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
+.biere-b2 { left: calc(var(--u) * 733);  top: calc(var(--u) * 1070); }
+.biere-b3 { left: calc(var(--u) * 1146); top: calc(var(--u) * 974);  transform: rotate(6deg); }
 
 /* #titre et textes (maquette : titre y 4387 -> 87) */
 .brasseurs-titre {
@@ -495,12 +524,33 @@ body { background-color: var(--beige); }
 }
 
 /* positions et couleurs des points, relevees dans la maquette */
-.b1 { left: 57%; top: 36%; background: #A77BCB; }
-.b2 { left: 66%; top: 78%; background: #7B6BCB; }
-.b3 { left: 31%; top: 80%; background: #6BCB7B; }
-.b4 { left: 78%; top: 70%; background: #E1596B; }
-/* la balise bleu clair qui manquait */
-.b5 { left: 19%; top: 48%; background: #6BB8E1; }
+/* Positions et couleurs relevees une a une dans la maquette. */
+.b1 { left: 56.8%; top: 35.9%; background: #B78EE0; }   /* Metz */
+.b2 { left: 63.7%; top: 49.0%; background: #B78EE0; }   /* Nancy */
+.b3 { left: 66.2%; top: 78.0%; background: #E08E8E; }   /* Vosges */
+.b4 { left: 18.7%; top: 48.0%; background: #8EE09B; }   /* Meuse */
+.b5 { left: 46.2%; top: 95.3%; background: #8EC4E0; }   /* Saulnois */
+
+/* La capsule du survol est le visuel fourni par la designer : un fond brun
+   arrondi avec la photo du brasseur deja dedans. On ne pose par-dessus que
+   le nom et la ville, a droite de la photo. */
+.capsule {
+  width: calc(var(--u) * 402);
+  max-width: none;
+  height: calc(var(--u) * 133);
+  padding: calc(var(--u) * 30) calc(var(--u) * 18) 0 calc(var(--u) * 152);
+  background: no-repeat center / contain;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  text-align: left;
+  font-size: calc(var(--u) * 20);
+}
+.capsule small { color: #fff; font-size: calc(var(--u) * 16); }
+.b1 .capsule, .b2 .capsule { background-image: url("sources/caps-violette.webp"); }
+.b3 .capsule { background-image: url("sources/caps-rouge.webp"); }
+.b4 .capsule { background-image: url("sources/caps-verte.webp"); }
+.b5 .capsule { background-image: url("sources/caps-bleu.webp"); }
 
 /* =========================================================================
    #bande "Decouvrir notre service barber"  (5743 -> 5901)

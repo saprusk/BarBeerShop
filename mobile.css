@@ -333,3 +333,27 @@ html.menu-ouvert, html.menu-ouvert body { overflow: hidden; }
   height: auto;
   display: block;
 }
+
+/* =========================================================================
+   #fleches des glissieres
+   Elles apparaissent de chaque cote des blocs qui ne montrent qu'un
+   element a la fois (avis, photos Instagram, equipe, produits).
+   ========================================================================= */
+.glissiere-fleche {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  padding: calc(var(--u) * 6);
+  border: 0;
+  background: none;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 20);
+  line-height: 1;
+  cursor: pointer;
+}
+.glissiere-fleche-gauche { left: calc(var(--u) * 8); }
+.glissiere-fleche-droite { right: calc(var(--u) * 8); }
+
+/* #bouton newsletter du pied de page : angles plus arrondis */
+.pied-newsletter { border-radius: calc(var(--u) * 24); }

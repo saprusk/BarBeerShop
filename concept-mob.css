@@ -194,8 +194,8 @@
   z-index: 2;
 }
 .services-texte-1 { left: calc(var(--u) * 170); top: calc(var(--u) * 92);  width: calc(var(--u) * 210); }
-.services-texte-2 { left: calc(var(--u) * 76);  top: calc(var(--u) * 555); width: calc(var(--u) * 300); }
-.services-texte-3 { left: calc(var(--u) * 76);  top: calc(var(--u) * 967); width: calc(var(--u) * 300); font-weight: 700; }
+.services-texte-2 { left: calc(var(--u) * 76);  top: calc(var(--u) * 500); width: calc(var(--u) * 300); }
+.services-texte-3 { left: calc(var(--u) * 76);  top: calc(var(--u) * 900); width: calc(var(--u) * 300); font-weight: 700; }
 
 /* =========================================================================
    #produits ayurvediques  (2100 -> 3800)
@@ -255,15 +255,25 @@
 }
 .grille-produits::-webkit-scrollbar { display: none; }
 .grille-produits figure { scroll-snap-align: center; }
+/* Meme composition que sur grand ecran : la photo dans un cadre rouge
+   epais, et le titre EN DEHORS du cadre, juste en dessous. */
 .grille-produits figure {
   width: calc(var(--u) * 199);
   margin: 0;
   padding: 0;
-  border: calc(var(--u) * 3) solid var(--rouge);
-  border-radius: calc(var(--u) * 18);
+  border: none;
+  background: none;
+  text-align: center;
+}
+.produit-vignette {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: calc(var(--u) * 5) solid var(--rouge);
+  border-radius: calc(var(--u) * 22);
   background: none;
   overflow: hidden;
-  text-align: center;
+  cursor: pointer;
 }
 .grille-produits img {
   width: 100%;
@@ -272,7 +282,7 @@
   display: block;
 }
 .grille-produits figcaption {
-  padding: calc(var(--u) * 10) calc(var(--u) * 8);
+  padding: calc(var(--u) * 10) calc(var(--u) * 4) 0;
   color: #000;
   font-size: calc(var(--u) * 13);
   font-weight: 500;
@@ -324,15 +334,15 @@
 .equipe-liste .membre:nth-child(4) figcaption { margin: 0 0 calc(var(--u) * 6); }
 
 /* Thomas (maquette : x 233, y 4144) */
-.equipe-liste .membre:nth-child(1) { left: calc(var(--u) * 233); top: calc(var(--u) * 320); width: calc(var(--u) * 150); }
+.equipe-liste .membre:nth-child(1) { left: calc(var(--u) * 248); top: calc(var(--u) * 320); width: calc(var(--u) * 138); }
 /* Rosalie (x 26, y 3958) */
 .equipe-liste .membre:nth-child(2) { left: calc(var(--u) * 26);  top: calc(var(--u) * 130); width: calc(var(--u) * 156); }
 /* Cassandre (x 129, y 3956) */
-.equipe-liste .membre:nth-child(3) { left: calc(var(--u) * 129); top: calc(var(--u) * 128); width: calc(var(--u) * 185); }
+.equipe-liste .membre:nth-child(3) { left: calc(var(--u) * 142); top: calc(var(--u) * 128); width: calc(var(--u) * 160); }
 /* Julie (x 294, y 3967) */
-.equipe-liste .membre:nth-child(4) { left: calc(var(--u) * 294); top: calc(var(--u) * 139); width: calc(var(--u) * 120); }
+.equipe-liste .membre:nth-child(4) { left: calc(var(--u) * 312); top: calc(var(--u) * 139); width: calc(var(--u) * 108); }
 /* Yves (x 63, y 4120) */
-.equipe-liste .membre:nth-child(5) { left: calc(var(--u) * 63);  top: calc(var(--u) * 320); width: calc(var(--u) * 146); }
+.equipe-liste .membre:nth-child(5) { left: calc(var(--u) * 52);  top: calc(var(--u) * 320); width: calc(var(--u) * 138); }
 .equipe-liste figcaption strong { display: block; color: var(--noir); font-size: calc(var(--u) * 17); font-weight: 700; }
 .equipe-liste figcaption span   { display: block; color: var(--noir); font-size: calc(var(--u) * 12); font-weight: 400; }
 
@@ -394,18 +404,129 @@
   width: 100%;
   height: calc(var(--u) * 376);
   display: flex;
-  gap: calc(var(--u) * 120);
+  gap: calc(var(--u) * 30);
   padding: 0 calc(var(--u) * 89);
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
 }
 .instagram-galerie::-webkit-scrollbar { display: none; }
+.instagram-galerie a { flex: 0 0 calc(var(--u) * 253); scroll-snap-align: center; line-height: 0; }
 .instagram-galerie img {
-  flex: 0 0 calc(var(--u) * 253);
+  width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: calc(var(--u) * 18);
   scroll-snap-align: center;
   display: block;
 }
+
+/* =========================================================================
+   #fiche produit sur telephone
+   Le decor du grand ecran (grand rond + panneau) ne rentre pas ici : on
+   garde le meme esprit (panneau rouge, photo ronde posee en haut) dans une
+   carte qui tient entierement a l'ecran.
+   ========================================================================= */
+.fiche-fond {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  padding: calc(var(--u) * 20);
+  background: rgba(26, 26, 30, 0.65);
+}
+.fiche-fond[hidden] { display: none; }
+
+.fiche-produit {
+  position: relative;
+  width: calc(var(--u) * 380);
+  max-width: 92vw;
+  max-height: 84vh;
+  height: auto;
+  overflow-y: auto;
+  margin-top: calc(var(--u) * 60);
+  padding: calc(var(--u) * 120) calc(var(--u) * 24) calc(var(--u) * 24);
+  background: var(--rouge);
+  border: none;
+  border-radius: calc(var(--u) * 30);
+}
+
+/* la photo, dans un rond blanc pose en haut de la carte */
+.fiche-corps { display: block; }
+.fiche-corps img {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * -50);
+  transform: translateX(-50%);
+  width: calc(var(--u) * 170);
+  height: calc(var(--u) * 170);
+  object-fit: contain;
+  background: #fff;
+  border: calc(var(--u) * 6) solid #fff;
+  border-radius: 50%;
+}
+.fiche-achat { display: none; }
+
+.fiche-fermer {
+  position: absolute;
+  right: calc(var(--u) * 16);
+  top: calc(var(--u) * 10);
+  width: calc(var(--u) * 40);
+  height: calc(var(--u) * 40);
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: calc(var(--u) * 34);
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.fiche-texte { position: static; width: auto; color: #fff; }
+.fiche-texte h3 { margin: 0 0 calc(var(--u) * 8); color: #fff; font-size: calc(var(--u) * 22); font-weight: 700; }
+.fil-ariane { margin: 0 0 calc(var(--u) * 16); font-size: calc(var(--u) * 12); flex-wrap: wrap; }
+.fil-ariane a, .fil-ariane span { color: #FFD9DF; }
+.fiche-prix-ligne { display: flex; align-items: baseline; gap: calc(var(--u) * 10); margin: 0 0 calc(var(--u) * 16); }
+.fiche-prix { color: #fff !important; font-size: calc(var(--u) * 28) !important; font-weight: 800; }
+.fiche-stock { position: relative; padding-left: calc(var(--u) * 16); color: #fff; font-size: calc(var(--u) * 11); }
+.fiche-stock::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--u) * 9);
+  height: calc(var(--u) * 9);
+  border-radius: 50%;
+  background: #8EE09B;
+}
+.fiche-soustitre { margin: 0 0 calc(var(--u) * 6); font-size: calc(var(--u) * 13); font-weight: 700; }
+.fiche-texte p { margin: 0 0 calc(var(--u) * 16); color: #fff; font-size: calc(var(--u) * 13); line-height: 1.55; }
+
+.fiche-volet {
+  margin-bottom: calc(var(--u) * 10);
+  border: calc(var(--u) * 2) solid #fff;
+  border-radius: calc(var(--u) * 22);
+}
+.fiche-volet summary {
+  position: relative;
+  padding: calc(var(--u) * 12) calc(var(--u) * 44) calc(var(--u) * 12) calc(var(--u) * 18);
+  list-style: none;
+  cursor: pointer;
+  font-size: calc(var(--u) * 13);
+  font-weight: 700;
+}
+.fiche-volet summary::-webkit-details-marker { display: none; }
+.fiche-volet summary::after {
+  content: "";
+  position: absolute;
+  right: calc(var(--u) * 18);
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: calc(var(--u) * 8) solid transparent;
+  border-right: calc(var(--u) * 8) solid transparent;
+  border-top: calc(var(--u) * 10) solid #fff;
+}
+.fiche-volet[open] summary::after { transform: translateY(-50%) rotate(180deg); }
+.fiche-volet p { margin: 0; padding: 0 calc(var(--u) * 18) calc(var(--u) * 14); font-size: calc(var(--u) * 12); }

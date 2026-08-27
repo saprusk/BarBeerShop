@@ -333,7 +333,9 @@
 .faq-item summary::after {
   content: "";
   position: absolute;
-  right: calc(var(--u) * -60);
+  /* la fleche est posee DANS le bandeau : au-dela, elle sortait du cadre
+     et n'etait plus visible */
+  right: calc(var(--u) * 34);
   top: 50%;
   transform: translateY(-50%);
   border-left: calc(var(--u) * 17) solid transparent;

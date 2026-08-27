@@ -18,7 +18,9 @@
 .page-espace {
   position: relative;
   z-index: 0;
-  height: calc(var(--u) * 2916);
+  /* Hauteur minimale. Quand une question de la FAQ s'ouvre, commun.js
+     rallonge la section pour que le pied de page descende avec elle. */
+  min-height: calc(var(--u) * 2916);
   background: var(--creme);
 }
 
@@ -184,13 +186,14 @@
   line-height: 1.7;
 }
 
-/* la carte elle-meme (maquette : 397 x 340 en x 16, y 1650) */
+/* la carte elle-meme : ramenee a 358 de large pour ne plus depasser ni
+   etre rognee sur les cotes (maquette : 397 x 340 en x 16, y 1650) */
 .carte-zone {
   position: absolute;
-  left: calc(var(--u) * 16);
+  left: calc(var(--u) * 36);
   top: calc(var(--u) * 1535);
-  width: calc(var(--u) * 397);
-  height: calc(var(--u) * 340);
+  width: calc(var(--u) * 358);
+  height: calc(var(--u) * 307);
 }
 .carte-visuel { width: 100%; height: 100%; display: block; }
 
@@ -203,33 +206,33 @@
   color: #fff;
 }
 /* "Toute l'equipe vous dit" (maquette : ligne de base a 1703) */
-.carte-surtitre { top: calc(var(--u) * 38); font-size: calc(var(--u) * 16); font-weight: 500; }
+.carte-surtitre { top: calc(var(--u) * 34); font-size: calc(var(--u) * 16); font-weight: 500; }
 /* le mot manuscrit (maquette : ligne de base a 1733) */
-.carte-merci    { top: calc(var(--u) * 62); font-family: "Reenie Beanie", cursive; font-size: calc(var(--u) * 29); }
+.carte-merci    { top: calc(var(--u) * 56); font-family: "Reenie Beanie", cursive; font-size: calc(var(--u) * 29); }
 /* la mention du bas (maquette : ligne de base a 1924) */
-.carte-mention  { top: calc(var(--u) * 274); font-size: calc(var(--u) * 11); font-weight: 100; line-height: 1.5; }
+.carte-mention  { top: calc(var(--u) * 247); font-size: calc(var(--u) * 11); font-weight: 100; line-height: 1.5; }
 
 /* les tampons deja obtenus (positions relevees dans la maquette) */
 .tampon { position: absolute; }
-.tampon-1 { left: calc(var(--u) * 24);  top: calc(var(--u) * 81);  width: calc(var(--u) * 65); }
-.tampon-2 { left: calc(var(--u) * 103); top: calc(var(--u) * 86);  width: calc(var(--u) * 77); }
-.tampon-3 { left: calc(var(--u) * 180); top: calc(var(--u) * 91);  width: calc(var(--u) * 61); }
-.tampon-4 { left: calc(var(--u) * 238); top: calc(var(--u) * 100); width: calc(var(--u) * 67); }
+.tampon-1 { left: calc(var(--u) * 22);  top: calc(var(--u) * 73);  width: calc(var(--u) * 59); }
+.tampon-2 { left: calc(var(--u) * 93);  top: calc(var(--u) * 78);  width: calc(var(--u) * 69); }
+.tampon-3 { left: calc(var(--u) * 162); top: calc(var(--u) * 82);  width: calc(var(--u) * 55); }
+.tampon-4 { left: calc(var(--u) * 215); top: calc(var(--u) * 90);  width: calc(var(--u) * 60); }
 
 /* #fleche bouclee et sa promesse (maquette : fleche en x 61, y 1983) */
 .carte-fleche {
   position: absolute;
   left: calc(var(--u) * 45);    /* 61 - 16 */
-  top: calc(var(--u) * 333);    /* 1983 - 1650 */
+  top: calc(var(--u) * 310);
   width: calc(var(--u) * 78);
   /* dans la maquette telephone la boucle est retournee */
   transform: scaleY(-1);
 }
 .carte-recompense {
   position: absolute;
-  left: calc(var(--u) * 118);
-  top: calc(var(--u) * 455);
-  width: calc(var(--u) * 276);
+  left: calc(var(--u) * 108);
+  top: calc(var(--u) * 432);
+  width: calc(var(--u) * 262);
   margin: 0;
   color: var(--noir);
   font-size: calc(var(--u) * 16);
@@ -256,6 +259,9 @@
 }
 .faq-titre span { font-weight: 700; }
 
+/* La liste des questions est dans le flux : ainsi, quand une reponse
+   s'ouvre, elle pousse le pied de page vers le bas au lieu de passer
+   derriere lui. */
 .faq {
   position: absolute;
   left: calc(var(--u) * 36);

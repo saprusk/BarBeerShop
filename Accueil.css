@@ -157,7 +157,7 @@
 /* Chaque photo est centree dans le rond du fond, en laissant depasser
    environ 13 px de bleu tout autour : c'est le contour de la maquette. */
 /* mur de briques : rond satellite du fond (centre x 1228, y 1304) */
-.rond-briques  { left: calc(var(--u) * 1103); top: calc(var(--u) * 29);  width: calc(var(--u) * 250); height: calc(var(--u) * 250); }
+.rond-briques  { left: calc(var(--u) * 1096); top: calc(var(--u) * 22);  width: calc(var(--u) * 265); height: calc(var(--u) * 265); }
 /* grande vue de l'ambiance : rond principal du fond (713 de large) */
 .rond-ambiance { left: calc(var(--u) * 1336); top: calc(var(--u) * 241); width: calc(var(--u) * 686); height: calc(var(--u) * 686); }
 /* fauteuils du barber : rond principal du fond barber (446 de large) */
@@ -167,7 +167,7 @@
    Dans la maquette, chaque photo est posee en grand derriere son rond,
    qui n'en montre qu'une partie. On reprend ici sa taille et sa position
    exactes plutot que de laisser le navigateur recadrer tout seul. */
-.rond-briques  img { left: calc(var(--u) * -13);  top: calc(var(--u) * -105); width: calc(var(--u) * 276);  height: calc(var(--u) * 368); }
+.rond-briques  img { left: calc(var(--u) * -6);   top: calc(var(--u) * -98);  width: calc(var(--u) * 276);  height: calc(var(--u) * 368); }
 .rond-ambiance img { left: calc(var(--u) * -336); top: calc(var(--u) * -861); width: calc(var(--u) * 1398); height: calc(var(--u) * 2485); }
 .rond-salon    img { left: 0;                     top: calc(var(--u) * -9);   width: calc(var(--u) * 419);  height: calc(var(--u) * 559); }
 
@@ -293,23 +293,22 @@
 }
 .avis-fleche:hover { opacity: 0.55; }
 
-/* la fenetre laisse voir trois avis a la fois */
+/* La fenetre laisse voir exactement TROIS avis. Les deux autres attendent
+   de chaque cote, hors du cadre. */
 .avis-fenetre {
-  width: calc(var(--u) * 1500);
+  width: calc(var(--u) * 1440);
   max-width: 100%;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  padding: calc(var(--u) * 40) 0;
+  overflow: hidden;
+  padding: calc(var(--u) * 60) 0;
 }
-.avis-fenetre::-webkit-scrollbar { display: none; }
 
+/* La piste porte les cinq avis et glisse d'un cran a chaque fleche. */
 .avis-piste {
   display: flex;
   align-items: center;
   gap: calc(var(--u) * 60);
   width: max-content;
-  padding: 0 calc(var(--u) * 20);
+  transition: transform 0.45s ease;
 }
 
 /* une carte d'avis : rectangle rouge arrondi, legerement incline */
@@ -322,13 +321,17 @@
   background: var(--rouge);
   border-radius: calc(var(--u) * 26);
   color: #fff;
-  transform: rotate(var(--angle));
+  /* l'angle est pose par le script, selon la place occupee */
+  transform: rotate(var(--angle, 0deg));
+  transition: transform 0.45s ease;
 }
 /* les gros guillemets, en haut a gauche et en bas a droite */
 .avis-carte::before,
 .avis-carte::after {
   content: "\201D";
   position: absolute;
+  /* PP Formula ne dessine pas les guillemets : police de secours */
+  font-family: Georgia, "Times New Roman", serif;
   color: #fff;
   font-size: calc(var(--u) * 90);
   line-height: 1;
@@ -406,7 +409,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: calc(var(--u) * 235);
+  top: calc(var(--u) * 220);
   width: calc(var(--u) * 276);
   height: calc(var(--u) * 68);
   z-index: 4;
@@ -444,10 +447,12 @@
 }
 
 /* #frise rayee (maquette : y 3717 -> 1034) */
+/* La frise est calee sur le BAS du demi-cercle beige (qui se termine a
+   1107) : sa hauteur vaut 31 px pour 1939 de large, d'ou top = 1107 - 31. */
 .rayures {
   position: absolute;
   left: 0;
-  top: calc(var(--u) * 1034);
+  top: calc(var(--u) * 1076);
   width: calc(var(--u) * 1935);
   z-index: 3;
 }
@@ -541,7 +546,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: calc(var(--u) * 130);
+  top: calc(var(--u) * 140);
   display: flex;
   justify-content: center;
   gap: calc(var(--u) * 40);
@@ -553,12 +558,11 @@
   border-radius: calc(var(--u) * 28);   /* angles nettement plus arrondis */
   box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 18) rgba(0,0,0,0.18);
 }
-/* les inclinaisons relevees dans la maquette */
-.instagram-galerie img:nth-child(1) { transform: rotate(-1.2deg); }
-.instagram-galerie img:nth-child(2) { transform: rotate(0.8deg)  translateY(calc(var(--u) * -6)); }
-.instagram-galerie img:nth-child(3) { transform: rotate(-0.6deg) translateY(calc(var(--u) * -14)); }
-.instagram-galerie img:nth-child(4) { transform: rotate(1deg)    translateY(calc(var(--u) * -22)); }
-.instagram-galerie img:nth-child(5) { transform: rotate(-1.4deg) translateY(calc(var(--u) * -16)); }
+/* Toutes les photos sont bien droites et alignees, et chacune est un lien
+   vers le compte Instagram. */
+.instagram-galerie a { display: block; line-height: 0; }
+.instagram-galerie a:hover img { transform: scale(1.03); }
+.instagram-galerie img { transition: transform 0.25s; }
 
 /* =========================================================================
    #bandeau reglementaire  (5211 -> 5368)
