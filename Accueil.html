@@ -22,8 +22,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=3" rel="stylesheet">
-    <link href="Accueil.css?v=3" rel="stylesheet">
+    <link href="commun.css?v=5" rel="stylesheet">
+    <link href="Accueil.css?v=5" rel="stylesheet">
   </head>
 
   <body>
@@ -124,6 +124,13 @@
            dignissim qui blandit praesent luptatum zzril delenit</p>
       </div>
 
+      <!-- #fonds de forme fournis par la designer
+           Ce sont les grands ronds bleu petrole qui depassent derriere les
+           photos : ils dessinent le contour, les bulles satellites et les
+           raccords en goutte entre les ronds. -->
+      <img src="sources/fond-accueil-bar.webp" alt="" class="fond-forme fond-forme-bar">
+      <img src="sources/fond-accueil-barber.webp" alt="" class="fond-forme fond-forme-barber">
+
       <!-- #photos rondes -->
       <div class="rond rond-briques"><img src="sources/bar-briques.webp" alt="La salle du bar, mur de briques"></div>
       <div class="rond rond-ambiance"><img src="sources/bar-ambiance.webp" alt="L'ambiance du bar à bières"></div>
@@ -131,7 +138,12 @@
 
       <!-- #bulles de legende posees sur les photos -->
       <span class="legende legende-bar">BAR<small>À bières</small></span>
-      <span class="legende legende-barber">BARBER</span>
+      <span class="legende legende-barber legende-sans-fond">BARBER</span>
+
+      <!-- #petits sourires blancs dessines sous chaque bulle -->
+      <span class="sourire sourire-bar" aria-hidden="true"></span>
+      <span class="sourire sourire-barber" aria-hidden="true"></span>
+      <span class="grain-beaute" aria-hidden="true"></span>
 
       <!-- #pastilles bleues decoratives -->
       <span class="pastille p1"></span>
@@ -304,6 +316,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=3"></script>
+    <script src="commun.js?v=5"></script>
   </body>
 </html>

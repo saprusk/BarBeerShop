@@ -229,3 +229,54 @@ paramètre `access_token`. Jeton utilisé aujourd'hui (périmera) :
 `Page Accueil` (5725) · `Web 1920 – 11` (6258) · **`Page Barber – 3` (5378)** ·
 `Concept` (6025) · `Compte` (3792) · `Création compte` (1838) ·
 `Modification compte` (1838) · `Web 1920 – 13` (6258) · `Page Accueil – Night Shift` (5725)
+
+---
+
+## 8. Fonds de forme fournis par la designer (PNG → WebP)
+
+Six fichiers PNG reçus (dossier `PNG manquante` sur le bureau), convertis en WebP sans
+perte avec Pillow puis rognés à leur contenu utile. Ce sont des **calques de forme** :
+les grands ronds de couleur qui se posent **derrière** les photos, débordent d'une
+dizaine de pixels (c'est le contour de la maquette), et portent les bulles satellites,
+les raccords en goutte et le fil rouge.
+
+| Fichier WebP | Taille | Page | Position (coordonnées maquette) | Repère XD |
+|---|---|---|---|---|
+| `fond-accueil-bar.webp` | 952×931 | Accueil | x 1084, y 1160 | Tracé 747 (Ø713 en 1323, 1378) |
+| `fond-accueil-barber.webp` | 509×573 | Accueil | x 57, y 1548 | Groupe 378 (508×572) |
+| `fond-bar-ambiance.webp` | 628×863 | Bar | x 80, y 2990 | Tracé 891 (Ø554) |
+| `fond-concept-fil-rouge.webp` | 1964×1899 | Notre Concept | x −250, y 181 | Tracé 1137 + Ellipse 120 + fil rouge |
+| `fond-concept-droite.webp` | 676×760 | Notre Concept | x 1391, y 1068 | Ellipse 119 (Ø663) |
+| `fond-barber-produits.webp` | 899×499 | Barber | x 109, y 2063 | Rectangle 1647 (844×342) |
+
+**Comment ils ont été calés :** on repère le grand rond du fichier (plus long segment
+horizontal opaque), on lit son diamètre exact, puis on le fait coïncider avec le tracé
+correspondant de la maquette. Trois fichiers ont été recoupés sur deux ou trois ronds
+différents, avec moins de 5 px d'écart.
+
+**Conséquences sur le CSS :**
+- Les photos rondes sont désormais **centrées dans le rond du fond** et un peu plus
+  petites que lui : le contour bleu (ou brun) vient du fichier, plus d'une bordure CSS.
+  La bordure `border: 5px` de `.cercle` (page Concept) a donc été retirée.
+- Sur la page Notre Concept, le fichier du fil rouge déborde d'une section à l'autre :
+  `.bulles-concept` et `.services` sont devenues transparentes, le crème est posé sur
+  le `body`.
+- Les bulles BARBER / BAR / Notre CONCEPT de la page Concept sont dessinées **texte
+  compris** dans le fichier. Le texte HTML est conservé en lecture d'écran seulement
+  (`.hors-ecran`), pour le référencement et l'accessibilité.
+- Les traits rouges dessinés à la main (`<svg class="liens">`) ont été supprimés.
+
+## 9. Cadrage des photos rondes
+
+La maquette pose chaque photo **en grand** derrière son rond, qui n'en montre qu'une
+partie. `object-fit: cover` ne suffisait donc pas (le grand rond du bar était deux fois
+moins zoomé que dans XD). Chaque image est maintenant positionnée en absolu avec la
+taille et le décalage relevés dans le fichier XD (`page.images(...)`).
+
+## 10. Piège corrigé : la bascule jour/nuit du `body`
+
+`body { background-color: var(--creme); transition: background-color .3s }` : quand
+`--creme` change, Chrome **garde l'ancienne couleur du body**. Le problème ne se voyait
+pas tant que chaque section peignait son propre fond ; il est apparu dès que les
+sections du Concept sont devenues transparentes. La transition a été retirée du `body`
+(dans `commun.css` et `barber.css`) ; les autres blocs gardent leur fondu.

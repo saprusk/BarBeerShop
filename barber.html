@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
 
     <!-- commun.css : styles COMMUNS a tout le site (polices, navbar, pied) -->
-    <link href="commun.css?v=3" rel="stylesheet">
+    <link href="commun.css?v=5" rel="stylesheet">
     <!-- barber.css : styles PROPRES a cette page -->
-    <link href="barber.css?v=3" rel="stylesheet">
+    <link href="barber.css?v=5" rel="stylesheet">
   </head>
 
   <body>
@@ -281,14 +281,16 @@
            Carte rouge collee a gauche, avec la photo posee derriere le haut.
            ================================================================= -->
       <div class="produits">
-        <!-- #effet "pot de bouchon"
+        <!-- #effet "pot"
              Trois couches superposees, comme dans la maquette :
                1. la photo des produits, tout au fond
-               2. une plaque grisatre translucide qui floute la photo
-               3. la carte rouge, elle aussi translucide et floutee
+               2. une vitre qui floute la photo (backdrop-filter)
+               3. le fond rouge fourni par la designer, avec son voile
+                  blanc degrade en haut et en bas
              C'est ce qui donne l'impression d'un couvercle pose sur un pot. -->
         <img src="sources/produits.webp" alt="" class="produits-photo">
-        <div class="produits-bouchon"></div>
+        <div class="produits-vitre"></div>
+        <img src="sources/fond-barber-produits.webp" alt="" class="fond-forme fond-forme-produits">
 
         <!-- carte rouge -->
         <div class="produits-carte">
@@ -299,7 +301,7 @@
           <img src="sources/fleur-1.svg" alt="" class="produits-fleur produits-fleur-b">
 
           <p class="produits-texte">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,<br>
             nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
             erat volutpat. Ut wisi enim ad minim veniam, quis
             <strong>nostrud exerci tation ullamcorper</strong> suscipit lobortis nisl ut aliquip ex ea

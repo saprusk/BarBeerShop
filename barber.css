@@ -72,7 +72,9 @@ body {
      transition de reprendre une couleur qui vient d'une variable */
   background-color: var(--creme);
   overflow-x: hidden;
-  transition: background-color 0.3s; /* passage jour/nuit en douceur */
+  /* Pas de transition ici : sur le <body>, Chrome garde alors l'ancienne
+     couleur quand la variable --creme change, et la bascule nuit ne se
+     voit plus. Les autres blocs, eux, gardent leur fondu. */
 }
 
 /* Toutes les boites incluent leur bordure dans la largeur annoncee.
@@ -418,47 +420,51 @@ body {
 
 /* --- couche 1 : la photo des produits, tout au fond --- */
 .produits-photo {
-  display: block;
-  width: calc(var(--u) * 340);
-  height: calc(var(--u) * 200);
+  /* maquette : 779 x 487, posee en x 221, y 2091.
+     Elle est hors du flux pour ne pas pousser le texte vers le bas. */
+  position: absolute;
+  left: calc(var(--u) * 66);
+  top: 0;
+  width: calc(var(--u) * 779);
+  height: calc(var(--u) * 487);
   object-fit: cover;
   object-position: center 30%;
-  margin-left: calc(var(--u) * 66);
   border-radius: calc(var(--u) * 14);
-  position: relative;
   z-index: 0;
 }
 
-/* --- couche 2 : la plaque grisatre translucide ---
-   Elle floute la photo qui se trouve derriere ("backdrop-filter") et forme
-   le rebord clair du pot, qui depasse en haut de la carte rouge. */
-.produits-bouchon {
+/* --- couche 2 : la vitre qui floute la photo ---
+   Elle occupe exactement la zone du fichier de fond, pour que le voile
+   blanc de ce dernier se pose sur une photo deja adoucie. */
+.produits-vitre {
   position: absolute;
-  left: calc(var(--u) * 30);
-  top: calc(var(--u) * 96);
-  width: calc(var(--u) * 420);
-  height: calc(var(--u) * 130);
-  background: rgba(255, 255, 255, 0.28);
+  left: calc(var(--u) * -46);
+  top: calc(var(--u) * -28);
+  width: calc(var(--u) * 899);
+  height: calc(var(--u) * 535);   /* elle couvre toute la photo, jusqu'en bas */
   backdrop-filter: blur(calc(var(--u) * 16));
   -webkit-backdrop-filter: blur(calc(var(--u) * 16));
-  border-radius: calc(var(--u) * 20);
   z-index: 1;
 }
 
-/* --- couche 3 : la carte rouge, translucide et floutee elle aussi --- */
+/* --- couche 3 : le fond rouge fourni par la designer ---
+   Le rectangle rouge de la maquette fait 844 x 342 et se pose en x 139,
+   y 2195 ; le fichier ajoute autour le voile blanc degrade. */
+.fond-forme-produits {
+  left: calc(var(--u) * -46);
+  top: calc(var(--u) * -28);
+  width: calc(var(--u) * 899);
+  z-index: 2;
+}
+
+/* --- couche 4 : les textes, poses sur le fond rouge --- */
 .produits-carte {
   position: relative;
-  z-index: 2;
-  margin-top: calc(var(--u) * -85);   /* la carte recouvre le bas de la photo */
+  z-index: 3;
+  margin-top: calc(var(--u) * 115);   /* le texte commence sur le fond rouge */
   min-height: calc(var(--u) * 324);
   padding: calc(var(--u) * 34) calc(var(--u) * 56) calc(var(--u) * 80);
-  background: rgba(226, 57, 80, 0.88);
-  backdrop-filter: blur(calc(var(--u) * 18));
-  -webkit-backdrop-filter: blur(calc(var(--u) * 18));
-  border-radius: calc(var(--u) * 34);
   color: var(--creme);
-  /* le leger decalage clair du fond, comme le double rectangle de la maquette */
-  box-shadow: calc(var(--u) * -16) calc(var(--u) * -11) 0 rgba(226, 57, 80, 0.45);
 }
 .produits-titre {
   margin: 0 0 calc(var(--u) * 22);
@@ -467,6 +473,8 @@ body {
 }
 .produits-texte {
   margin: 0;
+  /* on garde le texte a gauche des deux fleurs decoratives */
+  width: calc(var(--u) * 600);
   font-size: calc(var(--u) * 18);
   font-weight: 400;
   line-height: 1.65;

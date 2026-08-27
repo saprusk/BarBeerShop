@@ -13,14 +13,17 @@
      Pied de page ......... 5668 -> 6025   ( 357)
    ========================================================================= */
 
-/* Motif commun : une photo rognee en cercle, avec un contour bleu petrole */
+/* Motif commun : une photo rognee en cercle.
+   Le contour bleu petrole n'est plus dessine ici : il vient des fichiers
+   de fond de la designer, dont les ronds sont un peu plus larges que les
+   photos et depassent donc tout autour. */
 .cercle {
+  z-index: 1;
   position: absolute;
   border-radius: 50%;
   overflow: hidden;
-  border: calc(var(--u) * 5) solid var(--petrole);
 }
-.cercle img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cercle img { position: absolute; max-width: none; display: block; }
 
 /* Element purement decoratif */
 .deco { position: absolute; pointer-events: none; }
@@ -32,7 +35,8 @@
 .bulles-concept {
   position: relative;
   height: calc(var(--u) * 1230);
-  background: var(--creme);
+  /* pas de fond ici : le fichier de forme deborde sur la section suivante,
+     et le creme est deja pose sur la page entiere */
 }
 
 .bouton-remonter { top: calc(var(--u) * 464); }
@@ -47,10 +51,28 @@
   pointer-events: none;
 }
 
-/* #photos rondes (positions et tailles relevees dans la maquette) */
-.cercle-salon    { left: calc(var(--u) * 140);  top: calc(var(--u) * 545); width: calc(var(--u) * 440); height: calc(var(--u) * 440); }
-.cercle-briques  { left: calc(var(--u) * 600);  top: calc(var(--u) * 305); width: calc(var(--u) * 290); height: calc(var(--u) * 290); }
-.cercle-ambiance { left: calc(var(--u) * 1020); top: calc(var(--u) * 200); width: calc(var(--u) * 700); height: calc(var(--u) * 700); }
+/* #fond de forme du haut de page
+   Il est cale sur le grand rond de droite et deborde volontairement a
+   gauche de l'ecran, exactement comme dans la maquette. */
+.fond-forme-concept { left: calc(var(--u) * -250); top: calc(var(--u) * 181); width: calc(var(--u) * 1964); }
+
+/* #photos rondes
+   Chaque photo est centree dans son rond de fond, en laissant depasser
+   le contour bleu tout autour. */
+.cercle-salon    { left: calc(var(--u) * 152);  top: calc(var(--u) * 636); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+.cercle-briques  { left: calc(var(--u) * 606);  top: calc(var(--u) * 319); width: calc(var(--u) * 276); height: calc(var(--u) * 276); }
+.cercle-ambiance { left: calc(var(--u) * 1004); top: calc(var(--u) * 190); width: calc(var(--u) * 694); height: calc(var(--u) * 694); }
+/* #cadrage des photos rondes
+   (coordonnees de la maquette, haut de page)
+   Dans la maquette, chaque photo est posee en grand derriere son rond,
+   qui n'en montre qu'une partie. On reprend ici sa taille et sa position
+   exactes plutot que de laisser le navigateur recadrer tout seul. */
+.cercle-salon    img { left: 0;                     top: calc(var(--u) * -11);  width: calc(var(--u) * 419);  height: calc(var(--u) * 559); }
+.cercle-briques  img { left: 0;                     top: calc(var(--u) * -92);  width: calc(var(--u) * 276);  height: calc(var(--u) * 368); }
+.cercle-ambiance img { left: calc(var(--u) * -324); top: calc(var(--u) * -861); width: calc(var(--u) * 1398); height: calc(var(--u) * 2485); }
+/* section "Deux Services" */
+.cercle-piano     img { left: 0;                  top: calc(var(--u) * -129); width: calc(var(--u) * 626); height: calc(var(--u) * 834); }
+.cercle-briques-2 img { left: 0;                  top: calc(var(--u) * -162); width: calc(var(--u) * 512); height: calc(var(--u) * 683); }
 
 /* #bulles de legende, posees a cheval entre deux photos */
 .bulle {
@@ -99,22 +121,28 @@
 .services {
   position: relative;
   height: calc(var(--u) * 730);
-  background: var(--creme);
 }
 
-/* photo qui deborde a droite (maquette : x 1391, y 1068 -> -162) */
-.cercle-piano {
+/* #fond du rond de droite (maquette : x 1391, y 1068 -> -162) */
+.fond-forme-droite {
   left: calc(var(--u) * 1391);
   top: calc(var(--u) * -162);
-  width: calc(var(--u) * 663);
-  height: calc(var(--u) * 663);
+  width: calc(var(--u) * 676);
 }
-/* photo qui deborde a gauche (maquette : x -249, y 1526 -> 296) */
+/* photo qui deborde a droite, centree dans son rond de fond */
+.cercle-piano {
+  left: calc(var(--u) * 1410);
+  top: calc(var(--u) * -143);
+  width: calc(var(--u) * 626);
+  height: calc(var(--u) * 626);
+}
+/* photo qui deborde a gauche : son rond de fond vient du fichier du haut
+   de page, qui descend jusqu'ici */
 .cercle-briques-2 {
-  left: calc(var(--u) * -249);
-  top: calc(var(--u) * 296);
-  width: calc(var(--u) * 553);
-  height: calc(var(--u) * 553);
+  left: calc(var(--u) * -228);
+  top: calc(var(--u) * 316);
+  width: calc(var(--u) * 512);
+  height: calc(var(--u) * 512);
 }
 
 .services-titre {

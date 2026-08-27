@@ -269,13 +269,25 @@ body { background-color: var(--beige); }
   background: var(--beige);
 }
 
-/* #photos rondes */
-.rond { position: absolute; border-radius: 50%; overflow: hidden; }
-.rond img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* grande photo (maquette : x 80, y 2990 -> 130) */
-.rond-grand { left: calc(var(--u) * 80);  top: calc(var(--u) * 130); width: calc(var(--u) * 554); height: calc(var(--u) * 554); aspect-ratio: 1 / 1; }
-/* petite photo (maquette : x 326, y 3602 -> 742) */
-.rond-petit { left: calc(var(--u) * 326); top: calc(var(--u) * 742); width: calc(var(--u) * 250); height: calc(var(--u) * 250); aspect-ratio: 1 / 1; }
+/* #fond de forme (maquette : le grand rond de 554 est cale sur x 80, y 2990) */
+.fond-forme-ambiance { left: calc(var(--u) * 80); top: calc(var(--u) * 130); width: calc(var(--u) * 628); }
+
+/* #photos rondes
+   Chaque photo est centree dans le rond du fond en laissant depasser
+   environ 12 px de brun tout autour : c'est le contour de la maquette. */
+.rond { position: absolute; border-radius: 50%; overflow: hidden; z-index: 1; }
+.rond img { position: absolute; max-width: none; display: block; }
+/* grande photo (maquette : groupe de masques 529 de large, x 91) */
+.rond-grand { left: calc(var(--u) * 93);  top: calc(var(--u) * 143); width: calc(var(--u) * 529); height: calc(var(--u) * 529); aspect-ratio: 1 / 1; }
+/* petite photo (maquette : groupe de masques 225 de large, x 337) */
+.rond-petit { left: calc(var(--u) * 339); top: calc(var(--u) * 755); width: calc(var(--u) * 225); height: calc(var(--u) * 225); aspect-ratio: 1 / 1; }
+/* #cadrage des photos rondes
+   (coordonnees de la maquette, section ambiance qui demarre a 2860)
+   Dans la maquette, chaque photo est posee en grand derriere son rond,
+   qui n'en montre qu'une partie. On reprend ici sa taille et sa position
+   exactes plutot que de laisser le navigateur recadrer tout seul. */
+.rond-grand img { left: 0; top: calc(var(--u) * -124); width: calc(var(--u) * 529); height: calc(var(--u) * 705); }
+.rond-petit img { left: 0; top: calc(var(--u) * -68);  width: calc(var(--u) * 225); height: calc(var(--u) * 300); }
 
 /* #pastilles brunes decoratives (positions relevees dans la maquette) */
 .pastille { position: absolute; border-radius: 50%; background: var(--brun); }

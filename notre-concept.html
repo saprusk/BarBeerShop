@@ -20,8 +20,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=3" rel="stylesheet">
-    <link href="notre-concept.css?v=3" rel="stylesheet">
+    <link href="commun.css?v=5" rel="stylesheet">
+    <link href="notre-concept.css?v=5" rel="stylesheet">
   </head>
 
   <body>
@@ -59,13 +59,13 @@
         <img src="sources/bouton-remonter.svg" alt="">
       </a>
 
-      <!-- #traits rouges qui relient les trois bulles entre elles -->
-      <svg class="liens" viewBox="0 0 1920 1230" aria-hidden="true" preserveAspectRatio="none">
-        <path d="M548 700 C560 800 660 830 760 810" fill="none" stroke="#E13950" stroke-width="3"/>
-        <path d="M947 560 C990 660 900 780 830 800" fill="none" stroke="#E13950" stroke-width="3"/>
-        <path d="M760 830 C560 900 330 980 250 1200" fill="none" stroke="#E13950" stroke-width="3"/>
-        <path d="M860 790 C1050 720 1180 640 1230 560" fill="none" stroke="#E13950" stroke-width="3"/>
-      </svg>
+      <!-- #fond de forme fourni par la designer
+           Ce fichier contient toute la composition du haut de page : les
+           grands ronds bleus qui servent de contour aux photos, les bulles
+           de legende et le fil rouge qui relie le tout. -->
+      <img src="sources/fond-concept-fil-rouge.webp"
+           alt="Les trois univers du Barbeershop relies par un fil rouge : le barber, le bar a bieres et notre concept"
+           class="fond-forme fond-forme-concept">
 
       <!-- #photo ronde : le salon (a gauche) -->
       <div class="cercle cercle-salon"><img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure"></div>
@@ -74,13 +74,13 @@
       <!-- #photo ronde : l'ambiance du bar (a droite, la plus grande) -->
       <div class="cercle cercle-ambiance"><img src="sources/bar-ambiance.webp" alt="L'ambiance du bar à bières"></div>
 
-      <!-- #bulles de legende -->
-      <span class="bulle bulle-barber">BARBER</span>
-      <span class="bulle bulle-bar">BAR<small>À bières</small></span>
-      <span class="bulle bulle-concept">Notre<br><strong>CONCEPT</strong></span>
-
-      <!-- #fleur rouge decorative -->
-      <img class="deco fleur-tige" src="sources/fleur-rouge-tige.svg" alt="">
+      <!-- #bulles de legende
+           Elles font partie du fichier de fond ci-dessus (dessin et texte).
+           On garde ici le texte pour les lecteurs d'ecran et les moteurs de
+           recherche, sans le reafficher a l'ecran. -->
+      <span class="hors-ecran">BARBER</span>
+      <span class="hors-ecran">BAR à bières</span>
+      <span class="hors-ecran">Notre CONCEPT</span>
 
       <!-- #texte d'introduction -->
       <p class="intro-texte">
@@ -94,6 +94,9 @@
          2. DEUX SERVICES
          ===================================================================== -->
     <section class="services">
+      <!-- #fond de forme du rond de droite -->
+      <img src="sources/fond-concept-droite.webp" alt="" class="fond-forme fond-forme-droite">
+
       <!-- #photo ronde qui deborde a droite -->
       <div class="cercle cercle-piano"><img src="sources/concept-piano.webp" alt="Le coin salon du bar"></div>
       <!-- #photo ronde qui deborde a gauche -->
@@ -372,7 +375,7 @@
         <button type="button" class="fiche-fermer" id="ficheFermer" aria-label="Fermer la fiche">&times;</button>
 
         <div class="fiche-corps">
-          <img id="ficheImage" src="" alt="">
+          <img id="ficheImage" alt="">
           <div class="fiche-texte">
             <h3 id="ficheNom">Produit</h3>
             <p id="ficheDescription"></p>
@@ -413,6 +416,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=3"></script>
+    <script src="commun.js?v=5"></script>
   </body>
 </html>

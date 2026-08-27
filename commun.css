@@ -77,7 +77,9 @@ body {
   font-family: var(--police);
   background-color: var(--creme);
   overflow-x: hidden;
-  transition: background-color 0.3s;
+  /* Pas de transition ici : sur le <body>, Chrome garde alors l'ancienne
+     couleur quand la variable --creme change, et la bascule nuit ne se
+     voit plus. Les autres blocs, eux, gardent leur fondu. */
 }
 
 /* Les bordures sont comptees dans la largeur annoncee */
@@ -426,3 +428,11 @@ html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
   .pied-newsletter { width: 100%; height: 46px; font-size: 1rem; padding: 0 1.2rem; border-width: 2px; }
   .pied-reseaux { height: 38px; }
 }
+
+/* =========================================================================
+   #fonds de forme
+   Fichiers fournis par la designer : les grands ronds de couleur qui
+   depassent derriere les photos (contour, bulles satellites et raccords
+   en goutte). Ils se posent sous les photos, sans gener les clics.
+   ========================================================================= */
+.fond-forme { position: absolute; z-index: 0; pointer-events: none; }

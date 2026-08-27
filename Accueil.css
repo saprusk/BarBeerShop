@@ -128,15 +128,35 @@
 .concept-texte-2 p { margin: 0 0 calc(var(--u) * 24); }
 .concept-texte-1 strong, .concept-texte-2 strong { font-weight: 700; }
 
+/* #fonds de forme (fichiers de la designer)
+   Le grand rond bleu est un peu plus large que la photo : c'est ce qui
+   cree le contour petrole. Le fichier apporte aussi la bulle satellite
+   et le raccord en goutte, donc on n'a plus a les dessiner en CSS. */
+.fond-forme { position: absolute; z-index: 0; pointer-events: none; }
+/* cote bar (maquette : le grand rond de 713 est cale sur x 1323, y 1378) */
+.fond-forme-bar    { left: calc(var(--u) * 1084); top: calc(var(--u) * 10);  width: calc(var(--u) * 952); }
+/* cote barber (maquette : groupe de 508 x 572 pose en x 57, y 1548) */
+.fond-forme-barber { left: calc(var(--u) * 57);   top: calc(var(--u) * 398); width: calc(var(--u) * 509); }
+
 /* #photos rondes du concept */
-.rond { position: absolute; border-radius: 50%; overflow: hidden; }
-.rond img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* mur de briques (maquette : x 1090, y 1074 -> -76) */
-.rond-briques  { left: calc(var(--u) * 1090); top: calc(var(--u) * -76); width: calc(var(--u) * 276); height: calc(var(--u) * 276); }
-/* grande vue de l'ambiance (maquette : x 1323, y 1378 -> 228) */
-.rond-ambiance { left: calc(var(--u) * 1323); top: calc(var(--u) * 228); width: calc(var(--u) * 713); height: calc(var(--u) * 713); }
-/* fauteuils du barber (maquette : x 64, y 1673 -> 523) */
-.rond-salon    { left: calc(var(--u) * 64);   top: calc(var(--u) * 523); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+.rond { position: absolute; border-radius: 50%; overflow: hidden; z-index: 1; }
+.rond img { position: absolute; max-width: none; display: block; }
+/* Chaque photo est centree dans le rond du fond, en laissant depasser
+   environ 13 px de bleu tout autour : c'est le contour de la maquette. */
+/* mur de briques : rond satellite du fond (centre x 1228, y 1304) */
+.rond-briques  { left: calc(var(--u) * 1103); top: calc(var(--u) * 29);  width: calc(var(--u) * 250); height: calc(var(--u) * 250); }
+/* grande vue de l'ambiance : rond principal du fond (713 de large) */
+.rond-ambiance { left: calc(var(--u) * 1336); top: calc(var(--u) * 241); width: calc(var(--u) * 686); height: calc(var(--u) * 686); }
+/* fauteuils du barber : rond principal du fond barber (446 de large) */
+.rond-salon    { left: calc(var(--u) * 70);   top: calc(var(--u) * 538); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+/* #cadrage des photos rondes
+   (coordonnees de la maquette, section concept qui demarre a 1150)
+   Dans la maquette, chaque photo est posee en grand derriere son rond,
+   qui n'en montre qu'une partie. On reprend ici sa taille et sa position
+   exactes plutot que de laisser le navigateur recadrer tout seul. */
+.rond-briques  img { left: calc(var(--u) * -13);  top: calc(var(--u) * -105); width: calc(var(--u) * 276);  height: calc(var(--u) * 368); }
+.rond-ambiance img { left: calc(var(--u) * -336); top: calc(var(--u) * -861); width: calc(var(--u) * 1398); height: calc(var(--u) * 2485); }
+.rond-salon    img { left: 0;                     top: calc(var(--u) * -9);   width: calc(var(--u) * 419);  height: calc(var(--u) * 559); }
 
 /* #bulles de legende posees sur les photos */
 .legende {
@@ -153,10 +173,31 @@
   z-index: 3;
 }
 .legende small { display: block; font-size: calc(var(--u) * 24); font-weight: 800; }
-/* BAR a bieres (maquette : x 1363, y 1425 -> 275) */
-.legende-bar    { left: calc(var(--u) * 1363); top: calc(var(--u) * 257); width: calc(var(--u) * 135); height: calc(var(--u) * 135); }
-/* BARBER (maquette : x 400, y 1655 -> 505) */
-.legende-barber { left: calc(var(--u) * 400);  top: calc(var(--u) * 468); width: calc(var(--u) * 140); height: calc(var(--u) * 140); }
+/* BAR a bieres (maquette : rond de 141 pose en x 1323, y 1359 -> 209) */
+.legende-bar    { left: calc(var(--u) * 1323); top: calc(var(--u) * 209); width: calc(var(--u) * 141); height: calc(var(--u) * 141); }
+/* BARBER : la bulle est deja dessinee dans le fichier de fond, on ne
+   pose donc que le texte par dessus (pas de rond en plus). */
+.legende-barber { left: calc(var(--u) * 372);  top: calc(var(--u) * 401); width: calc(var(--u) * 187); height: calc(var(--u) * 187); }
+.legende-sans-fond { background: none; }
+
+/* #sourires : un simple demi-cercle blanc, dessine avec une bordure basse */
+.sourire {
+  position: absolute;
+  border-bottom: calc(var(--u) * 3) solid #fff;
+  border-radius: 0 0 50% 50%;
+  z-index: 4;
+}
+/* sous la bulle BAR (maquette : x 1373, y 1483 -> 333) */
+.sourire-bar    { left: calc(var(--u) * 1373); top: calc(var(--u) * 333); width: calc(var(--u) * 42); height: calc(var(--u) * 12); }
+/* sous la bulle BARBER (maquette : x 468, y 1722 -> 572) */
+.sourire-barber { left: calc(var(--u) * 468);  top: calc(var(--u) * 572); width: calc(var(--u) * 31); height: calc(var(--u) * 10); }
+/* le petit point blanc a cote du sourire BARBER */
+.grain-beaute {
+  position: absolute;
+  left: calc(var(--u) * 513); top: calc(var(--u) * 560);
+  width: calc(var(--u) * 4); height: calc(var(--u) * 4);
+  border-radius: 50%; background: #fff; z-index: 4;
+}
 
 /* #pastilles bleues decoratives */
 .pastille { position: absolute; border-radius: 50%; background: var(--petrole); }
