@@ -20,8 +20,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=2" rel="stylesheet">
-    <link href="Bar.css?v=2" rel="stylesheet">
+    <link href="commun.css?v=3" rel="stylesheet">
+    <link href="Bar.css?v=3" rel="stylesheet">
   </head>
 
   <body>
@@ -64,13 +64,12 @@
 
       <!-- #panneau de l'evenement (effet verre depoli) -->
       <div class="panneau-evenement">
-        <p class="evenement-texte">
-          «&nbsp;Soirée Mousse&nbsp;»<br><br>
-          DJ<br>+<br>
-          DÉGUSTATION DE NOS BIÈRES ROUGES<br><br>
-          Le vendredi 8 septembre à 21h
-        </p>
-        <a class="btn-reserver" href="#reserver">Réserver</a>
+        <!-- trois niveaux de texte, avec les tailles et graisses donnees
+             par la designer : 36 fin, 31 gras, 31 moyen -->
+        <p class="evenement-titre">«&nbsp;Soirée Mousse&nbsp;»</p>
+        <p class="evenement-detail">DJ<br>+<br>DÉGUSTATION DE NOS BIÈRES ROUGES</p>
+        <p class="evenement-date">Le vendredi 8 septembre à 21h</p>
+        <a class="cta-1 btn-reserver" href="#reserver" style="--fond: #E13950; --texte: #FFFEF8">Réserver</a>
       </div>
 
       <!-- #mousse de biere : transition vers le fond beige -->
@@ -102,7 +101,7 @@
 
           <!-- #colonne : Soft -->
           <div class="colonne">
-            <h3>Soft</h3>
+            <h3><img src="sources/picto-soft.svg" alt="" class="colonne-picto">Soft</h3>
             <ul>
               <li><span class="nom">Eau plate (Cristalline)</span><span class="prix">3,50€</span></li>
               <li><span class="nom">Coca Cola ( Zéro / cherry)</span><span class="prix">3,50€</span></li>
@@ -120,7 +119,7 @@
 
           <!-- #colonne : Bieres Rouges -->
           <div class="colonne">
-            <h3>Bières Rouges</h3>
+            <h3><img src="sources/picto-biere-rouge.svg" alt="" class="colonne-picto">Bières Rouges</h3>
             <ul>
               <li><span class="nom">La Cerise Interdite</span><span class="desc">Rouge intense aux arômes de cerise noire.</span><span class="prix">8,50€</span></li>
               <li class="avec-photo"><img src="sources/carte-photo-1.webp" alt="Ambiance du bar"></li>
@@ -134,7 +133,7 @@
 
           <!-- #colonne : Bieres Pression -->
           <div class="colonne">
-            <h3>Bières Pression</h3>
+            <h3><img src="sources/picto-pression.svg" alt="" class="colonne-picto">Bières Pression</h3>
             <ul>
               <li><span class="nom">La Mine d’Or</span><span class="desc">Bière blonde artisanale aux notes de miel et de céréales grillées.</span><span class="prix">7,50€</span></li>
               <li><span class="nom">L’Écume Lorraine</span><span class="desc">Blonde fraîche et très désaltérante brassée avec des houblons locaux.</span><span class="prix">6,50€</span></li>
@@ -149,7 +148,7 @@
 
           <!-- #colonne : Bieres Blondes -->
           <div class="colonne">
-            <h3>Bières Blondes</h3>
+            <h3><img src="sources/picto-biere-blonde.svg" alt="" class="colonne-picto">Bières Blondes</h3>
             <ul>
               <li><span class="nom">Brume de Nancy</span><span class="desc">Blanche légère et très fraîche.</span><span class="prix">7,20€</span></li>
               <li><span class="nom">La Blanche Vosges</span><span class="desc">Bière blanche artisanale inspirée des montagnes vosgiennes.</span><span class="prix">7,60€</span></li>
@@ -164,7 +163,7 @@
 
           <!-- #colonne : Jus Lorrains -->
           <div class="colonne">
-            <h3>Jus Lorrains</h3>
+            <h3><img src="sources/picto-jus.svg" alt="" class="colonne-picto">Jus Lorrains</h3>
             <ul>
               <li><span class="nom">Jus de mirabelles</span><span class="desc">Mirabelles pressées artisanales.</span><span class="prix">4,50€</span></li>
               <li><span class="nom">Quetsches en nectar</span><span class="desc">Quetsches de Lorraine.</span><span class="prix">4,90€</span></li>
@@ -212,7 +211,7 @@
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
         euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
       </p>
-      <a class="btn-reserver-table" href="#reserver">Réserver</a>
+      <a class="cta-1 btn-reserver-table" href="#reserver" style="--fond: #695E45; --texte: #FFFEF8">Réserver</a>
     </section>
 
     <!-- =====================================================================
@@ -240,12 +239,28 @@
       <img class="fleche-brasseurs" src="sources/fleche-brasseurs.svg" alt="">
 
       <!-- #carte de la Lorraine, avec un point par brasseur -->
+      <!-- #carte des brasseurs
+           Chaque point represente un brasseur. Au survol, une petite capsule
+           s'affiche avec son nom et sa ville. -->
       <div class="carte-region">
         <img src="sources/carte-lorraine.svg" alt="Carte de la Lorraine">
-        <span class="brasseur b1" title="Brasserie de Metz"></span>
-        <span class="brasseur b2" title="Brasserie de Nancy"></span>
-        <span class="brasseur b3" title="Brasserie des Vosges"></span>
-        <span class="brasseur b4" title="Brasserie de la Meuse"></span>
+
+        <span class="brasseur b1">
+          <span class="capsule">Brasserie de Metz<small>Metz · Moselle</small></span>
+        </span>
+        <span class="brasseur b2">
+          <span class="capsule">Brasserie de Nancy<small>Nancy · Meurthe-et-Moselle</small></span>
+        </span>
+        <span class="brasseur b3">
+          <span class="capsule">Brasserie des Vosges<small>Épinal · Vosges</small></span>
+        </span>
+        <span class="brasseur b4">
+          <span class="capsule">Brasserie de la Meuse<small>Verdun · Meuse</small></span>
+        </span>
+        <!-- la balise bleu clair qui manquait -->
+        <span class="brasseur b5">
+          <span class="capsule">Brasserie du Saulnois<small>Château-Salins · Moselle</small></span>
+        </span>
       </div>
 
       <!-- #bouteilles du bas -->
@@ -288,13 +303,13 @@
            <a href="#rse">Notre engagement RSE</a></p>
       </div>
       <div class="pied-colonne pied-colonne-droite">
-        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
-        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
         <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=2"></script>
+    <script src="commun.js?v=3"></script>
   </body>
 </html>

@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
 
     <!-- commun.css : styles COMMUNS a tout le site (polices, navbar, pied) -->
-    <link href="commun.css?v=2" rel="stylesheet">
+    <link href="commun.css?v=3" rel="stylesheet">
     <!-- barber.css : styles PROPRES a cette page -->
-    <link href="barber.css?v=2" rel="stylesheet">
+    <link href="barber.css?v=3" rel="stylesheet">
   </head>
 
   <body>
@@ -75,7 +75,7 @@
       </button>
 
       <!-- #acces au compte client (photo de profil ronde) -->
-      <a class="nav-compte" href="#compte" aria-label="Mon compte">
+      <a class="nav-compte" href="compte.html" aria-label="Mon compte">
         <img src="sources/avatar-compte.webp" alt="">
       </a>
 
@@ -110,7 +110,7 @@
           Grâce à la création d’un compte
         </p>
         <!-- #bouton creer mon compte : pose a cheval sur l'arete basse -->
-        <a class="btn-creer-compte" href="#creer-compte">Créer mon compte</a>
+        <a class="cta-1 btn-creer-compte" href="creation-compte.html" style="--fond: #E13950; --texte: #FFFEF8">Créer mon compte</a>
 
         <!-- #visuel de la carte de fidelite, cale sur l'angle haut-droit -->
         <img src="sources/carte-fidelite.svg" alt="" class="carte-fidelite-visuel">
@@ -306,7 +306,7 @@
           </p>
 
           <!-- #bouton en savoir plus, dans le coin bas-droit -->
-          <a class="btn-en-savoir-plus" href="#produits">En savoir plus</a>
+          <a class="cta-1 btn-en-savoir-plus" href="notre-concept.html" style="--fond: #E13950; --texte: #FFFEF8">En savoir plus</a>
         </div>
       </div>
 
@@ -423,9 +423,8 @@
 
       <!-- #colonne newsletter + reseaux sociaux -->
       <div class="pied-colonne pied-colonne-droite">
-        <label class="visually-hidden" for="courriel">Adresse e-mail</label>
-        <input id="courriel" type="email" class="pied-newsletter"
-               placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
         <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
       </div>
     </footer>

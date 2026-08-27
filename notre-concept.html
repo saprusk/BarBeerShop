@@ -20,8 +20,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=2" rel="stylesheet">
-    <link href="notre-concept.css?v=2" rel="stylesheet">
+    <link href="commun.css?v=3" rel="stylesheet">
+    <link href="notre-concept.css?v=3" rel="stylesheet">
   </head>
 
   <body>
@@ -141,20 +141,154 @@
       <img class="deco fleur-p3" src="sources/fleur-c1.svg" alt="">
       <img class="deco fleur-p4" src="sources/fleur-c2.svg" alt="">
 
-      <!-- #grille des produits -->
+      <!-- #grille des produits
+           Chaque vignette est cliquable : elle ouvre la fiche du produit
+           dans une fenetre, avec un fil d'Ariane en haut. -->
       <div class="grille-produits">
-        <figure><img src="sources/produit-1.webp"  alt="Brume parfumée à la rose"><figcaption>Brume parfumée à la rose</figcaption></figure>
-        <figure><img src="sources/produit-2.webp"  alt="Après-shampoing Hydratant"><figcaption>Après-shampoing Hydratant</figcaption></figure>
-        <figure><img src="sources/produit-3.webp"  alt="Spray Coiffant à la rose"><figcaption>Spray Coiffant à la rose</figcaption></figure>
-        <figure><img src="sources/produit-4.webp"  alt="Masque brillance"><figcaption>Masque brillance</figcaption></figure>
-        <figure><img src="sources/produit-5.webp"  alt="Huile pour les cheveux"><figcaption>Huile pour les cheveux</figcaption></figure>
-        <figure><img src="sources/produit-6.webp"  alt="Shampoing rééquilibrant"><figcaption>Shampoing rééquilibrant</figcaption></figure>
-        <figure><img src="sources/produit-7.webp"  alt="Masque exfoliant à la rose"><figcaption>Masque exfoliant à la rose</figcaption></figure>
-        <figure><img src="sources/produit-8.webp"  alt="Shampoing détox concentré"><figcaption>Shampoing détox concentré</figcaption></figure>
-        <figure><img src="sources/produit-9.webp"  alt="Brume parfumée à la rose"><figcaption>Brume parfumée à la rose</figcaption></figure>
-        <figure><img src="sources/produit-10.webp" alt="Après shampoing volume"><figcaption>Après shampoing volume</figcaption></figure>
-        <figure><img src="sources/produit-11.webp" alt="Shampoing Hydratant"><figcaption>Shampoing Hydratant</figcaption></figure>
-        <figure><img src="sources/produit-12.webp" alt="Huile cheveux à la rose"><figcaption>Huile cheveux à la rose</figcaption></figure>
+        <!-- produit : Brume parfumée à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-1"
+                  aria-label="Voir la fiche : Brume parfumée à la rose">
+            <img src="sources/produit-1.webp" alt="Brume parfumée à la rose">
+          </button>
+          <figcaption>Brume parfumée à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-1"
+                    data-nom="Brume parfumée à la rose" data-famille="Brume"
+                    data-prix="24,90€" data-image="sources/produit-1.webp">Un voile parfumé qui adoucit la fibre et laisse un sillage de rose fraîche.</template>
+        </figure>
+        <!-- produit : Après-shampoing Hydratant -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-2"
+                  aria-label="Voir la fiche : Après-shampoing Hydratant">
+            <img src="sources/produit-2.webp" alt="Après-shampoing Hydratant">
+          </button>
+          <figcaption>Après-shampoing Hydratant</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-2"
+                    data-nom="Après-shampoing Hydratant" data-famille="Après-shampoing"
+                    data-prix="22,50€" data-image="sources/produit-2.webp">Démêle et nourrit sans alourdir, pour des longueurs souples au quotidien.</template>
+        </figure>
+        <!-- produit : Spray Coiffant à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-3"
+                  aria-label="Voir la fiche : Spray Coiffant à la rose">
+            <img src="sources/produit-3.webp" alt="Spray Coiffant à la rose">
+          </button>
+          <figcaption>Spray Coiffant à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-3"
+                    data-nom="Spray Coiffant à la rose" data-famille="Coiffant"
+                    data-prix="19,90€" data-image="sources/produit-3.webp">Fixation souple et brillance naturelle, sans effet carton.</template>
+        </figure>
+        <!-- produit : Masque brillance -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-4"
+                  aria-label="Voir la fiche : Masque brillance">
+            <img src="sources/produit-4.webp" alt="Masque brillance">
+          </button>
+          <figcaption>Masque brillance</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-4"
+                    data-nom="Masque brillance" data-famille="Masque"
+                    data-prix="27,00€" data-image="sources/produit-4.webp">Un soin hebdomadaire qui relance l’éclat des cheveux ternes.</template>
+        </figure>
+        <!-- produit : Huile pour les cheveux -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-5"
+                  aria-label="Voir la fiche : Huile pour les cheveux">
+            <img src="sources/produit-5.webp" alt="Huile pour les cheveux">
+          </button>
+          <figcaption>Huile pour les cheveux</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-5"
+                    data-nom="Huile pour les cheveux" data-famille="Huile"
+                    data-prix="29,90€" data-image="sources/produit-5.webp">Quelques gouttes suffisent pour discipliner les pointes et nourrir en profondeur.</template>
+        </figure>
+        <!-- produit : Shampoing rééquilibrant -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-6"
+                  aria-label="Voir la fiche : Shampoing rééquilibrant">
+            <img src="sources/produit-6.webp" alt="Shampoing rééquilibrant">
+          </button>
+          <figcaption>Shampoing rééquilibrant</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-6"
+                    data-nom="Shampoing rééquilibrant" data-famille="Shampoing"
+                    data-prix="21,00€" data-image="sources/produit-6.webp">Assainit le cuir chevelu et espace les lavages.</template>
+        </figure>
+        <!-- produit : Masque exfoliant à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-7"
+                  aria-label="Voir la fiche : Masque exfoliant à la rose">
+            <img src="sources/produit-7.webp" alt="Masque exfoliant à la rose">
+          </button>
+          <figcaption>Masque exfoliant à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-7"
+                    data-nom="Masque exfoliant à la rose" data-famille="Masque"
+                    data-prix="31,00€" data-image="sources/produit-7.webp">Un gommage doux du cuir chevelu, à faire avant le shampoing.</template>
+        </figure>
+        <!-- produit : Shampoing détox concentré -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-8"
+                  aria-label="Voir la fiche : Shampoing détox concentré">
+            <img src="sources/produit-8.webp" alt="Shampoing détox concentré">
+          </button>
+          <figcaption>Shampoing détox concentré</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-8"
+                    data-nom="Shampoing détox concentré" data-famille="Shampoing"
+                    data-prix="23,50€" data-image="sources/produit-8.webp">Élimine les résidus de coiffants et redonne de la légèreté.</template>
+        </figure>
+        <!-- produit : Brume parfumée à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-9"
+                  aria-label="Voir la fiche : Brume parfumée à la rose">
+            <img src="sources/produit-9.webp" alt="Brume parfumée à la rose">
+          </button>
+          <figcaption>Brume parfumée à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-9"
+                    data-nom="Brume parfumée à la rose" data-famille="Brume"
+                    data-prix="18,90€" data-image="sources/produit-9.webp">La même signature florale, en format nomade.</template>
+        </figure>
+        <!-- produit : Après shampoing volume -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-10"
+                  aria-label="Voir la fiche : Après shampoing volume">
+            <img src="sources/produit-10.webp" alt="Après shampoing volume">
+          </button>
+          <figcaption>Après shampoing volume</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-10"
+                    data-nom="Après shampoing volume" data-famille="Après-shampoing"
+                    data-prix="22,50€" data-image="sources/produit-10.webp">Gaine la fibre et apporte du corps aux cheveux fins.</template>
+        </figure>
+        <!-- produit : Shampoing Hydratant -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-11"
+                  aria-label="Voir la fiche : Shampoing Hydratant">
+            <img src="sources/produit-11.webp" alt="Shampoing Hydratant">
+          </button>
+          <figcaption>Shampoing Hydratant</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-11"
+                    data-nom="Shampoing Hydratant" data-famille="Shampoing"
+                    data-prix="21,00€" data-image="sources/produit-11.webp">Le lavage quotidien des cheveux secs et sensibilisés.</template>
+        </figure>
+        <!-- produit : Huile cheveux à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-12"
+                  aria-label="Voir la fiche : Huile cheveux à la rose">
+            <img src="sources/produit-12.webp" alt="Huile cheveux à la rose">
+          </button>
+          <figcaption>Huile cheveux à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-12"
+                    data-nom="Huile cheveux à la rose" data-famille="Huile"
+                    data-prix="29,90€" data-image="sources/produit-12.webp">Un fini satiné, sans résidu gras.</template>
+        </figure>
       </div>
     </section>
 
@@ -214,6 +348,41 @@
       </a>
     </section>
 
+
+    <!-- =====================================================================
+         FENETRE DE FICHE PRODUIT
+         Elle reste cachee jusqu'a ce qu'on clique sur un produit. Le contenu
+         est rempli par commun.js a partir du produit choisi.
+         ===================================================================== -->
+    <div class="fiche-fond" id="ficheFond" hidden>
+      <div class="fiche-produit" role="dialog" aria-modal="true" aria-labelledby="ficheNom">
+
+        <!-- #fil d'Ariane : rappelle ou l'on se trouve dans le site -->
+        <nav class="fil-ariane" aria-label="Fil d'Ariane">
+          <a href="Accueil.html">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a href="notre-concept.html">Notre concept</a>
+          <span aria-hidden="true">›</span>
+          <a href="#produits">Produits ayurvédiques</a>
+          <span aria-hidden="true">›</span>
+          <span class="fil-ariane-actuel" id="ficheFamille">Produit</span>
+        </nav>
+
+        <!-- #bouton de fermeture -->
+        <button type="button" class="fiche-fermer" id="ficheFermer" aria-label="Fermer la fiche">&times;</button>
+
+        <div class="fiche-corps">
+          <img id="ficheImage" src="" alt="">
+          <div class="fiche-texte">
+            <h3 id="ficheNom">Produit</h3>
+            <p id="ficheDescription"></p>
+            <p class="fiche-prix" id="fichePrix"></p>
+            <a class="cta-1 fiche-cta" href="#" style="--fond: #E13950; --texte: #FFFEF8">Disponible au salon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- =====================================================================
          PIED DE PAGE
          ===================================================================== -->
@@ -237,13 +406,13 @@
            <a href="#rse">Notre engagement RSE</a></p>
       </div>
       <div class="pied-colonne pied-colonne-droite">
-        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
-        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
         <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=2"></script>
+    <script src="commun.js?v=3"></script>
   </body>
 </html>

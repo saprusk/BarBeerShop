@@ -76,13 +76,20 @@ body { background-color: var(--beige); }
   text-align: center;
   z-index: 3;
 }
-.evenement-texte {
-  margin: 0 0 calc(var(--u) * 16);
+/* les trois niveaux de texte de l'evenement */
+.evenement-titre,
+.evenement-detail,
+.evenement-date {
+  margin: 0 0 calc(var(--u) * 18);
   color: #fff;
-  font-size: calc(var(--u) * 36);
-  font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.15;
 }
+/* "Soiree Mousse" : 36 px, tres fin */
+.evenement-titre  { font-size: calc(var(--u) * 36); font-weight: 100; }
+/* "DJ + degustation..." : 31 px, gras */
+.evenement-detail { font-size: calc(var(--u) * 31); font-weight: 700; }
+/* la date : 31 px, moyen */
+.evenement-date   { font-size: calc(var(--u) * 31); font-weight: 500; }
 
 /* #bouton "Reserver" du hero (maquette : x 867, y 744, 183 x 68) */
 .btn-reserver {
@@ -101,14 +108,14 @@ body { background-color: var(--beige); }
 
 /* #mousse : transition vers le fond beige */
 .mousse { position: absolute; left: 0; pointer-events: none; }
-.mousse-haut { top: calc(var(--u) * 533); width: calc(var(--u) * 1923); }
-.mousse-bas  { top: calc(var(--u) * 950); width: calc(var(--u) * 1920); }
+.mousse-haut { top: calc(var(--u) * 450); width: calc(var(--u) * 1923); }
+.mousse-bas  { top: calc(var(--u) * 867); width: calc(var(--u) * 1920); }
 
 /* #accroche (maquette : y 1029) */
 .accroche {
   position: absolute;
   left: 0;
-  top: calc(var(--u) * 1029);
+  top: calc(var(--u) * 946);
   width: 100%;
   margin: 0;
   display: flex;
@@ -182,20 +189,27 @@ body { background-color: var(--beige); }
 .colonne { width: calc(var(--u) * 430); }
 .colonne h3 {
   margin: 0 0 calc(var(--u) * 40);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 14);
   color: var(--brun);
   font-size: calc(var(--u) * 25);
   font-weight: 700;
 }
+/* le petit pictogramme place devant le nom de la colonne */
+.colonne-picto { height: calc(var(--u) * 44); width: auto; }
 .colonne ul { margin: 0; padding: 0; list-style: none; }
 
 /* une ligne de la carte : nom, description et prix dans une gousse arrondie */
+/* Chaque ligne de la carte : le fond reprend le beige de la page (et non du
+   blanc), le contour est marron et fait 5 d'epaisseur. */
 .colonne li {
   position: relative;
   margin-bottom: calc(var(--u) * 24);
   padding: calc(var(--u) * 16) calc(var(--u) * 78) calc(var(--u) * 16) calc(var(--u) * 26);
-  background: var(--creme);
-  border: calc(var(--u) * 2) solid var(--brun);
+  background: var(--beige);
+  border: calc(var(--u) * 5) solid var(--brun);
   border-radius: calc(var(--u) * 34);
 }
 .colonne .nom {
@@ -222,8 +236,8 @@ body { background-color: var(--beige); }
   height: calc(var(--u) * 76);
   display: grid;
   place-content: center;
-  background: var(--creme);
-  border: calc(var(--u) * 2) solid var(--brun);
+  background: var(--beige);
+  border: calc(var(--u) * 5) solid var(--brun);
   border-radius: 50%;
   color: var(--brun);
   font-size: calc(var(--u) * 19);
@@ -259,9 +273,9 @@ body { background-color: var(--beige); }
 .rond { position: absolute; border-radius: 50%; overflow: hidden; }
 .rond img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* grande photo (maquette : x 80, y 2990 -> 130) */
-.rond-grand { left: calc(var(--u) * 80);  top: calc(var(--u) * 130); width: calc(var(--u) * 554); height: calc(var(--u) * 554); }
+.rond-grand { left: calc(var(--u) * 80);  top: calc(var(--u) * 130); width: calc(var(--u) * 554); height: calc(var(--u) * 554); aspect-ratio: 1 / 1; }
 /* petite photo (maquette : x 326, y 3602 -> 742) */
-.rond-petit { left: calc(var(--u) * 326); top: calc(var(--u) * 742); width: calc(var(--u) * 250); height: calc(var(--u) * 250); }
+.rond-petit { left: calc(var(--u) * 326); top: calc(var(--u) * 742); width: calc(var(--u) * 250); height: calc(var(--u) * 250); aspect-ratio: 1 / 1; }
 
 /* #pastilles brunes decoratives (positions relevees dans la maquette) */
 .pastille { position: absolute; border-radius: 50%; background: var(--brun); }
@@ -337,7 +351,12 @@ body { background-color: var(--beige); }
   background: var(--creme);
   border-radius: calc(var(--u) * 24);
   box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
 }
+/* au survol, la bouteille pivote legerement */
+.biere:hover { transform: rotate(-8deg) scale(1.04); }
+.biere-h1:hover, .biere-b1:hover { transform: rotate(-14deg) scale(1.04); }
+.biere-h3:hover, .biere-b3:hover { transform: rotate(14deg) scale(1.04); }
 /* rangee du haut (maquette : y 3942 -> -358, elles remontent dans la section
    precedente, ce qui est voulu) */
 .biere-h1 { left: calc(var(--u) * 278);  top: calc(var(--u) * -295); transform: rotate(-6deg); }
@@ -393,7 +412,7 @@ body { background-color: var(--beige); }
 .fleche-brasseurs {
   position: absolute;
   left: calc(var(--u) * 330);
-  top: calc(var(--u) * 420);
+  top: calc(var(--u) * 470);   /* descendue : elle collait au texte */
   width: calc(var(--u) * 165);
 }
 
@@ -406,21 +425,58 @@ body { background-color: var(--beige); }
 }
 .carte-region img { width: 100%; display: block; }
 
-/* un point par brasseur : il grossit et affiche son nom au survol */
+/* #un point par brasseur
+   Au survol, le point grossit et une petite capsule s'affiche au-dessus
+   avec le nom du brasseur et sa ville. */
 .brasseur {
   position: absolute;
-  width: calc(var(--u) * 22);
-  height: calc(var(--u) * 22);
+  width: calc(var(--u) * 24);
+  height: calc(var(--u) * 24);
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s;
 }
-.brasseur:hover { transform: scale(1.6); }
-/* positions relevees dans la maquette, en pourcentage de la carte */
+.brasseur:hover { transform: scale(1.5); z-index: 5; }
+
+/* la capsule : masquee au repos, elle apparait au survol du point */
+.capsule {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + var(--u) * 14);
+  transform: translateX(-50%) scale(0.9);
+  width: max-content;
+  max-width: calc(var(--u) * 320);
+  padding: calc(var(--u) * 12) calc(var(--u) * 20);
+  background: var(--creme);
+  border: calc(var(--u) * 5) solid var(--brun);
+  border-radius: calc(var(--u) * 20);
+  color: var(--brun);
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.capsule small {
+  display: block;
+  margin-top: calc(var(--u) * 4);
+  font-size: calc(var(--u) * 15);
+  font-weight: 400;
+}
+.brasseur:hover .capsule {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* positions et couleurs des points, relevees dans la maquette */
 .b1 { left: 57%; top: 36%; background: #A77BCB; }
-.b2 { left: 62%; top: 42%; background: #7B6BCB; }
-.b3 { left: 32%; top: 48%; background: #6BCB7B; }
+.b2 { left: 66%; top: 78%; background: #7B6BCB; }
+.b3 { left: 31%; top: 80%; background: #6BCB7B; }
 .b4 { left: 78%; top: 70%; background: #E1596B; }
+/* la balise bleu clair qui manquait */
+.b5 { left: 19%; top: 48%; background: #6BB8E1; }
 
 /* =========================================================================
    #bande "Decouvrir notre service barber"  (5743 -> 5901)

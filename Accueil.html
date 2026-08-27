@@ -22,8 +22,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=2" rel="stylesheet">
-    <link href="Accueil.css?v=2" rel="stylesheet">
+    <link href="commun.css?v=3" rel="stylesheet">
+    <link href="Accueil.css?v=3" rel="stylesheet">
   </head>
 
   <body>
@@ -141,7 +141,7 @@
       <img class="deco deco-fleurs-tige" src="sources/fleurs-tige.svg" alt="">
 
       <!-- #bouton vers la page concept -->
-      <a class="btn-rouge concept-cta" href="notre-concept.html">Notre concept</a>
+      <a class="cta-1 concept-cta" href="notre-concept.html" style="--fond: #E13950; --texte: #FFFEF8">Notre concept</a>
     </section>
 
     <!-- =====================================================================
@@ -150,39 +150,60 @@
     <section class="avis">
       <h2 class="avis-titre">Vos avis sur le Barbeershop</h2>
 
-      <!-- les cartes rouges pivotees viennent de la maquette (formes seules) -->
-      <img class="avis-cartes" src="sources/avis-cartes.svg" alt="">
+      <!-- #carrousel des avis
+           Chaque avis est une carte rouge inclinee. Les deux fleches font
+           defiler d'un avis, et l'on peut aussi faire glisser au doigt.
+           Les avis des extremites depassent volontairement de l'ecran. -->
+      <div class="avis-carrousel">
 
-      <!-- les temoignages, en vrai texte pose sur les cartes -->
-      <figure class="avis-carte" style="--x: -423; --y: 497; --angle: -21deg">
-        <blockquote>Lorem ipsum dolor sit amel, consectetuer adipiscing Lorem ipsum dolor sit amel, consectetuer adipiscing</blockquote>
-        <figcaption>Joe</figcaption>
-      </figure>
-      <figure class="avis-carte" style="--x: 313; --y: 240; --angle: -7deg">
-        <blockquote>Lorem ipsum dolor sit amel, consectetuer adipiscing</blockquote>
-        <figcaption>Skyfe44</figcaption>
-      </figure>
-      <figure class="avis-carte" style="--x: 837; --y: 146; --angle: 0deg">
-        <blockquote>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim</blockquote>
-        <figcaption>Jeff Rich</figcaption>
-      </figure>
-      <figure class="avis-carte" style="--x: 1357; --y: 185; --angle: 7deg">
-        <blockquote>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</blockquote>
-        <figcaption>Amanda Crouss</figcaption>
-      </figure>
-      <figure class="avis-carte" style="--x: 2091; --y: 388; --angle: 21deg">
-        <blockquote>Lorem ipsum dolor sit amet, consectetuer</blockquote>
-        <figcaption>Jay Mona</figcaption>
-      </figure>
+        <!-- #fleche precedente -->
+        <button type="button" class="avis-fleche avis-fleche-gauche"
+                id="avisPrecedent" aria-label="Avis précédents">&#10094;</button>
+
+        <div class="avis-fenetre" id="avisFenetre">
+          <div class="avis-piste">
+
+            <figure class="avis-carte" style="--angle: -21deg">
+              <blockquote>Lorem ipsum dolor sit amel, consectetuer adipiscing Lorem ipsum dolor sit amel, consectetuer adipiscing</blockquote>
+              <figcaption>Joe</figcaption>
+            </figure>
+
+            <figure class="avis-carte" style="--angle: -7deg">
+              <blockquote>Lorem ipsum dolor sit amel, consectetuer adipiscing</blockquote>
+              <figcaption>Skyfe44</figcaption>
+            </figure>
+
+            <figure class="avis-carte" style="--angle: 0deg">
+              <blockquote>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</blockquote>
+              <figcaption>Jeff Rich</figcaption>
+            </figure>
+
+            <figure class="avis-carte" style="--angle: 7deg">
+              <blockquote>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</blockquote>
+              <figcaption>Amanda Crouss</figcaption>
+            </figure>
+
+            <figure class="avis-carte" style="--angle: 21deg">
+              <blockquote>Lorem ipsum dolor sit amet, consectetuer</blockquote>
+              <figcaption>Jay Mona</figcaption>
+            </figure>
+
+          </div>
+        </div>
+
+        <!-- #fleche suivante -->
+        <button type="button" class="avis-fleche avis-fleche-droite"
+                id="avisSuivant" aria-label="Avis suivants">&#10095;</button>
+      </div>
+
     </section>
 
     <!-- =====================================================================
          4. BAR A BIERE : grande arche beige puis photo du bar
          ===================================================================== -->
     <section class="bar" id="bar">
-      <!-- les trois arches superposees de la maquette -->
-      <div class="arche arche-jaune"></div>
-      <div class="arche arche-brune"></div>
+      <!-- #arche beige : un seul demi-cercle, les versions jaune et brune
+           ont ete retirees a la demande de la designer -->
       <div class="arche arche-beige"></div>
       <div class="arche-socle"></div>
 
@@ -191,13 +212,14 @@
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
            euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
            minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong></p>
-        <a class="btn-beige" href="Bar.html">Voir notre carte</a>
+        <a class="cta-2 btn-voir-carte" href="Bar.html" style="--fond: #695E45; --texte: #DDCDB0">Voir notre carte</a>
       </div>
 
       <!-- #grande photo du bar, rognee en arche -->
       <div class="bar-photo"><img src="sources/bar-comptoir.webp" alt="Le bar et ses bières artisanales"></div>
 
       <!-- #mention legale obligatoire -->
+      <!-- #mention legale, posee sur un bandeau gris floute pour rester lisible -->
       <p class="mention-alcool">*L’abus d’alcool est dangereux pour la santé, à consommer avec modération.</p>
 
       <!-- #frise rayee facon mat de barbier -->
@@ -208,7 +230,14 @@
          5. INFOS PRATIQUES : plan et coordonnees
          ===================================================================== -->
     <section class="infos">
-      <div class="infos-plan"><img src="sources/plan-metz.webp" alt="Plan d'accès, 12 rue Pierre Perrat à Metz"></div>
+      <!-- #plan d'acces : vraie carte Google Maps.
+           On peut s'y deplacer et zoomer directement depuis le site. -->
+      <div class="infos-plan">
+        <iframe
+          src="https://www.google.com/maps?q=12+rue+Pierre+Perrat,+57000+Metz&hl=fr&z=16&output=embed"
+          title="Plan d'accès : 12 rue Pierre Perrat, 57000 Metz"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
       <div class="infos-liste">
         <h3>Adresse</h3>
         <p>12 rue Pierre Perrat,<br>quartier Impérial<br>57000 Metz</p>
@@ -268,13 +297,13 @@
            <a href="#rse">Notre engagement RSE</a></p>
       </div>
       <div class="pied-colonne pied-colonne-droite">
-        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
-        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
         <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=2"></script>
+    <script src="commun.js?v=3"></script>
   </body>
 </html>

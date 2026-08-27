@@ -97,38 +97,43 @@ body {
 
 /* =========================================================================
    #barre de navigation
+   -------------------------------------------------------------------------
+   Elle reste COLLEE EN HAUT quand on fait defiler la page ("sticky").
    Deux variantes :
-     .barre-nav              -> version complete (Accueil, Barber, Bar,
-                                Notre Concept) : logo, boutons de reservation,
-                                bascule jour/nuit, compte, menu
-     .barre-nav--simple      -> version reduite (pages de compte) :
-                                logo, menu, bascule jour/nuit
+     .barre-nav          -> version complete (Accueil, Barber, Bar, Concept)
+     .barre-nav--simple  -> version reduite (pages de compte)
    ========================================================================= */
 
 .barre-nav {
-  position: absolute;
+  position: sticky;   /* la barre suit le defilement et reste visible */
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(var(--u) * 212);
+  height: calc(var(--u) * 226);
+  /* La marge negative annule la place que la barre prendrait dans la page :
+     le contenu passe DESSOUS, comme dans la maquette, et la barre reste
+     malgre tout collee en haut pendant le defilement. */
+  margin-bottom: calc(var(--u) * -226);
   background: var(--noir);
-  z-index: 20;
+  z-index: 100;
 }
 
 /* #logo */
 .nav-logo {
   position: absolute;
   left: calc(var(--u) * 140);
-  top: calc(var(--u) * 42);
+  top: calc(var(--u) * 49);
 }
 .nav-logo img { height: calc(var(--u) * 78); width: auto; display: block; }
 
-/* #groupe des boutons de reservation : pilule blanche contenant le bouton
-   rouge "Prendre RDV" a gauche et le lien "Reserver ma soiree" a droite */
+/* #groupe des deux boutons de reservation
+   Une pilule blanche qui contient DEUX liens et, derriere eux, une pastille
+   rouge qui GLISSE de l'un a l'autre au survol. Le lien survole passe en
+   blanc (il est alors sur le rouge), l'autre revient au noir. */
 .nav-reservation {
   position: absolute;
   left: calc(var(--u) * 716);
-  top: calc(var(--u) * 43);
+  top: calc(var(--u) * 50);
   width: calc(var(--u) * 494);
   height: calc(var(--u) * 73);
   padding: calc(var(--u) * 2);
@@ -137,36 +142,53 @@ body {
   background: #fff;
   border-radius: calc(var(--u) * 36);
 }
-.nav-btn-rdv {
+
+/* la pastille rouge qui coulisse, posee derriere les deux liens */
+.nav-reservation::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * 2);
+  top: calc(var(--u) * 2);
   width: calc(var(--u) * 245);
   height: calc(var(--u) * 69);
-  display: grid;
-  place-content: center;
   background: var(--rouge);
   border-radius: calc(var(--u) * 36);
-  color: #fff;
+  transition: transform 0.3s ease;
+}
+/* au survol de "Reserver ma soiree", la pastille glisse vers la droite */
+.nav-reservation:has(.nav-btn-soiree:hover)::before {
+  transform: translateX(calc(var(--u) * 245));
+}
+
+.nav-btn-rdv,
+.nav-btn-soiree {
+  position: relative;      /* passe devant la pastille rouge */
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  height: calc(var(--u) * 69);
   font-size: calc(var(--u) * 23);
   font-weight: 800;
+  text-align: center;
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.3s;
 }
-.nav-btn-rdv:hover { color: #fff; opacity: 0.92; }
-.nav-btn-soiree {
-  flex: 1;
-  text-align: center;
-  color: var(--noir);
-  font-size: calc(var(--u) * 23);
-  font-weight: 800;
-  line-height: 1.05;
-  text-decoration: none;
-}
-.nav-btn-soiree:hover { color: var(--rouge); }
+/* au repos : "Prendre RDV" est sur le rouge, donc en blanc */
+.nav-btn-rdv    { width: calc(var(--u) * 245); color: #fff; }
+.nav-btn-soiree { flex: 1; color: var(--noir); line-height: 1.05; }
+/* on neutralise tout survol simple : c'est la pastille qui porte l'effet */
+.nav-btn-rdv:hover    { color: #fff; }
+.nav-btn-soiree:hover { color: var(--noir); }
+/* quand la pastille a glisse a droite, les couleurs s'inversent */
+.nav-reservation:has(.nav-btn-soiree:hover) .nav-btn-rdv    { color: var(--noir); }
+.nav-reservation:has(.nav-btn-soiree:hover) .nav-btn-soiree { color: #fff; }
 
 /* #bouton bascule jour / nuit */
 .nav-bascule {
   position: absolute;
   left: calc(var(--u) * 1247);
-  top: calc(var(--u) * 54);
+  top: calc(var(--u) * 61);
   width: calc(var(--u) * 52);
   height: calc(var(--u) * 52);
   padding: 0;
@@ -180,54 +202,106 @@ body {
 html.nuit .nav-bascule { transform: rotate(180deg); }
 html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
 
-/* #photo de profil du compte */
+/* #photo de profil du compte : elle grossit legerement au survol */
 .nav-compte {
   position: absolute;
   left: calc(var(--u) * 1674);
-  top: calc(var(--u) * 44);
+  top: calc(var(--u) * 51);
   width: calc(var(--u) * 86);
   height: calc(var(--u) * 86);
   border-radius: 50%;
   overflow: hidden;
 }
-.nav-compte img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
+.nav-compte img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  transition: transform 0.25s;
+}
+.nav-compte:hover img { transform: scale(1.12); }
 
-/* #menu principal */
+/* #menu principal
+   Les quatre entrees sont espacees de maniere RIGOUREUSEMENT EGALE, et le
+   survol se marque par un SOULIGNEMENT (la couleur ne change pas). */
 .nav-menu {
   position: absolute;
-  top: calc(var(--u) * 148);
-  left: 0;
-  width: 100%;
+  top: calc(var(--u) * 150);
+  left: calc(var(--u) * 620);
+  width: calc(var(--u) * 840);
   height: calc(var(--u) * 64);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: calc(var(--u) * 70);
 }
 .nav-menu a {
-  position: absolute;
   color: #fff;
   font-size: calc(var(--u) * 23);
   font-weight: 800;
   line-height: 1.1;
   text-decoration: none;
   white-space: nowrap;
+  text-align: center;
+  /* le trait de soulignement, invisible au repos */
+  border-bottom: calc(var(--u) * 3) solid transparent;
+  padding-bottom: calc(var(--u) * 4);
+  transition: border-color 0.2s;
 }
-.nav-menu a:hover { color: var(--rouge); }
-.nav-menu a:nth-child(1) { left: calc(var(--u) * 652);  top: calc(var(--u) * 12); }
-.nav-menu a:nth-child(2) { left: calc(var(--u) * 854);  top: calc(var(--u) * 12); }
-.nav-menu a:nth-child(3) { left: calc(var(--u) * 1061); top: calc(var(--u) * 12); }
-.nav-menu a:nth-child(4) { left: calc(var(--u) * 1275); top: 0; font-size: calc(var(--u) * 22); text-align: center; }
-/* la page en cours est soulignee, comme dans la maquette */
-.nav-menu a.actif { text-decoration: underline; text-underline-offset: calc(var(--u) * 5); }
+/* soulignement au survol et sur la page en cours */
+.nav-menu a:hover,
+.nav-menu a.actif { border-bottom-color: var(--creme); }
+.nav-menu a:nth-child(4) { font-size: calc(var(--u) * 22); }
 
-/* --- variante reduite, utilisee par les pages de compte ---
-   Le menu est remonte au centre de la barre, la bascule passe a droite,
-   et il n'y a ni boutons de reservation ni photo de profil. */
-.barre-nav--simple { height: calc(var(--u) * 112); }
+/* --- variante reduite, utilisee par les pages de compte --- */
+.barre-nav--simple {
+  height: calc(var(--u) * 112);
+  margin-bottom: calc(var(--u) * -112);
+}
 .barre-nav--simple .nav-logo { top: calc(var(--u) * 18); }
-.barre-nav--simple .nav-menu { top: calc(var(--u) * 48); height: calc(var(--u) * 64); }
-.barre-nav--simple .nav-menu a:nth-child(1) { left: calc(var(--u) * 649); top: 0; }
-.barre-nav--simple .nav-menu a:nth-child(2) { left: calc(var(--u) * 851); top: 0; }
-.barre-nav--simple .nav-menu a:nth-child(3) { left: calc(var(--u) * 1058); top: 0; }
-.barre-nav--simple .nav-menu a:nth-child(4) { left: calc(var(--u) * 1272); top: calc(var(--u) * -13); }
+.barre-nav--simple .nav-menu { top: calc(var(--u) * 40); }
 .barre-nav--simple .nav-bascule { left: calc(var(--u) * 1427); top: calc(var(--u) * 31); }
+
+/* =========================================================================
+   #styles de boutons reutilisables (noms donnes par la designer)
+   -------------------------------------------------------------------------
+   .cta-1 : au repos le bouton est PLEIN ; au survol le fond se vide, il ne
+            reste que le contour, et le texte prend la couleur du fond.
+   .cta-2 : au survol, le fond et le texte ECHANGENT leurs couleurs
+            (le bouton reste plein).
+
+   La couleur se regle avec deux variables ecrites sur le bouton lui-meme :
+       --fond  : couleur de fond au repos
+       --texte : couleur du texte au repos
+   ========================================================================= */
+
+.cta-1,
+.cta-2 {
+  display: grid;
+  place-content: center;
+  border: calc(var(--u) * 5) solid var(--fond);
+  border-radius: calc(var(--u) * 34);
+  background: var(--fond);
+  color: var(--texte);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+
+/* style 1 : le fond se vide, il ne reste que le contour */
+.cta-1:hover {
+  background: transparent;
+  color: var(--fond);
+}
+
+/* style 2 : le fond et le texte echangent leurs couleurs */
+.cta-2:hover {
+  background: var(--texte);
+  color: var(--fond);
+}
 
 /* =========================================================================
    #bouton "remonter en haut de page"
@@ -274,19 +348,30 @@ html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
   align-items: center;
   gap: calc(var(--u) * 34);
 }
+/* #bouton newsletter
+   Ce n'est pas un champ de saisie mais un LIEN qui mene a la page ou l'on
+   modifie ses informations. Au survol, il se remplit et le texte fonce. */
 .pied-newsletter {
+  display: grid;
+  place-content: center;
   width: calc(var(--u) * 518);
   height: calc(var(--u) * 68);
   padding: 0 calc(var(--u) * 30);
   background: transparent;
-  border: calc(var(--u) * 2) solid var(--creme);
+  border: calc(var(--u) * 5) solid var(--creme);
   border-radius: calc(var(--u) * 34);
   color: var(--creme);
   font-family: var(--police);
   font-size: calc(var(--u) * 23);
   font-weight: 100;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s;
 }
-.pied-newsletter::placeholder { color: var(--creme); opacity: 0.85; }
+.pied-newsletter:hover {
+  background: var(--creme);
+  color: var(--noir);
+}
 .pied-reseaux { height: calc(var(--u) * 76); }
 
 /* =========================================================================

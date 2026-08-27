@@ -15,8 +15,8 @@
     <!-- Police du logo (Adobe Fonts) -->
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
     <!-- Styles communs a tout le site, puis styles de cette page -->
-    <link href="commun.css?v=2" rel="stylesheet">
-    <link href="compte-formulaire.css?v=2" rel="stylesheet">
+    <link href="commun.css?v=3" rel="stylesheet">
+    <link href="compte-formulaire.css?v=3" rel="stylesheet">
   </head>
 
   <body>
@@ -139,7 +139,8 @@
         <span class="rond-deco rond-deco-petit" aria-hidden="true"></span>
 
         <!-- #bouton d'envoi -->
-        <button type="submit" class="btn-enregistrer">Enregistrer mes informations</button>
+        <!-- une fois les informations enregistrees, on revient a l'espace compte -->
+        <a class="cta-1 btn-enregistrer" href="compte.html" style="--fond: #E13950; --texte: #FFFEF8">Enregistrer mes informations</a>
       </form>
     </main>
 
@@ -168,13 +169,13 @@
            <a href="#rse">Notre engagement RSE</a></p>
       </div>
       <div class="pied-colonne pied-colonne-droite">
-        <label class="hors-ecran" for="courriel">Adresse e-mail</label>
-        <input id="courriel" type="email" class="pied-newsletter" placeholder="Inscrivez-vous à nôtre Newsletter …">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
         <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=2"></script>
+    <script src="commun.js?v=3"></script>
   </body>
 </html>

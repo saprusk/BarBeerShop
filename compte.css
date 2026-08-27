@@ -35,7 +35,7 @@
 /* #titre de la page (maquette : y 319, centre) */
 .espace-titre {
   position: absolute;
-  top: calc(var(--u) * 190);
+  top: calc(var(--u) * 150);
   left: 0;
   width: 100%;
   margin: 0;
@@ -50,7 +50,7 @@
 .espace-photo {
   position: absolute;
   left: 50%;
-  top: calc(var(--u) * 281);
+  top: calc(var(--u) * 320);
   transform: translateX(-50%);
   width: calc(var(--u) * 206);
   height: calc(var(--u) * 206);
@@ -59,10 +59,10 @@
 }
 .espace-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
 
-/* #nom du client (maquette : y 691) */
+/* #nom du client : place juste sous la photo de profil */
 .espace-nom {
   position: absolute;
-  top: calc(var(--u) * 560);
+  top: calc(var(--u) * 555);
   left: 0;
   width: 100%;
   margin: 0;
@@ -83,7 +83,7 @@
   width: calc(var(--u) * 812);
   height: calc(var(--u) * 451);
   padding: calc(var(--u) * 60) calc(var(--u) * 62);
-  border: calc(var(--u) * 4) solid var(--rouge);
+  border: calc(var(--u) * 5) solid var(--rouge);
   border-radius: calc(var(--u) * 34);
 }
 .fiche-ligne {
@@ -178,13 +178,16 @@
   line-height: 1.6;
 }
 
-/* la zone qui contient la carte, les tampons et la fleche */
+/* la zone qui contient la carte, les tampons et la fleche.
+   "overflow: visible" evite que la carte, qui est inclinee, soit rognee
+   sur les cotes. */
 .carte-zone {
   position: absolute;
   left: 0;
   top: calc(var(--u) * 1455);
   width: 100%;
   height: calc(var(--u) * 800);
+  overflow: visible;
 }
 
 /* la carte rouge inclinee (maquette : x 395, y 1567, 866 x 733) */
@@ -204,19 +207,21 @@
   color: #fff;
   font-size: calc(var(--u) * 20);
   font-weight: 500;
-  transform: rotate(-9deg);
+  transform: rotate(-7deg);
 }
 .carte-merci {
   position: absolute;
-  left: calc(var(--u) * 480);
-  top: calc(var(--u) * 130);
-  width: calc(var(--u) * 780);
+  left: calc(var(--u) * 455);
+  top: calc(var(--u) * 118);
+  width: calc(var(--u) * 800);
   margin: 0;
   color: #fff;
   font-family: "Reenie Beanie", cursive;   /* police manuscrite */
   font-size: calc(var(--u) * 67);
   line-height: 1.1;
-  transform: rotate(-9deg);
+  /* le texte suit exactement l'inclinaison de la carte */
+  transform: rotate(-7deg);
+  transform-origin: left center;
 }
 
 /* les tampons deja obtenus, poses dans les cases de la carte */
@@ -236,21 +241,22 @@
   font-size: calc(var(--u) * 18);
   font-weight: 100;
   line-height: 1.5;
-  transform: rotate(-9deg);
+  transform: rotate(-7deg);
+  transform-origin: left center;
 }
 
 /* la fleche bouclee a droite de la carte (maquette : x 1326, y 1748) */
 .carte-fleche {
   position: absolute;
   left: calc(var(--u) * 1326);
-  top: calc(var(--u) * 181);
+  top: calc(var(--u) * 300);   /* descendue : elle passait sur le texte */
   width: calc(var(--u) * 244);
 }
 /* le texte de recompense, a droite de la fleche */
 .carte-recompense {
   position: absolute;
   left: calc(var(--u) * 1540);
-  top: calc(var(--u) * 217);
+  top: calc(var(--u) * 336);
   margin: 0;
   color: var(--noir);
   font-size: calc(var(--u) * 23);

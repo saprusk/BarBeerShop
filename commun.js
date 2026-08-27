@@ -43,3 +43,87 @@ if (boutonBascule) {
     localStorage.setItem('modeNuit', enModeNuit ? 'oui' : 'non');
   });
 }
+
+/* -------------------------------------------------------------------------
+   #carrousels a fleches
+   Sert au carrousel des avis (accueil) et a celui des formules (barber).
+   Chaque carrousel est decrit par trois identifiants : la fenetre qui
+   defile, le bouton "precedent" et le bouton "suivant".
+   Un clic fait avancer ou reculer d'UNE carte exactement.
+   ------------------------------------------------------------------------- */
+function brancherCarrousel(idFenetre, idPrecedent, idSuivant, selecteurCarte) {
+  const fenetre = document.getElementById(idFenetre);
+  const precedent = document.getElementById(idPrecedent);
+  const suivant = document.getElementById(idSuivant);
+  if (!fenetre || !precedent || !suivant) return;   // pas ce carrousel sur cette page
+
+  // largeur d'une carte + l'ecart qui la separe de la suivante
+  function pasDUneCarte() {
+    const carte = fenetre.querySelector(selecteurCarte);
+    const piste = carte.parentElement;
+    const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
+    return carte.getBoundingClientRect().width + ecart;
+  }
+
+  precedent.addEventListener('click', () => { fenetre.scrollLeft -= pasDUneCarte(); });
+  suivant.addEventListener('click',   () => { fenetre.scrollLeft += pasDUneCarte(); });
+
+  // Au chargement, on se cale sur la 2e carte : la 1re depasse alors a
+  // gauche et la derniere a droite, comme dans la maquette.
+  function calerAuDepart() {
+    fenetre.style.scrollBehavior = 'auto';   // pas d'animation au chargement
+    fenetre.scrollLeft = pasDUneCarte();
+    requestAnimationFrame(() => { fenetre.style.scrollBehavior = ''; });
+  }
+  window.addEventListener('load', calerAuDepart);
+  window.addEventListener('resize', calerAuDepart);
+}
+
+// carrousel des avis (page d'accueil)
+brancherCarrousel('avisFenetre', 'avisPrecedent', 'avisSuivant', '.avis-carte');
+
+/* -------------------------------------------------------------------------
+   #fiche produit (page "Notre concept")
+   Un clic sur un produit ouvre une fenetre avec sa fiche detaillee.
+   Les informations de chaque produit sont rangees dans une balise
+   "template" placee juste a cote de la vignette, dans le HTML.
+   ------------------------------------------------------------------------- */
+const ficheFond = document.getElementById('ficheFond');
+
+if (ficheFond) {
+  const ficheImage       = document.getElementById('ficheImage');
+  const ficheNom         = document.getElementById('ficheNom');
+  const ficheFamille     = document.getElementById('ficheFamille');
+  const ficheDescription = document.getElementById('ficheDescription');
+  const fichePrix        = document.getElementById('fichePrix');
+  const ficheFermer      = document.getElementById('ficheFermer');
+
+  function ouvrirFiche(idProduit) {
+    const infos = document.getElementById('fiche-' + idProduit);
+    if (!infos) return;
+    ficheImage.src         = infos.dataset.image;
+    ficheImage.alt         = infos.dataset.nom;
+    ficheNom.textContent   = infos.dataset.nom;
+    ficheFamille.textContent = infos.dataset.famille;   // dernier niveau du fil d'Ariane
+    fichePrix.textContent  = infos.dataset.prix;
+    ficheDescription.textContent = infos.innerHTML.trim();
+    ficheFond.hidden = false;
+    document.body.style.overflow = 'hidden';   // on bloque le defilement du fond
+    ficheFermer.focus();
+  }
+
+  function fermerFiche() {
+    ficheFond.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  // clic sur une vignette de produit
+  document.querySelectorAll('.produit-vignette').forEach(bouton => {
+    bouton.addEventListener('click', () => ouvrirFiche(bouton.dataset.produit));
+  });
+
+  // fermeture : par le bouton, par un clic sur le fond, ou avec la touche Echap
+  ficheFermer.addEventListener('click', fermerFiche);
+  ficheFond.addEventListener('click', e => { if (e.target === ficheFond) fermerFiche(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerFiche(); });
+}

@@ -32,14 +32,14 @@
 .hero-rond { position: absolute; border-radius: 50%; overflow: hidden; }
 .hero-rond img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* gauche : le salon (maquette : x 140, y 195, 419 de diametre) */
-.hero-rond-gauche { left: calc(var(--u) * 140);  top: calc(var(--u) * 195); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
+.hero-rond-gauche { left: calc(var(--u) * 140);  top: calc(var(--u) * 265); width: calc(var(--u) * 419); height: calc(var(--u) * 419); }
 /* droite : le comptoir (maquette : x 1430, y 170, 350 de diametre) */
-.hero-rond-droite { left: calc(var(--u) * 1430); top: calc(var(--u) * 170); width: calc(var(--u) * 350); height: calc(var(--u) * 350); }
+.hero-rond-droite { left: calc(var(--u) * 1430); top: calc(var(--u) * 240); width: calc(var(--u) * 350); height: calc(var(--u) * 350); }
 
 /* #titre principal (maquette : y 515, centre) */
 .hero-titre {
   position: absolute;
-  top: calc(var(--u) * 495);
+  top: calc(var(--u) * 565);
   left: 0;
   width: 100%;
   margin: 0;
@@ -54,21 +54,28 @@
 
 /* #griffonnages decoratifs */
 .deco { position: absolute; pointer-events: none; }
-.deco-loupe   { left: calc(var(--u) * 643);  top: calc(var(--u) * 576); width: calc(var(--u) * 143); }
-.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 391); width: calc(var(--u) * 52); }
-.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 600); width: calc(var(--u) * 229); }
-.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 395); width: calc(var(--u) * 127); }
-.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 567); width: calc(var(--u) * 96); }
+/* le pictogramme biere : son cercle blanc d'origine est rendu transparent
+   pour qu'il se fonde sur le fond sombre (demande de la designer) */
+.deco-loupe {
+  left: calc(var(--u) * 643);
+  top: calc(var(--u) * 646);
+  width: calc(var(--u) * 143);
+  mix-blend-mode: screen;
+}
+.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 461); width: calc(var(--u) * 52); }
+.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 670); width: calc(var(--u) * 229); }
+.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 465); width: calc(var(--u) * 127); }
+.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 637); width: calc(var(--u) * 96); }
 
 /* #mousse de biere : deux couches qui font la transition vers le creme */
 .mousse { position: absolute; left: 0; pointer-events: none; }
-.mousse-haut { top: calc(var(--u) * 796); width: calc(var(--u) * 1923); }
-.mousse-bas  { top: calc(var(--u) * 954); width: calc(var(--u) * 1920); }
+.mousse-haut { top: calc(var(--u) * 700); width: calc(var(--u) * 1923); }
+.mousse-bas  { top: calc(var(--u) * 858); width: calc(var(--u) * 1920); }
 
 /* #accroche "On vous en dit plus ici" (maquette : y 1033) */
 .accroche {
   position: absolute;
-  top: calc(var(--u) * 1033);
+  top: calc(var(--u) * 937);
   left: 0;
   width: 100%;
   margin: 0;
@@ -203,31 +210,90 @@
   font-weight: 700;
 }
 
-/* les formes des cartes viennent de la maquette ; elles debordent des deux
-   cotes de l'ecran, comme prevu (maquette : x -551, y 2337 -> 87) */
-.avis-cartes {
+/* #carrousel des avis
+   Chaque avis est une carte rouge inclinee. Les fleches font defiler d'un
+   avis a la fois ; on peut aussi faire glisser au doigt ou au trackpad.
+   Les avis des extremites depassent volontairement des bords de l'ecran. */
+.avis-carrousel {
   position: absolute;
-  left: calc(var(--u) * -551);
-  top: calc(var(--u) * 87);
-  width: calc(var(--u) * 2939);
+  left: 0;
+  top: calc(var(--u) * 80);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 24);
 }
 
-/* #temoignages : blocs de texte pivotes, poses sur les cartes.
-   L'angle est passe par la variable --angle depuis le HTML.
-   Les positions du HTML sont en pixels de maquette : on les convertit ici. */
+/* les deux fleches, de chaque cote */
+.avis-fleche {
+  flex: 0 0 auto;
+  padding: 0 calc(var(--u) * 10);
+  background: none;
+  border: none;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 46);
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.avis-fleche:hover { opacity: 0.55; }
+
+/* la fenetre laisse voir trois avis a la fois */
+.avis-fenetre {
+  width: calc(var(--u) * 1500);
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: calc(var(--u) * 40) 0;
+}
+.avis-fenetre::-webkit-scrollbar { display: none; }
+
+.avis-piste {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 60);
+  width: max-content;
+  padding: 0 calc(var(--u) * 20);
+}
+
+/* une carte d'avis : rectangle rouge arrondi, legerement incline */
 .avis-carte {
-  position: absolute;
-  /* --x et --y sont donnes dans le HTML, en pixels de la maquette */
-  left: calc(var(--u) * var(--x));
-  top: calc(var(--u) * var(--y));
-  width: calc(var(--u) * 300);
+  position: relative;
+  flex: 0 0 calc(var(--u) * 420);
+  min-height: calc(var(--u) * 230);
   margin: 0;
+  padding: calc(var(--u) * 44) calc(var(--u) * 46) calc(var(--u) * 34);
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 26);
   color: #fff;
   transform: rotate(var(--angle));
-  transform-origin: left top;
 }
-.avis-carte blockquote { margin: 0; font-size: calc(var(--u) * 18); font-weight: 400; line-height: 1.35; }
-.avis-carte figcaption { margin-top: calc(var(--u) * 26); font-size: calc(var(--u) * 22); font-weight: 800; }
+/* les gros guillemets, en haut a gauche et en bas a droite */
+.avis-carte::before,
+.avis-carte::after {
+  content: "\201D";
+  position: absolute;
+  color: #fff;
+  font-size: calc(var(--u) * 90);
+  line-height: 1;
+}
+.avis-carte::before { left: calc(var(--u) * -18); top: calc(var(--u) * 6); transform: rotate(180deg); }
+.avis-carte::after  { right: calc(var(--u) * -12); bottom: calc(var(--u) * -34); }
+
+.avis-carte blockquote {
+  margin: 0;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.4;
+}
+.avis-carte figcaption {
+  margin-top: calc(var(--u) * 24);
+  text-align: right;
+  font-size: calc(var(--u) * 22);
+  font-weight: 800;
+}
 
 /* =========================================================================
    #bar a biere  (2683 -> 3790)
@@ -241,9 +307,9 @@
 
 /* les trois arches superposees de la maquette, du fond vers l'avant */
 .arche { position: absolute; border-radius: 50%; }
-.arche-jaune { left: calc(var(--u) * -101); top: 0;                    width: calc(var(--u) * 2109); height: calc(var(--u) * 976); background: #FBDF9A; }
-.arche-brune { left: calc(var(--u) * -24);  top: calc(var(--u) * 35);  width: calc(var(--u) * 1963); height: calc(var(--u) * 874); background: #968251; }
-.arche-beige { left: calc(var(--u) * -44);  top: calc(var(--u) * 51);  width: calc(var(--u) * 2003); height: calc(var(--u) * 899); background: var(--beige); }
+/* un seul demi-cercle beige : il se termine exactement a la meme hauteur
+   que le haut de la photo, pour que les deux soient alignes en bas */
+.arche-beige { left: calc(var(--u) * -44); top: calc(var(--u) * 51); width: calc(var(--u) * 2003); height: calc(var(--u) * 899); background: var(--beige); }
 /* le socle prolonge l'arche beige jusqu'au bas de la section */
 .arche-socle {
   position: absolute;
@@ -280,19 +346,17 @@
 .bar-contenu strong { font-weight: 700; }
 
 /* #bouton "Voir notre carte" */
-.btn-beige {
-  display: inline-grid;
-  place-content: center;
+/* #bouton "Voir notre carte"
+   Il descend jusqu'a l'arete haute du demi-cercle photo, comme demande. */
+.btn-voir-carte {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(var(--u) * 235);
   width: calc(var(--u) * 276);
   height: calc(var(--u) * 68);
-  background: var(--brun);
-  border-radius: calc(var(--u) * 34);
-  color: var(--beige);
-  font-size: calc(var(--u) * 25);
-  font-weight: 800;
-  text-decoration: none;
+  z-index: 4;
 }
-.btn-beige:hover { color: var(--beige); opacity: 0.92; }
 
 /* #grande photo du bar, rognee en demi-cercle par le haut */
 .bar-photo {
@@ -310,9 +374,15 @@
 .mention-alcool {
   position: absolute;
   left: 0;
-  top: calc(var(--u) * 1005);
+  top: calc(var(--u) * 1000);
   margin: 0;
-  padding: calc(var(--u) * 5) calc(var(--u) * 10);
+  padding: calc(var(--u) * 8) calc(var(--u) * 16);
+  /* bandeau gris translucide et floute : sans lui le texte blanc se perdait
+     dans la photo */
+  background: rgba(60, 60, 60, 0.55);
+  backdrop-filter: blur(calc(var(--u) * 8));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 8));
+  border-radius: 0 calc(var(--u) * 12) calc(var(--u) * 12) 0;
   color: #fff;
   font-size: calc(var(--u) * 16);
   font-weight: 500;
@@ -345,11 +415,17 @@
   top: calc(var(--u) * 34);
   width: calc(var(--u) * 633);
   height: calc(var(--u) * 521);
-  border: calc(var(--u) * 2) solid var(--brun);
+  border: calc(var(--u) * 5) solid var(--brun);
   border-radius: calc(var(--u) * 22);
   overflow: hidden;
 }
-.infos-plan img { width: 100%; height: 100%; object-fit: cover; }
+.infos-plan img,
+.infos-plan iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
 
 /* #coordonnees (maquette : x 967, y 3865 -> 75) */
 .infos-liste {
@@ -406,18 +482,21 @@
 }
 
 /* #galerie : cinq photos legerement inclinees (maquette : y 4472 -> 32) */
+/* la galerie est CENTREE dans la page, et non collee a gauche */
 .instagram-galerie {
   position: absolute;
-  left: calc(var(--u) * 98);
+  left: 50%;
+  transform: translateX(-50%);
   top: calc(var(--u) * 130);
   display: flex;
+  justify-content: center;
   gap: calc(var(--u) * 40);
 }
 .instagram-galerie img {
   width: calc(var(--u) * 340);
   height: calc(var(--u) * 455);
   object-fit: cover;
-  border-radius: calc(var(--u) * 8);
+  border-radius: calc(var(--u) * 28);   /* angles nettement plus arrondis */
   box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 18) rgba(0,0,0,0.18);
 }
 /* les inclinaisons relevees dans la maquette */

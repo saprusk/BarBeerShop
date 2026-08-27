@@ -158,20 +158,22 @@
   margin: 0;
   appearance: none;          /* on retire l'apparence par defaut du navigateur */
   background: var(--creme);
-  border: calc(var(--u) * 5) solid var(--petrole);
+  border: calc(var(--u) * 7) solid var(--petrole);
   border-radius: calc(var(--u) * 12);
   cursor: pointer;
   position: relative;
 }
 /* une fois cochee, la case affiche une croix bleue (comme dans la maquette) */
+/* la croix de validation : traits nettement plus epais */
 .case:checked::before,
 .case:checked::after {
   content: "";
   position: absolute;
   left: 50%;
   top: 50%;
-  width: calc(var(--u) * 52);
-  height: calc(var(--u) * 5);
+  width: calc(var(--u) * 56);
+  height: calc(var(--u) * 8);
+  border-radius: calc(var(--u) * 4);
   background: var(--petrole);
 }
 .case:checked::before { transform: translate(-50%, -50%) rotate(45deg); }
@@ -236,7 +238,7 @@
   left: calc(var(--u) * 18);
   padding: calc(var(--u) * 3) calc(var(--u) * 14);
   background: var(--etiquette);
-  border: calc(var(--u) * 2) solid var(--petrole);
+  border: calc(var(--u) * 5) solid var(--petrole);
   border-radius: calc(var(--u) * 14);
   color: var(--petrole);
   font-size: calc(var(--u) * 16);
