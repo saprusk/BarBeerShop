@@ -28,6 +28,18 @@ body { background-color: var(--beige); }
   overflow: hidden;
   background: var(--noir);
 }
+/* Socle beige derriere la mousse : comble le noir sous les bulles pour une
+   transition franche vers la carte (memes rectangle que la maquette). */
+.hero-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--u) * 855);
+  bottom: 0;
+  background: var(--beige);
+  z-index: 1;
+}
 
 /* la photo du bar (maquette : x 5, y -50, 1920 x 1630) */
 .hero-photo {
@@ -107,7 +119,7 @@ body { background-color: var(--beige); }
 .btn-reserver:hover { color: var(--creme); opacity: 0.92; }
 
 /* #mousse : transition vers le fond beige */
-.mousse { position: absolute; left: 0; pointer-events: none; }
+.mousse { position: absolute; left: 0; pointer-events: none; z-index: 2; }
 .mousse-haut { top: calc(var(--u) * 450); width: calc(var(--u) * 1923); }
 .mousse-bas  { top: calc(var(--u) * 867); width: calc(var(--u) * 1920); }
 

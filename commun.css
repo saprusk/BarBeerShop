@@ -1,101 +1,21 @@
 /* =========================================================================
-   STYLES COMMUNS A TOUTES LES PAGES
+   STYLES DES GRANDS ECRANS (maquette Adobe XD de 1920 px de large)
    -------------------------------------------------------------------------
-   Ce fichier contient ce qui se repete sur chaque page :
-     - les polices du site
-     - l'unite de mesure calee sur la maquette
-     - les couleurs
+   Ce fichier n'est charge QUE au-dessus de 1024 px de large : le <link>
+   qui l'appelle porte un media="(min-width: 1024px)". En dessous, c'est
+   mobile.css qui prend le relais, et rien d'ici ne s'applique.
+
+   Il contient :
      - la barre de navigation (2 variantes)
+     - les deux styles de boutons reutilisables
      - le bouton "remonter en haut"
      - le pied de page
-
-   L'UNITE "--u" (le principe de tout le site)
-   La maquette Adobe XD fait 1920 px de large. Pour que la page ressemble a
-   la maquette QUELLE QUE SOIT la taille de l'ecran, on definit une unite
-   qui vaut 1 pixel de la maquette :
-        --u = largeur reelle de la page / 1920
-   Ainsi, quand la maquette dit "ce titre fait 30 px", on ecrit :
-        font-size: calc(var(--u) * 30);
-   Le fichier commun.js recalcule cette valeur au chargement et au
-   redimensionnement de la fenetre.
+   Les polices, les couleurs et l'unite --u sont dans base.css.
    ========================================================================= */
 
-/* =========================================================================
-   #polices
-   PP Formula = police principale (fichiers dans sources/fonts/)
-   DeLittle Chromatic = police du logo, chargee depuis Adobe Fonts par le
-   <link> place dans le <head> de chaque page
-   ========================================================================= */
-
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Thin.woff2")      format("woff2"); font-weight: 100; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Regular.woff2")   format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Medium.woff2")    format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Bold.woff2")      format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Extrabold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
-@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Black.woff2")     format("woff2"); font-weight: 900; font-display: swap; }
-
-/* =========================================================================
-   #couleurs de la charte (relevees dans la maquette)
-   ========================================================================= */
-
-:root {
-  --noir: #1A1A1E;         /* barre de navigation et pied de page */
-  --creme: #FFFEF8;        /* fond clair et textes clairs */
-  --rouge: #E13950;        /* accents, boutons */
-  --brun: #695E45;         /* grande zone de la page Barber */
-  --beige: #DDCDB0;        /* bandes de bas de page */
-  --petrole: #18536C;      /* cercles et bulles decoratives */
-  --champ: #91ACB6;        /* fond des champs de formulaire */
-  --champ-ok: #7FCB8B;     /* champ rempli et valide */
-  --check: #8EE09B;        /* pastille de validation */
-  --etiquette: #DBE4E8;    /* petite etiquette au-dessus d'un champ rempli */
-  --gris-bandeau: #525252; /* bandeau reglementaire en bas des pages */
-
-  --police: "PP Formula", system-ui, sans-serif;
-  --police-logo: "delittle-chromatic", "PP Formula", sans-serif;
-}
-
-/* #mode nuit ("Night Shift" de la maquette)
-   En comparant les deux versions de la maquette, une seule couleur change :
-   le creme devient un ton plus chaud. On ne touche a rien d'autre. */
-html.nuit {
-  --creme: #FDF2DD;
-}
-
-/* =========================================================================
-   #base
-   ========================================================================= */
-
-html {
-  overflow-x: hidden;   /* certains elements debordent volontairement */
-}
-
-body {
-  /* valeur de depart ; commun.js la recalcule avec la largeur reelle */
-  --u: calc(100vw / 1920);
-  margin: 0;
-  font-family: var(--police);
-  background-color: var(--creme);
-  overflow-x: hidden;
-  /* Pas de transition ici : sur le <body>, Chrome garde alors l'ancienne
-     couleur quand la variable --creme change, et la bascule nuit ne se
-     voit plus. Les autres blocs, eux, gardent leur fondu. */
-}
-
-/* Les bordures sont comptees dans la largeur annoncee */
-*, *::before, *::after { box-sizing: border-box; }
-
-/* Masque un texte a l'ecran tout en le laissant lisible par les lecteurs
-   d'ecran (utilise pour les etiquettes de formulaire) */
-.hors-ecran {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
+/* Ce qui n'existe que sur telephone est masque sur les grands ecrans */
+.barre-nav-mob, .menu-mob, .mousse-mob, .bulles-mob,
+.bloc-brun-mob, .bandeau-mob, .concept-mob { display: none; }
 
 /* =========================================================================
    #barre de navigation
@@ -228,9 +148,10 @@ html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
    survol se marque par un SOULIGNEMENT (la couleur ne change pas). */
 .nav-menu {
   position: absolute;
-  top: calc(var(--u) * 150);
-  left: calc(var(--u) * 620);
-  width: calc(var(--u) * 840);
+  /* centre sur toute la largeur de la page, et descendu de 5 px */
+  top: calc(var(--u) * 155);
+  left: 0;
+  width: 100%;
   height: calc(var(--u) * 64);
   display: flex;
   align-items: flex-start;
@@ -261,7 +182,7 @@ html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
   margin-bottom: calc(var(--u) * -112);
 }
 .barre-nav--simple .nav-logo { top: calc(var(--u) * 18); }
-.barre-nav--simple .nav-menu { top: calc(var(--u) * 40); }
+.barre-nav--simple .nav-menu { top: calc(var(--u) * 45); }
 .barre-nav--simple .nav-bascule { left: calc(var(--u) * 1427); top: calc(var(--u) * 31); }
 
 /* =========================================================================
@@ -375,64 +296,3 @@ html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
   color: var(--noir);
 }
 .pied-reseaux { height: calc(var(--u) * 76); }
-
-/* =========================================================================
-   #mobile : reglages communs (ecrans etroits)
-   ========================================================================= */
-
-@media (max-width: 768px) {
-
-  /* barre de navigation : tout passe en flux normal, sur plusieurs lignes */
-  .barre-nav {
-    position: static;
-    height: auto;
-    padding: 0.8rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-  }
-  .nav-logo, .nav-reservation, .nav-bascule, .nav-compte, .nav-menu {
-    position: static;
-    transform: none;
-  }
-  .nav-logo img { height: 38px; }
-  .nav-reservation { order: 4; width: 100%; height: 46px; margin-top: 0.4rem; }
-  .nav-btn-rdv { width: 50%; height: 42px; font-size: 0.95rem; }
-  .nav-btn-soiree { font-size: 0.9rem; }
-  .nav-bascule { width: 34px; height: 34px; margin-left: auto; }
-  .nav-compte { width: 40px; height: 40px; }
-  .nav-menu {
-    order: 5;
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.6rem;
-  }
-  .nav-menu a { position: static; font-size: 0.85rem; text-align: center; }
-  .barre-nav--simple { height: auto; }
-
-  .bouton-remonter { width: 62px; }
-
-  /* pied de page : colonnes empilees */
-  .pied {
-    height: auto;
-    flex-direction: column;
-    padding: 2rem 1.2rem;
-    gap: 1.8rem;
-  }
-  .pied-colonne h3 { font-size: 1.2rem; }
-  .pied-colonne p { font-size: 0.92rem; }
-  .pied-colonne-droite { align-items: flex-start; }
-  .pied-newsletter { width: 100%; height: 46px; font-size: 1rem; padding: 0 1.2rem; border-width: 2px; }
-  .pied-reseaux { height: 38px; }
-}
-
-/* =========================================================================
-   #fonds de forme
-   Fichiers fournis par la designer : les grands ronds de couleur qui
-   depassent derriere les photos (contour, bulles satellites et raccords
-   en goutte). Ils se posent sous les photos, sans gener les clics.
-   ========================================================================= */
-.fond-forme { position: absolute; z-index: 0; pointer-events: none; }

@@ -280,3 +280,133 @@ taille et le décalage relevés dans le fichier XD (`page.images(...)`).
 pas tant que chaque section peignait son propre fond ; il est apparu dès que les
 sections du Concept sont devenues transparentes. La transition a été retirée du `body`
 (dans `commun.css` et `barber.css`) ; les autres blocs gardent leur fondu.
+
+---
+
+# LE RESPONSIVE (mise en page telephone)
+
+## 11. La maquette telephone
+
+Lien XD fourni par la designer : **8 planches, toutes en 430 px de large**.
+Ce n'est pas un retrecissement du grand ecran mais une vraie refonte : menu en
+trois traits, tout en une seule colonne, carrousels, accordeons.
+
+| Planche | Taille |
+|---|---|
+| Page accueil - mob | 430 x 5391 |
+| Bar - mob | 430 x 6371 |
+| Barber - mob | 430 x 4736 |
+| Concept mob | 430 x 6282 |
+| Compte - mob | 430 x 5036 |
+| Creation compte - mob | 430 x 2482 |
+| Modification - mob | 430 x 2482 |
+
+Outils dans `…/scratchpad/xd3/` : memes scripts que `xd2`, plus `deplie.py`
+(detaille le contenu d'un groupe), `masques.py` (sort la forme qui decoupe
+chaque photo), `textes.py` (tous les textes, meme imbriques) et `extraire.py`
+(exporte un groupe en SVG). Mesures dans `spec_*.txt`, apercus dans `thumbs/`.
+
+Jeton d'acces de cette maquette (il expirera) :
+`1787875625_urn%3Aaaid%3Asc%3AUS%3Af7330b16-a230-4fe2-a1e3-809dacd54b90%3Bpublic_06e84f1137949e814ec2f64b29fa5a75844a5eee`
+
+## 12. L'architecture
+
+Meme principe que le grand ecran : tout en position absolue, cale sur `--u`.
+Simplement, **`--u` change de reference selon la largeur** :
+
+- au-dessus de 1024 px : `--u = largeur / 1920` (maquette grand ecran)
+- en dessous de 1024 px : `--u = min(largeur, 520) / 430` (maquette telephone)
+
+Le plafond de 520 px evite que tout devienne enorme sur une tablette : au-dela,
+la colonne se centre au lieu de grossir, et les bandes de couleur (barre de
+navigation, pied de page, sections colorees) continuent d'aller d'un bord a
+l'autre grace a un calque `::after` de `100vw` pose derriere elles.
+
+Les feuilles de style sont separees en trois familles, chargees avec un
+attribut `media` sur le `<link>` :
+
+| Fichier | Quand |
+|---|---|
+| `base.css` | toujours (polices, couleurs, mode nuit, `--u`) |
+| `commun.css` + `<page>.css` | `media="(min-width: 1024px)"` |
+| `mobile.css` + `<page>-mob.css` | `media="(max-width: 1023.98px)"` |
+
+Consequence : **rien du CSS grand ecran ne fuit sur telephone**, on repart
+d'une page blanche au lieu d'annuler des centaines de regles.
+
+## 13. Ce qui est fait
+
+Les **sept pages** ont leur mise en page telephone :
+`accueil-mob.css`, `barber-mob.css`, `bar-mob.css`, `concept-mob.css`,
+`compte-mob.css`, `formulaire-mob.css` (creation + modification), plus
+`mobile.css` pour la barre de navigation, le menu et le pied de page.
+
+Hauteurs mesurees contre les maquettes :
+
+| Page | Maquette | Site | Ecart |
+|---|---|---|---|
+| Accueil | 5391 | 5391 | 0 |
+| Barber | 4736 | 4739 | 3 |
+| Notre Concept | 6282 | 6283 | 1 |
+| Bar | 6371 | 6148 | vide de fin non repris |
+| Compte | 5036 | 3960 | vide de fin non repris |
+| Creation / Modification | 2482 | 2486 | 4 |
+
+Sur Bar et Compte, la maquette laisse plusieurs centaines de pixels de fond
+vide en bas, pour l'ouverture des categories et des questions. On ne les
+reproduit pas : la page s'allonge d'elle-meme a l'ouverture.
+
+Verifie sur les sept pages : aucun debordement horizontal, aucune image
+cassee, le grand ecran est intact (hauteurs toujours conformes aux maquettes
+de 1920).
+
+## 14. Ce qui a ete ajoute au HTML
+
+Le HTML est commun aux deux tailles d'ecran. Quelques blocs n'existent que
+sur telephone ; ils sont masques sur grand ecran par une regle de
+`commun.css` :
+`.barre-nav-mob`, `.menu-mob`, `.mousse-mob`, `.bulles-mob`, `.bloc-brun-mob`,
+`.bandeau-mob`, `.concept-mob`.
+
+Dessins extraits de la maquette telephone (formes que le grand ecran n'a pas) :
+`mousse-mob.svg`, `mob-bulles-bar.svg`, `mob-bulles-barber.svg`,
+`mob-bulles-barber-page.svg`, `mob-loupe.svg`, `mob-concept-haut.svg`,
+`mob-concept-fil.svg`, `mob-concept-rond.svg`.
+
+`commun.js` gere en plus : le menu du telephone, la bascule jour/nuit sur ses
+deux boutons, et l'accordeon de la carte du bar.
+
+## 15. Pieges rencontres, a retenir
+
+1. **`--u` a zero.** L'observateur de taille se declenche parfois alors que la
+   page n'a pas encore de largeur. Sans garde-fou, toute la mise en page
+   tombe a zero. `reglerUnite()` sort maintenant si la largeur vaut 0.
+2. **Un ancien script dans `barber.html`.** La page avait garde son propre
+   `reglerUnite()` (version 1920 uniquement), qui ecrasait celui de
+   `commun.js`. Remplace par un appel a `commun.js`.
+3. **Un `<link>` en double dans `barber.html`**, sans `media` : la feuille du
+   grand ecran s'appliquait aussi sur telephone.
+4. **Les valeurs ecrites sur la balise l'emportent.** Les pages de compte
+   portent `style="--ligne: 417"` sur chaque champ ; impossible de redefinir
+   `--ligne` depuis la feuille mobile. On y ecrit donc `top` directement.
+5. **Les `y` d'Adobe XD sont des lignes de base**, pas le haut du bloc. Pour
+   poser un texte au bon endroit, on remonte d'environ 0,925 fois la taille
+   de la police.
+6. **Les captures d'ecran.** Chrome impose une largeur de fenetre minimale
+   (~500 px) : on capture donc a 520 px (la largeur plafond) puis on ramene
+   l'image a 430 (`scratchpad/capmob.sh`). Et le volet navigateur integre ne
+   fait pas avancer les transitions CSS : un panneau qui glisse y parait
+   toujours ferme, ce n'est pas un bug de la page.
+
+## 16. Ce qui reste a faire
+
+- La designer n'a pas de photos dans les capsules des brasseurs (page Bar) ni
+  de bouteilles decoratives sur telephone : la maquette en montre, le HTML
+  n'en a pas. A lui demander.
+- Quelques textes different entre les deux maquettes (par exemple
+  « Voir la carte » sur telephone contre « Voir notre carte » sur grand
+  ecran, ou le titre du second bloc de l'accueil qui dit encore
+  « Bar a biere artisanale »). Le HTML etant commun, c'est la version du
+  grand ecran qui s'affiche. A trancher avec elle.
+- Les fleurs decoratives de la page Notre Concept ne sont pas reprises sur
+  telephone.

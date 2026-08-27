@@ -20,11 +20,58 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=5" rel="stylesheet">
-    <link href="notre-concept.css?v=5" rel="stylesheet">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=36" rel="stylesheet">
+    <link href="commun.css?v=36" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="notre-concept.css?v=36" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=36" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="concept-mob.css?v=36" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
+      </button>
+
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="actif" aria-current="page">NOTRE CONCEPT</a>
+      </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
+    </nav>
+
     <!-- =====================================================================
          BARRE DE NAVIGATION
          ===================================================================== -->
@@ -66,6 +113,11 @@
       <img src="sources/fond-concept-fil-rouge.webp"
            alt="Les trois univers du Barbeershop relies par un fil rouge : le barber, le bar a bieres et notre concept"
            class="fond-forme fond-forme-concept">
+
+      <!-- #version telephone de la meme composition : la maquette la
+           reorganise completement, elle a donc ses propres dessins. -->
+      <img src="sources/mob-concept-haut.svg" alt="" class="concept-mob concept-mob-haut">
+      <img src="sources/mob-concept-fil.svg"  alt="" class="concept-mob concept-mob-fil">
 
       <!-- #photo ronde : le salon (a gauche) -->
       <div class="cercle cercle-salon"><img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure"></div>

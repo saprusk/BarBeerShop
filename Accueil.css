@@ -25,6 +25,19 @@
   background: var(--noir);
   overflow: hidden;
 }
+/* Socle creme pose derriere la mousse : il comble le noir sous les bulles
+   pour que la transition vers la section suivante soit franche, sans grand
+   espace noir (la maquette a le meme rectangle creme des y 845). */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--u) * 845);
+  bottom: 0;
+  background: var(--creme);
+  z-index: 1;
+}
 
 .bouton-remonter { top: calc(var(--u) * 464); }
 
@@ -68,7 +81,7 @@
 .deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 637); width: calc(var(--u) * 96); }
 
 /* #mousse de biere : deux couches qui font la transition vers le creme */
-.mousse { position: absolute; left: 0; pointer-events: none; }
+.mousse { position: absolute; left: 0; pointer-events: none; z-index: 2; }
 .mousse-haut { top: calc(var(--u) * 700); width: calc(var(--u) * 1923); }
 .mousse-bas  { top: calc(var(--u) * 858); width: calc(var(--u) * 1920); }
 
@@ -86,7 +99,7 @@
   color: var(--rouge);
   font-size: calc(var(--u) * 31);
   font-weight: 400;
-  z-index: 2;
+  z-index: 3;
 }
 .accroche strong { font-weight: 700; }
 .accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); }

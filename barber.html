@@ -35,15 +35,60 @@
     <!-- Police "DeLittle Chromatic" (celle du logo), hebergee par Adobe Fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
 
-    <!-- commun.css : styles COMMUNS a tout le site (polices, navbar, pied) -->
-    <link href="commun.css?v=5" rel="stylesheet">
-    <!-- barber.css : styles PROPRES a cette page -->
-    <link href="barber.css?v=5" rel="stylesheet">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=36" rel="stylesheet">
+    <link href="commun.css?v=36" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="barber.css?v=36" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=36" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="barber-mob.css?v=36" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
     <!-- Bootstrap : partie JavaScript (menu deroulant sur petit ecran) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
+      </button>
+
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html" class="actif" aria-current="page">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html">NOTRE CONCEPT</a>
+      </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
+    </nav>
 
     <!-- =====================================================================
          1. BARRE DE NAVIGATION
@@ -433,86 +478,34 @@
 
     <!-- =====================================================================
          SCRIPTS DE LA PAGE
+    <!-- =====================================================================
+         SCRIPTS
+         Le fichier commun.js regle l'unite de mesure, le menu du telephone
+         et la bascule jour / nuit, sur toutes les pages du site.
          ===================================================================== -->
+    <script src="commun.js?v=36"></script>
     <script>
-      /* ------------------------------------------------------------------
-         #unite de mesure de la page
-         Toute la mise en page est calee sur la maquette grace a la variable
-         "--u" : 1 unite = 1 pixel de la maquette (qui fait 1920 de large).
-         On la recalcule ici avec la largeur REELLE de la page, car l'unite
-         "vw" du CSS compte aussi la barre de defilement verticale, ce qui
-         decalerait tout d'environ 1 %.
-         ------------------------------------------------------------------ */
-      function reglerUnite() {
-        const largeurReelle = document.documentElement.clientWidth;
-        document.body.style.setProperty('--u', (largeurReelle / 1920) + 'px');
-      }
-      reglerUnite();                                  // au chargement
-      window.addEventListener('resize', reglerUnite); // et quand on redimensionne
+      /* #carrousel des formules
+         Il ne sert que sur grand ecran : sur telephone, les cinq formules
+         sont empilees les unes sous les autres, sans fleches. */
+      brancherCarrousel('formulesFenetre', 'formulePrecedente', 'formuleSuivante', '.formule');
 
-      /* ------------------------------------------------------------------
-         #carrousel des formules
-         Les fleches font avancer ou reculer la fenetre d'une carte.
-         Le glissement au trackpad ou au doigt fonctionne tout seul, car la
-         fenetre est deja defilable (overflow-x: auto en CSS).
-         ------------------------------------------------------------------ */
+      /* Au chargement, on se cale sur la 2e carte pour retrouver le cadrage
+         de la maquette : Coupe Express / Soin Signature / Coupe + Rituel. */
       const fenetreFormules = document.getElementById('formulesFenetre');
-      const boutonPrecedente = document.getElementById('formulePrecedente');
-      const boutonSuivante = document.getElementById('formuleSuivante');
-
-      if (fenetreFormules && boutonPrecedente && boutonSuivante) {
-        // largeur d'une carte + l'ecart qui la separe de la suivante
-        function pasDUneCarte() {
-          const carte = document.querySelector('.formule');
-          const piste = document.querySelector('.formules-piste');
-          const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
-          return carte.getBoundingClientRect().width + ecart;
-        }
-        // On modifie directement la position de defilement. Le mouvement est
-        // rendu doux par la regle "scroll-behavior: smooth" du fichier CSS.
-        boutonPrecedente.addEventListener('click', () => {
-          fenetreFormules.scrollLeft -= pasDUneCarte();
-        });
-        boutonSuivante.addEventListener('click', () => {
-          fenetreFormules.scrollLeft += pasDUneCarte();
-        });
-
-        // Au chargement, on se cale sur la 2e carte pour retrouver le cadrage
-        // de la maquette : Coupe Express / Soin Signature / Coupe + Rituel.
-        // On coupe le defilement doux le temps de ce calage, sinon la page
-        // s'ouvrirait sur une animation.
-        function calerSurLaMaquette() {
-          fenetreFormules.style.scrollBehavior = 'auto';
-          fenetreFormules.scrollLeft = pasDUneCarte();
-          // on remet le defilement doux pour les clics sur les fleches
-          requestAnimationFrame(() => { fenetreFormules.style.scrollBehavior = ''; });
-        }
-        window.addEventListener('load', calerSurLaMaquette);
-        // et on refait le calage si la fenetre change de taille
-        window.addEventListener('resize', calerSurLaMaquette);
+      function calerSurLaMaquette() {
+        if (!fenetreFormules) return;
+        if (document.documentElement.clientWidth < 1024) return;   // pas sur telephone
+        const carte = document.querySelector('.formule');
+        const piste = document.querySelector('.formules-piste');
+        if (!carte || !piste) return;
+        const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
+        fenetreFormules.style.scrollBehavior = 'auto';
+        fenetreFormules.scrollLeft = carte.getBoundingClientRect().width + ecart;
+        requestAnimationFrame(() => { fenetreFormules.style.scrollBehavior = ''; });
       }
-
-      /* ------------------------------------------------------------------
-         #bascule jour / nuit
-         Ajoute ou retire la classe "nuit" sur la page. En mode nuit, les
-         surfaces claires prennent une teinte plus chaude (mode "Night Shift"
-         de la maquette). Le choix est retenu d'une visite a l'autre.
-         ------------------------------------------------------------------ */
-      const boutonBascule = document.getElementById('basculeJourNuit');
-
-      // On applique le mode enregistre lors de la visite precedente
-      if (localStorage.getItem('modeNuit') === 'oui') {
-        document.documentElement.classList.add('nuit');
-        if (boutonBascule) boutonBascule.setAttribute('aria-pressed', 'true');
-      }
-
-      if (boutonBascule) {
-        boutonBascule.addEventListener('click', () => {
-          const enModeNuit = document.documentElement.classList.toggle('nuit');
-          boutonBascule.setAttribute('aria-pressed', enModeNuit ? 'true' : 'false');
-          localStorage.setItem('modeNuit', enModeNuit ? 'oui' : 'non');
-        });
-      }
+      window.addEventListener('load', calerSurLaMaquette);
+      window.addEventListener('resize', calerSurLaMaquette);
     </script>
   </body>
 </html>

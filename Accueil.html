@@ -22,11 +22,58 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
-    <link href="commun.css?v=5" rel="stylesheet">
-    <link href="Accueil.css?v=5" rel="stylesheet">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=36" rel="stylesheet">
+    <link href="commun.css?v=36" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="Accueil.css?v=36" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=36" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="accueil-mob.css?v=36" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
+      </button>
+
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html" class="actif" aria-current="page">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html">NOTRE CONCEPT</a>
+      </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
+    </nav>
+
     <!-- =====================================================================
          BARRE DE NAVIGATION (version complete)
          ===================================================================== -->
@@ -86,9 +133,12 @@
       <img class="deco deco-moust"   src="sources/moustache.svg" alt="">
       <img class="deco deco-fleur-g" src="sources/fleur-grande.svg" alt="">
 
-      <!-- #mousse de biere : transition du fond sombre vers le fond creme -->
+      <!-- #mousse de biere : transition du fond sombre vers le fond creme
+           La maquette telephone dessine cette mousse autrement : elle a donc
+           son propre fichier, affiche uniquement sur petit ecran. -->
       <img class="mousse mousse-haut" src="sources/mousse-haut.svg" alt="">
       <img class="mousse mousse-bas"  src="sources/mousse-bas.svg" alt="">
+      <img class="mousse mousse-mob"  src="sources/mousse-mob.svg" alt="">
 
       <!-- #accroche qui invite a descendre -->
       <p class="accroche">
@@ -123,6 +173,12 @@
            nulla facilisis at vero eros et accumsan et iusto odio
            dignissim qui blandit praesent luptatum zzril delenit</p>
       </div>
+
+      <!-- #ronds et bulles bleues de la version telephone
+           Sur petit ecran la composition est differente : deux blocs de
+           formes, un par photo ronde. -->
+      <img src="sources/mob-bulles-bar.svg"    alt="" class="bulles-mob bulles-mob-bar">
+      <img src="sources/mob-bulles-barber.svg" alt="" class="bulles-mob bulles-mob-barber">
 
       <!-- #fonds de forme fournis par la designer
            Ce sont les grands ronds bleu petrole qui depassent derriere les
@@ -230,6 +286,22 @@
       <!-- #grande photo du bar, rognee en arche -->
       <div class="bar-photo"><img src="sources/bar-comptoir.webp" alt="Le bar et ses bières artisanales"></div>
 
+      <!-- #second bloc, present uniquement sur telephone
+           Sur grand ecran cette partie se trouve ailleurs dans la page ;
+           la maquette telephone la place ici, sur un fond brun en arche. -->
+      <div class="bloc-brun-mob">
+        <div class="brun-photo-mob">
+          <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure">
+        </div>
+        <h2 class="brun-titre-mob">Bar à bière artisanale</h2>
+        <p class="brun-texte-mob">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+          euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+          minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+        </p>
+        <a class="cta-2 brun-cta-mob" href="barber.html" style="--fond: #DDCDB0; --texte: #695E45">Choisir ma<br>prestation</a>
+      </div>
+
       <!-- #mention legale obligatoire -->
       <!-- #mention legale, posee sur un bandeau gris floute pour rester lisible -->
       <p class="mention-alcool">*L’abus d’alcool est dangereux pour la santé, à consommer avec modération.</p>
@@ -284,6 +356,13 @@
     <section class="bandeau-sante">
       <img src="sources/bandeau-sante.webp"
            alt="Pour votre santé, mangez au moins 5 fruits et légumes par jour. Interdiction de vente de boissons alcooliques aux mineurs de moins de 18 ans.">
+
+      <!-- #version telephone : la maquette coupe le meme bandeau en deux
+           bandes posees l'une sous l'autre, faute de place en largeur. -->
+      <div class="bandeau-mob" aria-hidden="true">
+        <span class="bandeau-mob-1"></span>
+        <span class="bandeau-mob-2"></span>
+      </div>
     </section>
 
     <!-- =====================================================================

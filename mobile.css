@@ -1,0 +1,335 @@
+/* =========================================================================
+   STYLES DU TELEPHONE (maquette Adobe XD de 430 px de large)
+   -------------------------------------------------------------------------
+   Ce fichier n'est charge QU'EN DESSOUS de 1024 px de large : le <link>
+   qui l'appelle porte un media="(max-width: 1023.98px)". Au-dessus, c'est
+   commun.css qui prend le relais, et rien d'ici ne s'applique.
+
+   Comme sur les grands ecrans, tout est exprime en "--u", sauf qu'ici
+   1 unite = 1 pixel de la maquette telephone (430 px de large).
+
+   LA COLONNE
+   Sur un telephone, la colonne occupe toute la largeur. Sur une tablette,
+   elle arrete de grandir vers 520 px et se centre (voir commun.js), sinon
+   les textes deviendraient enormes. Les bandes de couleur (barre de
+   navigation, pied de page, sections colorees) continuent quand meme
+   d'aller d'un bord a l'autre : c'est le role de la classe .pleine-largeur.
+   ========================================================================= */
+
+/* La page est une colonne centree */
+body {
+  width: var(--colonne-mob);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* #bandes de couleur qui doivent aller d'un bord a l'autre de l'ecran
+   Le bloc garde sa largeur de colonne, mais un calque pose derriere lui
+   etire sa couleur sur toute la largeur de la fenetre. */
+.pleine-largeur { position: relative; z-index: 0; }
+.pleine-largeur::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: inherit;
+  z-index: -1;
+}
+
+/* La barre des grands ecrans n'existe pas sur telephone */
+.barre-nav, .barre-nav--simple { display: none; }
+
+/* La barre du telephone et le pied de page vont d'un bord a l'autre */
+.barre-nav-mob, .pied { position: relative; z-index: 0; }
+.barre-nav-mob::after, .pied::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--noir);
+  z-index: -1;
+}
+
+/* =========================================================================
+   #barre de navigation du telephone
+   -------------------------------------------------------------------------
+   Trois elements seulement : le bouton menu (les trois traits) a gauche,
+   le logo au centre, la photo de profil a droite.
+   Elle reste collee en haut quand on fait defiler la page.
+   ========================================================================= */
+
+.barre-nav-mob {
+  position: sticky;
+  top: 0;
+  height: calc(var(--u) * 115);
+  background: var(--noir);
+  z-index: 100;
+}
+
+/* #bouton menu (les trois traits) */
+.nav-mob-burger {
+  position: absolute;
+  left: calc(var(--u) * 40);
+  top: calc(var(--u) * 71);
+  width: calc(var(--u) * 31);
+  height: calc(var(--u) * 28);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+/* les trois traits : le trait du milieu, plus deux autres dessines autour */
+.nav-mob-burger span,
+.nav-mob-burger span::before,
+.nav-mob-burger span::after {
+  position: absolute;
+  left: 0;
+  width: calc(var(--u) * 31);
+  height: calc(var(--u) * 3);
+  background: #fff;
+  border-radius: calc(var(--u) * 2);
+  transition: transform 0.25s, opacity 0.2s;
+}
+.nav-mob-burger span { top: calc(var(--u) * 14); }
+.nav-mob-burger span::before { content: ""; top: calc(var(--u) * -11); }
+.nav-mob-burger span::after  { content: ""; top: calc(var(--u) *  11); }
+
+/* quand le menu est ouvert, les traits se croisent en X */
+.nav-mob-burger[aria-expanded="true"] span { background: transparent; }
+.nav-mob-burger[aria-expanded="true"] span::before { transform: translateY(calc(var(--u) * 11)) rotate(45deg); }
+.nav-mob-burger[aria-expanded="true"] span::after  { transform: translateY(calc(var(--u) * -11)) rotate(-45deg); }
+
+/* #logo, au centre (maquette : x 129, y 55, 46 px de haut) */
+.nav-mob-logo {
+  position: absolute;
+  left: calc(var(--u) * 129);
+  top: calc(var(--u) * 55);
+  display: block;
+}
+.nav-mob-logo img { height: calc(var(--u) * 46); width: auto; display: block; }
+
+/* #photo de profil, a droite (maquette : x 356, y 69) */
+.nav-mob-compte {
+  position: absolute;
+  left: calc(var(--u) * 356);
+  top: calc(var(--u) * 69);
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 34);
+  border-radius: 50%;
+  overflow: hidden;
+}
+.nav-mob-compte img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* =========================================================================
+   #panneau du menu
+   Il glisse depuis la gauche quand on appuie sur les trois traits.
+   Il reprend les liens du menu des grands ecrans, les deux boutons de
+   reservation et la bascule jour / nuit.
+   ========================================================================= */
+
+.menu-mob {
+  position: fixed;
+  top: calc(var(--u) * 115);
+  left: 0;
+  width: 100%;
+  height: calc(100dvh - var(--u) * 115);
+  padding: calc(var(--u) * 40) calc(var(--u) * 36);
+  background: var(--noir);
+  color: var(--creme);
+  z-index: 99;
+  overflow-y: auto;
+  /* Ferme : le panneau est range a gauche et ne recoit pas les clics.
+     On se sert de l'opacite et non de "visibility" : mettre "visibility"
+     dans une transition empeche le navigateur de reprendre la nouvelle
+     valeur du deplacement (meme piege que le fond du body en mode nuit). */
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+.menu-mob[data-ouvert="oui"] {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-mob-liens { display: grid; gap: calc(var(--u) * 26); }
+.menu-mob-liens a {
+  color: var(--creme);
+  text-decoration: none;
+  font-size: calc(var(--u) * 24);
+  font-weight: 800;
+  letter-spacing: calc(var(--u) * 0.5);
+  padding-bottom: calc(var(--u) * 6);
+  border-bottom: calc(var(--u) * 2) solid transparent;
+  justify-self: start;
+}
+.menu-mob-liens a.actif { border-bottom-color: var(--creme); }
+
+/* les deux boutons de reservation, l'un sous l'autre */
+.menu-mob-reservation {
+  display: grid;
+  gap: calc(var(--u) * 14);
+  margin-top: calc(var(--u) * 46);
+}
+.menu-mob-reservation a {
+  display: grid;
+  place-content: center;
+  height: calc(var(--u) * 52);
+  border-radius: calc(var(--u) * 26);
+  text-decoration: none;
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.1;
+}
+.menu-mob-rdv    { background: var(--rouge); color: #fff; }
+.menu-mob-soiree { background: var(--creme); color: var(--noir); }
+
+/* la bascule jour / nuit */
+.menu-mob-bascule {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 12);
+  margin-top: calc(var(--u) * 40);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--creme);
+  font-family: inherit;
+  font-size: calc(var(--u) * 16);
+  cursor: pointer;
+}
+.menu-mob-bascule img { width: calc(var(--u) * 30); height: calc(var(--u) * 30); }
+html.nuit .menu-mob-bascule img { filter: invert(1) brightness(0.85); }
+
+/* quand le menu est ouvert, la page derriere ne defile plus */
+html.menu-ouvert, html.menu-ouvert body { overflow: hidden; }
+
+/* =========================================================================
+   #styles de boutons reutilisables, version telephone
+   Memes noms et meme fonctionnement que sur les grands ecrans, avec les
+   epaisseurs de la maquette telephone.
+   ========================================================================= */
+
+.cta-1,
+.cta-2 {
+  display: grid;
+  place-content: center;
+  border: calc(var(--u) * 3) solid var(--fond);
+  border-radius: calc(var(--u) * 24);
+  background: var(--fond);
+  color: var(--texte);
+  text-align: center;
+  text-decoration: none;
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+  transition: background-color 0.25s, color 0.25s;
+}
+.cta-1:active { background: transparent; color: var(--fond); }
+.cta-2:active { background: var(--texte); color: var(--fond); }
+
+/* =========================================================================
+   #bouton "remonter en haut de page"
+   ========================================================================= */
+.bouton-remonter { position: absolute; left: calc(var(--u) * 14); width: calc(var(--u) * 44); }
+.bouton-remonter img { width: 100%; display: block; }
+
+/* =========================================================================
+   #pied de page du telephone
+   Les colonnes des grands ecrans passent les unes sous les autres, au
+   centre, separees par des traits gris. (maquette : 929 px de haut)
+   ========================================================================= */
+
+.pied {
+  position: relative;
+  z-index: 4;   /* le pied passe devant les formes qui debordent au-dessus */
+  height: calc(var(--u) * 929);
+  padding: 0;
+  display: block;
+  background: var(--noir);
+  color: var(--creme);
+  text-align: center;
+}
+
+/* #bouton newsletter : il mene a la page de modification des informations */
+.pied-newsletter {
+  position: absolute;
+  left: calc(var(--u) * 36);
+  top: calc(var(--u) * 36);
+  width: calc(var(--u) * 358);
+  height: calc(var(--u) * 47);
+  display: grid;
+  place-content: center;
+  background: var(--gris-bandeau);
+  border: 0;
+  border-radius: calc(var(--u) * 6);
+  color: #fff;
+  text-decoration: none;
+  font-size: calc(var(--u) * 15);
+  font-weight: 100;
+}
+
+/* #les trois colonnes, empilees (maquette : y 135, 374 et 544) */
+.pied-colonne {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+.pied-colonne:nth-of-type(1) { top: calc(var(--u) * 125); }
+.pied-colonne:nth-of-type(2) { top: calc(var(--u) * 364); }
+.pied-colonne:nth-of-type(3) { top: calc(var(--u) * 534); }
+
+.pied-colonne h3 {
+  margin: 0 0 calc(var(--u) * 12);
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+}
+.pied-colonne p {
+  margin: 0;
+  font-size: calc(var(--u) * 15);
+  font-weight: 500;
+  line-height: 1.55;
+}
+.pied-colonne:nth-of-type(2) p,
+.pied-colonne:nth-of-type(3) p { font-size: calc(var(--u) * 18); line-height: 1.9; }
+/* la maquette laisse respirer les horaires entre les deux etablissements */
+.pied-colonne:nth-of-type(1) p strong { display: inline-block; }
+.pied-colonne:nth-of-type(1) p strong + br + br { display: none; }
+.pied-colonne a { color: var(--creme); text-decoration: none; }
+
+/* #traits de separation entre les colonnes (maquette : 391 px de large) */
+.pied-colonne:nth-of-type(1)::after,
+.pied-colonne:nth-of-type(2)::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * 20);
+  width: calc(var(--u) * 391);
+  height: calc(var(--u) * 2);
+  background: #8A8A8A;
+}
+.pied-colonne:nth-of-type(1)::after { top: calc(var(--u) * 205); }
+.pied-colonne:nth-of-type(2)::after { top: calc(var(--u) * 136); }
+
+/* #la quatrieme colonne des grands ecrans contient deux choses qui, sur
+   telephone, se retrouvent aux deux bouts du pied de page : le bouton
+   newsletter tout en haut et les reseaux sociaux tout en bas.
+   "display: contents" efface la boite de la colonne pour que ses deux
+   enfants se placent directement par rapport au pied de page. */
+.pied-colonne-droite { display: contents; }
+
+/* #les trois reseaux sociaux, en bas (maquette : x 55, y 766) */
+.pied-reseaux {
+  position: absolute;
+  left: calc(var(--u) * 55);
+  top: calc(var(--u) * 766);
+  width: calc(var(--u) * 321);
+  height: auto;
+  display: block;
+}

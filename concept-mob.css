@@ -1,0 +1,411 @@
+/* =========================================================================
+   NOTRE CONCEPT - MISE EN PAGE TELEPHONE
+   -------------------------------------------------------------------------
+   Reproduction de la maquette Adobe XD "Concept mob" (430 x 6282 px).
+   Chargee uniquement en dessous de 1024 px de large.
+
+   Decoupage vertical (valeurs relevees dans la maquette) :
+     Barre de navigation ....    0 ->  115
+     Les trois bulles .......  115 ->  980
+     Deux services ..........  980 -> 2100
+     Produits ayurvediques .. 2100 -> 3800
+     Notre equipe ........... 3800 -> 4780
+     Instagram .............. 4780 -> 5354
+     Pied de page ........... 5354 -> 6283
+   ========================================================================= */
+
+/* =========================================================================
+   #les trois bulles du concept  (115 -> 980)
+   ========================================================================= */
+
+.bulles-concept {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 865);
+  background: var(--creme);
+  overflow: hidden;
+}
+
+.bulles-concept .bouton-remonter { display: none; }
+
+/* #dessins propres au telephone : la composition du haut de page, et le
+   fil rouge qui descend ensuite le long de la colonne. */
+.concept-mob { display: block; position: absolute; pointer-events: none; }
+/* la composition du haut (maquette : 428 x 351 en x 10, y 130) */
+.concept-mob-haut {
+  left: calc(var(--u) * 10);
+  top: calc(var(--u) * 15);
+  width: calc(var(--u) * 428);
+  height: calc(var(--u) * 351);
+  z-index: 2;
+}
+/* le fil rouge (maquette : 514 x 807 en x -23, y 354) */
+.concept-mob-fil {
+  left: calc(var(--u) * -23);
+  top: calc(var(--u) * 239);
+  width: calc(var(--u) * 514);
+  height: calc(var(--u) * 807);
+  z-index: 1;
+}
+
+/* les fonds des grands ecrans ne servent pas ici */
+.fond-forme, .deco, .fleur-tige { display: none; }
+.produit-vignette { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+
+/* #texte d'introduction (maquette : x 76, ligne de base a 465) */
+.intro-texte {
+  position: absolute;
+  left: calc(var(--u) * 76);
+  top: calc(var(--u) * 335);
+  width: calc(var(--u) * 300);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.75;
+  z-index: 3;
+}
+.intro-texte strong { font-weight: 700; }
+
+/* #photos rondes
+   Les deux premieres sont dans la composition du haut, les deux autres
+   descendent le long du fil rouge. */
+.cercle { position: absolute; border-radius: 50%; overflow: hidden; z-index: 1; }
+.cercle img { position: absolute; max-width: none; display: block; }
+
+/* le mur de briques, en haut a droite (maquette : rond de 119 en x 254, y 170) */
+.cercle-briques {
+  left: calc(var(--u) * 254);
+  top: calc(var(--u) * 55);
+  width: calc(var(--u) * 119);
+  height: calc(var(--u) * 119);
+  z-index: 3;
+}
+.cercle-briques img { left: 0; top: calc(var(--u) * -20); width: calc(var(--u) * 119); height: calc(var(--u) * 159); }
+
+/* le salon, en haut a gauche (maquette : rond de 182 en x 10, y 248) */
+.cercle-salon {
+  left: calc(var(--u) * 10);
+  top: calc(var(--u) * 133);
+  width: calc(var(--u) * 182);
+  height: calc(var(--u) * 182);
+  z-index: 3;
+}
+.cercle-salon img { left: 0; top: calc(var(--u) * -30); width: calc(var(--u) * 182); height: calc(var(--u) * 243); }
+
+/* le grand rond du bar (maquette : rond de 267 en x 231, y 715) */
+.cercle-ambiance {
+  left: calc(var(--u) * 231);
+  top: calc(var(--u) * 600);
+  width: calc(var(--u) * 267);
+  height: calc(var(--u) * 267);
+  z-index: 3;
+}
+.cercle-ambiance img { left: 0; top: calc(var(--u) * -45); width: calc(var(--u) * 267); height: calc(var(--u) * 356); }
+
+/* le contour bleu de ce grand rond (maquette : 283 en x 220, y 703) */
+.bulles-concept::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * 220);
+  top: calc(var(--u) * 588);
+  width: calc(var(--u) * 283);
+  height: calc(var(--u) * 283);
+  border-radius: 50%;
+  background: var(--petrole);
+  z-index: 2;
+}
+
+/* #textes des bulles : les formes viennent du dessin, on ne pose ici que
+   les mots (maquette : lignes de base a 264, 257 et 367) */
+.bulle {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: none;
+  color: #fff;
+  font-size: calc(var(--u) * 12);
+  font-weight: 800;
+  line-height: 1.2;
+  z-index: 4;
+}
+.bulle small, .bulle strong { display: block; font-size: inherit; font-weight: 800; }
+.bulle-barber  { left: calc(var(--u) * 175); top: calc(var(--u) * 138); width: calc(var(--u) * 80); height: calc(var(--u) * 20); }
+.bulle-bar     { left: calc(var(--u) * 358); top: calc(var(--u) * 127); width: calc(var(--u) * 80); height: calc(var(--u) * 32); }
+.bulle-concept { left: calc(var(--u) * 234); top: calc(var(--u) * 238); width: calc(var(--u) * 80); height: calc(var(--u) * 32); font-size: calc(var(--u) * 13); }
+
+/* =========================================================================
+   #deux services  (980 -> 2100)
+   ========================================================================= */
+
+.services {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 1120);
+  background: var(--creme);
+  overflow: hidden;
+}
+
+/* le contour bleu du grand rond de gauche (maquette : 297 en x -148, y 1107) */
+.services::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * -148);
+  top: calc(var(--u) * 127);
+  width: calc(var(--u) * 297);
+  height: calc(var(--u) * 296);
+  border-radius: 50%;
+  background: var(--petrole);
+  z-index: 0;
+}
+
+/* le grand rond de gauche, qui deborde (maquette : 276 en x -142, y 1122) */
+.cercle-briques-2 {
+  left: calc(var(--u) * -142);
+  top: calc(var(--u) * 142);
+  width: calc(var(--u) * 276);
+  height: calc(var(--u) * 276);
+  z-index: 1;
+}
+.cercle-briques-2 img { left: 0; top: calc(var(--u) * -45); width: calc(var(--u) * 276); height: calc(var(--u) * 366); }
+.cercle-piano { display: none; }
+
+.services-titre {
+  position: absolute;
+  left: calc(var(--u) * 136);
+  top: calc(var(--u) * 5);
+  width: calc(var(--u) * 260);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+  line-height: 1.35;
+  z-index: 2;
+}
+
+.services-texte-1, .services-texte-2, .services-texte-3 {
+  position: absolute;
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.75;
+  z-index: 2;
+}
+.services-texte-1 { left: calc(var(--u) * 170); top: calc(var(--u) * 92);  width: calc(var(--u) * 210); }
+.services-texte-2 { left: calc(var(--u) * 76);  top: calc(var(--u) * 555); width: calc(var(--u) * 300); }
+.services-texte-3 { left: calc(var(--u) * 76);  top: calc(var(--u) * 967); width: calc(var(--u) * 300); font-weight: 700; }
+
+/* =========================================================================
+   #produits ayurvediques  (2100 -> 3800)
+   ========================================================================= */
+
+.produits-ayur {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 1700);
+  background: var(--creme);
+  overflow: hidden;
+}
+.produits-titre {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 80);
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.produits-texte {
+  position: absolute;
+  left: calc(var(--u) * 72);
+  top: calc(var(--u) * 204);
+  width: calc(var(--u) * 300);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.75;
+}
+.produits-texte strong { font-weight: 700; }
+
+/* #grille des produits
+   La maquette telephone montre trois rangees qui defilent ensemble de
+   gauche a droite, un produit visible a la fois. On remplit donc la grille
+   en colonnes de trois, et la bande defile horizontalement.
+   (maquette : vignettes de 199 de large, rangees en y 2970, 3240 et 3520) */
+.grille-produits {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 835);
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: calc(var(--u) * 199);
+  gap: calc(var(--u) * 79) calc(var(--u) * 154);
+  padding: 0 calc(var(--u) * 115);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.grille-produits::-webkit-scrollbar { display: none; }
+.grille-produits figure { scroll-snap-align: center; }
+.grille-produits figure {
+  width: calc(var(--u) * 199);
+  margin: 0;
+  padding: 0;
+  border: calc(var(--u) * 3) solid var(--rouge);
+  border-radius: calc(var(--u) * 18);
+  background: none;
+  overflow: hidden;
+  text-align: center;
+}
+.grille-produits img {
+  width: 100%;
+  height: calc(var(--u) * 191);
+  object-fit: cover;
+  display: block;
+}
+.grille-produits figcaption {
+  padding: calc(var(--u) * 10) calc(var(--u) * 8);
+  color: #000;
+  font-size: calc(var(--u) * 13);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* =========================================================================
+   #notre equipe  (3800 -> 4780)
+   ========================================================================= */
+
+.equipe-concept {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 980);
+  background: var(--creme);
+}
+.equipe-titre {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 36);
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+
+/* #les cinq membres
+   La maquette les dispose en quinconce : trois en haut avec le nom
+   AU-DESSUS de l'illustration, deux en dessous avec le nom en dessous.
+   Chaque membre est donc pose a sa place exacte. */
+.equipe-liste { position: static; }
+.equipe-liste .membre {
+  position: absolute;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.equipe-liste .membre img { width: 100%; height: auto; display: block; }
+.equipe-liste .membre figcaption { margin-top: calc(var(--u) * 6); }
+/* les trois du haut portent leur nom au-dessus de l'illustration */
+.equipe-liste .membre:nth-child(2),
+.equipe-liste .membre:nth-child(3),
+.equipe-liste .membre:nth-child(4) { flex-direction: column-reverse; }
+.equipe-liste .membre:nth-child(2) figcaption,
+.equipe-liste .membre:nth-child(3) figcaption,
+.equipe-liste .membre:nth-child(4) figcaption { margin: 0 0 calc(var(--u) * 6); }
+
+/* Thomas (maquette : x 233, y 4144) */
+.equipe-liste .membre:nth-child(1) { left: calc(var(--u) * 233); top: calc(var(--u) * 320); width: calc(var(--u) * 150); }
+/* Rosalie (x 26, y 3958) */
+.equipe-liste .membre:nth-child(2) { left: calc(var(--u) * 26);  top: calc(var(--u) * 130); width: calc(var(--u) * 156); }
+/* Cassandre (x 129, y 3956) */
+.equipe-liste .membre:nth-child(3) { left: calc(var(--u) * 129); top: calc(var(--u) * 128); width: calc(var(--u) * 185); }
+/* Julie (x 294, y 3967) */
+.equipe-liste .membre:nth-child(4) { left: calc(var(--u) * 294); top: calc(var(--u) * 139); width: calc(var(--u) * 120); }
+/* Yves (x 63, y 4120) */
+.equipe-liste .membre:nth-child(5) { left: calc(var(--u) * 63);  top: calc(var(--u) * 320); width: calc(var(--u) * 146); }
+.equipe-liste figcaption strong { display: block; color: var(--noir); font-size: calc(var(--u) * 17); font-weight: 700; }
+.equipe-liste figcaption span   { display: block; color: var(--noir); font-size: calc(var(--u) * 12); font-weight: 400; }
+
+.equipe-texte {
+  position: absolute;
+  left: calc(var(--u) * 74);
+  top: calc(var(--u) * 620);
+  width: calc(var(--u) * 300);
+  margin: 0;
+  text-align: center;
+  color: var(--noir);
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.75;
+}
+.equipe-texte strong { font-weight: 700; }
+
+/* =========================================================================
+   #instagram  (4780 -> 5354)
+   ========================================================================= */
+
+.instagram-concept {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 574);
+  background: var(--creme);
+}
+.instagram-titre {
+  position: absolute;
+  top: calc(var(--u) * 27);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+.instagram-lien {
+  position: absolute;
+  left: calc(var(--u) * 92);
+  top: calc(var(--u) * 65);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 16);
+  text-decoration: none;
+}
+.instagram-lien img { width: calc(var(--u) * 41); height: calc(var(--u) * 41); display: block; }
+.instagram-lien span {
+  color: var(--noir);
+  font-family: var(--police-logo);
+  font-size: calc(var(--u) * 35);
+  line-height: 1;
+}
+.instagram-galerie {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 152);
+  width: 100%;
+  height: calc(var(--u) * 376);
+  display: flex;
+  gap: calc(var(--u) * 120);
+  padding: 0 calc(var(--u) * 89);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.instagram-galerie::-webkit-scrollbar { display: none; }
+.instagram-galerie img {
+  flex: 0 0 calc(var(--u) * 253);
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--u) * 18);
+  scroll-snap-align: center;
+  display: block;
+}
