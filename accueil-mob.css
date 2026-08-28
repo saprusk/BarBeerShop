@@ -1,0 +1,714 @@
+/* =========================================================================
+   PAGE D'ACCUEIL - MISE EN PAGE TELEPHONE
+   -------------------------------------------------------------------------
+   Reproduction de la maquette Adobe XD "Page accueil - mob" (430 x 5391 px).
+   Chargee uniquement en dessous de 1024 px de large.
+   1 unite --u = 1 pixel de la maquette telephone.
+
+   Decoupage vertical (valeurs relevees dans la maquette) :
+     Barre de navigation ....    0 ->  115
+     Hero ...................  115 ->  845
+     Concept ................  845 -> 1380
+     Avis ................... 1380 -> 1612
+     Bar a biere ............ 1612 -> 2675
+     Infos pratiques ........ 2675 -> 3758
+     Instagram .............. 3758 -> 4264
+     Bandeau sante .......... 4264 -> 4462
+     Pied de page ........... 4462 -> 5391
+   Dans chaque section, les positions repartent de zero : on retire donc de
+   chaque valeur de la maquette le debut de la section.
+   ========================================================================= */
+
+/* =========================================================================
+   #hero  (115 -> 845)
+   ========================================================================= */
+
+.hero {
+  position: relative;
+  z-index: 1;   /* au-dessus du concept, pour que l'accroche reste visible */
+  height: calc(var(--u) * 730);
+  background: var(--noir);
+}
+/* le fond noir va d'un bord a l'autre de l'ecran */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--noir);
+  z-index: -1;
+}
+
+/* pas de fleche "remonter en haut" sur telephone */
+.hero .bouton-remonter { display: none; }
+
+/* #photos rondes du hero */
+.hero-rond { position: absolute; border-radius: 50%; overflow: hidden; }
+.hero-rond img { position: absolute; max-width: none; display: block; }
+
+/* le salon (maquette : rond de 165 en x 133, y 148) */
+.hero-rond-gauche {
+  left: calc(var(--u) * 133);
+  top: calc(var(--u) * 33);
+  width: calc(var(--u) * 165);
+  height: calc(var(--u) * 165);
+}
+.hero-rond-gauche img {
+  left: 0;
+  top: calc(var(--u) * -9);
+  width: calc(var(--u) * 165);
+  height: calc(var(--u) * 221);
+}
+
+/* le comptoir du bar (maquette : rond de 163 en x 134, y 552) */
+.hero-rond-droite {
+  left: calc(var(--u) * 134);
+  top: calc(var(--u) * 437);
+  width: calc(var(--u) * 163);
+  height: calc(var(--u) * 163);
+}
+.hero-rond-droite img {
+  left: calc(var(--u) * -101);
+  top: calc(var(--u) * -180);
+  width: calc(var(--u) * 329);
+  height: calc(var(--u) * 438);
+}
+
+/* #titre principal (maquette : ligne de base a 423, texte centre)
+   Dans Adobe XD, le "y" d'un texte est sa ligne de base : pour poser le
+   bloc au bon endroit en CSS, on remonte d'environ 0,925 fois la taille
+   de la police. Meme calcul pour tous les textes de cette page. */
+.hero-titre {
+  position: absolute;
+  top: calc(var(--u) * 285);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #FAFAF5;
+  font-size: calc(var(--u) * 25);
+  font-weight: 400;
+  line-height: 1.35;
+}
+.hero-titre strong { font-weight: 800; }
+
+/* #griffonnages decoratifs */
+.deco { position: absolute; pointer-events: none; }
+.deco-moust   { left: calc(var(--u) * 325); top: calc(var(--u) * 220); width: calc(var(--u) * 65); }
+.deco-fleur-p { left: calc(var(--u) * 166); top: calc(var(--u) * 238); width: calc(var(--u) * 30); }
+.deco-trait   { left: calc(var(--u) * 156); top: calc(var(--u) * 350); width: calc(var(--u) * 158); }
+.deco-fleur-g { left: calc(var(--u) * 315); top: calc(var(--u) * 353); width: calc(var(--u) * 49); }
+/* le pictogramme biere : son rond blanc se fond dans le fond sombre */
+.deco-loupe {
+  left: calc(var(--u) * 50);
+  top: calc(var(--u) * 363);
+  width: calc(var(--u) * 84);
+  mix-blend-mode: screen;
+}
+
+/* #mousse de biere : une seule couche sur telephone, et elle deborde
+   volontairement des deux cotes (maquette : 1046 de large en x -93) */
+.mousse { position: absolute; pointer-events: none; }
+.mousse-haut, .mousse-bas { display: none; }
+.mousse-mob {
+  display: block;
+  left: calc(var(--u) * -93);
+  top: calc(var(--u) * 499);
+  width: calc(var(--u) * 1046);
+}
+
+/* =========================================================================
+   #concept  (845 -> 1380)
+   ========================================================================= */
+
+.concept {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 535);
+  background: var(--creme);
+}
+.concept::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--creme);
+  z-index: -1;
+}
+
+/* #accroche "On vous en dit plus ici" (maquette : y 877)
+   Elle est ecrite dans le hero, ses coordonnees se comptent donc depuis
+   115 ; elle depasse volontairement sur le fond creme de la section
+   suivante. */
+.accroche {
+  position: absolute;
+  top: calc(var(--u) * 745);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 10);
+  color: var(--rouge);
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  z-index: 3;
+}
+.accroche strong { font-weight: 700; }
+.accroche svg { width: calc(var(--u) * 26); height: calc(var(--u) * 15); fill: var(--rouge); }
+
+/* #ronds et bulles bleues (fichiers extraits de la maquette telephone) */
+.bulles-mob { display: block; position: absolute; z-index: 0; pointer-events: none; }
+/* bloc du haut, cote bar (maquette : x 280, y 911) */
+.bulles-mob-bar    { left: calc(var(--u) * 280); top: calc(var(--u) * 76);  width: calc(var(--u) * 150); }
+/* bloc du bas, cote barber (maquette : x 250, y 1031) */
+.bulles-mob-barber { left: calc(var(--u) * 250); top: calc(var(--u) * 196); width: calc(var(--u) * 205); }
+
+/* les fonds de forme des grands ecrans ne servent pas ici */
+.fond-forme, .deco-fleurs-tige, .pastille, .rond-briques { display: none; }
+
+/* #photos rondes */
+.rond { position: absolute; border-radius: 50%; overflow: hidden; z-index: 1; }
+.rond img { position: absolute; max-width: none; display: block; }
+
+/* l'ambiance du bar (maquette : rond de 94 en x 287, y 956) */
+.rond-ambiance {
+  left: calc(var(--u) * 287);
+  top: calc(var(--u) * 121);
+  width: calc(var(--u) * 94);
+  height: calc(var(--u) * 94);
+}
+.rond-ambiance img {
+  left: calc(var(--u) * -47);
+  top: calc(var(--u) * -118);
+  width: calc(var(--u) * 192);
+  height: calc(var(--u) * 340);
+}
+
+/* le salon (maquette : rond de 169 en x 283, y 1090) */
+.rond-salon {
+  left: calc(var(--u) * 283);
+  top: calc(var(--u) * 255);
+  width: calc(var(--u) * 169);
+  height: calc(var(--u) * 169);
+}
+.rond-salon img {
+  left: 0;
+  top: calc(var(--u) * -9);
+  width: calc(var(--u) * 169);
+  height: calc(var(--u) * 225);
+}
+
+/* #textes des bulles (le dessin des bulles vient des fichiers ci-dessus) */
+.legende {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: none;
+  color: #fff;
+  font-size: calc(var(--u) * 10);
+  font-weight: 800;
+  line-height: 1.15;
+  z-index: 3;
+}
+/* sur telephone la bulle ne porte que le mot "BAR" */
+.legende small { display: none; }
+/* BAR (maquette : texte centre en x 404, y 184) */
+.legende-bar    { left: calc(var(--u) * 379); top: calc(var(--u) * 185); width: calc(var(--u) * 50); height: calc(var(--u) * 20); }
+/* BARBER (maquette : texte centre en x 289, y 229) */
+.legende-barber { left: calc(var(--u) * 254); top: calc(var(--u) * 230); width: calc(var(--u) * 70); height: calc(var(--u) * 20); }
+
+/* Les petits reflets blancs sous les bulles ont ete retires : ils ne
+   servaient a rien sur telephone. */
+.sourire, .grain-beaute { display: none; }
+.sourire-inutile {
+  position: absolute;
+  border-bottom: calc(var(--u) * 1.5) solid #fff;
+  border-radius: 0 0 50% 50%;
+  z-index: 4;
+}
+.sourire-bar    { left: calc(var(--u) * 387); top: calc(var(--u) * 192); width: calc(var(--u) * 9);  height: calc(var(--u) * 4); }
+.sourire-barber { left: calc(var(--u) * 277); top: calc(var(--u) * 256); width: calc(var(--u) * 12); height: calc(var(--u) * 4); }
+.grain-beaute {
+  position: absolute;
+  left: calc(var(--u) * 270); top: calc(var(--u) * 251);
+  width: calc(var(--u) * 2); height: calc(var(--u) * 2);
+  border-radius: 50%; background: #fff; z-index: 4;
+}
+
+/* #titre (maquette : centre en x 159, y 961) */
+.concept-titre {
+  position: absolute;
+  left: calc(var(--u) * 47);
+  top: calc(var(--u) * 98);
+  width: calc(var(--u) * 224);
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+  line-height: 1.35;
+  z-index: 2;
+}
+
+/* #texte (maquette : x 43, y 1028) */
+.concept-texte-1 {
+  position: absolute;
+  left: calc(var(--u) * 43);
+  top: calc(var(--u) * 165);
+  width: calc(var(--u) * 228);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.7;
+  z-index: 2;
+}
+.concept-texte-1 strong { font-weight: 700; }
+/* le second bloc de texte n'existe pas sur telephone */
+.concept-texte-2 { display: none; }
+
+/* #bouton "Notre concept" (maquette : 183 x 44 en x 120, y 1300) */
+.concept-cta {
+  position: absolute;
+  left: calc(var(--u) * 120);
+  top: calc(var(--u) * 455);
+  width: calc(var(--u) * 183);
+  height: calc(var(--u) * 44);
+  border-radius: calc(var(--u) * 22);
+  z-index: 3;
+}
+
+/* =========================================================================
+   #avis  (1380 -> 1612)
+   ========================================================================= */
+
+.avis {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 232);
+  background: var(--creme);
+}
+.avis::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--creme);
+  z-index: -1;
+}
+
+/* #titre (maquette : ligne de base a 1400, centre) */
+.avis-titre {
+  position: absolute;
+  top: calc(var(--u) * 2);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+
+/* #carrousel : une seule carte visible a la fois, une fleche de chaque cote */
+.avis-carrousel {
+  position: absolute;
+  top: calc(var(--u) * 52);
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 10);
+}
+/* Un seul avis a la fois, bien centre : la bande fait la largeur d'une
+   carte, et le "scroll-snap" recale toujours l'avis pile au milieu. */
+.avis-fenetre {
+  width: calc(var(--u) * 290);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.avis-fenetre::-webkit-scrollbar { display: none; }
+.avis-piste { display: flex; gap: calc(var(--u) * 30); }
+.avis-carte {
+  position: relative;
+  flex: 0 0 calc(var(--u) * 290);
+  scroll-snap-align: center;
+  margin: 0;
+  padding: calc(var(--u) * 26) calc(var(--u) * 30);
+  /* les cartes ne sont pas inclinees sur telephone */
+  transform: none;
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 20);
+  color: #fff;
+}
+/* les gros guillemets, comme sur grand ecran */
+.avis-carte::before,
+.avis-carte::after {
+  content: "D";
+  position: absolute;
+  /* PP Formula ne dessine pas les guillemets : on prend une police de
+     secours pour ce seul caractere */
+  font-family: Georgia, "Times New Roman", serif;
+  color: #fff;
+  font-size: calc(var(--u) * 52);
+  line-height: 1;
+}
+.avis-carte::before { left: calc(var(--u) * 6);  top: calc(var(--u) * 2);   transform: rotate(180deg); }
+.avis-carte::after  { right: calc(var(--u) * 8); bottom: calc(var(--u) * -18); }
+.avis-carte blockquote {
+  margin: 0;
+  font-size: calc(var(--u) * 11);
+  line-height: 1.45;
+}
+.avis-carte figcaption {
+  margin-top: calc(var(--u) * 8);
+  text-align: center;
+  font-size: calc(var(--u) * 12);
+  font-weight: 700;
+}
+.avis-fleche { display: none; }   /* remplacees par les fleches de glissiere */
+
+/* =========================================================================
+   #bar a biere  (1612 -> 2864)
+   Deux blocs qui se suivent : une arche beige, puis une arche brune.
+   ========================================================================= */
+
+.bar {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 1252);
+  background: var(--creme);
+  overflow: hidden;   /* les arches debordent volontairement des deux cotes */
+}
+.bar::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--creme);
+  z-index: -1;
+}
+
+/* #arche beige (maquette : ovale de 1067 x 861 en x -318, y 1612) */
+.arche-beige {
+  position: absolute;
+  left: calc(var(--u) * -318);
+  top: 0;
+  width: calc(var(--u) * 1067);
+  height: calc(var(--u) * 861);
+  border-radius: 50%;
+  background: var(--beige);
+}
+.arche-socle { display: none; }
+
+/* #textes du bloc beige */
+.bar-contenu { position: static; }
+.bar-contenu h2 {
+  position: absolute;
+  top: calc(var(--u) * 50);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #87795B;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+.bar-contenu p {
+  position: absolute;
+  top: calc(var(--u) * 96);
+  left: calc(var(--u) * 51);
+  width: calc(var(--u) * 330);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.75;
+}
+.bar-contenu p strong { font-weight: 700; }
+
+/* #bouton "Voir la carte" (maquette : 183 x 44 en x 124, y 1915) */
+.btn-voir-carte {
+  position: absolute;
+  left: calc(var(--u) * 124);
+  top: calc(var(--u) * 303);
+  width: calc(var(--u) * 183);
+  height: calc(var(--u) * 44);
+  border-radius: calc(var(--u) * 22);
+}
+
+/* #photo du bar, rognee en arche (maquette : y 1990, hauteur 340) */
+.bar-photo {
+  position: absolute;
+  z-index: 2;   /* devant l'arche brune : on voit la photo sous la mention */
+  left: 0;
+  top: calc(var(--u) * 378);
+  width: 100%;
+  height: calc(var(--u) * 340);
+  overflow: hidden;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+}
+.bar-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* -------------------------------------------------------------------------
+   #bloc brun (maquette : de 2196 a 2864)
+   ------------------------------------------------------------------------- */
+.bloc-brun-mob { display: block; }
+
+/* le fond brun, arrondi en bas : il reste DERRIERE la photo du bar */
+.bloc-brun-mob::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: calc(var(--u) * -318);
+  top: calc(var(--u) * 584);
+  width: calc(var(--u) * 1067);
+  height: calc(var(--u) * 668);
+  border-radius: 0 0 50% 50%;
+  background: var(--brun);
+}
+
+/* #mention legale, posee en haut du bloc brun, sur un voile flou */
+.mention-alcool {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 588);
+  width: calc(var(--u) * 298);
+  height: calc(var(--u) * 42);
+  margin: 0;
+  padding: calc(var(--u) * 6);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(calc(var(--u) * 6));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 6));
+  color: #fff;
+  font-size: calc(var(--u) * 12);
+  font-weight: 500;
+  line-height: 1.35;
+  z-index: 3;
+}
+
+/* #frise rayee facon mat de barbier (maquette : 490 de large en x -24) */
+.rayures {
+  position: absolute;
+  left: calc(var(--u) * -24);
+  top: calc(var(--u) * 630);
+  width: calc(var(--u) * 490);
+  z-index: 3;
+}
+
+/* #photo du salon, arrondie en bas (maquette : y 2248, hauteur 214) */
+.brun-photo-mob {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 636);
+  width: 100%;
+  height: calc(var(--u) * 214);
+  overflow: hidden;
+  border-radius: 0 0 50% 50% / 0 0 45% 45%;
+  z-index: 2;
+}
+.brun-photo-mob img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.brun-titre-mob {
+  position: absolute;
+  top: calc(var(--u) * 886);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--beige);
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+  z-index: 2;
+}
+.brun-texte-mob {
+  position: absolute;
+  top: calc(var(--u) * 933);
+  left: calc(var(--u) * 51);
+  width: calc(var(--u) * 330);
+  margin: 0;
+  color: #FFFEF4;
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.75;
+  z-index: 2;
+}
+.brun-texte-mob strong { font-weight: 700; }
+
+/* #bouton "Choisir ma prestation" (maquette : 174 x 72 en x 128, y 2749) */
+.brun-cta-mob {
+  position: absolute;
+  left: calc(var(--u) * 128);
+  top: calc(var(--u) * 1137);
+  width: calc(var(--u) * 174);
+  height: calc(var(--u) * 72);
+  border-radius: calc(var(--u) * 36);
+  line-height: 1.25;
+  z-index: 2;
+}
+
+/* =========================================================================
+   #infos pratiques  (2864 -> 3700)
+   ========================================================================= */
+
+.infos {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 836);
+  background: var(--creme);
+}
+
+/* #plan (maquette : 293 x 242 en x 69, y 2978) */
+.infos-plan {
+  position: absolute;
+  left: calc(var(--u) * 69);
+  top: calc(var(--u) * 114);
+  width: calc(var(--u) * 293);
+  height: calc(var(--u) * 242);
+  border: calc(var(--u) * 3) solid #87795B;
+  border-radius: calc(var(--u) * 14);
+  overflow: hidden;
+}
+.infos-plan iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* #adresse, parking et acces bus, les uns sous les autres */
+.infos-liste { position: static; }
+.infos-liste h3 {
+  position: absolute;
+  left: calc(var(--u) * 36);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+}
+.infos-liste p {
+  position: absolute;
+  left: calc(var(--u) * 36);
+  margin: 0;
+  color: #000;
+  font-size: calc(var(--u) * 15);
+  font-weight: 500;
+  line-height: 2.1;
+}
+.infos-liste h3:nth-of-type(1) { top: calc(var(--u) * 397); }
+.infos-liste p:nth-of-type(1)  { top: calc(var(--u) * 429); }
+.infos-liste h3:nth-of-type(2) { top: calc(var(--u) * 560); }
+.infos-liste p:nth-of-type(2)  { top: calc(var(--u) * 592); }
+.infos-liste h3:nth-of-type(3) { top: calc(var(--u) * 659); }
+.infos-liste p:nth-of-type(3)  { top: calc(var(--u) * 691); }
+
+/* =========================================================================
+   #instagram  (3700 -> 4264)
+   Une seule photo visible, que l on fait defiler du doigt.
+   ========================================================================= */
+
+.instagram {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 564);
+  background: var(--creme);
+}
+
+/* #titre (maquette : ligne de base a 3715, centre) */
+.instagram-titre {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+
+/* #logo + mot "Instagram" (maquette : pictogramme de 41 en x 92, y 3735) */
+.instagram-lien {
+  position: absolute;
+  left: calc(var(--u) * 92);
+  top: calc(var(--u) * 35);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 16);
+  text-decoration: none;
+}
+.instagram-lien img { width: calc(var(--u) * 41); height: calc(var(--u) * 41); display: block; }
+.instagram-lien span {
+  color: var(--noir);
+  font-family: var(--police-logo);
+  font-size: calc(var(--u) * 35);
+  line-height: 1;
+}
+
+/* #galerie : une photo a la fois (maquette : 253 x 376 en x 89, y 3822) */
+.instagram-galerie {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 122);
+  width: 100%;
+  height: calc(var(--u) * 376);
+  display: flex;
+  gap: calc(var(--u) * 30);
+  padding: 0 calc(var(--u) * 89);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.instagram-galerie::-webkit-scrollbar { display: none; }
+.instagram-galerie a { flex: 0 0 calc(var(--u) * 253); scroll-snap-align: center; line-height: 0; }
+.instagram-galerie img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--u) * 18);
+  scroll-snap-align: center;
+  display: block;
+}
+
+/* =========================================================================
+   #bandeau reglementaire  (4264 -> 4462)
+   ========================================================================= */
+
+.bandeau-sante {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 198);
+  padding: 0;
+  background: var(--gris-bandeau);
+  display: block;
+}
+.bandeau-sante::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--gris-bandeau);
+  z-index: -1;
+}
+/* sur telephone on affiche les deux bandes ci-dessous a la place */
+.bandeau-sante img { display: none; }
+
+.bandeau-mob { display: block; }
+.bandeau-mob span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(var(--u) * 105);
+  background-image: url("sources/bandeau-sante.webp");
+  background-size: calc(var(--u) * 837) auto;
+  background-repeat: no-repeat;
+}
+/* la moitie gauche du bandeau, puis la moitie droite juste en dessous */
+.bandeau-mob-1 { top: 0;                     background-position: 0 0; }
+.bandeau-mob-2 { top: calc(var(--u) * 93);   background-position: calc(var(--u) * -407) 0; }

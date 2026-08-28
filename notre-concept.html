@@ -1,61 +1,499 @@
 <!doctype html>
-<html lang="en">
+<!-- =========================================================================
+     BARBEERSHOP - NOTRE CONCEPT
+     Reproduction de la maquette Adobe XD "Concept" (1920 x 6025 px).
+
+     Decoupage vertical :
+       Bulles du concept ....    0 -> 1230
+       Deux services ........ 1230 -> 1960
+       Produits ayurvediques  1960 -> 4000
+       Notre equipe ......... 4000 -> 4900
+       Instagram ............ 4900 -> 5668
+       Pied de page ......... 5668 -> 6025
+     ========================================================================= -->
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BarBeerShop - Notre Concept</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="Accueil.css" rel="stylesheet">
-    <link href="notre-concept.css" rel="stylesheet">
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>BarBeerShop - Notre concept</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
 
-    <!-- NAVBAR -->
-    <!-- Couleur de la navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-      <div class="container-fluid">
-        <!-- Logo dans la navbar -->
-        <a class="navbar-brand" href="Accueil.html">BarBeerShop</a>
-        <!-- Boutons de la navbar -->
-        <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
-        <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
-        <!-- Bouton burger -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Bouton rond Compte -->
-        <button type="button" class="bouton-rond">
-          <img src="sources/Image-temporaire.webp" alt="photo de profil">
-        </button>
-        <!-- Menu de la navbar -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Accueil.html">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Bar.html">Bar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="barber.html">Barber</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="notre-concept.html">Notre Concept</a>
-            </li>
-          </ul>
-        </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=60" rel="stylesheet">
+    <link href="commun.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="notre-concept.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="concept-mob.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+  </head>
+
+  <body>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
+      </button>
+
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="actif" aria-current="page">NOTRE CONCEPT</a>
       </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
     </nav>
 
-    <!-- Bloc image de fond + texte + bouton -->
-    <div class="hero-page">
-      <img src="sources/Image-temporaire.webp" alt="image temporaire">
-      <div class="hero-page-contenu">
-        <h1>Notre Concept</h1>
-        <p>Texte de presentation temporaire du concept.</p>
-        <button type="button" class="btn btn-lg hero-page-bouton">En savoir plus</button>
+    <!-- =====================================================================
+         BARRE DE NAVIGATION
+         ===================================================================== -->
+    <header class="barre-nav">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+      <div class="nav-reservation">
+        <a class="nav-btn-rdv" href="#rdv">Prendre RDV</a>
+        <a class="nav-btn-soiree" href="#soiree">Réserver<br>ma soirée</a>
+      </div>
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+      <a class="nav-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="actif" aria-current="page">NOTRE<br>CONCEPT</a>
+      </nav>
+    </header>
+
+    <!-- =====================================================================
+         1. LES TROIS BULLES DU CONCEPT
+         Trois photos rondes reliees par des traits rouges, avec les bulles
+         de legende BARBER, BAR et Notre CONCEPT.
+         ===================================================================== -->
+    <section class="bulles-concept">
+      <a class="bouton-remonter" href="#" aria-label="Remonter en haut de page">
+        <img src="sources/bouton-remonter.svg" alt="">
+      </a>
+
+      <!-- #fond de forme fourni par la designer
+           Ce fichier contient toute la composition du haut de page : les
+           grands ronds bleus qui servent de contour aux photos, les bulles
+           de legende et le fil rouge qui relie le tout. -->
+      <img src="sources/fond-concept-fil-rouge.webp"
+           alt="Les trois univers du Barbeershop relies par un fil rouge : le barber, le bar a bieres et notre concept"
+           class="fond-forme fond-forme-concept">
+
+      <!-- #version telephone de la meme composition : la maquette la
+           reorganise completement, elle a donc ses propres dessins. -->
+      <img src="sources/mob-concept-haut.svg" alt="" class="concept-mob concept-mob-haut">
+      <img src="sources/mob-concept-fil.svg"  alt="" class="concept-mob concept-mob-fil">
+
+      <!-- #photo ronde : le salon (a gauche) -->
+      <div class="cercle cercle-salon"><img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure"></div>
+      <!-- #photo ronde : le mur de briques (au centre) -->
+      <div class="cercle cercle-briques"><img src="sources/bar-briques.webp" alt="La salle du bar"></div>
+      <!-- #photo ronde : l'ambiance du bar (a droite, la plus grande) -->
+      <div class="cercle cercle-ambiance"><img src="sources/bar-ambiance.webp" alt="L'ambiance du bar à bières"></div>
+
+      <!-- #bulles de legende
+           Elles font partie du fichier de fond ci-dessus (dessin et texte).
+           On garde ici le texte pour les lecteurs d'ecran et les moteurs de
+           recherche, sans le reafficher a l'ecran. -->
+      <span class="hors-ecran">BARBER</span>
+      <span class="hors-ecran">BAR à bières</span>
+      <span class="hors-ecran">Notre CONCEPT</span>
+
+      <!-- #texte d'introduction -->
+      <p class="intro-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         2. DEUX SERVICES
+         ===================================================================== -->
+    <section class="services">
+      <!-- #fond de forme du rond de droite -->
+      <img src="sources/fond-concept-droite.webp" alt="" class="fond-forme fond-forme-droite">
+
+      <!-- #photo ronde qui deborde a droite -->
+      <div class="cercle cercle-piano"><img src="sources/concept-piano.webp" alt="Le coin salon du bar"></div>
+      <!-- #photo ronde qui deborde a gauche -->
+      <div class="cercle cercle-briques-2"><img src="sources/bar-briques.webp" alt="Le mur de briques du bar"></div>
+
+      <h2 class="services-titre">Deux Services</h2>
+
+      <p class="services-texte-1">
+        suscipit lobortis nisl ut aliquip ex ea commodo consequat. <strong>Duis autem</strong> vel eum iriure dolor in
+        hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+        eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
+        dolore te feugait nulla facilisi.<br>Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam
+      </p>
+
+      <p class="services-texte-2">
+        Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip
+        ex ea commodo consequat.<br>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+      </p>
+
+      <p class="services-texte-3">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         3. GAMME DE PRODUITS AYURVEDIQUES
+         Une grille de 12 produits, 3 par rangee.
+         ===================================================================== -->
+    <section class="produits-ayur">
+      <h2 class="produits-titre">Notre gammes de produits Ayurvédiques</h2>
+
+      <p class="produits-texte">
+        suscipit lobortis nisl ut aliquip ex ea commodo consequat. <strong>Duis autem</strong> vel eum iriure dolor in
+        hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+        eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
+        dolore te feugait nulla facilisi.<br>Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam
+      </p>
+
+      <!-- #fleurs rouges decoratives autour de la grille -->
+      <img class="deco fleur-p1" src="sources/fleur-c3.svg" alt="">
+      <img class="deco fleur-p2" src="sources/fleur-c4.svg" alt="">
+      <img class="deco fleur-p3" src="sources/fleur-c1.svg" alt="">
+      <img class="deco fleur-p4" src="sources/fleur-c2.svg" alt="">
+
+      <!-- #grille des produits
+           Chaque vignette est cliquable : elle ouvre la fiche du produit
+           dans une fenetre, avec un fil d'Ariane en haut. -->
+      <div class="grille-produits">
+        <!-- produit : Brume parfumée à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-1"
+                  aria-label="Voir la fiche : Brume parfumée à la rose">
+            <img src="sources/produit-1.webp" alt="Brume parfumée à la rose">
+          </button>
+          <figcaption>Brume parfumée à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-1"
+                    data-nom="Brume parfumée à la rose" data-famille="Brume"
+                    data-prix="24,90€" data-image="sources/produit-1.webp">Un voile parfumé qui adoucit la fibre et laisse un sillage de rose fraîche.</template>
+        </figure>
+        <!-- produit : Après-shampoing Hydratant -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-2"
+                  aria-label="Voir la fiche : Après-shampoing Hydratant">
+            <img src="sources/produit-2.webp" alt="Après-shampoing Hydratant">
+          </button>
+          <figcaption>Après-shampoing Hydratant</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-2"
+                    data-nom="Après-shampoing Hydratant" data-famille="Après-shampoing"
+                    data-prix="22,50€" data-image="sources/produit-2.webp">Démêle et nourrit sans alourdir, pour des longueurs souples au quotidien.</template>
+        </figure>
+        <!-- produit : Spray Coiffant à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-3"
+                  aria-label="Voir la fiche : Spray Coiffant à la rose">
+            <img src="sources/produit-3.webp" alt="Spray Coiffant à la rose">
+          </button>
+          <figcaption>Spray Coiffant à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-3"
+                    data-nom="Spray Coiffant à la rose" data-famille="Coiffant"
+                    data-prix="19,90€" data-image="sources/produit-3.webp">Fixation souple et brillance naturelle, sans effet carton.</template>
+        </figure>
+        <!-- produit : Masque brillance -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-4"
+                  aria-label="Voir la fiche : Masque brillance">
+            <img src="sources/produit-4.webp" alt="Masque brillance">
+          </button>
+          <figcaption>Masque brillance</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-4"
+                    data-nom="Masque brillance" data-famille="Masque"
+                    data-prix="27,00€" data-image="sources/produit-4.webp">Un soin hebdomadaire qui relance l’éclat des cheveux ternes.</template>
+        </figure>
+        <!-- produit : Huile pour les cheveux -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-5"
+                  aria-label="Voir la fiche : Huile pour les cheveux">
+            <img src="sources/produit-5.webp" alt="Huile pour les cheveux">
+          </button>
+          <figcaption>Huile pour les cheveux</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-5"
+                    data-nom="Huile pour les cheveux" data-famille="Huile"
+                    data-prix="29,90€" data-image="sources/produit-5.webp">Quelques gouttes suffisent pour discipliner les pointes et nourrir en profondeur.</template>
+        </figure>
+        <!-- produit : Shampoing rééquilibrant -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-6"
+                  aria-label="Voir la fiche : Shampoing rééquilibrant">
+            <img src="sources/produit-6.webp" alt="Shampoing rééquilibrant">
+          </button>
+          <figcaption>Shampoing rééquilibrant</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-6"
+                    data-nom="Shampoing rééquilibrant" data-famille="Shampoing"
+                    data-prix="21,00€" data-image="sources/produit-6.webp">Assainit le cuir chevelu et espace les lavages.</template>
+        </figure>
+        <!-- produit : Masque exfoliant à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-7"
+                  aria-label="Voir la fiche : Masque exfoliant à la rose">
+            <img src="sources/produit-7.webp" alt="Masque exfoliant à la rose">
+          </button>
+          <figcaption>Masque exfoliant à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-7"
+                    data-nom="Masque exfoliant à la rose" data-famille="Masque"
+                    data-prix="31,00€" data-image="sources/produit-7.webp">Un gommage doux du cuir chevelu, à faire avant le shampoing.</template>
+        </figure>
+        <!-- produit : Shampoing détox concentré -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-8"
+                  aria-label="Voir la fiche : Shampoing détox concentré">
+            <img src="sources/produit-8.webp" alt="Shampoing détox concentré">
+          </button>
+          <figcaption>Shampoing détox concentré</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-8"
+                    data-nom="Shampoing détox concentré" data-famille="Shampoing"
+                    data-prix="23,50€" data-image="sources/produit-8.webp">Élimine les résidus de coiffants et redonne de la légèreté.</template>
+        </figure>
+        <!-- produit : Brume parfumée à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-9"
+                  aria-label="Voir la fiche : Brume parfumée à la rose">
+            <img src="sources/produit-9.webp" alt="Brume parfumée à la rose">
+          </button>
+          <figcaption>Brume parfumée à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-9"
+                    data-nom="Brume parfumée à la rose" data-famille="Brume"
+                    data-prix="18,90€" data-image="sources/produit-9.webp">La même signature florale, en format nomade.</template>
+        </figure>
+        <!-- produit : Après shampoing volume -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-10"
+                  aria-label="Voir la fiche : Après shampoing volume">
+            <img src="sources/produit-10.webp" alt="Après shampoing volume">
+          </button>
+          <figcaption>Après shampoing volume</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-10"
+                    data-nom="Après shampoing volume" data-famille="Après-shampoing"
+                    data-prix="22,50€" data-image="sources/produit-10.webp">Gaine la fibre et apporte du corps aux cheveux fins.</template>
+        </figure>
+        <!-- produit : Shampoing Hydratant -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-11"
+                  aria-label="Voir la fiche : Shampoing Hydratant">
+            <img src="sources/produit-11.webp" alt="Shampoing Hydratant">
+          </button>
+          <figcaption>Shampoing Hydratant</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-11"
+                    data-nom="Shampoing Hydratant" data-famille="Shampoing"
+                    data-prix="21,00€" data-image="sources/produit-11.webp">Le lavage quotidien des cheveux secs et sensibilisés.</template>
+        </figure>
+        <!-- produit : Huile cheveux à la rose -->
+        <figure>
+          <button type="button" class="produit-vignette" data-produit="produit-12"
+                  aria-label="Voir la fiche : Huile cheveux à la rose">
+            <img src="sources/produit-12.webp" alt="Huile cheveux à la rose">
+          </button>
+          <figcaption>Huile cheveux à la rose</figcaption>
+          <!-- la fiche detaillee, masquee tant qu'on n'a pas clique -->
+          <template id="fiche-produit-12"
+                    data-nom="Huile cheveux à la rose" data-famille="Huile"
+                    data-prix="29,90€" data-image="sources/produit-12.webp">Un fini satiné, sans résidu gras.</template>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4. NOTRE EQUIPE : les cinq membres, en illustrations
+         ===================================================================== -->
+    <section class="equipe-concept">
+      <h2 class="equipe-titre">Notre Équipe</h2>
+
+      <div class="equipe-liste">
+        <figure class="membre">
+          <img src="sources/eq-thomas.svg" alt="Illustration de Thomas">
+          <figcaption><strong>Thomas</strong><span>Barber</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-rosalie.svg" alt="Illustration de Rosalie">
+          <figcaption><strong>Rosalie</strong><span>Coiffeuse</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-cassandre.svg" alt="Illustration de Cassandre">
+          <figcaption><strong>Cassandre</strong><span>Serveuse</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-julie.svg" alt="Illustration de Julie">
+          <figcaption><strong>Julie</strong><span>Serveuse</span></figcaption>
+        </figure>
+        <figure class="membre">
+          <img src="sources/eq-yves.svg" alt="Illustration de Yves">
+          <figcaption><strong>Yves</strong><span>Barber</span></figcaption>
+        </figure>
+      </div>
+
+      <p class="equipe-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         5. INSTAGRAM : l'equipe a l'oeuvre
+         ===================================================================== -->
+    <section class="instagram-concept">
+      <h2 class="instagram-titre">Pour voir notre équipe à l’oeuvre :</h2>
+
+      <!-- Chaque photo est cliquable et mene au compte Instagram -->
+      <div class="instagram-galerie">
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-1.webp" alt="Coloration en cours au salon"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-2.webp" alt="Les produits capillaires du salon"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-3.webp" alt="Coupe homme terminée"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-4.webp" alt="Service au bar à bières"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-5.webp" alt="Dégradé et finitions"></a>
+      </div>
+
+      <a class="instagram-lien" href="https://instagram.com" target="_blank" rel="noopener">
+        <img src="sources/icone-instagram.webp" alt="">
+        <span>Instagram</span>
+      </a>
+    </section>
+
+
+    <!-- =====================================================================
+         FENETRE DE FICHE PRODUIT
+         Elle reste cachee jusqu'a ce qu'on clique sur un produit. Le contenu
+         est rempli par commun.js a partir du produit choisi.
+         ===================================================================== -->
+    <div class="fiche-fond" id="ficheFond" hidden>
+      <div class="fiche-produit" role="dialog" aria-modal="true" aria-labelledby="ficheNom">
+
+        <!-- #mention posee dans la fleur blanche, en haut -->
+        <p class="fiche-achat">Achat en ligne<br><span>prochainement disponible</span></p>
+
+        <!-- #bouton de fermeture -->
+        <button type="button" class="fiche-fermer" id="ficheFermer" aria-label="Fermer la fiche">&times;</button>
+
+        <div class="fiche-corps">
+          <!-- la photo, posee dans le grand rond blanc de gauche -->
+          <img id="ficheImage" alt="">
+
+          <div class="fiche-texte">
+            <h3 id="ficheNom">Produit</h3>
+
+            <!-- #fil d'Ariane : rappelle ou l'on se trouve dans le site -->
+            <nav class="fil-ariane" aria-label="Fil d'Ariane">
+              <a href="Accueil.html">Accueil</a>
+              <span aria-hidden="true">/</span>
+              <a href="barber.html">Barber</a>
+              <span aria-hidden="true">/</span>
+              <a href="#produits">Nos produits</a>
+              <span aria-hidden="true">/</span>
+              <span class="fil-ariane-actuel" id="ficheFamille">En savoir plus</span>
+            </nav>
+
+            <p class="fiche-prix-ligne">
+              <span class="fiche-prix" id="fichePrix"></span>
+              <span class="fiche-stock">10 disponibles en magasin</span>
+            </p>
+
+            <p class="fiche-soustitre">DESCRIPTION :</p>
+            <p id="ficheDescription"></p>
+
+            <!-- les deux volets que l'on peut ouvrir -->
+            <details class="fiche-volet"><summary>DÉTAIL DU PRODUIT</summary>
+              <p>Format 125 ml. Fabrication artisanale, sans silicone ni sulfate.</p></details>
+            <details class="fiche-volet"><summary>INGRÉDIENTS</summary>
+              <p>Eau, huile d'argan, cristaux de sucre, extrait de rose, huiles essentielles.</p></details>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- =====================================================================
+         PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p><strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+           <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+           Samedi et événement spécial 1h</p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="commun.js?v=60"></script>
+      <script>
+      /* aide de mise au point : ouvre la fiche si l adresse finit par #fiche */
+      if (location.hash === '#fiche') { /* AUTO_FICHE */
+        window.addEventListener('load', () => {
+          const b = document.querySelector('.produit-vignette');
+          if (b) b.click();
+        });
+      }
+    </script>
   </body>
 </html>

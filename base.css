@@ -1,0 +1,128 @@
+/* =========================================================================
+   BASE COMMUNE A TOUTES LES PAGES ET A TOUTES LES TAILLES D'ECRAN
+   -------------------------------------------------------------------------
+   Ce fichier est le seul charge sans condition. Il contient ce qui ne
+   change jamais : les polices, les couleurs, le mode nuit et l'unite de
+   mesure. Le reste est separe en deux :
+     - commun.css        -> grands ecrans  (charge au-dessus de 1024 px)
+     - mobile.css        -> petits ecrans  (charge en dessous de 1024 px)
+
+   L'UNITE "--u" (le principe de tout le site)
+   Il existe DEUX maquettes Adobe XD : une en 1920 px de large pour les
+   grands ecrans, une en 430 px pour le telephone. Dans les deux cas,
+   l'unite --u vaut 1 pixel de la maquette :
+        grand ecran : --u = largeur de la page / 1920
+        telephone   : --u = largeur de la page / 430
+   Quand la maquette dit "ce titre fait 30 px", on ecrit partout :
+        font-size: calc(var(--u) * 30);
+   et la page garde les memes proportions sur n'importe quel ecran.
+   Le fichier commun.js recalcule cette valeur au chargement et au
+   redimensionnement de la fenetre.
+
+   Sur telephone, --u est PLAFONNE : au-dela d'environ 520 px de large, la
+   colonne arrete de grandir et se centre, sinon tout deviendrait enorme
+   sur une tablette.
+   ========================================================================= */
+
+/* =========================================================================
+   #polices
+   PP Formula = police principale (fichiers dans sources/fonts/)
+   DeLittle Chromatic = police du logo, chargee depuis Adobe Fonts par le
+   <link> place dans le <head> de chaque page
+   ========================================================================= */
+
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Thin.woff2")      format("woff2"); font-weight: 100; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Regular.woff2")   format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Medium.woff2")    format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Bold.woff2")      format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Extrabold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "PP Formula"; src: url("sources/fonts/PPFormula-Black.woff2")     format("woff2"); font-weight: 900; font-display: swap; }
+
+/* =========================================================================
+   #couleurs de la charte (relevees dans la maquette)
+   ========================================================================= */
+
+:root {
+  --noir: #1A1A1E;         /* barre de navigation et pied de page */
+  --creme: #FFFEF8;        /* fond clair et textes clairs */
+  --rouge: #E13950;        /* accents, boutons */
+  --brun: #695E45;         /* grande zone de la page Barber */
+  --beige: #DDCDB0;        /* bandes de bas de page */
+  --petrole: #18536C;      /* cercles et bulles decoratives */
+  --champ: #91ACB6;        /* fond des champs de formulaire */
+  --champ-ok: #7FCB8B;     /* champ rempli et valide */
+  --check: #8EE09B;        /* pastille de validation */
+  --etiquette: #DBE4E8;    /* petite etiquette au-dessus d'un champ rempli */
+  --gris-bandeau: #525252; /* bandeau reglementaire en bas des pages */
+
+  --police: "PP Formula", system-ui, sans-serif;
+  --police-logo: "delittle-chromatic", "PP Formula", sans-serif;
+}
+
+/* #mode nuit ("Night Shift" de la maquette)
+   En comparant les deux versions de la maquette, une seule couleur change :
+   le creme devient un ton plus chaud. On ne touche a rien d'autre. */
+html.nuit {
+  --creme: #FDF2DD;
+}
+
+/* =========================================================================
+   #base
+   ========================================================================= */
+
+html {
+  overflow-x: hidden;   /* certains elements debordent volontairement */
+}
+
+body {
+  /* valeur de depart ; commun.js la recalcule avec la largeur reelle */
+  --u: calc(100vw / 1920);
+  margin: 0;
+  font-family: var(--police);
+  background-color: var(--creme);
+  /* IMPORTANT : pas d'overflow-x sur le <body>. Le mettre ici transforme le
+     body en conteneur de defilement, ce qui EMPECHE la barre de navigation
+     "sticky" de rester collee en haut. Le rognage horizontal est fait par
+     <html> juste au-dessus, ce qui suffit et laisse le sticky fonctionner. */
+  /* Pas de transition ici : sur le <body>, Chrome garde alors l'ancienne
+     couleur quand la variable --creme change, et la bascule nuit ne se
+     voit plus. Les autres blocs, eux, gardent leur fondu. */
+}
+
+/* Les bordures sont comptees dans la largeur annoncee */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Masque un texte a l'ecran tout en le laissant lisible par les lecteurs
+   d'ecran (utilise pour les etiquettes de formulaire) */
+.hors-ecran {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* La largeur de la colonne mobile : la maquette telephone fait 430 px.
+   Sur les grands ecrans cette variable ne sert pas. */
+:root { --colonne-mob: calc(var(--u) * 430); }
+
+/* Valeur de depart de --u, avant que commun.js ne prenne le relais.
+   (On utilise "vw", qui compte aussi la barre de defilement ; le script
+   la recalcule avec la largeur reelle.) */
+@media (max-width: 1023.98px) {
+  /* le plafond de 520 px est deja pris en compte ici, pour que la page soit
+     juste des le premier affichage, avant meme que le script ne tourne */
+  body { --u: calc(min(100vw, 520px) / 430); }
+}
+
+
+/* =========================================================================
+   #fonds de forme
+   Fichiers fournis par la designer : les grands ronds de couleur qui
+   depassent derriere les photos (contour, bulles satellites et raccords
+   en goutte). Ils se posent sous les photos, sans gener les clics.
+   ========================================================================= */
+.fond-forme { position: absolute; z-index: 0; pointer-events: none; }

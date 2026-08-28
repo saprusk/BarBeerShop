@@ -1,0 +1,537 @@
+/* =========================================================================
+   PAGE BARBER - MISE EN PAGE TELEPHONE
+   -------------------------------------------------------------------------
+   Reproduction de la maquette Adobe XD "Barber - mob" (430 x 4736 px).
+   Chargee uniquement en dessous de 1024 px de large.
+   1 unite --u = 1 pixel de la maquette telephone.
+
+   Decoupage vertical (valeurs relevees dans la maquette) :
+     Barre de navigation ....    0 ->  115
+     Hero ...................  115 ->  856
+     Zone brune .............  856 -> 3755
+     Bande "notre bar" ...... 3755 -> 3810
+     Pied de page ........... 3810 -> 4736
+
+   Comme dans Adobe XD le "y" d'un texte est sa ligne de base, les blocs de
+   texte sont remontes d'environ 0,925 fois la taille de la police.
+   ========================================================================= */
+
+/* =========================================================================
+   #hero  (115 -> 856)
+   ========================================================================= */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  height: calc(var(--u) * 741);
+  overflow: visible;
+}
+
+/* #photo du salon, en fond (maquette : 984 de large en x -334, y 117) */
+.hero-photo {
+  position: absolute;
+  left: calc(var(--u) * -334);
+  top: calc(var(--u) * 2);
+  width: calc(var(--u) * 984);
+  height: calc(var(--u) * 738);
+  object-fit: cover;
+  display: block;
+}
+
+/* pas de fleche "remonter en haut" sur telephone */
+.hero .bouton-remonter { display: none; }
+
+/* #panneau "carte de fidelite" : une vitre depolie posee sur la photo
+   (maquette : 288 x 279 en x 73, y 290) */
+.carte-fidelite {
+  position: absolute;
+  left: calc(var(--u) * 73);
+  top: calc(var(--u) * 175);
+  width: calc(var(--u) * 288);
+  height: calc(var(--u) * 279);
+  padding: 0;
+  border-radius: calc(var(--u) * 34);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(calc(var(--u) * 14));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 14));
+}
+.carte-fidelite-texte {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 27);
+  width: 100%;
+  margin: 0;
+  padding: 0 calc(var(--u) * 14);
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 19);
+  font-weight: 400;
+  line-height: 1.45;
+}
+.carte-fidelite-texte strong {
+  font-size: calc(var(--u) * 23);
+  font-weight: 700;
+}
+
+/* #visuel de la carte de fidelite, pose sur l'angle haut-droit
+   (maquette : 127 x 107 en x 275, y 237) */
+.carte-fidelite-visuel {
+  position: absolute;
+  left: calc(var(--u) * 202);   /* 275 - 73 */
+  top: calc(var(--u) * -53);    /* 237 - 290 */
+  width: calc(var(--u) * 127);
+}
+
+/* #bouton "Creer mon compte" (maquette : 313 x 68 en x 61, y 659) */
+.btn-creer-compte {
+  position: absolute;
+  left: calc(var(--u) * -12);   /* 61 - 73 */
+  top: calc(var(--u) * 369);    /* 659 - 290 */
+  width: calc(var(--u) * 313);
+  height: calc(var(--u) * 68);
+  border-radius: calc(var(--u) * 34);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+}
+
+/* =========================================================================
+   #zone brune  (856 -> 3755)
+   ========================================================================= */
+
+.zone-brune {
+  position: relative;
+  z-index: 2;   /* au-dessus du hero, sinon les bulles qui remontent sont cachees */
+  height: calc(var(--u) * 2899);
+  /* Pas de fond ici : c'est le calque ci-dessous qui le pose, en partant
+     plus bas. Ainsi ce sont les BULLES qui font la jonction avec la photo,
+     et non un trait droit.
+     Pas de rognage non plus : les bulles remontent volontairement sur la
+     photo du hero. Les carrousels ont deja leur propre rognage. */
+}
+.zone-brune::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--brun);
+  z-index: -1;
+}
+
+/* #bulles de transition, remontees sur la photo du hero
+   (maquette : 1097 de large en x -261, y 791) */
+/* Elles sont dessinees dans le HERO et non dans la zone brune : celle-ci
+   rogne ce qui depasse, les bulles y etaient donc invisibles.
+   (maquette : 1097 de large en x -261, y 791) */
+.bulles { position: static; }
+.bulle { display: none; }
+.zone-brune::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * -261);
+  top: calc(var(--u) * -65);    /* 791 - 856 : la frise se pose sur la photo */
+  width: calc(var(--u) * 1097);
+  height: calc(var(--u) * 246);
+  background: url("sources/mob-bulles-barber-page.svg") no-repeat center / 100% 100%;
+  z-index: 1;
+}
+
+/* #invitation a descendre (maquette : ligne de base a 880, centre) */
+.invite-formules {
+  position: absolute;
+  z-index: 3;   /* devant les bulles */
+  top: calc(var(--u) * 7);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  z-index: 3;
+}
+.invite-formules strong { font-weight: 800; }
+.fleche-bas { display: inline-block; width: calc(var(--u) * 22); margin-left: calc(var(--u) * 8); vertical-align: middle; }
+
+/* #titre "Nos Formules" (maquette : ligne de base a 962) */
+.titre-formules {
+  position: absolute;
+  top: calc(var(--u) * 88);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+
+/* #note sous le titre (maquette : fleur en x 86, texte en x 112, y 988) */
+.note-formules {
+  position: absolute;
+  top: calc(var(--u) * 118);
+  left: calc(var(--u) * 112);
+  width: calc(var(--u) * 232);
+  margin: 0;
+  color: #fff;
+  font-size: calc(var(--u) * 15);
+  font-weight: 100;
+  line-height: 1.45;
+}
+.note-fleur {
+  position: absolute;
+  left: calc(var(--u) * -26);
+  top: calc(var(--u) * 14);
+  width: calc(var(--u) * 20);
+}
+
+/* -------------------------------------------------------------------------
+   #formules
+   Sur telephone, ce ne sont plus des cartes qui defilent mais cinq
+   pastilles posees les unes sous les autres : un nom a gauche, le prix
+   dans une fleur a droite. Le detail de chaque formule n'apparait pas.
+   ------------------------------------------------------------------------- */
+
+/* les conteneurs du carrousel s'effacent : les cinq formules se placent
+   directement dans la zone brune */
+.formules, .formules-fenetre, .formules-piste { display: contents; }
+.formules-fleche { display: none; }
+
+.formule {
+  position: absolute;
+  left: calc(var(--u) * 61);
+  width: calc(var(--u) * 291);
+  margin: 0;
+  padding: 0 calc(var(--u) * 74) 0 calc(var(--u) * 22);
+  display: flex;
+  align-items: center;
+  border: calc(var(--u) * 2) solid #fff;
+  border-radius: calc(var(--u) * 40);
+  background: none;
+  z-index: 2;
+}
+.formule-titre {
+  margin: 0;
+  color: #fff;
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+  line-height: 1.25;
+}
+/* le detail de la formule ne s'affiche pas sur telephone, et les retours
+   a la ligne du grand ecran non plus : le nom tient sur une ou deux lignes
+   selon sa longueur */
+.formule-liste, .formule-fleur { display: none; }
+.formule-titre br { display: none; }
+
+/* #prix : une fleur blanche posee sur le bord droit de la pastille */
+.formule-prix {
+  position: absolute;
+  right: calc(var(--u) * -22);
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--u) * 56);
+  height: calc(var(--u) * 64);
+  display: grid;
+  place-content: center;
+  background: url("sources/fleur-2.svg") no-repeat center / 100% 100%;
+  color: var(--brun);
+  font-size: calc(var(--u) * 14);
+  font-weight: 700;
+}
+
+/* l'ordre de la maquette telephone n'est pas celui du grand ecran :
+   on repositionne donc chaque formule une par une. */
+/* 3e du HTML : Formule Soin Signature (maquette y 1073) */
+.formule:nth-child(3) { top: calc(var(--u) * 217); height: calc(var(--u) * 76); }
+/* 2e du HTML : Coupe Express (y 1161) */
+.formule:nth-child(2) { top: calc(var(--u) * 305); height: calc(var(--u) * 76); }
+/* 4e du HTML : Coupe + Rituel masque Ayurvedique (y 1250) */
+.formule:nth-child(4) { top: calc(var(--u) * 394); height: calc(var(--u) * 104); }
+/* 5e du HTML : Rituel Total Ayurvedique (y 1365) */
+.formule:nth-child(5) { top: calc(var(--u) * 509); height: calc(var(--u) * 104); }
+/* 1re du HTML : Formule VIP & Relax (y 1485) */
+.formule:nth-child(1) { top: calc(var(--u) * 629); height: calc(var(--u) * 79); }
+
+/* #photo des produits, sous les formules (maquette : 296 x 246 en x 66, y 1592) */
+.formule-photo-zone {
+  position: absolute;
+  left: calc(var(--u) * 5);     /* 66 - 61 */
+  top: calc(var(--u) * 519);    /* 736 - 217 */
+  width: calc(var(--u) * 296);
+  height: calc(var(--u) * 246);
+}
+.formule-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--u) * 26);
+  display: block;
+}
+.formule-prix-photo { display: none; }
+
+/* l'encart d'aide a la reservation n'existe pas sur telephone */
+.aide-reservation { display: none; }
+
+/* -------------------------------------------------------------------------
+   #bloc "Nos produits utilises" (maquette : carte rouge en x 52, y 1935)
+   ------------------------------------------------------------------------- */
+.produits {
+  position: absolute;
+  left: calc(var(--u) * 52);
+  top: calc(var(--u) * 1079);
+  width: calc(var(--u) * 318);
+  z-index: 2;
+}
+/* ni photo ni vitre floutee sur telephone : la carte est pleine */
+.produits-photo, .fond-forme-produits { display: none; }
+
+/* #couvercle du pot : deux plaques claires posees au-dessus de la carte
+   (maquette : 228 x 58 en x 95, et 214 x 42 en x 104) */
+.produits-vitre {
+  display: block;
+  position: absolute;
+  left: calc(var(--u) * 43);    /* 95 - 52 */
+  top: calc(var(--u) * -58);    /* 1877 - 1935 */
+  width: calc(var(--u) * 228);
+  height: calc(var(--u) * 58);
+  border-radius: calc(var(--u) * 16) calc(var(--u) * 16) 0 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.produits-carte {
+  position: relative;
+  margin: 0;
+  min-height: calc(var(--u) * 475);
+  padding: calc(var(--u) * 60) calc(var(--u) * 34) 0;
+  background: #E23950;
+  border-radius: calc(var(--u) * 30);
+  color: var(--creme);
+}
+.produits-titre {
+  margin: 0 0 calc(var(--u) * 20);
+  text-align: center;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+.produits-texte {
+  width: auto;
+  margin: 0;
+  text-align: center;
+  font-size: calc(var(--u) * 14);
+  font-weight: 400;
+  line-height: 2;
+}
+.produits-fleur { position: absolute; }
+.produits-fleur-a { left: calc(var(--u) * 261); top: calc(var(--u) * 391); width: calc(var(--u) * 44); right: auto; }
+.produits-fleur-b { left: calc(var(--u) * 231); top: calc(var(--u) * 431); width: calc(var(--u) * 33); right: auto; }
+
+/* #bouton "En savoir plus" (maquette : 217 x 50 en x 52, y 2388) */
+.btn-en-savoir-plus {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 453);
+  width: calc(var(--u) * 217);
+  height: calc(var(--u) * 50);
+  border-radius: calc(var(--u) * 25);
+  font-size: calc(var(--u) * 20);
+}
+
+/* -------------------------------------------------------------------------
+   #equipe : un membre a la fois, que l'on fait defiler du doigt
+   ------------------------------------------------------------------------- */
+.titre-equipe {
+  position: absolute;
+  top: calc(var(--u) * 1632);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+.texte-equipe {
+  position: absolute;
+  top: calc(var(--u) * 1684);
+  left: calc(var(--u) * 35);
+  width: calc(var(--u) * 360);
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 15);
+  font-weight: 400;
+  line-height: 2;
+}
+.texte-equipe strong { font-weight: 700; }
+
+.equipe {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 1963);
+  width: 100%;
+  height: calc(var(--u) * 480);
+  display: flex;
+  gap: calc(var(--u) * 90);
+  padding: 0 calc(var(--u) * 126);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.equipe::-webkit-scrollbar { display: none; }
+.membre {
+  flex: 0 0 calc(var(--u) * 178);
+  scroll-snap-align: center;
+  text-align: center;
+}
+.membre-illus {
+  width: calc(var(--u) * 178);
+  height: calc(var(--u) * 277);
+  /* "contain" : l'illustration entiere reste visible, sans etre rognee */
+  object-fit: contain;
+  display: block;
+}
+.membre-nom {
+  margin: calc(var(--u) * 34) 0 calc(var(--u) * 8);
+  color: #fff;
+  font-size: calc(var(--u) * 31);
+  font-weight: 700;
+}
+.membre-desc {
+  margin: 0;
+  color: #fff;
+  font-size: calc(var(--u) * 15);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* -------------------------------------------------------------------------
+   #galerie des coupes : deux rangees qui defilent
+   ------------------------------------------------------------------------- */
+.titre-galerie {
+  position: absolute;
+  top: calc(var(--u) * 2437);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+}
+.galerie-rangee {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+.galerie-rangee::-webkit-scrollbar { display: none; }
+.galerie-rangee img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--u) * 12);
+  display: block;
+}
+/* rangee du haut (maquette : vignettes de 178 x 135, y 3377) */
+.galerie-rangee-1 {
+  top: calc(var(--u) * 2521);
+  height: calc(var(--u) * 135);
+  gap: calc(var(--u) * 34);
+  padding-left: calc(var(--u) * 117);
+  padding-right: calc(var(--u) * 117);
+}
+.galerie-rangee-1 img { flex: 0 0 calc(var(--u) * 178); }
+/* rangee du bas (maquette : vignettes de 171 x 130, y 3549) */
+.galerie-rangee-2 {
+  top: calc(var(--u) * 2693);
+  height: calc(var(--u) * 130);
+  gap: calc(var(--u) * 32);
+  padding-left: calc(var(--u) * 6);
+}
+.galerie-rangee-2 img { flex: 0 0 calc(var(--u) * 171); }
+
+/* =========================================================================
+   #bande "Decouvrir notre bar a bieres"  (3755 -> 3810)
+   Dans la maquette c'est une grande forme beige arrondie en haut, dont
+   seule la bande superieure reste visible : le pied de page recouvre le
+   reste.
+   ========================================================================= */
+.bande-bar {
+  position: relative;
+  z-index: 0;   /* la forme beige passe derriere le pied de page */
+  display: block;
+  height: calc(var(--u) * 55);
+  text-decoration: none;
+  overflow: visible;
+}
+.bande-bar::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * -39);
+  top: 0;
+  width: calc(var(--u) * 506);
+  height: calc(var(--u) * 491);
+  background: var(--beige);
+  z-index: -1;
+}
+/* un seul texte, centre, avec une pastille de chaque cote */
+.bande-texte {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 17);
+  width: 100%;
+  text-align: center;
+  color: var(--brun);
+  font-size: calc(var(--u) * 17);
+  font-weight: 700;
+}
+.bande-texte:nth-of-type(2) { display: none; }
+/* une fleur de chaque cote de la phrase (et non deux ronds a gauche) */
+.bande-pastille {
+  position: absolute;
+  top: calc(var(--u) * 14);
+  width: calc(var(--u) * 28);
+  height: calc(var(--u) * 28);
+  border-radius: 0;
+  background: url("sources/fleur-bande.svg") no-repeat center / contain;
+}
+/* le HTML alterne pastilles et textes : la premiere pastille est le 1er
+   span, la deuxieme le 3e, la troisieme le 5e. */
+.bande-bar .bande-pastille:nth-of-type(1) { left: calc(var(--u) * 16); right: auto; }
+.bande-bar .bande-pastille:nth-of-type(3) { right: calc(var(--u) * 16); left: auto; }
+.bande-bar .bande-pastille:nth-of-type(5) { display: none; }
+
+/* =========================================================================
+   #formules qui s'ouvrent
+   Au toucher, la pastille s'allonge et laisse voir le detail de la formule.
+   Elle passe alors PAR-DESSUS les autres : ainsi rien ne se decale, et la
+   suite de la page reste a sa place.
+   ========================================================================= */
+.formule[data-ouverte="oui"] {
+  height: auto !important;
+  min-height: calc(var(--u) * 104);
+  z-index: 10;
+  padding: calc(var(--u) * 18) calc(var(--u) * 74) calc(var(--u) * 20) calc(var(--u) * 22);
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: calc(var(--u) * 28);
+  background: var(--brun);
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 20) rgba(0, 0, 0, 0.28);
+}
+.formule[data-ouverte="oui"] .formule-liste {
+  display: block;
+  margin: calc(var(--u) * 12) 0 0;
+  padding: 0;
+  list-style: none;
+  color: #fff;
+  font-size: calc(var(--u) * 14);
+  font-weight: 100;
+  line-height: 1.6;
+}
+.formule[data-ouverte="oui"] .formule-liste li { margin-bottom: calc(var(--u) * 4); }
+.formule[data-ouverte="oui"] .formule-liste li::before { content: "- "; }

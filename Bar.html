@@ -1,60 +1,379 @@
 <!doctype html>
-<html lang="en">
+<!-- =========================================================================
+     BARBEERSHOP - PAGE BAR
+     Reproduction de la maquette Adobe XD "Web 1920 - 11" (1920 x 6258 px).
+
+     Decoupage vertical :
+       Hero evenement ....    0 -> 1160
+       Notre carte ....... 1160 -> 2860
+       Notre ambiance .... 2860 -> 4300
+       Nos brasseurs ..... 4300 -> 5743
+       Bande barber ...... 5743 -> 5901
+       Pied de page ...... 5901 -> 6258
+     ========================================================================= -->
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BarBeerShop - Bar</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="Accueil.css" rel="stylesheet">
-    <link href="Bar.css" rel="stylesheet">
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>BarBeerShop - Notre bar à bières</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
 
-    <!-- NAVBAR -->
-    <!-- Couleur de la navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-      <div class="container-fluid">
-        <!-- Logo dans la navbar -->
-        <a class="navbar-brand" href="Accueil.html">BarBeerShop</a>
-        <!-- Boutons de la navbar -->
-        <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
-        <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
-        <!-- Bouton burger -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Bouton rond Compte -->
-        <button type="button" class="bouton-rond">
-          <img src="sources/Image-temporaire.webp" alt="photo de profil">
-        </button>
-        <!-- Menu de la navbar -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Accueil.html">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Bar.html">Bar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="barber.html">Barber</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="notre-concept.html">Notre Concept</a>
-            </li>
-          </ul>
-        </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=60" rel="stylesheet">
+    <link href="commun.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="Bar.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="bar-mob.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+  </head>
+
+  <body>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
+      </button>
+
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html" class="actif" aria-current="page">BAR</a>
+        <a href="notre-concept.html">NOTRE CONCEPT</a>
       </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
     </nav>
 
-    <!-- Bloc image de fond + carte evenement + bouton reserver -->
-    <div class="hero-page">
-      <img src="sources/Image-temporaire.webp" alt="image temporaire">
-      <div class="hero-page-carte">
-        <p>"Soirée mousse" DJ + dégustation de nos bières rouges le vendredi 8 septembre à 21h</p>
-        <button type="button" class="btn btn-lg hero-page-bouton-reserver">Réserver</button>
+    <!-- =====================================================================
+         BARRE DE NAVIGATION
+         ===================================================================== -->
+    <header class="barre-nav">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+      <div class="nav-reservation">
+        <a class="nav-btn-rdv" href="#rdv">Prendre RDV</a>
+        <a class="nav-btn-soiree" href="#soiree">Réserver<br>ma soirée</a>
       </div>
-    </div>
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+      <a class="nav-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html" class="actif" aria-current="page">BAR</a>
+        <a href="notre-concept.html">NOTRE<br>CONCEPT</a>
+      </nav>
+    </header>
+
+    <!-- =====================================================================
+         1. HERO : photo du bar et annonce de la soiree
+         ===================================================================== -->
+    <section class="hero-bar">
+      <img class="hero-photo" src="sources/bar-hero.webp" alt="Une soirée au bar à bières">
+
+      <a class="bouton-remonter" href="#" aria-label="Remonter en haut de page">
+        <img src="sources/bouton-remonter.svg" alt="">
+      </a>
+
+      <!-- #etiquette "evenement" -->
+      <p class="etiquette-evenement">ÉVÉNEMENT</p>
+
+      <!-- #panneau de l'evenement (effet verre depoli) -->
+      <div class="panneau-evenement">
+        <!-- trois niveaux de texte, avec les tailles et graisses donnees
+             par la designer : 36 fin, 31 gras, 31 moyen -->
+        <p class="evenement-titre">«&nbsp;Soirée Mousse&nbsp;»</p>
+        <p class="evenement-detail">DJ<br>+<br>DÉGUSTATION DE NOS BIÈRES ROUGES</p>
+        <p class="evenement-date">Le vendredi 8 septembre à 21h</p>
+        <a class="cta-1 btn-reserver" href="#reserver" style="--fond: #E13950; --texte: #FFFEF8">Réserver</a>
+      </div>
+
+      <!-- #mousse de biere : transition vers le fond beige -->
+      <img class="mousse mousse-haut" src="sources/mousse-bar-haut.svg" alt="">
+      <img class="mousse mousse-bas"  src="sources/mousse-bar-bas.svg" alt="">
+
+      <!-- #accroche qui invite a descendre -->
+      <p class="accroche">
+        On vous en dit plus sur <strong>nos bières</strong>
+        <svg viewBox="0 0 46 26" aria-hidden="true"><path d="M0 0h46L23 26z"/></svg>
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         2. NOTRE CARTE
+         Cinq colonnes que l'on fait glisser horizontalement.
+         ===================================================================== -->
+    <section class="carte">
+      <h2 class="carte-titre">Notre Carte</h2>
+      <p class="carte-intro">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+
+      <!-- #fleche precedente : elle ramene les trois colonnes d'avant -->
+      <button type="button" class="carte-fleche carte-fleche-gauche"
+              id="cartePrecedente" aria-label="Colonnes précédentes">&#10094;</button>
+
+      <!-- la fenetre qui laisse voir trois colonnes a la fois -->
+      <div class="carte-fenetre" id="carteFenetre">
+        <div class="carte-colonnes">
+
+          <!-- #colonne : Soft -->
+          <div class="colonne">
+            <h3>Soft</h3>
+            <ul>
+              <li><span class="nom">Eau plate (Cristalline)</span><span class="prix">3,50€</span></li>
+              <li><span class="nom">Coca Cola ( Zéro / cherry)</span><span class="prix">3,50€</span></li>
+              <li><span class="nom">Ice TEA</span><span class="prix">3,50€</span></li>
+              <li class="ligne-picto"><img src="sources/picto-soft.svg" alt="" class="colonne-picto"></li>
+              <li><span class="nom">Limonade artisanale</span><span class="prix">4,20€</span></li>
+              <li><span class="nom">Schewppes Agrumes</span><span class="prix">3,50€</span></li>
+              <li><span class="nom">Perrier</span><span class="prix">2,70€</span></li>
+              <li><span class="nom">Orangina</span><span class="prix">3,50€</span></li>
+              <li><span class="nom">Fanta Citron</span><span class="prix">3,50€</span></li>
+              <li><span class="nom">Red Bull</span><span class="prix">2,70€</span></li>
+              <li><span class="nom">Diabolo</span><span class="desc">Limonade + sirop (Grenadine, Fraise, passion, violette, cerise)</span><span class="prix">8,90€</span></li>
+              <li><span class="nom">Virgin Mojito</span><span class="desc">Menthe, citron vert, cassonade, eau gazeuse.</span><span class="prix">8,90€</span></li>
+            </ul>
+          </div>
+
+          <!-- #colonne : Bieres Rouges -->
+          <div class="colonne">
+            <h3>Bières Rouges</h3>
+            <ul>
+              <li><span class="nom">La Cerise Interdite</span><span class="desc">Rouge intense aux arômes de cerise noire.</span><span class="prix">8,50€</span></li>
+              <li class="avec-photo"><img src="sources/carte-photo-1.webp" alt="Ambiance du bar"></li>
+              <li><span class="nom">Velours de Lorraine</span><span class="desc">Bière rouge haut de gamme très ronde en bouche.</span><span class="prix">8,90€</span></li>
+              <li><span class="nom">La Rousse des Mines</span><span class="desc">Ambrée rouge inspirée des anciennes mines lorraines.</span><span class="prix">7,60€</span></li>
+              <li><span class="nom">Rouge Éclipse</span><span class="desc">Rouge moderne et puissante.</span><span class="prix">7,40€</span></li>
+              <li class="ligne-picto"><img src="sources/picto-biere-rouge.svg" alt="" class="colonne-picto"></li>
+              <li><span class="nom">La Flamme de Metz</span><span class="desc">Bière rouge forte avec une vraie personnalité.</span><span class="prix">8,20€</span></li>
+              <li><span class="nom">Rouge Mirabelle</span><span class="desc">Recette artisanale plus intense.</span><span class="prix">8,30€</span></li>
+            </ul>
+          </div>
+
+          <!-- #colonne : Bieres Pression -->
+          <div class="colonne">
+            <h3>Bières Pression</h3>
+            <ul>
+              <li class="ligne-picto"><img src="sources/picto-pression.svg" alt="" class="colonne-picto"></li>
+              <li><span class="nom">La Mine d’Or</span><span class="desc">Bière blonde artisanale aux notes de miel et de céréales grillées.</span><span class="prix">7,50€</span></li>
+              <li><span class="nom">L’Écume Lorraine</span><span class="desc">Blonde fraîche et très désaltérante brassée avec des houblons locaux.</span><span class="prix">6,50€</span></li>
+              <li><span class="nom">La Houblonnière</span><span class="desc">Bière puissante avec une vraie identité houblonnée.</span><span class="prix">8,20€</span></li>
+              <li><span class="nom">Le Sanglier Doré</span><span class="desc">Blonde ambrée rustique inspirée des forêts vosgiennes.</span><span class="prix">7,90€</span></li>
+              <li class="avec-photo"><img src="sources/carte-photo-3.webp" alt="Le bar en soirée"></li>
+              <li><span class="nom">La Forge des Ducs</span><span class="desc">Bière de caractère brassée façon ancienne.</span><span class="prix">8,50€</span></li>
+              <li><span class="nom">La Mirabelle</span><span class="desc">Blonde originale parfumée à la mirabelle de Lorraine.</span><span class="prix">7,90€</span></li>
+              <li><span class="nom">L’Outlaw de Metz</span><span class="desc">IPA moderne avec une forte personnalité.</span><span class="prix">8,90€</span></li>
+            </ul>
+          </div>
+
+          <!-- #colonne : Bieres Blondes -->
+          <div class="colonne">
+            <h3>Bières Blondes</h3>
+            <ul>
+              <li><span class="nom">Brume de Nancy</span><span class="desc">Blanche légère et très fraîche.</span><span class="prix">7,20€</span></li>
+              <li><span class="nom">La Blanche Vosges</span><span class="desc">Bière blanche artisanale inspirée des montagnes vosgiennes.</span><span class="prix">7,60€</span></li>
+              <li><span class="nom">Perle de Lorraine</span><span class="desc">Blanche premium raffinée et élégante.</span><span class="prix">8,20€</span></li>
+              <li class="ligne-picto"><img src="sources/picto-biere-blonde.svg" alt="" class="colonne-picto"></li>
+              <li><span class="nom">La Nuit Claire</span><span class="desc">Blanche trouble aux saveurs très douces.</span><span class="prix">7,40€</span></li>
+              <li><span class="nom">Lune de Blé</span><span class="desc">Bière blanche très accessible et désaltérante.</span><span class="prix">7,10€</span></li>
+              <li><span class="nom">La Blanche Brasse</span><span class="desc">Recette artisanale plus intense.</span><span class="prix">8,30€</span></li>
+              <li><span class="nom">La Givrée de l’Est</span><span class="desc">Blanche fraîche avec une belle acidité.</span><span class="prix">7,90€</span></li>
+              <li class="avec-photo"><img src="sources/carte-photo-4.webp" alt="Deux bières servies au comptoir"></li>
+            </ul>
+          </div>
+
+          <!-- #colonne : Jus Lorrains -->
+          <div class="colonne">
+            <h3>Jus Lorrains</h3>
+            <ul>
+              <li><span class="nom">Jus de mirabelles</span><span class="desc">Mirabelles pressées artisanales.</span><span class="prix">4,50€</span></li>
+              <li><span class="nom">Quetsches en nectar</span><span class="desc">Quetsches de Lorraine.</span><span class="prix">4,90€</span></li>
+              <li><span class="nom">Jus Pomyrt</span><span class="desc">pomme, myrtille sauvage.</span><span class="prix">4,90€</span></li>
+              <li><span class="nom">Mirabellade</span><span class="desc">citron frais, mirabelle, eau pétillante.</span><span class="prix">5,10€</span></li>
+              <li class="ligne-picto"><img src="sources/picto-jus.svg" alt="" class="colonne-picto"></li>
+              <li class="avec-photo"><img src="sources/carte-photo-2.webp" alt="Ambiance conviviale au bar"></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- #fleche suivante -->
+      <button type="button" class="carte-fleche carte-fleche-droite"
+              id="carteSuivante" aria-label="Colonnes suivantes">&#10095;</button>
+    </section>
+
+    <!-- =====================================================================
+         3. NOTRE AMBIANCE
+         ===================================================================== -->
+    <section class="ambiance">
+      <!-- #fond de forme : les grands ronds bruns qui depassent derriere
+           les photos, avec leur raccord en goutte -->
+      <img src="sources/fond-bar-ambiance.webp" alt="" class="fond-forme fond-forme-ambiance">
+
+      <!-- #photos rondes de l'ambiance -->
+      <div class="rond rond-grand"><img src="sources/concept-piano.webp" alt="Le coin salon du bar"></div>
+      <div class="rond rond-petit"><img src="sources/bar-briques.webp" alt="La salle du bar, mur de briques"></div>
+
+      <!-- #pastilles brunes decoratives -->
+      <span class="pastille pa1"></span>
+      <span class="pastille pa2"></span>
+      <span class="pastille pa3"></span>
+      <span class="pastille pa4"></span>
+      <span class="pastille pa5"></span>
+      <span class="pastille pa6"></span>
+
+      <h2 class="ambiance-titre">Notre Ambiance</h2>
+      <p class="ambiance-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+        minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+      </p>
+      <p class="ambiance-texte-2">
+        suscipit lobortis nisl ut aliquip ex ea commodo consequat. <strong>Duis autem</strong> vel eum iriure
+        dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
+        feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
+        praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+      </p>
+
+      <h2 class="reserver-titre">Pour réserver votre table</h2>
+      <p class="reserver-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+        euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+      </p>
+      <a class="cta-1 btn-reserver-table" href="#reserver" style="--fond: #695E45; --texte: #FFFEF8">Réserver</a>
+    </section>
+
+    <!-- =====================================================================
+         4. D'OU PROVIENNENT NOS BIERES
+         ===================================================================== -->
+    <section class="brasseurs">
+      <!-- #bouteilles du haut -->
+      <img class="biere biere-h1" src="sources/biere-3.webp" alt="Bière Filou">
+      <img class="biere biere-h2" src="sources/biere-1.webp" alt="Bière Barbar">
+      <img class="biere biere-h3" src="sources/biere-2.webp" alt="Bière Chouffe">
+
+      <h2 class="brasseurs-titre">D’où proviennent nos bières ?</h2>
+      <p class="brasseurs-texte">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+        ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis <strong>nostrud exerci
+        tation ullamcorper</strong>
+      </p>
+      <p class="brasseurs-texte-2">
+        suscipit lobortis nisl ut aliquip ex ea commodo consequat. <strong>Duis autem</strong> vel eum iriure dolor in
+        hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+      </p>
+
+      <!-- #invitation a survoler la carte -->
+      <p class="survoler">Survoler pour découvrir<br>nos brasseurs !</p>
+      <img class="fleche-brasseurs" src="sources/fleche-brasseurs.svg" alt="">
+
+      <!-- #carte de la Lorraine, avec un point par brasseur -->
+      <!-- #carte des brasseurs
+           Chaque point represente un brasseur. Au survol, une petite capsule
+           s'affiche avec son nom et sa ville. -->
+      <div class="carte-region">
+        <img src="sources/carte-lorraine.svg" alt="Carte de la Lorraine">
+
+        <span class="brasseur b1">
+          <span class="capsule">Brasserie de Metz<small>Metz · Moselle</small></span>
+        </span>
+        <span class="brasseur b2">
+          <span class="capsule">Brasserie de Nancy<small>Nancy · Meurthe-et-Moselle</small></span>
+        </span>
+        <span class="brasseur b3">
+          <span class="capsule">Brasserie des Vosges<small>Épinal · Vosges</small></span>
+        </span>
+        <span class="brasseur b4">
+          <span class="capsule">Brasserie de la Meuse<small>Verdun · Meuse</small></span>
+        </span>
+        <!-- la balise bleu clair qui manquait -->
+        <span class="brasseur b5">
+          <span class="capsule">Brasserie du Saulnois<small>Château-Salins · Moselle</small></span>
+        </span>
+      </div>
+
+      <!-- #bouteilles du bas -->
+      <img class="biere biere-b1" src="sources/biere-5.webp" alt="Bière Chouffe cherry">
+      <img class="biere biere-b2" src="sources/biere-6.webp" alt="Bière Bon Secours">
+      <img class="biere biere-b3" src="sources/biere-4.webp" alt="Bière Barbar">
+    </section>
+
+    <!-- =====================================================================
+         5. BANDE "DECOUVRIR NOTRE SERVICE BARBER"
+         ===================================================================== -->
+    <a class="bande-barber" href="barber.html">
+      <img src="sources/fleur-bande.svg" alt="" class="bande-fleur">
+      <span>DÉCOUVRIR NOTRE SERVICE BARBER</span>
+      <img src="sources/fleur-bande.svg" alt="" class="bande-fleur">
+      <span>DÉCOUVRIR NOTRE SERVICE BARBER</span>
+      <img src="sources/fleur-bande.svg" alt="" class="bande-fleur">
+    </a>
+
+    <!-- =====================================================================
+         PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p><strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+           <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+           Samedi et événement spécial 1h</p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="commun.js?v=60"></script>
   </body>
 </html>

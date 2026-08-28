@@ -1,39 +1,623 @@
-/* ===== Page Bar : image de fond (meme hauteur que la hero section de l'accueil) + carte evenement + bouton reserver ===== */
-.hero-page {
+/* =========================================================================
+   PAGE "BAR"
+   -------------------------------------------------------------------------
+   Reproduction de la maquette Adobe XD "Web 1920 - 11" (1920 x 6258 px).
+   Rappel : "--u" vaut 1 pixel de la maquette (voir commun.css).
+
+   Decoupage vertical :
+     Hero evenement ....    0 -> 1160   (1160)
+     Notre carte ....... 1160 -> 2860   (1700)
+     Notre ambiance .... 2860 -> 4300   (1440)
+     Nos brasseurs ..... 4300 -> 5743   (1443)
+     Bande barber ...... 5743 -> 5901   ( 158)
+     Pied de page ...... 5901 -> 6258   ( 357)
+
+   La page entiere est sur fond beige (#DDCDB0), sauf le hero qui est une
+   photo, et le texte est brun.
+   ========================================================================= */
+
+body { background-color: var(--beige); }
+
+/* =========================================================================
+   #hero evenement  (0 -> 1160)
+   ========================================================================= */
+
+.hero-bar {
   position: relative;
-  width: 100%;
-  height: 80vh;
+  height: calc(var(--u) * 1160);
   overflow: hidden;
+  background: var(--noir);
+}
+/* Socle beige derriere la mousse : comble le noir sous les bulles pour une
+   transition franche vers la carte (memes rectangle que la maquette). */
+.hero-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--u) * 855);
+  bottom: 0;
+  background: var(--beige);
+  z-index: 1;
 }
 
-.hero-page img {
+/* la photo du bar (maquette : x 5, y -50, 1920 x 1630) */
+.hero-photo {
+  position: absolute;
+  left: calc(var(--u) * 5);
+  top: calc(var(--u) * -50);
+  width: calc(var(--u) * 1920);
+  height: calc(var(--u) * 1630);
+  object-fit: cover;
+}
+
+.bouton-remonter { top: calc(var(--u) * 464); }
+
+/* #etiquette "EVENEMENT" (maquette : x 777, y 355, 366 x 74) */
+.etiquette-evenement {
+  position: absolute;
+  left: calc(var(--u) * 777);
+  top: calc(var(--u) * 355);
+  width: calc(var(--u) * 366);
+  height: calc(var(--u) * 74);
+  margin: 0;
+  display: grid;
+  place-content: center;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(calc(var(--u) * 10));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 10));
+  border-radius: calc(var(--u) * 20);
+  color: #fff;
+  font-size: calc(var(--u) * 36);
+  font-weight: 700;
+  z-index: 3;
+}
+
+/* #panneau de l'evenement (maquette : x 593, y 459, 726 x 319) */
+.panneau-evenement {
+  position: absolute;
+  left: calc(var(--u) * 593);
+  top: calc(var(--u) * 459);
+  width: calc(var(--u) * 726);
+  min-height: calc(var(--u) * 319);
+  padding: calc(var(--u) * 34) calc(var(--u) * 20) calc(var(--u) * 30);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(calc(var(--u) * 14));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 14));
+  border-radius: calc(var(--u) * 30);
+  text-align: center;
+  z-index: 3;
+}
+/* les trois niveaux de texte de l'evenement */
+.evenement-titre,
+.evenement-detail,
+.evenement-date {
+  margin: 0 0 calc(var(--u) * 18);
+  color: #fff;
+  line-height: 1.15;
+}
+/* "Soiree Mousse" : 36 px, tres fin */
+.evenement-titre  { font-size: calc(var(--u) * 36); font-weight: 100; }
+/* "DJ + degustation..." : 31 px, gras */
+.evenement-detail { font-size: calc(var(--u) * 31); font-weight: 700; }
+/* la date : 31 px, moyen */
+.evenement-date   { font-size: calc(var(--u) * 31); font-weight: 500; }
+
+/* #bouton "Reserver" du hero (maquette : x 867, y 744, 183 x 68) */
+.btn-reserver {
+  display: inline-grid;
+  place-content: center;
+  width: calc(var(--u) * 183);
+  height: calc(var(--u) * 68);
+  background: var(--rouge);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+}
+/* au survol, c'est le style cta-1 qui agit : fond vide, texte marron */
+.btn-reserver:hover { opacity: 0.92; }
+
+/* #mousse : transition vers le fond beige */
+.mousse { position: absolute; left: 0; pointer-events: none; z-index: 2; }
+.mousse-haut { top: calc(var(--u) * 450); width: calc(var(--u) * 1923); }
+.mousse-bas  { top: calc(var(--u) * 867); width: calc(var(--u) * 1920); }
+
+/* #accroche (maquette : y 1029) */
+.accroche {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 946);
   width: 100%;
-  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 18);
+  color: var(--brun);
+  font-size: calc(var(--u) * 31);
+  font-weight: 400;
+  z-index: 4;
+}
+.accroche strong { font-weight: 700; }
+.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--brun); }
+
+/* =========================================================================
+   #notre carte  (1160 -> 2860)
+   ========================================================================= */
+
+.carte {
+  position: relative;
+  height: calc(var(--u) * 1700);
+  background: var(--beige);
+}
+
+.carte-titre {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 20);
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--brun);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+.carte-intro {
+  position: absolute;
+  left: calc(var(--u) * 623);
+  top: calc(var(--u) * 85);
+  width: calc(var(--u) * 680);
+  margin: 0;
+  color: var(--brun);
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.85;
+}
+.carte-intro strong { font-weight: 700; }
+
+/* #la fenetre laisse voir TROIS colonnes a la fois : les deux autres
+   attendent hors du cadre. On les fait venir avec les fleches, ou en
+   faisant glisser au doigt / au pave tactile. */
+.carte-fenetre {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(var(--u) * 330);
+  width: calc(var(--u) * 1470);
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: calc(var(--u) * 20);
+}
+.carte-fenetre::-webkit-scrollbar { display: none; }
+
+.carte-colonnes {
+  display: flex;
+  gap: calc(var(--u) * 60);
+  padding: 0 calc(var(--u) * 15);
+  width: max-content;
+}
+
+/* #les deux fleches, posees de chaque cote de la carte */
+.carte-fleche {
+  position: absolute;
+  top: calc(var(--u) * 700);
+  padding: 0 calc(var(--u) * 10);
+  border: none;
+  background: none;
+  color: var(--brun);
+  font-size: calc(var(--u) * 54);
+  line-height: 1;
+  cursor: pointer;
+  z-index: 5;
+  transition: opacity 0.2s;
+}
+.carte-fleche:hover { opacity: 0.55; }
+.carte-fleche-gauche { left: calc(var(--u) * 90); }
+.carte-fleche-droite { right: calc(var(--u) * 90); }
+
+/* une colonne de la carte */
+.colonne { width: calc(var(--u) * 430); }
+.colonne h3 {
+  margin: 0 0 calc(var(--u) * 40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 14);
+  color: var(--brun);
+  font-size: calc(var(--u) * 25);
+  font-weight: 700;
+}
+/* Le pictogramme n'est plus a cote du titre : il prend sa place DANS la
+   colonne, entre deux boissons, et ne depasse jamais 100 px de haut. */
+.colonne li.ligne-picto {
+  padding: 0;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+}
+.colonne-picto { height: calc(var(--u) * 100); width: auto; display: block; }
+.colonne ul { margin: 0; padding: 0; list-style: none; }
+
+/* une ligne de la carte : nom, description et prix dans une gousse arrondie */
+/* Chaque ligne de la carte : le fond reprend le beige de la page (et non du
+   blanc), le contour est marron et fait 5 d'epaisseur. */
+.colonne li {
+  position: relative;
+  margin-bottom: calc(var(--u) * 24);
+  padding: calc(var(--u) * 16) calc(var(--u) * 78) calc(var(--u) * 16) calc(var(--u) * 26);
+  background: var(--beige);
+  border: calc(var(--u) * 5) solid var(--brun);
+  border-radius: calc(var(--u) * 34);
+}
+.colonne .nom {
+  display: block;
+  color: var(--brun);
+  font-size: calc(var(--u) * 22);
+  font-weight: 700;
+}
+.colonne .desc {
+  display: block;
+  margin-top: calc(var(--u) * 6);
+  color: var(--brun);
+  font-size: calc(var(--u) * 16);
+  font-weight: 400;
+  line-height: 1.35;
+}
+/* le prix est dans une pastille ronde, a cheval sur le bord droit */
+.colonne .prix {
+  position: absolute;
+  right: calc(var(--u) * -26);
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--u) * 76);
+  height: calc(var(--u) * 76);
+  display: grid;
+  place-content: center;
+  background: var(--beige);
+  border: calc(var(--u) * 5) solid var(--brun);
+  border-radius: 50%;
+  color: var(--brun);
+  font-size: calc(var(--u) * 19);
+  font-weight: 700;
+}
+/* certaines cases de la carte contiennent une photo d'ambiance */
+.colonne li.avec-photo {
+  padding: 0;
+  border: none;
+  background: none;
+  overflow: hidden;
+  border-radius: calc(var(--u) * 26);
+}
+.colonne li.avec-photo img {
+  width: 100%;
+  height: calc(var(--u) * 250);
   object-fit: cover;
   display: block;
+  border-radius: calc(var(--u) * 26);
 }
 
-/* Carte blanche arrondie, opacite baissee, centree sur l'image */
-.hero-page-carte {
+/* =========================================================================
+   #notre ambiance  (2860 -> 4300)
+   ========================================================================= */
+
+.ambiance {
+  position: relative;
+  height: calc(var(--u) * 1440);
+  background: var(--beige);
+}
+
+/* #fond de forme (maquette : le grand rond de 554 est cale sur x 80, y 2990) */
+.fond-forme-ambiance { left: calc(var(--u) * 80); top: calc(var(--u) * 130); width: calc(var(--u) * 628); }
+
+/* #photos rondes
+   Chaque photo est centree dans le rond du fond en laissant depasser
+   environ 12 px de brun tout autour : c'est le contour de la maquette. */
+.rond { position: absolute; border-radius: 50%; overflow: hidden; z-index: 1; }
+.rond img { position: absolute; max-width: none; display: block; }
+/* grande photo (maquette : groupe de masques 529 de large, x 91) */
+.rond-grand { left: calc(var(--u) * 93);  top: calc(var(--u) * 143); width: calc(var(--u) * 529); height: calc(var(--u) * 529); aspect-ratio: 1 / 1; }
+/* petite photo (maquette : groupe de masques 225 de large, x 337) */
+.rond-petit { left: calc(var(--u) * 339); top: calc(var(--u) * 755); width: calc(var(--u) * 225); height: calc(var(--u) * 225); aspect-ratio: 1 / 1; }
+/* #cadrage des photos rondes
+   (coordonnees de la maquette, section ambiance qui demarre a 2860)
+   Dans la maquette, chaque photo est posee en grand derriere son rond,
+   qui n'en montre qu'une partie. On reprend ici sa taille et sa position
+   exactes plutot que de laisser le navigateur recadrer tout seul. */
+.rond-grand img { left: 0; top: calc(var(--u) * -124); width: calc(var(--u) * 529); height: calc(var(--u) * 705); }
+.rond-petit img { left: 0; top: calc(var(--u) * -68);  width: calc(var(--u) * 225); height: calc(var(--u) * 300); }
+
+/* #pastilles brunes decoratives (positions relevees dans la maquette) */
+.pastille { position: absolute; border-radius: 50%; background: var(--brun); }
+.pa1 { left: calc(var(--u) * 501);  top: calc(var(--u) * 607); width: calc(var(--u) * 77); height: calc(var(--u) * 77); }
+.pa2 { left: calc(var(--u) * 143);  top: calc(var(--u) * 665); width: calc(var(--u) * 38); height: calc(var(--u) * 38); }
+.pa3 { left: calc(var(--u) * 616);  top: calc(var(--u) * 719); width: calc(var(--u) * 91); height: calc(var(--u) * 91); }
+.pa4 { left: calc(var(--u) * 340);  top: calc(var(--u) * 732); width: calc(var(--u) * 49); height: calc(var(--u) * 48); }
+.pa5 { left: calc(var(--u) * 203);  top: calc(var(--u) * 780); width: calc(var(--u) * 99); height: calc(var(--u) * 99); }
+.pa6 { left: calc(var(--u) * 1738); top: calc(var(--u) * 340); width: calc(var(--u) * 34); height: calc(var(--u) * 66); }
+
+/* #textes de la section */
+.ambiance-titre,
+.reserver-titre {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  max-width: 80%;
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 20px;
-  padding: 2rem;
+  margin: 0;
+  color: #5D5441;
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+.ambiance-titre  { left: calc(var(--u) * 830); top: calc(var(--u) * 225); }
+.reserver-titre  { left: calc(var(--u) * 830); top: calc(var(--u) * 680); }
+
+.ambiance-texte,
+.ambiance-texte-2,
+.reserver-texte {
+  position: absolute;
+  left: calc(var(--u) * 830);
+  width: calc(var(--u) * 700);
+  margin: 0;
+  color: #5D5441;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.85;
+}
+.ambiance-texte   { top: calc(var(--u) * 258); }
+.ambiance-texte-2 { top: calc(var(--u) * 400); }
+.reserver-texte   { top: calc(var(--u) * 713); }
+.ambiance-texte strong, .ambiance-texte-2 strong { font-weight: 700; }
+
+/* #bouton "Reserver" de la section (maquette : x 889, y 3683 -> 823) */
+.btn-reserver-table {
+  position: absolute;
+  left: calc(var(--u) * 889);
+  top: calc(var(--u) * 858);
+  display: grid;
+  place-content: center;
+  width: calc(var(--u) * 240);
+  height: calc(var(--u) * 68);
+  background: var(--brun);
+  border-radius: calc(var(--u) * 34);
+  color: var(--creme);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  text-decoration: none;
+}
+.btn-reserver-table:hover { opacity: 0.92; }
+
+/* =========================================================================
+   #d'ou proviennent nos bieres  (4300 -> 5743)
+   ========================================================================= */
+
+.brasseurs {
+  position: relative;
+  height: calc(var(--u) * 1443);
+  background: var(--beige);
+}
+
+/* #bouteilles : posees directement sur le beige, sans plaque ni cadre
+   derriere elles (le fond des photos a ete rendu transparent). */
+.biere {
+  position: absolute;
+  width: calc(var(--u) * 340);
+  padding: 0;
+  background: none;
+  transition: transform 0.3s ease;
+}
+/* au survol, la bouteille pivote legerement */
+.biere:hover { transform: rotate(-8deg) scale(1.04); }
+.biere-h1:hover, .biere-b1:hover { transform: rotate(-14deg) scale(1.04); }
+.biere-h3:hover, .biere-b3:hover { transform: rotate(14deg) scale(1.04); }
+/* rangee du haut (maquette : y 3942 -> -358, elles remontent dans la section
+   precedente, ce qui est voulu) */
+.biere-h1 { left: calc(var(--u) * 278);  top: calc(var(--u) * -295); transform: rotate(-6deg); }
+.biere-h2 { left: calc(var(--u) * 699);  top: calc(var(--u) * -358); }
+.biere-h3 { left: calc(var(--u) * 1144); top: calc(var(--u) * -317); transform: rotate(6deg); }
+/* rangee du bas (maquette : y 5277 -> 977) */
+.biere-b1 { left: calc(var(--u) * 295);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
+.biere-b2 { left: calc(var(--u) * 733);  top: calc(var(--u) * 1070); }
+.biere-b3 { left: calc(var(--u) * 1146); top: calc(var(--u) * 974);  transform: rotate(6deg); }
+
+/* #titre et textes (maquette : titre y 4387 -> 87) */
+.brasseurs-titre {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 70);
+  width: 100%;
+  margin: 0;
   text-align: center;
-  font-size: 25px;
+  color: #5D5441;
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
 }
-
-/* Bouton "Reserver" a cheval sur le bord bas de la carte */
-.hero-page-bouton-reserver {
+.brasseurs-texte,
+.brasseurs-texte-2 {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  transform: translate(-50%, 50%);
-  background-color: #000;
+  transform: translateX(-50%);
+  width: calc(var(--u) * 800);
+  margin: 0;
+  text-align: center;
+  color: #5D5441;
+  font-size: calc(var(--u) * 18);
+  font-weight: 400;
+  line-height: 1.85;
+}
+.brasseurs-texte   { top: calc(var(--u) * 110); }
+.brasseurs-texte-2 { top: calc(var(--u) * 210); }
+.brasseurs-texte strong, .brasseurs-texte-2 strong { font-weight: 700; }
+
+/* #invitation a survoler (maquette : x 357, y 4669 -> 369) */
+.survoler {
+  position: absolute;
+  left: calc(var(--u) * 300);
+  top: calc(var(--u) * 350);
+  width: calc(var(--u) * 280);
+  margin: 0;
+  text-align: center;
+  color: #5E5441;
+  font-size: calc(var(--u) * 23);
+  font-weight: 100;
+  line-height: 1.4;
+}
+.fleche-brasseurs {
+  position: absolute;
+  left: calc(var(--u) * 330);
+  top: calc(var(--u) * 470);   /* descendue : elle collait au texte */
+  width: calc(var(--u) * 165);
+}
+
+/* #carte de la Lorraine (maquette : x 632, y 4691 -> 391) */
+.carte-region {
+  position: absolute;
+  left: calc(var(--u) * 632);
+  top: calc(var(--u) * 391);
+  width: calc(var(--u) * 702);
+}
+.carte-region img { width: 100%; display: block; }
+
+/* #un point par brasseur
+   Au survol, le point grossit et une petite capsule s'affiche au-dessus
+   avec le nom du brasseur et sa ville. */
+.brasseur {
+  position: absolute;
+  width: calc(var(--u) * 24);
+  height: calc(var(--u) * 24);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.brasseur:hover { transform: scale(1.5); z-index: 5; }
+
+/* la capsule : masquee au repos, elle apparait au survol du point */
+.capsule {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + var(--u) * 14);
+  transform: translateX(-50%) scale(0.9);
+  width: max-content;
+  max-width: calc(var(--u) * 320);
+  padding: calc(var(--u) * 12) calc(var(--u) * 20);
+  background: var(--creme);
+  border: calc(var(--u) * 5) solid var(--brun);
+  border-radius: calc(var(--u) * 20);
+  color: var(--brun);
+  font-size: calc(var(--u) * 18);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.capsule small {
+  display: block;
+  margin-top: calc(var(--u) * 4);
+  font-size: calc(var(--u) * 15);
+  font-weight: 400;
+}
+.brasseur:hover .capsule {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* positions et couleurs des points, relevees dans la maquette */
+/* Positions et couleurs relevees une a une dans la maquette. */
+.b1 { left: 56.8%; top: 35.9%; background: #B78EE0; }   /* Metz */
+.b2 { left: 63.7%; top: 49.0%; background: #B78EE0; }   /* Nancy */
+.b3 { left: 66.2%; top: 78.0%; background: #E08E8E; }   /* Vosges */
+.b4 { left: 18.7%; top: 48.0%; background: #8EE09B; }   /* Meuse */
+.b5 { left: 46.2%; top: 95.3%; background: #8EC4E0; }   /* Saulnois */
+
+/* La capsule du survol est le visuel fourni par la designer : un fond brun
+   arrondi avec la photo du brasseur deja dedans. On ne pose par-dessus que
+   le nom et la ville, a droite de la photo. */
+.capsule {
+  width: calc(var(--u) * 402);
+  max-width: none;
+  height: calc(var(--u) * 133);
+  padding: calc(var(--u) * 30) calc(var(--u) * 18) 0 calc(var(--u) * 152);
+  background: no-repeat center / contain;
+  border: none;
+  border-radius: 0;
   color: #fff;
+  text-align: left;
+  font-size: calc(var(--u) * 20);
+}
+.capsule small { color: #fff; font-size: calc(var(--u) * 16); }
+.b1 .capsule, .b2 .capsule { background-image: url("sources/caps-violette.webp"); }
+.b3 .capsule { background-image: url("sources/caps-rouge.webp"); }
+.b4 .capsule { background-image: url("sources/caps-verte.webp"); }
+.b5 .capsule { background-image: url("sources/caps-bleu.webp"); }
+
+/* =========================================================================
+   #bande "Decouvrir notre service barber"  (5743 -> 5901)
+   ========================================================================= */
+
+.bande-barber {
+  height: calc(var(--u) * 158);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 60);
+  background: var(--brun);
+  color: #F9F5EA;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.bande-barber:hover { color: #F9F5EA; opacity: 0.92; }
+.bande-barber span { font-size: calc(var(--u) * 33); font-weight: 700; }
+.bande-fleur { height: calc(var(--u) * 62); }
+
+/* =========================================================================
+   #mobile
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  .hero-bar { height: 70vh; }
+  .hero-photo { left: 0; top: 0; width: 100%; height: 100%; }
+  .etiquette-evenement { left: 50%; transform: translateX(-50%); width: 60%; height: 44px; font-size: 1.2rem; top: 12%; }
+  .panneau-evenement { left: 50%; transform: translateX(-50%); width: 88%; min-height: 0; top: 28%; padding: 1.2rem; border-radius: 20px; }
+  .evenement-texte { font-size: 1.05rem; }
+  .btn-reserver { width: auto; height: auto; padding: 0.5rem 1.4rem; font-size: 1rem; }
+  .mousse-haut { top: auto; bottom: 12%; width: 130%; }
+  .mousse-bas  { top: auto; bottom: -2%; width: 130%; }
+  .accroche { top: auto; bottom: 2%; font-size: 1.05rem; }
+  .bouton-remonter { top: 40%; }
+
+  .carte, .ambiance, .brasseurs { height: auto; padding: 2rem 1.2rem; }
+  .carte-titre, .carte-intro, .carte-fenetre,
+  .ambiance-titre, .ambiance-texte, .ambiance-texte-2,
+  .reserver-titre, .reserver-texte, .btn-reserver-table,
+  .brasseurs-titre, .brasseurs-texte, .brasseurs-texte-2,
+  .survoler, .carte-region {
+    position: static;
+    left: auto; top: auto; width: auto;
+    transform: none;
+  }
+  .carte-titre, .ambiance-titre, .reserver-titre, .brasseurs-titre { font-size: 1.35rem; margin-bottom: 0.8rem; }
+  .carte-intro, .ambiance-texte, .ambiance-texte-2, .reserver-texte,
+  .brasseurs-texte, .brasseurs-texte-2 { font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.2rem; }
+
+  /* la carte se fait glisser au doigt, une colonne presque pleine largeur */
+  .carte-colonnes { padding: 0; gap: 1rem; }
+  .colonne { width: 78vw; }
+  .colonne h3 { font-size: 1.15rem; margin-bottom: 1.2rem; }
+  .colonne li { padding: 0.7rem 3rem 0.7rem 1rem; border-radius: 22px; border-width: 1px; margin-bottom: 1rem; }
+  .colonne .nom { font-size: 1rem; }
+  .colonne .desc { font-size: 0.8rem; }
+  .colonne .prix { width: 46px; height: 46px; font-size: 0.85rem; right: -12px; border-width: 1px; }
+  .colonne li.avec-photo img { height: 140px; }
+
+  .rond, .pastille, .fleche-brasseurs, .biere { display: none; }
+  .btn-reserver-table { width: 100%; height: 48px; font-size: 1.05rem; margin-bottom: 1.5rem; }
+  .survoler { font-size: 0.95rem; margin-bottom: 0.8rem; }
+  .carte-region img { width: 100%; }
+
+  .bande-barber { height: auto; padding: 1rem; gap: 1rem; flex-wrap: wrap; white-space: normal; text-align: center; }
+  .bande-barber span { font-size: 1.05rem; }
+  .bande-fleur { height: 28px; }
 }

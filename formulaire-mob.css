@@ -1,0 +1,271 @@
+/* =========================================================================
+   CREATION ET MODIFICATION DE COMPTE - MISE EN PAGE TELEPHONE
+   -------------------------------------------------------------------------
+   Reproduction des maquettes Adobe XD "Creation compte - mob" et
+   "Modification - mob" (430 x 2482 px), qui sont identiques a la
+   disposition pres.
+   Chargee uniquement en dessous de 1024 px de large.
+
+   Decoupage vertical (valeurs relevees dans la maquette) :
+     Barre de navigation ....    0 ->  115
+     Formulaire .............  115 -> 1557
+     Pied de page ........... 1557 -> 2482
+   ========================================================================= */
+
+.page-compte {
+  position: relative;
+  z-index: 0;
+  height: calc(var(--u) * 1442);
+  padding: 0;
+  background: var(--creme);
+}
+
+/* #titre (maquette : ligne de base a 205, centre) */
+.compte-titre {
+  position: absolute;
+  top: calc(var(--u) * 71);
+  left: calc(var(--u) * 65);
+  width: calc(var(--u) * 300);
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+/* #mention des champs obligatoires (maquette : ligne de base a 626) */
+.compte-obligatoire {
+  position: absolute;
+  top: calc(var(--u) * 496);
+  left: calc(var(--u) * 76);
+  width: calc(var(--u) * 320);
+  margin: 0;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 16);
+  font-weight: 800;
+}
+.compte-obligatoire .etoile {
+  position: absolute;
+  left: calc(var(--u) * -25);
+  top: calc(var(--u) * -14);
+  font-size: calc(var(--u) * 45);
+  font-weight: 500;
+}
+
+.compte-form { position: static; }
+
+/* -------------------------------------------------------------------------
+   #photo de profil : le gros rond, place AVANT les champs sur telephone
+   (maquette : 233 de diametre en x 99, y 272)
+   ------------------------------------------------------------------------- */
+.photo-profil {
+  position: absolute;
+  left: calc(var(--u) * 99);
+  top: calc(var(--u) * 157);
+  width: calc(var(--u) * 233);
+  height: calc(var(--u) * 233);
+}
+.photo-rond {
+  width: calc(var(--u) * 233);
+  height: calc(var(--u) * 233);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #4A4A4A;
+  cursor: pointer;
+  position: relative;
+}
+.photo-plus::before,
+.photo-plus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #D4D4D4;
+  border-radius: calc(var(--u) * 3);
+}
+.photo-plus::before { width: calc(var(--u) * 74); height: calc(var(--u) * 8); }
+.photo-plus::after  { width: calc(var(--u) * 8);  height: calc(var(--u) * 74); }
+
+/* #legende sous le rond (maquette : ligne de base a 552, centree) */
+.photo-legende {
+  position: absolute;
+  left: calc(var(--u) * -99);
+  top: calc(var(--u) * 261);
+  width: calc(var(--u) * 430);
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-size: calc(var(--u) * 20);
+  font-weight: 800;
+}
+
+/* -------------------------------------------------------------------------
+   #champs de saisie (maquette : 358 x 60, en x 36)
+   La position verticale de chaque ligne est donnee par la variable
+   "--ligne", que l'on redefinit ici avec les valeurs du telephone.
+   ------------------------------------------------------------------------- */
+/* La position de chaque ligne est ecrite ici en "top" et non avec la
+   variable "--ligne" : cette variable est posee directement sur la balise
+   dans le HTML (valeurs du grand ecran), et une valeur ecrite sur la balise
+   l'emporte toujours sur une feuille de style. */
+.champ-ligne {
+  position: absolute;
+  left: calc(var(--u) * 36);
+  width: calc(var(--u) * 358);
+  height: calc(var(--u) * 60);
+}
+.compte-form > .champ-ligne:nth-child(1) { top: calc(var(--u) * 560); }   /* prenom */
+.compte-form > .champ-ligne:nth-child(2) { top: calc(var(--u) * 664); }   /* nom */
+.compte-form > .champ-ligne:nth-child(3) { top: calc(var(--u) * 768); }   /* date de naissance */
+.compte-form > .champ-ligne:nth-child(4) { top: calc(var(--u) * 872); }   /* adresse e-mail */
+.compte-form > .champ-ligne:nth-child(5) { top: calc(var(--u) * 976); }   /* telephone */
+
+.champ {
+  width: 100%;
+  height: 100%;
+  padding: 0 calc(var(--u) * 32);
+  border: 0;
+  border-radius: calc(var(--u) * 30);
+  background: var(--champ);
+  color: #fff;
+  font-family: inherit;
+  font-size: calc(var(--u) * 23);
+  font-weight: 500;
+}
+.champ::placeholder { color: #fff; opacity: 1; }
+
+/* #etoile rouge, a droite de chaque champ obligatoire */
+.etoile-champ {
+  position: absolute;
+  left: calc(var(--u) * 348);
+  top: calc(var(--u) * -22);
+  color: var(--rouge);
+  font-size: calc(var(--u) * 45);
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------
+   #cases a cocher (maquette : 55 x 56 en x 36, y 1210 et 1310)
+   ------------------------------------------------------------------------- */
+.case-ligne {
+  position: absolute;
+  left: calc(var(--u) * 36);
+  width: calc(var(--u) * 358);
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--u) * 18);
+}
+.compte-form > .case-ligne:nth-child(7) { top: calc(var(--u) * 1095); }   /* conditions generales */
+.compte-form > .case-ligne:nth-child(8) { top: calc(var(--u) * 1195); }   /* newsletter */
+
+.case {
+  flex: 0 0 auto;
+  width: calc(var(--u) * 55);
+  height: calc(var(--u) * 56);
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: calc(var(--u) * 4) solid var(--petrole);
+  border-radius: calc(var(--u) * 8);
+  background: #fff;
+  position: relative;
+  cursor: pointer;
+}
+/* la croix qui apparait quand la case est cochee */
+.case:checked::before,
+.case:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 42);
+  height: calc(var(--u) * 5);
+  background: var(--petrole);
+  border-radius: calc(var(--u) * 3);
+}
+.case:checked::before { transform: translate(-50%, -50%) rotate(45deg); }
+.case:checked::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+.case-texte {
+  color: #000;
+  font-size: calc(var(--u) * 16);
+  font-weight: 800;
+  line-height: 1.5;
+}
+.etoile-case {
+  margin: 0;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 45);
+  font-weight: 500;
+  line-height: 0.7;
+}
+
+/* les ronds bleus decoratifs n'existent pas sur telephone */
+.rond-deco { display: none; }
+
+/* -------------------------------------------------------------------------
+   #bouton d'envoi (maquette : 289 x 107 en x 71, y 1409)
+   ------------------------------------------------------------------------- */
+.btn-enregistrer {
+  position: absolute;
+  left: calc(var(--u) * 71);
+  top: calc(var(--u) * 1294);
+  width: calc(var(--u) * 289);
+  height: calc(var(--u) * 107);
+  border-radius: calc(var(--u) * 54);
+  font-size: calc(var(--u) * 23);
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+/* =========================================================================
+   #page "Modification de mes informations"
+   Les memes champs, mais deja remplis : chacun porte une etiquette blanche
+   au-dessus et une pastille de validation a droite. Les deux champs verts
+   de la maquette signalent une information verifiee.
+   ========================================================================= */
+
+/* la photo de profil est deja choisie : on voit la photo, pas le rond gris */
+.photo-profil .photo-rond:has(img) { background: none; }
+.photo-rond img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; border-radius: 50%; display: block; }
+
+/* #etiquette blanche posee sur le haut du champ (maquette : hauteur 35) */
+.champ-etiquette {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * -26);
+  padding: 0 calc(var(--u) * 12);
+  height: calc(var(--u) * 35);
+  display: grid;
+  place-content: center;
+  background: #fff;
+  border: calc(var(--u) * 2) solid var(--petrole);
+  border-radius: calc(var(--u) * 10);
+  color: var(--petrole);
+  font-size: calc(var(--u) * 16);
+  font-weight: 500;
+  z-index: 2;
+}
+
+/* #champ deja rempli : la maquette le passe en vert */
+.champ--rempli { background: var(--champ-ok); }
+
+/* #pastille de validation, a droite du champ (maquette : 38 de diametre) */
+.champ-valide {
+  position: absolute;
+  left: calc(var(--u) * 308);
+  top: calc(var(--u) * 11);
+  width: calc(var(--u) * 38);
+  height: calc(var(--u) * 38);
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  background: #F9FEFF;
+  z-index: 2;
+}
+/* la coche est dessinee en blanc dans le HTML : sur telephone le rond est
+   blanc lui aussi, on repasse donc la coche en vert */
+.champ-valide svg { width: calc(var(--u) * 20); height: calc(var(--u) * 20); }
+.champ-valide svg path { stroke: var(--champ-ok); }

@@ -1,247 +1,402 @@
 <!doctype html>
-<html lang="en">
+<!-- =========================================================================
+     BARBEERSHOP - PAGE D'ACCUEIL
+     Reproduction de la maquette Adobe XD "Page Accueil" (1920 x 5725 px).
+
+     Decoupage vertical (valeurs relevees dans la maquette) :
+       Hero .............    0 -> 1150
+       Concept ..........  1150 -> 2250
+       Avis .............  2250 -> 2683
+       Bar a biere ......  2683 -> 3790
+       Infos pratiques ..  3790 -> 4440
+       Instagram ........  4440 -> 5211
+       Bandeau sante ....  5211 -> 5368
+       Pied de page .....  5368 -> 5725
+     ========================================================================= -->
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BarBeerShop</title>
+    <title>BarBeerShop - Barber et bar à bière à Metz</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="Accueil.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=60" rel="stylesheet">
+    <link href="commun.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="Accueil.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="accueil-mob.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
+
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-    <!-- NAVBAR -->
-    <!-- Couleur de la navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-      <div class="container-fluid">
-        <!-- Logo dans la navbar -->
-        <a class="navbar-brand" href="#">BarBeerShop</a>
-        <!-- Boutons de la navbar -->
-        <button type="button" class="btn btn-primary btn-lg">Prendre RDV</button>
-        <button type="button" class="btn btn-secondary btn-lg">Réserver une table</button>
-        <!-- Bouton burger -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Bouton rond Compte -->
-        <button type="button" class="bouton-rond">
-          <img src="sources/Image-temporaire.webp" alt="photo de profil">
-        </button>
-        <!-- Menu de la navbar -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Accueil.html">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Bar.html">Bar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="barber.html">Barber</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="notre-concept.html">Notre Concept</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- CARROUSSEL -->
-    <!-- défilement automatique toutes les 4 secondes-->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-      <div class="carousel-inner">
-        <!-- 1ère slide, visible au chargement -->
-        <div class="carousel-item active">
-          <img src="sources/Fond noir.webp" class="d-block w-100" alt="Fond noir avec bulles et photos bar et barber">
-          <!-- petites photos carrées de chaque coté du texte -->
-          <img src="sources/Image-temporaire.webp" class="photo-carrousel1 photo-carrousel1-gauche" alt="une photo du bar">
-          <img src="sources/Image-temporaire.webp" class="photo-carrousel1 photo-carrousel1-droite" alt="une photo du salon ">
-          <!-- texte Concept -->
-          <p class="texte-carrousel1">
-            VOUS NE CONNAISSEZ <br> PAS NOTRE CONCEPT ?
-          </p>
-        </div>
-        <!-- 2ème slide -->
-        <div class="carousel-item">
-          <img src="sources/Image-temporaire.webp" class="d-block w-100" alt="images boissons alcoolisées">
-          <!-- texte Soirée -->
-          <p class="texte-carrousel2">
-            ET SI VOUS VENIEZ <br> À NOTRE PROCHAINE SOIRÉE ?
-          </p>
-          <!-- CTA Soirée -->
-          <button type="button" class="btn bouton-carrousel">Voir la soirée</button>
-        </div>
-    </div>
-    <div class="slide-vers-le-bas-ligne">
-      <p class="slide-vers-le-bas">
-        On vous en dit plus ici
-      </p>
-      <button type="button" class="bouton-fleche">
-        <img src="sources/Image-temporaire.webp" alt="flèche">
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
       </button>
-    </div>
 
-    <!-- NOTRE CONCEPT -->
-    <div class="container bloc-concept">
-      <!-- Introduction 1 -->
-      <div class="container presentation py-5">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <h2>Barber et Bar à Metz</h2>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <br> nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam <br> erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci <br> tation ullamcorper </p>
-          </div>
-          <div class="col-md-6">
-            <img src="sources/Image-temporaire.webp" class="img-fluid1" alt="Photo du salon">
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html" class="actif" aria-current="page">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html">NOTRE CONCEPT</a>
+      </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
+    </nav>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION (version complete)
+         ===================================================================== -->
+    <header class="barre-nav">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <!-- #boutons de reservation -->
+      <div class="nav-reservation">
+        <a class="nav-btn-rdv" href="#rdv">Prendre RDV</a>
+        <a class="nav-btn-soiree" href="#soiree">Réserver<br>ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+
+      <!-- #acces au compte -->
+      <a class="nav-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html" class="actif" aria-current="page">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html">NOTRE<br>CONCEPT</a>
+      </nav>
+    </header>
+
+    <!-- =====================================================================
+         1. HERO : fond sombre, deux photos rondes, titre et griffonnages
+         ===================================================================== -->
+    <section class="hero">
+      <!-- #bouton remonter en haut de page -->
+      <a class="bouton-remonter" href="#" aria-label="Remonter en haut de page">
+        <img src="sources/bouton-remonter.svg" alt="">
+      </a>
+
+      <!-- #photo ronde de gauche : le salon -->
+      <div class="hero-rond hero-rond-gauche">
+        <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure BarBeerShop">
+      </div>
+      <!-- #photo ronde de droite : le comptoir du bar -->
+      <div class="hero-rond hero-rond-droite">
+        <img src="sources/bar-comptoir.webp" alt="Le comptoir du bar à bières">
+      </div>
+
+      <!-- #titre principal -->
+      <h1 class="hero-titre">VOUS NE CONNAISSEZ<br>PAS <strong>NOTRE CONCEPT ?</strong></h1>
+
+      <!-- #griffonnages decoratifs -->
+      <img class="deco deco-loupe"   src="sources/loupe-paille.svg" alt="">
+      <img class="deco deco-fleur-p" src="sources/fleur-petite.svg" alt="">
+      <img class="deco deco-trait"   src="sources/trait-blanc.svg" alt="">
+      <img class="deco deco-moust"   src="sources/moustache.svg" alt="">
+      <img class="deco deco-fleur-g" src="sources/fleur-grande.svg" alt="">
+
+      <!-- #mousse de biere : transition du fond sombre vers le fond creme
+           La maquette telephone dessine cette mousse autrement : elle a donc
+           son propre fichier, affiche uniquement sur petit ecran. -->
+      <img class="mousse mousse-haut" src="sources/mousse-haut.svg" alt="">
+      <img class="mousse mousse-bas"  src="sources/mousse-bas.svg" alt="">
+      <img class="mousse mousse-mob"  src="sources/mousse-mob.svg" alt="">
+
+      <!-- #accroche qui invite a descendre -->
+      <p class="accroche">
+        On vous en dit plus <strong>ici</strong>
+        <svg viewBox="0 0 46 26" aria-hidden="true"><path d="M0 0h46L23 26z"/></svg>
+      </p>
+    </section>
+
+    <!-- =====================================================================
+         2. CONCEPT : barber et bar, photos rondes et bulles de legende
+         ===================================================================== -->
+    <section class="concept" id="concept">
+      <h2 class="concept-titre">Barber et bar à Bière à Metz</h2>
+
+      <!-- #texte de gauche -->
+      <p class="concept-texte-1">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+        erat volutpat. Ut wisi enim ad minim veniam, quis <strong>nostrud exerci
+        tation ullamcorper</strong>
+      </p>
+
+      <!-- #texte du milieu -->
+      <div class="concept-texte-2">
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+           sed diam nonummy nibh euismod tincidunt ut laoreet
+           dolore magna aliquam erat volutpat. Ut wisi enim ad
+           minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong></p>
+        <p>suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+           <strong>Duis autem</strong> vel eum iriure dolor in hendrerit in vulputate
+           velit esse molestie consequat, vel illum dolore eu feugiat
+           nulla facilisis at vero eros et accumsan et iusto odio
+           dignissim qui blandit praesent luptatum zzril delenit</p>
+      </div>
+
+      <!-- #ronds et bulles bleues de la version telephone
+           Sur petit ecran la composition est differente : deux blocs de
+           formes, un par photo ronde. -->
+      <img src="sources/mob-bulles-bar.svg"    alt="" class="bulles-mob bulles-mob-bar">
+      <img src="sources/mob-bulles-barber.svg" alt="" class="bulles-mob bulles-mob-barber">
+
+      <!-- #fonds de forme fournis par la designer
+           Ce sont les grands ronds bleu petrole qui depassent derriere les
+           photos : ils dessinent le contour, les bulles satellites et les
+           raccords en goutte entre les ronds. -->
+      <img src="sources/fond-accueil-bar.webp" alt="" class="fond-forme fond-forme-bar">
+      <img src="sources/fond-accueil-barber.webp" alt="" class="fond-forme fond-forme-barber">
+
+      <!-- #photos rondes -->
+      <div class="rond rond-briques"><img src="sources/bar-briques.webp" alt="La salle du bar, mur de briques"></div>
+      <div class="rond rond-ambiance"><img src="sources/bar-ambiance.webp" alt="L'ambiance du bar à bières"></div>
+      <div class="rond rond-salon"><img src="sources/salon-fauteuils.webp" alt="Les fauteuils du barber"></div>
+
+      <!-- #bulles de legende posees sur les photos -->
+      <span class="legende legende-bar">BAR<small>À bières</small></span>
+      <span class="legende legende-barber legende-sans-fond">BARBER</span>
+
+      <!-- #petits sourires blancs dessines sous chaque bulle -->
+      <span class="sourire sourire-bar" aria-hidden="true"></span>
+      <span class="sourire sourire-barber" aria-hidden="true"></span>
+      <span class="grain-beaute" aria-hidden="true"></span>
+
+      <!-- #pastilles bleues decoratives -->
+      <span class="pastille p1"></span>
+      <span class="pastille p2"></span>
+      <span class="pastille p3"></span>
+      <span class="pastille p4"></span>
+      <img class="deco deco-fleurs-tige" src="sources/fleurs-tige.svg" alt="">
+
+      <!-- #bouton vers la page concept -->
+      <a class="cta-1 concept-cta" href="notre-concept.html" style="--fond: #E13950; --texte: #FFFEF8">Notre concept</a>
+    </section>
+
+    <!-- =====================================================================
+         3. AVIS CLIENTS
+         ===================================================================== -->
+    <section class="avis">
+      <h2 class="avis-titre">Vos avis sur le Barbeershop</h2>
+
+      <!-- #carrousel des avis
+           Cinq avis, trois visibles a la fois. Les fleches font tourner d'un
+           cran. L'inclinaison depend de la PLACE occupee, pas de la carte :
+           celle du milieu est droite, ses voisines a 7 degres, et les deux
+           qui attendent sur les cotes a 14 degres. -->
+      <div class="avis-carrousel">
+
+        <!-- #fleche precedente -->
+        <button type="button" class="avis-fleche avis-fleche-gauche"
+                id="avisPrecedent" aria-label="Avis précédents">&#10094;</button>
+
+        <div class="avis-fenetre" id="avisFenetre">
+          <div class="avis-piste">
+
+            <figure class="avis-carte">
+              <blockquote>Lorem ipsum dolor sit amel, consectetuer adipiscing Lorem ipsum dolor sit amel, consectetuer adipiscing</blockquote>
+              <figcaption>Joe</figcaption>
+            </figure>
+
+            <figure class="avis-carte">
+              <blockquote>Lorem ipsum dolor sit amel, consectetuer adipiscing</blockquote>
+              <figcaption>Skyfe44</figcaption>
+            </figure>
+
+            <figure class="avis-carte">
+              <blockquote>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</blockquote>
+              <figcaption>Jeff Rich</figcaption>
+            </figure>
+
+            <figure class="avis-carte">
+              <blockquote>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</blockquote>
+              <figcaption>Amanda Crouss</figcaption>
+            </figure>
+
+            <figure class="avis-carte">
+              <blockquote>Lorem ipsum dolor sit amet, consectetuer</blockquote>
+              <figcaption>Jay Mona</figcaption>
+            </figure>
+
           </div>
         </div>
+
+        <!-- #fleche suivante -->
+        <button type="button" class="avis-fleche avis-fleche-droite"
+                id="avisSuivant" aria-label="Avis suivants">&#10095;</button>
       </div>
 
-      <!-- Introduction 2 -->
-      <div class="container presentation py-5">
-        <div class="row align-items-center">
-          <div class="col-md-3">
-            <img src="sources/Image-temporaire.webp" class="img-fluid2" alt="Photo du Bar">
-          </div>
-          <div class="col-md-6 texte-concept2">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <br> sed diam nonummy nibh euismod tincidunt ut laoreet <br> dolore magna aliquam erat volutpat. Ut wisi enim ad <br> minim veniam, quis nostrud exerci tation ullamcorper <br>
-              suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
-            <button type="button" class="btn btn-lg CTA-en-savoir-plus">En savoir +</button>
-          </div>
-          <div class="col-md-3"></div>
+    </section>
+
+    <!-- =====================================================================
+         4. BAR A BIERE : grande arche beige puis photo du bar
+         ===================================================================== -->
+    <section class="bar" id="bar">
+      <!-- #arche beige : un seul demi-cercle, les versions jaune et brune
+           ont ete retirees a la demande de la designer -->
+      <div class="arche arche-beige"></div>
+      <div class="arche-socle"></div>
+
+      <div class="bar-contenu">
+        <h2>Bar à bière artisanale</h2>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+           euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+           minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong></p>
+        <a class="cta-2 btn-voir-carte" href="Bar.html" style="--fond: #695E45; --texte: #DDCDB0">Voir notre carte</a>
+      </div>
+
+      <!-- #grande photo du bar, rognee en arche -->
+      <div class="bar-photo"><img src="sources/bar-comptoir.webp" alt="Le bar et ses bières artisanales"></div>
+
+      <!-- #second bloc, present uniquement sur telephone
+           Sur grand ecran cette partie se trouve ailleurs dans la page ;
+           la maquette telephone la place ici, sur un fond brun en arche. -->
+      <div class="bloc-brun-mob">
+        <div class="brun-photo-mob">
+          <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure">
         </div>
-      </div>
-    </div>
-
-    <!-- VOS AVIS -->
-    <!-- Titrage -->
-    <div>
-      <h2 class="titre-avis">Vos avis sur le BarBeerShop</h2>
-    </div>
-
-    <!-- Animation fléchage -->
-    <div class="container">
-      <div class="avis-carousel">
-
-        <button type="button" class="avis-fleche" id="avis-precedent" aria-label="Avis precedents">&#10094;</button>
-
-        <div class="avis-viewport">
-          <div class="avis-piste" id="avis-piste">
-
-            <!-- Avis 1 -->
-            <div class="avis-carte">
-              <div class="avis-fond">
-                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
-                  <title>Placeholder</title>
-                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
-                <h4>Skyfe44</h4>
-              </div>
-            </div>
-
-            <!-- Avis 2 -->
-            <div class="avis-carte">
-              <div class="avis-fond">
-                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
-                  <title>Placeholder</title>
-                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-                <p>Lorem ipsum dolor sit amet, <br> consectetuer adipiscing elit, sed <br> diam nonummy nibh euismod <br> tincidunt ut laoreet dolore <br> magna aliquam erat volutpat. <br> Ut wisi enim ad minim </p>
-                <h4>Jeff Rich</h4>
-              </div>
-            </div>
-
-            <!-- Avis 3 -->
-            <div class="avis-carte">
-              <div class="avis-fond">
-                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
-                  <title>Placeholder</title>
-                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
-                <h4>Skyfe44</h4>
-              </div>
-            </div>
-
-            <!-- Avis 4 -->
-            <div class="avis-carte">
-              <div class="avis-fond">
-                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
-                  <title>Placeholder</title>
-                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
-                <h4>Skyfe44</h4>
-              </div>
-            </div>
-
-            <!-- Avis 5 -->
-            <div class="avis-carte">
-              <div class="avis-fond">
-                <svg aria-label="Placeholder" height="140" preserveAspectRatio="xMidYMid slice" role="img" width="140" xmlns="http://www.w3.org/2000/svg">
-                  <title>Placeholder</title>
-                  <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-                <p>Lorem ipsum dolor sit amel, <br> consectetuer adipiscing </p>
-                <h4>Skyfe44</h4>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <button type="button" class="avis-fleche" id="avis-suivant" aria-label="Avis suivants">&#10095;</button>
-
-      </div>
-    </div>
-
-    <script>
-      // Slider d'avis : 5 avis dans la piste, 3 visibles a la fois (1 caché de chaque coté au depart)
-      const pisteAvis = document.getElementById('avis-piste');
-      const largeurCarteAvis = 20; // chaque carte fait 20% de la largeur de la piste (100% / 5 cartes)
-      const etapeMax = 2; // 3 positions possibles : 0 (avis 1-2-3), 1 (avis 2-3-4), 2 (avis 3-4-5)
-      let etapeAvis = 1; // position de depart : avis 2-3-4 visibles, 1 caché a gauche et 1 caché a droite
-
-      function afficherEtapeAvis() {
-        pisteAvis.style.transform = `translateX(-${etapeAvis * largeurCarteAvis}%)`;
-      }
-
-      document.getElementById('avis-precedent').addEventListener('click', () => {
-        if (etapeAvis > 0) {
-          etapeAvis--;
-          afficherEtapeAvis();
-        }
-      });
-
-      document.getElementById('avis-suivant').addEventListener('click', () => {
-        if (etapeAvis < etapeMax) {
-          etapeAvis++;
-          afficherEtapeAvis();
-        }
-      });
-
-      afficherEtapeAvis();
-    </script>
-
-    <!-- ESPACE BAR -->
-    <div class="demi-cercles-section">
-
-      <!-- Demi-cercle -->
-      <div class="demi-cercle"></div>
-
-      <!-- Rectangle couleur -->
-      <div class="demi-cercle-fond"></div>
-
-      <!-- Image demi-cercle -->
-      <div class="demi-cercle demi-cercle-image">
-        <img src="sources/Image-temporaire.webp" alt="image temporaire">
+        <h2 class="brun-titre-mob">Bar à bière artisanale</h2>
+        <p class="brun-texte-mob">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+          euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+          minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong>
+        </p>
+        <a class="cta-2 brun-cta-mob" href="barber.html" style="--fond: #DDCDB0; --texte: #695E45">Choisir ma<br>prestation</a>
       </div>
 
-      <!-- Titre + texte + bouton : toujours au dessus des demi-cercles -->
-      <h2 class="titre-avis titre-bar-artisanale">Notre bar à bière artisanale</h2>
-      <p class="texte-bar-artisanale">Lorem ipsum dolor sit amet, <br> consectetuer adipiscing elit, sed diam <br> nonummy nibh euismod tincidunt <br> ut laoreet dolore magna aliquam.</p>
-      <button type="button" class="btn btn-lg CTA-voir-la-carte">Voir la carte</button>
+      <!-- #mention legale obligatoire -->
+      <!-- #mention legale, posee sur un bandeau gris floute pour rester lisible -->
+      <p class="mention-alcool">*L’abus d’alcool est dangereux pour la santé, à consommer avec modération.</p>
 
-    </div>
+      <!-- #frise rayee facon mat de barbier -->
+      <img class="rayures" src="sources/rayures-barbier.svg" alt="">
+    </section>
+
+    <!-- =====================================================================
+         5. INFOS PRATIQUES : plan et coordonnees
+         ===================================================================== -->
+    <section class="infos">
+      <!-- #plan d'acces : vraie carte Google Maps.
+           On peut s'y deplacer et zoomer directement depuis le site. -->
+      <div class="infos-plan">
+        <iframe
+          src="https://www.google.com/maps?q=12+rue+Pierre+Perrat,+57000+Metz&hl=fr&z=16&output=embed"
+          title="Plan d'accès : 12 rue Pierre Perrat, 57000 Metz"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="infos-liste">
+        <h3>Adresse</h3>
+        <p>12 rue Pierre Perrat,<br>quartier Impérial<br>57000 Metz</p>
+        <h3>Parking</h3>
+        <p>7 Place du Roi George</p>
+        <h3>Accès bus</h3>
+        <p>Ligne ( L2, L4, C14 &amp; C13 )<br>Métis ( MA &amp; MB )</p>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         6. INSTAGRAM
+         ===================================================================== -->
+    <section class="instagram">
+      <h2 class="instagram-titre">Retrouvez nous sur</h2>
+      <a class="instagram-lien" href="https://instagram.com" target="_blank" rel="noopener">
+        <img src="sources/icone-instagram.webp" alt="">
+        <span>Instagram</span>
+      </a>
+      <!-- Chaque photo est cliquable et mene au compte Instagram -->
+      <div class="instagram-galerie">
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-1.webp" alt="Coloration en cours au salon"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-2.webp" alt="Les produits capillaires du salon"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-3.webp" alt="Coupe homme terminée"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-4.webp" alt="Service au bar à bières"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="sources/insta-5.webp" alt="Dégradé et finitions"></a>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         7. BANDEAU REGLEMENTAIRE (sante publique et vente d'alcool)
+         ===================================================================== -->
+    <section class="bandeau-sante">
+      <img src="sources/bandeau-sante.webp"
+           alt="Pour votre santé, mangez au moins 5 fruits et légumes par jour. Interdiction de vente de boissons alcooliques aux mineurs de moins de 18 ans.">
+
+      <!-- #version telephone : la maquette coupe le meme bandeau en deux
+           bandes posees l'une sous l'autre, faute de place en largeur. -->
+      <div class="bandeau-mob" aria-hidden="true">
+        <span class="bandeau-mob-1"></span>
+        <span class="bandeau-mob-2"></span>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         8. PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p><strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+           <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+           Samedi et événement spécial 1h</p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="commun.js?v=60"></script>
   </body>
 </html>

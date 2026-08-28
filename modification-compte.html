@@ -1,0 +1,227 @@
+<!doctype html>
+<!-- =========================================================================
+     BARBEERSHOP - MODIFICATION DE COMPTE
+     Reproduction de la maquette Adobe XD "Modification compte" (1920 x 1838 px).
+     ========================================================================= -->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BarBeerShop - Modifier mon compte</title>
+    <link rel="icon" href="sources/Favicon-Blanc.png">
+
+    <!-- Bootstrap : base CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Police du logo (Adobe Fonts) -->
+    <link rel="stylesheet" href="https://use.typekit.net/kuv5thu.css">
+    <!-- Styles : base commune, puis la version grand ecran OU la version
+         telephone selon la largeur de la fenetre. La bascule se fait a
+         1024 px, exactement comme dans commun.js. -->
+    <link href="base.css?v=60" rel="stylesheet">
+    <link href="commun.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="compte-formulaire.css?v=60" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="formulaire-mob.css?v=60" rel="stylesheet" media="(max-width: 1023.98px)">
+  </head>
+
+  <body>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION DU TELEPHONE
+         Elle remplace celle des grands ecrans en dessous de 1024 px :
+         le bouton menu a gauche, le logo au centre, le compte a droite.
+         ===================================================================== -->
+    <header class="barre-nav-mob">
+      <!-- #bouton menu (les trois traits) -->
+      <button type="button" class="nav-mob-burger" id="boutonMenu"
+              aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span>
+      </button>
+
+      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
+        <img src="sources/avatar-compte.webp" alt="">
+      </a>
+    </header>
+
+    <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
+    <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
+      <div class="menu-mob-liens">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html">NOTRE CONCEPT</a>
+      </div>
+
+      <!-- #les deux boutons de reservation -->
+      <div class="menu-mob-reservation">
+        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+      </div>
+
+      <!-- #bascule jour / nuit -->
+      <button type="button" class="menu-mob-bascule" id="basculeJourNuitMob" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt=""> Mode jour / nuit
+      </button>
+    </nav>
+
+    <!-- =====================================================================
+         BARRE DE NAVIGATION (version reduite : pas de boutons de reservation)
+         ===================================================================== -->
+    <header class="barre-nav barre-nav--simple">
+      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="Accueil.html">ACCUEIL</a>
+        <a href="barber.html">BARBER</a>
+        <a href="Bar.html">BAR</a>
+        <a href="notre-concept.html" class="nav-menu-deux-lignes">NOTRE<br>CONCEPT</a>
+      </nav>
+
+      <!-- #bouton bascule jour / nuit -->
+      <button type="button" class="nav-bascule" id="basculeJourNuit"
+              aria-label="Basculer entre le mode jour et le mode nuit" aria-pressed="false">
+        <img src="sources/icone-jour-nuit.svg" alt="">
+      </button>
+    </header>
+
+    <!-- =====================================================================
+         FORMULAIRE DE CREATION DE COMPTE
+         ===================================================================== -->
+    <main class="page-compte">
+
+      <!-- #titre de la page -->
+      <h1 class="compte-titre">Prenez le temps de créer votre compte …</h1>
+
+      <!-- #mention des champs obligatoires -->
+      <p class="compte-obligatoire">
+        <span class="etoile">*</span> Remplissage du champ <strong>obligatoire</strong>
+      </p>
+
+      <form class="compte-form">
+
+        <!-- #champ prénom (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 417">
+          <!-- petite etiquette bleue posee sur le bord du champ -->
+          <span class="champ-etiquette">Prénom</span>
+          <label class="hors-ecran" for="prenom">Prénom</label>
+          <input class="champ champ--rempli" id="prenom" type="text" value="Julien">
+          <!-- pastille verte de validation -->
+          <span class="champ-valide" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ nom (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 545">
+          <!-- petite etiquette bleue posee sur le bord du champ -->
+          <span class="champ-etiquette">Nom</span>
+          <label class="hors-ecran" for="nom">Nom</label>
+          <input class="champ champ--rempli" id="nom" type="text" value="Nitch">
+          <!-- pastille verte de validation -->
+          <span class="champ-valide" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ date de naissance (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 674">
+          <!-- petite etiquette bleue posee sur le bord du champ -->
+          <span class="champ-etiquette">Date de naissance</span>
+          <label class="hors-ecran" for="naissance">Date de naissance</label>
+          <input class="champ champ--rempli" id="naissance" type="text" value="09 / 12 / 1992">
+          <!-- pastille verte de validation -->
+          <span class="champ-valide" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ e-mail (obligatoire) -->
+        <div class="champ-ligne" style="--ligne: 802">
+          <!-- petite etiquette bleue posee sur le bord du champ -->
+          <span class="champ-etiquette">E-mail</span>
+          <label class="hors-ecran" for="email">E-mail</label>
+          <input class="champ champ--rempli" id="email" type="text" value="Julien.nitch@icloud.com">
+          <!-- pastille verte de validation -->
+          <span class="champ-valide" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="etoile etoile-champ">*</span>
+        </div>
+
+        <!-- #champ téléphone (facultatif : pas d'étoile) -->
+        <div class="champ-ligne" style="--ligne: 930">
+          <label class="hors-ecran" for="tel">Téléphone</label>
+          <input class="champ" id="tel" type="tel" placeholder="Téléphone +33 00 00 00 00">
+        </div>
+
+        <!-- #photo de profil : gros rond gris avec un "+" -->
+        <div class="photo-profil">
+          <button type="button" class="photo-rond" aria-label="Modifier la photo de profil">
+            <img src="sources/avatar-compte.webp" alt="">
+          </button>
+          <p class="photo-legende">Modifier la photo de profil</p>
+        </div>
+
+        <!-- #case à cocher : conditions générales (obligatoire) -->
+        <div class="case-ligne" style="--ligne: 1061">
+          <input class="case" id="cgu" type="checkbox" checked>
+          <label class="case-texte" for="cgu">J’accepte les conditions général<br>d’utilisations CGU</label>
+          <span class="etoile etoile-case">*</span>
+        </div>
+
+        <!-- #case à cocher : newsletter (facultatif) -->
+        <div class="case-ligne" style="--ligne: 1185">
+          <input class="case" id="newsletter" type="checkbox">
+          <label class="case-texte" for="newsletter">Je veux recevoir la Newsletter</label>
+        </div>
+
+        <!-- #cercles décoratifs bleus, à droite des cases -->
+        <span class="rond-deco rond-deco-grand" aria-hidden="true"></span>
+        <span class="rond-deco rond-deco-petit" aria-hidden="true"></span>
+
+        <!-- #bouton d'envoi -->
+        <!-- une fois les informations enregistrees, on revient a l'espace compte -->
+        <a class="cta-1 btn-enregistrer" href="compte.html" style="--fond: #E13950; --texte: #FFFEF8">Enregistrer mes informations</a>
+      </form>
+    </main>
+
+    <!-- =====================================================================
+         PIED DE PAGE
+         ===================================================================== -->
+    <footer class="pied">
+      <div class="pied-colonne">
+        <h3>Horaires</h3>
+        <p>
+          <strong>Barber :</strong><br>Du lundi au samedi de 9h à 19h<br>
+          <strong>Bar à bière :</strong><br>Du Mardi au Dimanche de 11h à 23h<br>
+          Samedi et événement spécial 1h
+        </p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Contact</h3>
+        <p><a href="tel:+33000000000">+33 00 00 00 00</a><br>
+           <a href="mailto:Barbeer.shop@gmail.com">Barbeer.shop@gmail.com</a></p>
+      </div>
+      <div class="pied-colonne">
+        <h3>Légal</h3>
+        <p><a href="#mentions">Mentions légales</a><br>
+           <a href="#alcool">Réglementation liées à l’alcool</a><br>
+           <a href="#cookies">Cookies</a><br>
+           <a href="#rse">Notre engagement RSE</a></p>
+      </div>
+      <div class="pied-colonne pied-colonne-droite">
+        <!-- #bouton newsletter : il mene a la page de modification des informations -->
+        <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
+        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="commun.js?v=60"></script>
+  </body>
+</html>
