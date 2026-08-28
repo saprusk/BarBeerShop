@@ -193,11 +193,14 @@
   left: calc(var(--u) * 36);
   top: calc(var(--u) * 1535);
   width: calc(var(--u) * 358);
-  height: calc(var(--u) * 307);
+  height: calc(var(--u) * 264);   /* 358 / 1.358 : ratio du PNG fourni */
+  background: url("sources/carte-fidelite-vierge.webp") no-repeat center / 100% 100%;
 }
-.carte-visuel { width: 100%; height: 100%; display: block; }
+/* le PNG contient deja le visuel et les textes : on masque les doublons */
+.carte-visuel { display: none; }
 
-.carte-surtitre, .carte-merci, .carte-mention {
+.carte-surtitre, .carte-merci, .carte-mention { display: none; }
+.carte-textes-caches {
   position: absolute;
   left: 0;
   width: 100%;
@@ -213,11 +216,16 @@
 .carte-mention  { top: calc(var(--u) * 247); font-size: calc(var(--u) * 11); font-weight: 100; line-height: 1.5; }
 
 /* les tampons deja obtenus (positions relevees dans la maquette) */
-.tampon { position: absolute; }
-.tampon-1 { left: calc(var(--u) * 22);  top: calc(var(--u) * 73);  width: calc(var(--u) * 59); }
-.tampon-2 { left: calc(var(--u) * 93);  top: calc(var(--u) * 78);  width: calc(var(--u) * 69); }
-.tampon-3 { left: calc(var(--u) * 162); top: calc(var(--u) * 82);  width: calc(var(--u) * 55); }
-.tampon-4 { left: calc(var(--u) * 215); top: calc(var(--u) * 90);  width: calc(var(--u) * 60); }
+/* les 4 tampons (fleurs bleues) poses dans les 4 premieres cases du haut,
+   reperees en pourcentage sur le PNG. */
+/* les fleurs bleues posees dans les 4 premieres cases de la rangee du haut
+   (positions relevees sur le PNG : cases centrees en x 14 / 32 / 50 / 68 %,
+   rangee du haut vers 37 % de hauteur). */
+.tampon { position: absolute; width: 14%; }
+.tampon-1 { left: 7%;    top: 37%; }
+.tampon-2 { left: 25.5%; top: 37%; }
+.tampon-3 { left: 43.5%; top: 37%; }
+.tampon-4 { left: 61.5%; top: 37%; }
 
 /* #fleche bouclee et sa promesse (maquette : fleche en x 61, y 1983) */
 .carte-fleche {

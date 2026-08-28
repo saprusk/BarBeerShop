@@ -168,18 +168,21 @@ function brancherAvis() {
   /* "anime" vaut vrai seulement quand on clique une fleche : au chargement
      et au redimensionnement, la piste se place d'un coup, sans glissement. */
   function placer(anime) {
-    const largeur = cartes[0].getBoundingClientRect().width;
-    const ecart = parseFloat(getComputedStyle(piste).columnGap) || 0;
-    const fenetre = piste.parentElement.getBoundingClientRect().width;
-    if (!largeur || !fenetre) return;          // la page n'est pas encore mesurable
-    const pas = largeur + ecart;
-    // on fait glisser la piste pour amener la carte choisie pile au milieu
-    const decalage = fenetre / 2 - largeur / 2 - centre * pas;
+    const cible = cartes[centre];
+    const fenetre = piste.parentElement.clientWidth;
+    if (!cible.offsetWidth || !fenetre) return;   // pas encore mesurable
+    // On amene la carte choisie pile au milieu de la fenetre. On se base sur
+    // offsetLeft/offsetWidth, qui ignorent l'inclinaison des cartes (leur
+    // "getBoundingClientRect" serait fausse par la rotation).
+    const decalage = fenetre / 2 - (cible.offsetLeft + cible.offsetWidth / 2);
     if (!anime) piste.style.transition = 'none';
     piste.style.transform = `translateX(${decalage}px)`;
     cartes.forEach((carte, i) => {
       const place = Math.max(-2, Math.min(2, i - centre));   // -2 .. +2
       carte.style.setProperty('--angle', (place * 7) + 'deg');
+      // les cartes s'ecartant du centre descendent : la carte du milieu
+      // reste la plus haute, comme dans la maquette
+      carte.style.setProperty('--descente', (Math.abs(place) * 34) + 'px');
     });
     if (!anime) {
       piste.getBoundingClientRect();           // on force le calcul...
@@ -199,6 +202,11 @@ function brancherAvis() {
   placer(false);
   window.addEventListener('resize', () => placer(false));
   window.addEventListener('load', () => placer(false));
+  // les polices changent la largeur des cartes une fois chargees : on
+  // recale alors la piste, sinon le centrage garde l'ancienne mesure
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => placer(false));
+  }
 }
 brancherAvis();
 
@@ -317,15 +325,19 @@ function brancherGlissiere(selecteurBande, selecteurElement) {
   const bande = document.querySelector(selecteurBande);
   if (!bande || bande.dataset.glissiere === 'oui') return;
 
-  const elements = [...bande.querySelectorAll(selecteurElement)];
+  // ":scope >" : uniquement les enfants DIRECTS, sinon on attraperait aussi
+  // les images a l'interieur des liens et le pas serait fausse.
+  const elements = [...bande.querySelectorAll(':scope > ' + selecteurElement)];
   if (elements.length < 2) return;
   bande.dataset.glissiere = 'oui';
+  let index = 0;
 
-  const faire = (sens) => {
-    const a = elements[0].getBoundingClientRect();
-    const b = elements[1].getBoundingClientRect();
-    const pas = b.left - a.left;      // largeur d'un element + son ecart
-    bande.scrollLeft += sens * pas;
+  const aller = () => {
+    index = Math.max(0, Math.min(elements.length - 1, index));
+    // scrollIntoView centre l'element dans sa bande, quel que soit l'ecart
+    // ou le "scroll-snap" (poser scrollLeft directement echouait a cause du
+    // snap). "block: nearest" evite de faire defiler la page entiere.
+    elements[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   };
 
   const fleche = (sens, texte, cote) => {
@@ -334,23 +346,38 @@ function brancherGlissiere(selecteurBande, selecteurElement) {
     b.className = 'glissiere-fleche glissiere-fleche-' + cote;
     b.setAttribute('aria-label', sens < 0 ? 'Précédent' : 'Suivant');
     b.innerHTML = texte;
-    b.addEventListener('click', () => faire(sens));
+    b.addEventListener('click', () => { index += sens; aller(); });
     return b;
   };
 
-  // les fleches sont posees dans le parent, de part et d'autre de la bande
   const cadre = bande.parentElement;
   if (getComputedStyle(cadre).position === 'static') cadre.style.position = 'relative';
-  cadre.appendChild(fleche(-1, '&#9664;', 'gauche'));
-  cadre.appendChild(fleche(1, '&#9654;', 'droite'));
+  const gauche = fleche(-1, '&#9664;', 'gauche');
+  const droite = fleche(1, '&#9654;', 'droite');
+  cadre.appendChild(gauche);
+  cadre.appendChild(droite);
+
+  // On centre les fleches verticalement sur la BANDE (et non sur tout le
+  // cadre) : ainsi elles se retrouvent pile a hauteur des elements.
+  function centrerFleches() {
+    const rc = cadre.getBoundingClientRect();
+    const rb = bande.getBoundingClientRect();
+    const centre = rb.top - rc.top + rb.height / 2;
+    [gauche, droite].forEach(f => {
+      f.style.top = centre + 'px';
+      f.style.transform = 'translateY(-50%)';
+    });
+  }
+  centrerFleches();
+  window.addEventListener('resize', centrerFleches);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(centrerFleches);
 }
 
 /* On ne les branche que sur telephone, et on rebranche si la fenetre change
    de taille (par exemple quand on tourne l'appareil). */
 function brancherLesGlissieres() {
   if (document.documentElement.clientWidth >= BASCULE_MOBILE) return;
-  brancherGlissiere('.instagram-galerie', 'a, img');
-  brancherGlissiere('.avis-fenetre', '.avis-carte');
+  brancherGlissiere('.instagram-galerie', 'a');
   brancherGlissiere('.equipe', '.membre');
   brancherGlissiere('.grille-produits', 'figure');
 }
@@ -365,11 +392,10 @@ window.addEventListener('resize', brancherLesGlissieres);
    formules sont deja completes.
    ------------------------------------------------------------------------- */
 (function brancherFormulesTelephone() {
-  const formules = document.querySelectorAll('.formule');
+  const formules = [...document.querySelectorAll('.formule')];
   if (!formules.length) return;
+
   formules.forEach(formule => {
-    const titre = formule.querySelector('.formule-titre');
-    if (!titre) return;
     formule.style.cursor = 'pointer';
     formule.setAttribute('role', 'button');
     formule.setAttribute('tabindex', '0');

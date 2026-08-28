@@ -483,8 +483,9 @@
 /* #mention dans la fleur blanche du haut */
 .fiche-achat {
   position: absolute;
-  left: calc(var(--u) * 868);
-  top: calc(var(--u) * 56);
+  /* centree sur la fleur blanche (centre reel : 1025, 114) */
+  left: calc(var(--u) * 900);
+  top: calc(var(--u) * 82);
   width: calc(var(--u) * 250);
   margin: 0;
   text-align: center;
@@ -499,14 +500,14 @@
 /* #bouton de fermeture, dans le coin du panneau rouge */
 .fiche-fermer {
   position: absolute;
-  right: calc(var(--u) * 60);
-  top: calc(var(--u) * 190);
-  width: calc(var(--u) * 54);
-  height: calc(var(--u) * 54);
+  right: calc(var(--u) * 54);
+  top: calc(var(--u) * 186);
+  width: calc(var(--u) * 66);
+  height: calc(var(--u) * 66);
   background: none;
   border: none;
   color: #fff;
-  font-size: calc(var(--u) * 46);
+  font-size: calc(var(--u) * 60);
   line-height: 1;
   cursor: pointer;
   z-index: 2;
@@ -515,13 +516,15 @@
 
 .fiche-corps { display: block; }
 
-/* #la photo, posee dans le grand rond blanc (centre 296 / 325, diametre 560) */
+/* #la photo : posee dans le grand rond blanc mais decalee vers le BAS et la
+   GAUCHE (presque collee aux bords du rond, avec une petite marge), et non
+   centree. (rond : centre 296 / 325, diametre 560) */
 .fiche-corps img {
   position: absolute;
-  left: calc(var(--u) * 66);
-  top: calc(var(--u) * 95);
-  width: calc(var(--u) * 460);
-  height: calc(var(--u) * 460);
+  left: calc(var(--u) * 36);
+  top: calc(var(--u) * 150);
+  width: calc(var(--u) * 420);
+  height: calc(var(--u) * 420);
   object-fit: contain;
   border: none;
   border-radius: 50%;
@@ -649,8 +652,10 @@
   .produit-vignette { border-width: 3px; border-radius: 22px; }
 }
 
-/* Cassandre etait legerement trop a droite : on la recale de 7 px. */
-.equipe-liste .membre:nth-child(3) { position: relative; left: calc(var(--u) * -7); }
+/* Cassandre est recalee vers la gauche, Julie vers la droite, pour que les
+   illustrations ne se touchent pas. */
+.equipe-liste .membre:nth-child(3) { position: relative; left: calc(var(--u) * -12); }
+.equipe-liste .membre:nth-child(4) { position: relative; left: calc(var(--u) * 5); }
 
 /* #galerie Instagram : chaque photo mene au compte */
 .instagram-galerie a { display: block; line-height: 0; }

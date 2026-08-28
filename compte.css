@@ -16,7 +16,7 @@
 .page-espace {
   position: relative;
   margin-top: calc(var(--u) * 112);
-  height: calc(var(--u) * 3323);
+  height: calc(var(--u) * 3070);   /* moins de vide blanc sous la FAQ */
   background: var(--creme);
 }
 
@@ -30,7 +30,7 @@
 }
 
 /* #bouton remonter (maquette : y 464) */
-.bouton-remonter { top: calc(var(--u) * 352); }
+/* le bouton remonter est desormais fixe : voir commun.css */
 
 /* #titre de la page (maquette : y 319, centre) */
 .espace-titre {

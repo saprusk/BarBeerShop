@@ -33,13 +33,13 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--u) * 845);
+  top: calc(var(--u) * 937);
   bottom: 0;
   background: var(--creme);
   z-index: 1;
 }
 
-.bouton-remonter { top: calc(var(--u) * 464); }
+/* le bouton remonter est desormais fixe : voir commun.css */
 
 /* #photos rondes du hero */
 .hero-rond { position: absolute; border-radius: 50%; overflow: hidden; }
@@ -200,7 +200,8 @@
   border-radius: 0 0 50% 50%;
   z-index: 4;
 }
-/* sous la bulle BAR (maquette : x 1373, y 1483 -> 333) */
+/* les petits reflets blancs sous les bulles ont ete retires : inutiles */
+.sourire, .grain-beaute { display: none; }
 .sourire-bar    { left: calc(var(--u) * 1373); top: calc(var(--u) * 333); width: calc(var(--u) * 42); height: calc(var(--u) * 12); }
 /* sous la bulle BARBER (maquette : x 468, y 1722 -> 572) */
 .sourire-barber { left: calc(var(--u) * 468);  top: calc(var(--u) * 572); width: calc(var(--u) * 31); height: calc(var(--u) * 10); }
@@ -302,8 +303,11 @@
   padding: calc(var(--u) * 60) 0;
 }
 
-/* La piste porte les cinq avis et glisse d'un cran a chaque fleche. */
+/* La piste porte les cinq avis et glisse d'un cran a chaque fleche.
+   "position: relative" : ainsi la position interne des cartes (offsetLeft)
+   se compte depuis la piste, ce qui permet de les centrer au pixel pres. */
 .avis-piste {
+  position: relative;
   display: flex;
   align-items: center;
   gap: calc(var(--u) * 60);
@@ -311,43 +315,33 @@
   transition: transform 0.45s ease;
 }
 
-/* une carte d'avis : rectangle rouge arrondi, legerement incline */
+/* une carte d'avis : c'est le visuel fourni par la designer (fond rouge,
+   angles arrondis et les deux gros guillemets deja dessines dedans). On ne
+   pose que le texte par-dessus. L'inclinaison ET la hauteur dependent de la
+   PLACE occupee : la carte du milieu est droite et haute, les autres
+   penchent et descendent. */
 .avis-carte {
   position: relative;
-  flex: 0 0 calc(var(--u) * 420);
-  min-height: calc(var(--u) * 230);
+  flex: 0 0 calc(var(--u) * 430);
+  height: calc(var(--u) * 229);
   margin: 0;
-  padding: calc(var(--u) * 44) calc(var(--u) * 46) calc(var(--u) * 34);
-  background: var(--rouge);
-  border-radius: calc(var(--u) * 26);
+  padding: calc(var(--u) * 46) calc(var(--u) * 54) calc(var(--u) * 40);
+  display: flex;
+  flex-direction: column;
+  background: url("sources/fond-avis.webp") no-repeat center / 100% 100%;
   color: #fff;
-  /* l'angle est pose par le script, selon la place occupee */
-  transform: rotate(var(--angle, 0deg));
+  transform: translateY(var(--descente, 0px)) rotate(var(--angle, 0deg));
   transition: transform 0.45s ease;
 }
-/* les gros guillemets, en haut a gauche et en bas a droite */
-.avis-carte::before,
-.avis-carte::after {
-  content: "\201D";
-  position: absolute;
-  /* PP Formula ne dessine pas les guillemets : police de secours */
-  font-family: Georgia, "Times New Roman", serif;
-  color: #fff;
-  font-size: calc(var(--u) * 90);
-  line-height: 1;
-}
-.avis-carte::before { left: calc(var(--u) * -18); top: calc(var(--u) * 6); transform: rotate(180deg); }
-.avis-carte::after  { right: calc(var(--u) * -12); bottom: calc(var(--u) * -34); }
-
 .avis-carte blockquote {
   margin: 0;
-  font-size: calc(var(--u) * 18);
+  font-size: calc(var(--u) * 17);
   font-weight: 400;
   line-height: 1.4;
 }
 .avis-carte figcaption {
-  margin-top: calc(var(--u) * 24);
-  text-align: right;
+  margin-top: auto;
+  text-align: center;
   font-size: calc(var(--u) * 22);
   font-weight: 800;
 }
@@ -409,7 +403,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: calc(var(--u) * 220);
+  top: calc(var(--u) * 210);
   width: calc(var(--u) * 276);
   height: calc(var(--u) * 68);
   z-index: 4;

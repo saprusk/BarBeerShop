@@ -14,7 +14,7 @@
    ========================================================================= */
 
 /* Ce qui n'existe que sur telephone est masque sur les grands ecrans */
-.barre-nav-mob, .menu-mob, .mousse-mob, .bulles-mob,
+.barre-nav-mob, .menu-mob, .mousse-mob, .bulles-mob, .point-carte,
 .bloc-brun-mob, .bandeau-mob, .concept-mob { display: none; }
 
 /* =========================================================================
@@ -228,15 +228,20 @@ html.nuit .nav-bascule img { filter: invert(1) brightness(0.85); }
 
 /* =========================================================================
    #bouton "remonter en haut de page"
-   Pastille rouge collee au bord gauche, elle depasse volontairement.
+   Pastille rouge collee au bord gauche, FIXE : elle suit le defilement et
+   ramene en haut de la page au clic. Elle depasse volontairement a gauche.
    ========================================================================= */
 
 .bouton-remonter {
-  position: absolute;
+  position: fixed;
   left: calc(var(--u) * -36);
+  top: 50%;
+  transform: translateY(-50%);
   width: calc(var(--u) * 120);
-  z-index: 15;
+  z-index: 90;
+  transition: transform 0.2s;
 }
+.bouton-remonter:hover { transform: translateY(-50%) scale(1.06); }
 .bouton-remonter img { width: 100%; display: block; }
 
 /* =========================================================================
