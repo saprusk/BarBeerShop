@@ -292,12 +292,22 @@ body {
   padding: 0 calc(var(--u) * 6);
   background: none;
   border: none;
-  color: var(--creme);
-  font-size: calc(var(--u) * 60);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s;
 }
+/* triangle legerement arrondi (comme la maquette XD), en creme */
+.formules-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 42);
+  height: calc(var(--u) * 50);
+  background-color: var(--creme);
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
+.formules-fleche-gauche::before { transform: scaleX(-1); }
 .formules-fleche:hover { opacity: 0.55; }
 
 /* Fenetre qui laisse voir exactement 3 cartes
@@ -390,7 +400,7 @@ body {
   width: 100%;                       /* toute la largeur interieure du cadre */
   height: calc(var(--u) * 400);      /* hauteur maximale voulue par la designer */
   object-fit: cover;
-  border-radius: calc(var(--u) * 14);
+  border-radius: calc(var(--u) * 34);
 }
 /* le prix de cette carte se cale sur le bas de la photo, pas du cadre */
 .formule-prix-photo { bottom: 0; }

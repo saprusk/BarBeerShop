@@ -177,12 +177,17 @@ function brancherAvis() {
     const decalage = fenetre / 2 - (cible.offsetLeft + cible.offsetWidth / 2);
     if (!anime) piste.style.transition = 'none';
     piste.style.transform = `translateX(${decalage}px)`;
+    // unite du site : la descente suit l'echelle de la page
+    const u = parseFloat(getComputedStyle(document.body).getPropertyValue('--u')) || 1;
     cartes.forEach((carte, i) => {
       const place = Math.max(-2, Math.min(2, i - centre));   // -2 .. +2
-      carte.style.setProperty('--angle', (place * 7) + 'deg');
-      // les cartes s'ecartant du centre descendent : la carte du milieu
-      // reste la plus haute, comme dans la maquette
-      carte.style.setProperty('--descente', (Math.abs(place) * 34) + 'px');
+      carte.style.setProperty('--angle', (place * 8) + 'deg');
+      // Trajectoire circulaire : la descente augmente comme le CARRE de la
+      // distance au centre (place^2). La carte du milieu reste en haut, ses
+      // voisines descendent un peu, et les deux qui attendent sur les cotes
+      // arrivent nettement plus bas, comme si elles montaient le long d'un
+      // cercle avant de se redresser au centre.
+      carte.style.setProperty('--descente', (place * place * 46 * u) + 'px');
     });
     if (!anime) {
       piste.getBoundingClientRect();           // on force le calcul...

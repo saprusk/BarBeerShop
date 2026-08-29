@@ -217,7 +217,7 @@
 .carte-fleche {
   position: absolute;
   left: calc(var(--u) * 1326);
-  top: calc(var(--u) * 300);   /* descendue : elle passait sur le texte */
+  top: calc(var(--u) * 430);   /* descendue sous le texte de recompense */
   width: calc(var(--u) * 244);
 }
 /* le texte de recompense, a droite de la fleche */

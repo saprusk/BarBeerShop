@@ -213,8 +213,8 @@
 /* #fleurs rouges decoratives autour de la grille */
 .fleur-p1 { left: calc(var(--u) * 1391); top: calc(var(--u) * -16);  width: calc(var(--u) * 69); }
 .fleur-p2 { left: calc(var(--u) * 1484); top: calc(var(--u) * 120);  width: calc(var(--u) * 36); }
-.fleur-p3 { left: calc(var(--u) * 240);  top: calc(var(--u) * 1855); width: calc(var(--u) * 58); }
-.fleur-p4 { left: calc(var(--u) * 372);  top: calc(var(--u) * 1940); width: calc(var(--u) * 49); }
+.fleur-p3 { left: calc(var(--u) * 240);  top: calc(var(--u) * 1863); width: calc(var(--u) * 58); }
+.fleur-p4 { left: calc(var(--u) * 372);  top: calc(var(--u) * 1948); width: calc(var(--u) * 49); }
 
 /* #grille des 12 produits, 3 par rangee (maquette : x 394, y 2373 -> 413) */
 .grille-produits {
@@ -485,7 +485,7 @@
   position: absolute;
   /* centree sur la fleur blanche (centre reel : 1025, 114) */
   left: calc(var(--u) * 900);
-  top: calc(var(--u) * 82);
+  top: calc(var(--u) * 115);   /* centre dans la fleur blanche (centre 1025 / 138) */
   width: calc(var(--u) * 250);
   margin: 0;
   text-align: center;
@@ -506,12 +506,24 @@
   height: calc(var(--u) * 66);
   background: none;
   border: none;
-  color: #fff;
-  font-size: calc(var(--u) * 60);
+  font-size: 0;            /* on masque le "x" du HTML : on dessine la croix */
   line-height: 1;
   cursor: pointer;
   z-index: 2;
 }
+/* croix dessinee avec deux barres epaisses (plus lisible que le caractere x) */
+.fiche-fermer::before, .fiche-fermer::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 60);
+  height: calc(var(--u) * 9);
+  background: #fff;
+  border-radius: calc(var(--u) * 5);
+}
+.fiche-fermer::before { transform: translate(-50%, -50%) rotate(45deg); }
+.fiche-fermer::after  { transform: translate(-50%, -50%) rotate(-45deg); }
 .fiche-fermer:hover { opacity: 0.6; }
 
 .fiche-corps { display: block; }
@@ -523,8 +535,8 @@
   position: absolute;
   left: calc(var(--u) * 36);
   top: calc(var(--u) * 150);
-  width: calc(var(--u) * 420);
-  height: calc(var(--u) * 420);
+  width: calc(var(--u) * 427);
+  height: calc(var(--u) * 427);
   object-fit: contain;
   border: none;
   border-radius: 50%;

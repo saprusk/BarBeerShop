@@ -52,7 +52,7 @@
 /* #titre principal (maquette : y 515, centre) */
 .hero-titre {
   position: absolute;
-  top: calc(var(--u) * 565);
+  top: calc(var(--u) * 555);
   left: 0;
   width: 100%;
   margin: 0;
@@ -71,14 +71,14 @@
    pour qu'il se fonde sur le fond sombre (demande de la designer) */
 .deco-loupe {
   left: calc(var(--u) * 643);
-  top: calc(var(--u) * 646);
+  top: calc(var(--u) * 636);
   width: calc(var(--u) * 143);
   mix-blend-mode: screen;
 }
-.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 461); width: calc(var(--u) * 52); }
-.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 670); width: calc(var(--u) * 229); }
-.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 465); width: calc(var(--u) * 127); }
-.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 637); width: calc(var(--u) * 96); }
+.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 451); width: calc(var(--u) * 52); }
+.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 660); width: calc(var(--u) * 229); }
+.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 455); width: calc(var(--u) * 127); }
+.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 627); width: calc(var(--u) * 96); }
 
 /* #mousse de biere : deux couches qui font la transition vers le creme */
 .mousse { position: absolute; left: 0; pointer-events: none; z-index: 2; }
@@ -215,7 +215,7 @@
 
 /* #pastilles bleues decoratives */
 .pastille { position: absolute; border-radius: 50%; background: var(--petrole); }
-.p1 { left: calc(var(--u) * 1756); top: calc(var(--u) * -61);  width: calc(var(--u) * 116); height: calc(var(--u) * 116); }
+.p1 { left: calc(var(--u) * 1756); top: calc(var(--u) * -61);  width: calc(var(--u) * 116); height: calc(var(--u) * 116); z-index: 2; }
 .p2 { left: calc(var(--u) * 1444); top: calc(var(--u) * 104);  width: calc(var(--u) * 60);  height: calc(var(--u) * 60); }
 .p3 { left: calc(var(--u) * 338);  top: calc(var(--u) * 267);  width: calc(var(--u) * 62);  height: calc(var(--u) * 62); }
 .p4 { left: calc(var(--u) * 169);  top: calc(var(--u) * 344);  width: calc(var(--u) * 99);  height: calc(var(--u) * 99); }
@@ -280,18 +280,28 @@
   gap: calc(var(--u) * 24);
 }
 
-/* les deux fleches, de chaque cote */
+/* les deux fleches, de chaque cote : triangles legerement arrondis (comme
+   sur la maquette XD), dessines avec un masque pour garder la couleur rouge. */
 .avis-fleche {
   flex: 0 0 auto;
   padding: 0 calc(var(--u) * 10);
   background: none;
   border: none;
-  color: var(--rouge);
-  font-size: calc(var(--u) * 46);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s;
 }
+.avis-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 40);
+  background-color: var(--rouge);
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
+.avis-fleche-gauche::before { transform: scaleX(-1); }
 .avis-fleche:hover { opacity: 0.55; }
 
 /* La fenetre laisse voir exactement TROIS avis. Les deux autres attendent
@@ -299,7 +309,9 @@
 .avis-fenetre {
   width: calc(var(--u) * 1440);
   max-width: 100%;
-  overflow: hidden;
+  /* visible : les avis en attente debordent volontairement de chaque cote,
+     plus bas, pour donner l'impression d'une trajectoire circulaire. */
+  overflow: visible;
   padding: calc(var(--u) * 60) 0;
 }
 

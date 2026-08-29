@@ -210,15 +210,25 @@ body { background-color: var(--beige); }
   padding: 0 calc(var(--u) * 10);
   border: none;
   background: none;
-  color: var(--brun);
-  font-size: calc(var(--u) * 54);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   z-index: 5;
   transition: opacity 0.2s;
 }
+/* triangle legerement arrondi (comme la maquette XD), en brun */
+.carte-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 38);
+  height: calc(var(--u) * 46);
+  background-color: var(--brun);
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
 .carte-fleche:hover { opacity: 0.55; }
 .carte-fleche-gauche { left: calc(var(--u) * 90); }
+.carte-fleche-gauche::before { transform: scaleX(-1); }
 .carte-fleche-droite { right: calc(var(--u) * 90); }
 
 /* une colonne de la carte */
@@ -280,8 +290,8 @@ body { background-color: var(--beige); }
   height: calc(var(--u) * 76);
   display: grid;
   place-content: center;
-  background: var(--beige);
-  border: calc(var(--u) * 5) solid var(--brun);
+  background: #fff;
+  border: none;
   border-radius: 50%;
   color: var(--brun);
   font-size: calc(var(--u) * 19);
@@ -414,8 +424,8 @@ body { background-color: var(--beige); }
   box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(0,0,0,0.12);
   transition: transform 0.3s ease;
 }
-/* on ne garde que les trois premieres bouteilles (celles du haut) */
-.biere-b1, .biere-b2, .biere-b3 { display: none; }
+/* sur grand ecran on garde les SIX bouteilles (3 en haut, 3 sous la carte
+   de la Lorraine). C'est seulement sur telephone qu'on n'en garde que 3. */
 /* au survol, la bouteille pivote legerement */
 .biere:hover { transform: rotate(-8deg) scale(1.04); }
 .biere-h1:hover, .biere-b1:hover { transform: rotate(-14deg) scale(1.04); }
@@ -426,9 +436,9 @@ body { background-color: var(--beige); }
 .biere-h2 { left: calc(var(--u) * 778);  top: calc(var(--u) * -388); }
 .biere-h3 { left: calc(var(--u) * 1223); top: calc(var(--u) * -347); transform: rotate(6deg); }
 /* rangee du bas (maquette : y 5277 -> 977) */
-.biere-b1 { left: calc(var(--u) * 295);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
-.biere-b2 { left: calc(var(--u) * 733);  top: calc(var(--u) * 1070); }
-.biere-b3 { left: calc(var(--u) * 1146); top: calc(var(--u) * 974);  transform: rotate(6deg); }
+.biere-b1 { left: calc(var(--u) * 374);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
+.biere-b2 { left: calc(var(--u) * 812);  top: calc(var(--u) * 1070); }
+.biere-b3 { left: calc(var(--u) * 1225); top: calc(var(--u) * 974);  transform: rotate(6deg); }
 
 /* #titre et textes (maquette : titre y 4387 -> 87) */
 .brasseurs-titre {

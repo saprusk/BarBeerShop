@@ -126,3 +126,6 @@ body {
    en goutte). Ils se posent sous les photos, sans gener les clics.
    ========================================================================= */
 .fond-forme { position: absolute; z-index: 0; pointer-events: none; }
+
+/* ancres des boutons de reservation : on decale sous le header colle */
+#nos-formules, #notre-ambiance { scroll-margin-top: calc(var(--u) * 150); }

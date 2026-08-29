@@ -38,11 +38,11 @@
     <!-- Styles : base commune, puis la version grand ecran OU la version
          telephone selon la largeur de la fenetre. La bascule se fait a
          1024 px, exactement comme dans commun.js. -->
-    <link href="base.css?v=85" rel="stylesheet">
-    <link href="commun.css?v=85" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="barber.css?v=85" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="mobile.css?v=85" rel="stylesheet" media="(max-width: 1023.98px)">
-    <link href="barber-mob.css?v=85" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="base.css?v=88" rel="stylesheet">
+    <link href="commun.css?v=88" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="barber.css?v=88" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=88" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="barber-mob.css?v=88" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
@@ -80,8 +80,8 @@
 
       <!-- #les deux boutons de reservation -->
       <div class="menu-mob-reservation">
-        <a class="menu-mob-rdv" href="#rdv">Prendre RDV</a>
-        <a class="menu-mob-soiree" href="#soiree">Réserver ma soirée</a>
+        <a class="menu-mob-rdv" href="barber.html#nos-formules">Prendre RDV</a>
+        <a class="menu-mob-soiree" href="Bar.html#notre-ambiance">Réserver ma soirée</a>
       </div>
 
       <!-- #bascule jour / nuit -->
@@ -106,9 +106,9 @@
            gauche, et le lien "Reserver ma soiree" a droite. -->
       <div class="nav-reservation">
         <!-- #bouton prendre rdv (rouge) -->
-        <a class="nav-btn-rdv" href="#rdv">Prendre RDV</a>
+        <a class="nav-btn-rdv" href="barber.html#nos-formules">Prendre RDV</a>
         <!-- #bouton reserver ma soiree (sur le fond blanc) -->
-        <a class="nav-btn-soiree" href="#soiree">Réserver<br>ma soirée</a>
+        <a class="nav-btn-soiree" href="Bar.html#notre-ambiance">Réserver<br>ma soirée</a>
       </div>
 
       <!-- #bouton bascule jour / nuit
@@ -182,7 +182,7 @@
       </div>
 
       <!-- #invitation a descendre vers les formules, avec sa fleche -->
-      <p class="invite-formules">
+      <p class="invite-formules" id="nos-formules">
         Pour voir nos <strong>différentes formules</strong>
         <img src="sources/fleche-bas.svg" alt="" class="fleche-bas">
       </p>
@@ -311,11 +311,12 @@
                    C150 128 126 116 126 96
                    C126 80 142 72 156 80
                    C172 89 170 116 150 126
-                   C122 140 78 136 40 124"
+                   C122 140 78 136 30 124"
                 fill="none" stroke="currentColor" stroke-width="3"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- la pointe de la fleche -->
-          <path d="M40 124 L62 122 M40 124 L58 138"
+          <!-- la pointe de la fleche, decalee de 10px vers la gauche (la
+               boucle, elle, ne bouge pas) -->
+          <path d="M30 124 L52 122 M30 124 L48 138"
                 fill="none" stroke="currentColor" stroke-width="3"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -484,7 +485,7 @@
          Le fichier commun.js regle l'unite de mesure, le menu du telephone
          et la bascule jour / nuit, sur toutes les pages du site.
          ===================================================================== -->
-    <script src="commun.js?v=85"></script>
+    <script src="commun.js?v=88"></script>
     <script>
       /* #carrousel des formules
          Il ne sert que sur grand ecran : sur telephone, les cinq formules
