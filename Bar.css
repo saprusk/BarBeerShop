@@ -340,12 +340,11 @@ body { background-color: var(--beige); }
 .pa3 { left: calc(var(--u) * 616);  top: calc(var(--u) * 719); width: calc(var(--u) * 91); height: calc(var(--u) * 91); }
 .pa4 { left: calc(var(--u) * 340);  top: calc(var(--u) * 732); width: calc(var(--u) * 49); height: calc(var(--u) * 48); }
 .pa5 { left: calc(var(--u) * 203);  top: calc(var(--u) * 780); width: calc(var(--u) * 99); height: calc(var(--u) * 99); }
-/* La "bulle" a droite du texte : deux fines gouttes verticales, comme dans
-   la maquette. On leur donne un rayon egal a leur demi-largeur : les bouts
-   sont alors de vrais demi-cercles (forme de gelule), et non les pointes
-   d'une ellipse ecrasee qui donnaient l'air "deforme". */
-.pa6 { left: calc(var(--u) * 1672); top: calc(var(--u) * 185); width: calc(var(--u) * 34); height: calc(var(--u) * 136); border-radius: calc(var(--u) * 17); }
-.pa7 { left: calc(var(--u) * 1738); top: calc(var(--u) * 340); width: calc(var(--u) * 17); height: calc(var(--u) * 66); border-radius: calc(var(--u) * 8.5); }
+/* Les deux "bulles" a droite du texte : deux vraies bulles rondes (une
+   grande, une petite), comme les pastilles de gauche. Boites carrees +
+   border-radius 50% herite de .pastille = cercles parfaits. */
+.pa6 { left: calc(var(--u) * 1645); top: calc(var(--u) * 209); width: calc(var(--u) * 88); height: calc(var(--u) * 88); }
+.pa7 { left: calc(var(--u) * 1722); top: calc(var(--u) * 349); width: calc(var(--u) * 48); height: calc(var(--u) * 48); }
 
 /* #textes de la section */
 .ambiance-titre,
@@ -421,11 +420,11 @@ body { background-color: var(--beige); }
 .biere:hover { transform: rotate(-8deg) scale(1.04); }
 .biere-h1:hover, .biere-b1:hover { transform: rotate(-14deg) scale(1.04); }
 .biere-h3:hover, .biere-b3:hover { transform: rotate(14deg) scale(1.04); }
-/* rangee du haut (maquette : y 3942 -> -358, elles remontent dans la section
-   precedente, ce qui est voulu) */
-.biere-h1 { left: calc(var(--u) * 278);  top: calc(var(--u) * -295); transform: rotate(-6deg); }
-.biere-h2 { left: calc(var(--u) * 699);  top: calc(var(--u) * -358); }
-.biere-h3 { left: calc(var(--u) * 1144); top: calc(var(--u) * -317); transform: rotate(6deg); }
+/* les trois bouteilles : groupe centre horizontalement (page 1920 -> centre
+   960), pose dans le vide entre le bouton "Reserver" et le titre. */
+.biere-h1 { left: calc(var(--u) * 357);  top: calc(var(--u) * -325); transform: rotate(-6deg); }
+.biere-h2 { left: calc(var(--u) * 778);  top: calc(var(--u) * -388); }
+.biere-h3 { left: calc(var(--u) * 1223); top: calc(var(--u) * -347); transform: rotate(6deg); }
 /* rangee du bas (maquette : y 5277 -> 977) */
 .biere-b1 { left: calc(var(--u) * 295);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
 .biere-b2 { left: calc(var(--u) * 733);  top: calc(var(--u) * 1070); }

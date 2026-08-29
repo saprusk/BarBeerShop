@@ -435,29 +435,12 @@ body {
    photo des pots au fond. */
 .produits-photo { display: none; }
 
-/* --- couche 2 : le "couvercle" blanc pose sur le haut de la carte ---
-   Rectangle blanc arrondi, centre sur le rouge, qui deborde legerement vers
-   le haut (comme le fichier de la designer). Au survol, il se souleve et
-   s'incline de 35°, le cote droit vers le haut. */
-.produits-vitre {
-  display: block;
-  position: absolute;
-  left: calc(var(--u) * 49);
-  top: calc(var(--u) * 21);
-  width: calc(var(--u) * 740);
-  height: calc(var(--u) * 82);
-  border-radius: calc(var(--u) * 34);
-  background: linear-gradient(180deg, #ffffff, #f4eee5);
-  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(0, 0, 0, 0.18);
-  z-index: 4;
-  /* pivot sur le bord gauche : au survol le couvercle s'ouvre comme un
-     clapet, le cote droit se souleve, sans traverser le titre. */
-  transform-origin: left center;
-  transition: transform 0.45s ease;
-}
-.produits:hover .produits-vitre {
-  transform: translateY(calc(var(--u) * -10)) rotate(-35deg);
-}
+/* --- couche 2 : le couvercle blanc ---
+   Le couvercle blanc flou est deja peint dans le fichier de la designer
+   (fond-produits-barber.webp, couche 3). On ne pose donc plus de rectangle
+   blanc par-dessus : il n'y en a qu'un seul. Comme ce couvercle fait partie
+   d'un PNG fixe, il ne peut pas etre incline au survol. */
+.produits-vitre { display: none; }
 
 /* --- couche 3 : le fond rouge fourni par la designer ---
    Le rectangle rouge de la maquette fait 844 x 342 et se pose en x 139,
