@@ -106,14 +106,7 @@ body {
 }
 
 /* #bouton remonter (maquette : x -36, y 464) : depasse a gauche */
-.bouton-remonter {
-  position: absolute;
-  left: calc(var(--u) * -36);
-  top: calc(var(--u) * 464);
-  width: calc(var(--u) * 120);
-  z-index: 5;
-}
-.bouton-remonter img { width: 100%; display: block; }
+/* le bouton remonter est desormais fixe : voir commun.css */
 
 /* #panneau carte de fidelite (maquette : x 650, y 423, 646 x 290) */
 .carte-fidelite {
@@ -239,13 +232,12 @@ body {
 }
 .invite-formules strong { font-weight: 700; }
 
-/* #fleche vers le bas (maquette : x 1234, y 1025 -> 8 dans la zone) */
-.fleche-bas {
-  position: absolute;
-  left: calc(var(--u) * 1234);
-  top: calc(var(--u) * 8);
+/* #fleche vers le bas, a cote de l'invitation. On la decale de 10 px vers
+   la droite, elle etait un peu trop pres du texte. */
+.invite-formules .fleche-bas {
+  position: static;
   width: calc(var(--u) * 46);
-  z-index: 4;
+  margin-left: calc(var(--u) * 10);
 }
 
 /* #titre "Nos Formules" (maquette : y 1151 -> 134) */
@@ -300,12 +292,22 @@ body {
   padding: 0 calc(var(--u) * 6);
   background: none;
   border: none;
-  color: var(--creme);
-  font-size: calc(var(--u) * 60);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s;
 }
+/* triangle legerement arrondi (comme la maquette XD), en creme */
+.formules-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 42);
+  height: calc(var(--u) * 50);
+  background-color: var(--creme);
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
+.formules-fleche-gauche::before { transform: scaleX(-1); }
 .formules-fleche:hover { opacity: 0.55; }
 
 /* Fenetre qui laisse voir exactement 3 cartes
@@ -398,7 +400,7 @@ body {
   width: 100%;                       /* toute la largeur interieure du cadre */
   height: calc(var(--u) * 400);      /* hauteur maximale voulue par la designer */
   object-fit: cover;
-  border-radius: calc(var(--u) * 14);
+  border-radius: calc(var(--u) * 34);
 }
 /* le prix de cette carte se cale sur le bas de la photo, pas du cadre */
 .formule-prix-photo { bottom: 0; }
@@ -438,32 +440,22 @@ body {
   width: calc(var(--u) * 812);
 }
 
-/* --- couche 1 : la photo des produits, tout au fond --- */
-.produits-photo {
-  /* maquette : 779 x 487, posee en x 221, y 2091.
-     Elle est hors du flux pour ne pas pousser le texte vers le bas. */
-  position: absolute;
-  left: calc(var(--u) * 66);
-  top: 0;
-  width: calc(var(--u) * 779);
-  height: calc(var(--u) * 487);
-  object-fit: cover;
-  object-position: center 30%;
-  border-radius: calc(var(--u) * 64);
-  /* le flou est porte par la photo elle-meme : ainsi il n'y a plus de
-     rectangle plus clair pose par-dessus */
-  filter: blur(calc(var(--u) * 7));
-  z-index: 0;
-}
+/* --- couche 1 : la photo des produits --- SUPPRIMEE ---
+   La designer ne veut que le rectangle rouge + son couvercle blanc, sans la
+   photo des pots au fond. */
+.produits-photo { display: none; }
 
-/* --- couche 2 : plus de vitre ---
-   Le fichier de la designer porte deja son propre voile degrade ; y ajouter
-   un flou faisait apparaitre un rectangle plus clair par-dessus. */
+/* --- couche 2 : le couvercle blanc ---
+   Le couvercle blanc flou est deja peint dans le fichier de la designer
+   (fond-produits-barber.webp, couche 3). On ne pose donc plus de rectangle
+   blanc par-dessus : il n'y en a qu'un seul. Comme ce couvercle fait partie
+   d'un PNG fixe, il ne peut pas etre incline au survol. */
 .produits-vitre { display: none; }
 
 /* --- couche 3 : le fond rouge fourni par la designer ---
    Le rectangle rouge de la maquette fait 844 x 342 et se pose en x 139,
    y 2195 ; le fichier ajoute autour le voile blanc degrade. */
+.fond-produits-mob { display: none; }
 .fond-forme-produits {
   left: calc(var(--u) * -46);
   top: calc(var(--u) * -28);

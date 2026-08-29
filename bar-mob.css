@@ -94,7 +94,7 @@
 /* #mousse de biere (maquette : 956 de large en x -434, y 629) */
 .mousse { position: absolute; pointer-events: none; z-index: 3; }
 /* remontee pour bien se voir dans le hero (maquette : 956 de large, y 629) */
-.mousse-haut { left: calc(var(--u) * -434); top: calc(var(--u) * 460); width: calc(var(--u) * 956); }
+.mousse-haut { left: calc(var(--u) * -470); top: calc(var(--u) * 450); width: calc(var(--u) * 1030); }
 .mousse-bas  { display: none; }
 
 /* #accroche (maquette : ligne de base a 877) */
@@ -216,7 +216,7 @@
   display: flex;
   justify-content: center;
 }
-.colonne-picto { height: calc(var(--u) * 70); width: auto; display: block; }
+.colonne-picto { height: calc(var(--u) * 130); width: auto; display: block; }
 /* le chevron qui indique que la categorie s'ouvre */
 .colonne h3::after {
   content: "";
@@ -300,19 +300,25 @@
 /* Le fond de forme brun revient derriere la photo, comme sur l'accueil
    (maquette : le grand rond de 554 cale sur la photo). */
 .pastille, .rond-petit { display: none; }
-/* pas de rond brun ici : la photo est rectangulaire sur telephone. C'est
-   un contour brun qui lui sert de fond, comme sur l'accueil. */
-.fond-forme-ambiance { display: none; }
+/* le fond de forme mobile fourni par la designer, pose derriere la photo */
+.fond-forme-ambiance {
+  display: block;
+  left: calc(var(--u) * 40);
+  top: calc(var(--u) * 548);
+  width: calc(var(--u) * 350);
+  z-index: 0;
+}
 
 /* la photo qui reste (maquette : 246 x 193 en x 82, y 3478) */
+/* la photo est posee SUR le fond de forme brun (le PNG) : pas de contour,
+   juste des angles arrondis, et un peu plus petite pour laisser voir le brun. */
 .rond {
   position: absolute;
-  left: calc(var(--u) * 82);
-  top: calc(var(--u) * 578);
-  width: calc(var(--u) * 246);
-  height: calc(var(--u) * 193);
-  border: calc(var(--u) * 8) solid var(--brun);
-  border-radius: calc(var(--u) * 20);
+  left: calc(var(--u) * 100);
+  top: calc(var(--u) * 596);
+  width: calc(var(--u) * 230);
+  height: calc(var(--u) * 175);
+  border-radius: calc(var(--u) * 16);
   overflow: hidden;
   z-index: 1;
 }
@@ -367,12 +373,12 @@
 }
 .btn-reserver-table {
   position: absolute;
-  left: calc(var(--u) * 105);
+  left: calc(var(--u) * 125);
   top: calc(var(--u) * 512);
-  width: calc(var(--u) * 221);
-  height: calc(var(--u) * 66);
-  border-radius: calc(var(--u) * 33);
-  font-size: calc(var(--u) * 24);
+  width: calc(var(--u) * 180);
+  height: calc(var(--u) * 52);
+  border-radius: calc(var(--u) * 26);
+  font-size: calc(var(--u) * 18);
 }
 
 /* =========================================================================
@@ -396,19 +402,20 @@
 }
 .brasseurs-texte-2 { display: none; }
 
-/* #bouteilles : trois en haut de la section, trois en bas */
+/* #bouteilles : on ne garde que les trois premieres, chacune posee sur sa
+   plaque claire (comme le design d'origine). */
 .biere {
   position: absolute;
-  width: calc(var(--u) * 116);
-  padding: 0;
-  background: none;
+  width: calc(var(--u) * 120);
+  padding: calc(var(--u) * 8);
+  background: var(--creme);
+  border-radius: calc(var(--u) * 14);
+  box-shadow: 0 calc(var(--u) * 4) calc(var(--u) * 10) rgba(0,0,0,0.12);
 }
+.biere-b1, .biere-b2, .biere-b3 { display: none; }
 .biere-h1 { left: calc(var(--u) * 20);  top: calc(var(--u) * 372); transform: rotate(-6deg); }
-.biere-h2 { left: calc(var(--u) * 157); top: calc(var(--u) * 354); }
-.biere-h3 { left: calc(var(--u) * 294); top: calc(var(--u) * 372); transform: rotate(6deg); }
-.biere-b1 { left: calc(var(--u) * 20);  top: calc(var(--u) * 1160); transform: rotate(-6deg); }
-.biere-b2 { left: calc(var(--u) * 157); top: calc(var(--u) * 1142); }
-.biere-b3 { left: calc(var(--u) * 294); top: calc(var(--u) * 1160); transform: rotate(6deg); }
+.biere-h2 { left: calc(var(--u) * 155); top: calc(var(--u) * 354); }
+.biere-h3 { left: calc(var(--u) * 290); top: calc(var(--u) * 372); transform: rotate(6deg); }
 
 .brasseurs-titre {
   position: absolute;
@@ -463,6 +470,20 @@
 .carte-region > img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .fleche-brasseurs { display: none; }
 
+/* les 5 balises posees sur la carte, aux memes endroits que le grand ecran */
+.point-carte {
+  position: absolute;
+  width: calc(var(--u) * 22);
+  height: calc(var(--u) * 22);
+  border-radius: 50%;
+  z-index: 2;
+}
+.pc1 { left: 56.8%; top: 35.9%; background: #B78EE0; }
+.pc2 { left: 63.7%; top: 49.0%; background: #B78EE0; }
+.pc3 { left: 66.2%; top: 78.0%; background: #E08E8E; }
+.pc4 { left: 18.7%; top: 48.0%; background: #8EE09B; }
+.pc5 { left: 45.0%; top: 84.0%; background: #8EC4E0; }
+
 /* #capsules des brasseurs, les unes sous les autres */
 /* chaque brasseur : sur telephone la capsule est toujours visible, posee
    sous la carte, au lieu d'apparaitre au survol d'un point */
@@ -474,29 +495,24 @@
      gauche de sa capsule */
   background: none;
 }
-.brasseur::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: calc(var(--u) * 16);
-  width: calc(var(--u) * 42);
-  height: calc(var(--u) * 42);
-  border-radius: 50%;
-  background: inherit;
-}
-.b1 { left: calc(var(--u) * -30); top: calc(var(--u) * 316); background: #A77BCB; }
-.b2 { left: calc(var(--u) * -30); top: calc(var(--u) * 434); background: #7B6BCB; }
-.b3 { left: calc(var(--u) * -30); top: calc(var(--u) * 552); background: #6BCB7B; }
-.b4 { left: calc(var(--u) * -30); top: calc(var(--u) * 670); background: #E1596B; }
-.b5 { left: calc(var(--u) * -30); top: calc(var(--u) * 788); background: #6BB8E1; }
+/* les balises sont deja sur la carte : ici, on n'affiche que les capsules,
+   empilees sous la carte. La 2e brasserie violette est la meme que la 1re,
+   on ne montre donc que quatre capsules. */
+.brasseur { left: calc(var(--u) * 20); }
+.brasseur::before { display: none; }
+.b1 { top: calc(var(--u) * 316); }
+.b2 { display: none; }               /* doublon violet */
+.b3 { top: calc(var(--u) * 434); }
+.b4 { top: calc(var(--u) * 552); }
+.b5 { top: calc(var(--u) * 670); }
 /* La capsule reprend le visuel du survol des grands ecrans : un fond brun
    arrondi avec la photo du brasseur deja dedans. On ne pose par-dessus que
    le nom et la ville. */
 .capsule {
   position: relative;
-  left: calc(var(--u) * 56);
+  left: 0;
   display: block;
-  width: calc(var(--u) * 300);
+  width: calc(var(--u) * 390);
   height: calc(var(--u) * 99);
   padding: calc(var(--u) * 22) calc(var(--u) * 12) 0 calc(var(--u) * 118);
   opacity: 1;
@@ -548,3 +564,7 @@
 .bande-barber .bande-fleur:nth-of-type(1) { left: calc(var(--u) * 16); }
 .bande-barber .bande-fleur:nth-of-type(2) { right: calc(var(--u) * 16); }
 .bande-barber .bande-fleur:nth-of-type(3) { display: none; }
+/* les fleurs prennent la couleur beige de la phrase */
+.bande-barber .bande-fleur { filter: brightness(0) saturate(100%) invert(88%) sepia(9%) saturate(560%) hue-rotate(3deg) brightness(94%); }
+/* on reduit un peu la phrase pour qu'elle tienne bien */
+.bande-barber span { font-size: calc(var(--u) * 15); }

@@ -285,30 +285,20 @@
   z-index: 2;
 }
 /* ni photo ni vitre floutee sur telephone : la carte est pleine */
-.produits-photo, .fond-forme-produits { display: none; }
+.produits-photo, .fond-produits-desktop, .fond-produits-mob { display: none; }
 
 /* #couvercle du pot : deux plaques claires posees au-dessus de la carte
    (maquette : 228 x 58 en x 95, et 214 x 42 en x 104) */
-.produits-vitre {
-  display: block;
-  position: absolute;
-  left: calc(var(--u) * 43);    /* 95 - 52 */
-  top: calc(var(--u) * -58);    /* 1877 - 1935 */
-  width: calc(var(--u) * 228);
-  height: calc(var(--u) * 58);
-  border-radius: calc(var(--u) * 16) calc(var(--u) * 16) 0 0;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
+/* le couvercle et le rouge plein sont remplaces par le fichier flou de la
+   designer (fond-produits-barber-mob), pose en fond de la carte. */
+.produits-vitre { display: none; }
 
 .produits-carte {
   position: relative;
   margin: 0;
   min-height: calc(var(--u) * 475);
-  padding: calc(var(--u) * 60) calc(var(--u) * 34) 0;
-  background: #E23950;
-  border-radius: calc(var(--u) * 30);
+  padding: calc(var(--u) * 84) calc(var(--u) * 34) 0;
+  background: url("sources/fond-produits-barber-mob.webp") no-repeat center / 100% 100%;
   color: var(--creme);
 }
 .produits-titre {
@@ -509,19 +499,17 @@
 /* =========================================================================
    #formules qui s'ouvrent
    Au toucher, la pastille s'allonge et laisse voir le detail de la formule.
-   Elle passe alors PAR-DESSUS les autres : ainsi rien ne se decale, et la
-   suite de la page reste a sa place.
+   Les formules situees en dessous descendent alors d'autant (gere par
+   commun.js), et la suite de la page suit : rien ne se chevauche.
    ========================================================================= */
 .formule[data-ouverte="oui"] {
   height: auto !important;
   min-height: calc(var(--u) * 104);
-  z-index: 10;
   padding: calc(var(--u) * 18) calc(var(--u) * 74) calc(var(--u) * 20) calc(var(--u) * 22);
   flex-direction: column;
   align-items: flex-start;
   border-radius: calc(var(--u) * 28);
   background: var(--brun);
-  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 20) rgba(0, 0, 0, 0.28);
 }
 .formule[data-ouverte="oui"] .formule-liste {
   display: block;

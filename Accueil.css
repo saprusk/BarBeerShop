@@ -33,13 +33,13 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--u) * 845);
+  top: calc(var(--u) * 937);
   bottom: 0;
   background: var(--creme);
   z-index: 1;
 }
 
-.bouton-remonter { top: calc(var(--u) * 464); }
+/* le bouton remonter est desormais fixe : voir commun.css */
 
 /* #photos rondes du hero */
 .hero-rond { position: absolute; border-radius: 50%; overflow: hidden; }
@@ -52,7 +52,7 @@
 /* #titre principal (maquette : y 515, centre) */
 .hero-titre {
   position: absolute;
-  top: calc(var(--u) * 565);
+  top: calc(var(--u) * 555);
   left: 0;
   width: 100%;
   margin: 0;
@@ -71,14 +71,14 @@
    pour qu'il se fonde sur le fond sombre (demande de la designer) */
 .deco-loupe {
   left: calc(var(--u) * 643);
-  top: calc(var(--u) * 646);
+  top: calc(var(--u) * 636);
   width: calc(var(--u) * 143);
   mix-blend-mode: screen;
 }
-.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 461); width: calc(var(--u) * 52); }
-.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 670); width: calc(var(--u) * 229); }
-.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 465); width: calc(var(--u) * 127); }
-.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 637); width: calc(var(--u) * 96); }
+.deco-fleur-p { left: calc(var(--u) * 839);  top: calc(var(--u) * 451); width: calc(var(--u) * 52); }
+.deco-trait   { left: calc(var(--u) * 882);  top: calc(var(--u) * 660); width: calc(var(--u) * 229); }
+.deco-moust   { left: calc(var(--u) * 1160); top: calc(var(--u) * 455); width: calc(var(--u) * 127); }
+.deco-fleur-g { left: calc(var(--u) * 1159); top: calc(var(--u) * 627); width: calc(var(--u) * 96); }
 
 /* #mousse de biere : deux couches qui font la transition vers le creme */
 .mousse { position: absolute; left: 0; pointer-events: none; z-index: 2; }
@@ -200,7 +200,8 @@
   border-radius: 0 0 50% 50%;
   z-index: 4;
 }
-/* sous la bulle BAR (maquette : x 1373, y 1483 -> 333) */
+/* les petits reflets blancs sous les bulles ont ete retires : inutiles */
+.sourire, .grain-beaute { display: none; }
 .sourire-bar    { left: calc(var(--u) * 1373); top: calc(var(--u) * 333); width: calc(var(--u) * 42); height: calc(var(--u) * 12); }
 /* sous la bulle BARBER (maquette : x 468, y 1722 -> 572) */
 .sourire-barber { left: calc(var(--u) * 468);  top: calc(var(--u) * 572); width: calc(var(--u) * 31); height: calc(var(--u) * 10); }
@@ -214,7 +215,7 @@
 
 /* #pastilles bleues decoratives */
 .pastille { position: absolute; border-radius: 50%; background: var(--petrole); }
-.p1 { left: calc(var(--u) * 1756); top: calc(var(--u) * -61);  width: calc(var(--u) * 116); height: calc(var(--u) * 116); }
+.p1 { left: calc(var(--u) * 1756); top: calc(var(--u) * -61);  width: calc(var(--u) * 116); height: calc(var(--u) * 116); z-index: 2; }
 .p2 { left: calc(var(--u) * 1444); top: calc(var(--u) * 104);  width: calc(var(--u) * 60);  height: calc(var(--u) * 60); }
 .p3 { left: calc(var(--u) * 338);  top: calc(var(--u) * 267);  width: calc(var(--u) * 62);  height: calc(var(--u) * 62); }
 .p4 { left: calc(var(--u) * 169);  top: calc(var(--u) * 344);  width: calc(var(--u) * 99);  height: calc(var(--u) * 99); }
@@ -279,18 +280,28 @@
   gap: calc(var(--u) * 24);
 }
 
-/* les deux fleches, de chaque cote */
+/* les deux fleches, de chaque cote : triangles legerement arrondis (comme
+   sur la maquette XD), dessines avec un masque pour garder la couleur rouge. */
 .avis-fleche {
   flex: 0 0 auto;
   padding: 0 calc(var(--u) * 10);
   background: none;
   border: none;
-  color: var(--rouge);
-  font-size: calc(var(--u) * 46);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s;
 }
+.avis-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 40);
+  background-color: var(--rouge);
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
+.avis-fleche-gauche::before { transform: scaleX(-1); }
 .avis-fleche:hover { opacity: 0.55; }
 
 /* La fenetre laisse voir exactement TROIS avis. Les deux autres attendent
@@ -298,12 +309,17 @@
 .avis-fenetre {
   width: calc(var(--u) * 1440);
   max-width: 100%;
-  overflow: hidden;
+  /* visible : les avis en attente debordent volontairement de chaque cote,
+     plus bas, pour donner l'impression d'une trajectoire circulaire. */
+  overflow: visible;
   padding: calc(var(--u) * 60) 0;
 }
 
-/* La piste porte les cinq avis et glisse d'un cran a chaque fleche. */
+/* La piste porte les cinq avis et glisse d'un cran a chaque fleche.
+   "position: relative" : ainsi la position interne des cartes (offsetLeft)
+   se compte depuis la piste, ce qui permet de les centrer au pixel pres. */
 .avis-piste {
+  position: relative;
   display: flex;
   align-items: center;
   gap: calc(var(--u) * 60);
@@ -311,43 +327,33 @@
   transition: transform 0.45s ease;
 }
 
-/* une carte d'avis : rectangle rouge arrondi, legerement incline */
+/* une carte d'avis : c'est le visuel fourni par la designer (fond rouge,
+   angles arrondis et les deux gros guillemets deja dessines dedans). On ne
+   pose que le texte par-dessus. L'inclinaison ET la hauteur dependent de la
+   PLACE occupee : la carte du milieu est droite et haute, les autres
+   penchent et descendent. */
 .avis-carte {
   position: relative;
-  flex: 0 0 calc(var(--u) * 420);
-  min-height: calc(var(--u) * 230);
+  flex: 0 0 calc(var(--u) * 430);
+  height: calc(var(--u) * 229);
   margin: 0;
-  padding: calc(var(--u) * 44) calc(var(--u) * 46) calc(var(--u) * 34);
-  background: var(--rouge);
-  border-radius: calc(var(--u) * 26);
+  padding: calc(var(--u) * 46) calc(var(--u) * 54) calc(var(--u) * 40);
+  display: flex;
+  flex-direction: column;
+  background: url("sources/fond-avis.webp") no-repeat center / 100% 100%;
   color: #fff;
-  /* l'angle est pose par le script, selon la place occupee */
-  transform: rotate(var(--angle, 0deg));
+  transform: translateY(var(--descente, 0px)) rotate(var(--angle, 0deg));
   transition: transform 0.45s ease;
 }
-/* les gros guillemets, en haut a gauche et en bas a droite */
-.avis-carte::before,
-.avis-carte::after {
-  content: "\201D";
-  position: absolute;
-  /* PP Formula ne dessine pas les guillemets : police de secours */
-  font-family: Georgia, "Times New Roman", serif;
-  color: #fff;
-  font-size: calc(var(--u) * 90);
-  line-height: 1;
-}
-.avis-carte::before { left: calc(var(--u) * -18); top: calc(var(--u) * 6); transform: rotate(180deg); }
-.avis-carte::after  { right: calc(var(--u) * -12); bottom: calc(var(--u) * -34); }
-
 .avis-carte blockquote {
   margin: 0;
-  font-size: calc(var(--u) * 18);
+  font-size: calc(var(--u) * 17);
   font-weight: 400;
   line-height: 1.4;
 }
 .avis-carte figcaption {
-  margin-top: calc(var(--u) * 24);
-  text-align: right;
+  margin-top: auto;
+  text-align: center;
   font-size: calc(var(--u) * 22);
   font-weight: 800;
 }
@@ -409,7 +415,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: calc(var(--u) * 220);
+  top: calc(var(--u) * 210);
   width: calc(var(--u) * 276);
   height: calc(var(--u) * 68);
   z-index: 4;

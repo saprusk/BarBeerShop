@@ -35,7 +35,7 @@ body { background-color: var(--beige); }
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--u) * 855);
+  top: calc(var(--u) * 946);
   bottom: 0;
   background: var(--beige);
   z-index: 1;
@@ -51,7 +51,7 @@ body { background-color: var(--beige); }
   object-fit: cover;
 }
 
-.bouton-remonter { top: calc(var(--u) * 464); }
+/* le bouton remonter est desormais fixe : voir commun.css */
 
 /* #etiquette "EVENEMENT" (maquette : x 777, y 355, 366 x 74) */
 .etiquette-evenement {
@@ -149,7 +149,11 @@ body { background-color: var(--beige); }
 
 .carte {
   position: relative;
-  height: calc(var(--u) * 1700);
+  /* hauteur automatique : la carte se voit en entier, quelle que soit la
+     hauteur de la colonne la plus longue. Le padding-haut reserve la place
+     du titre et evite que la marge des colonnes ne "remonte" (collapse). */
+  min-height: calc(var(--u) * 1700);
+  padding: calc(var(--u) * 330) 0 calc(var(--u) * 60);
   background: var(--beige);
 }
 
@@ -181,10 +185,8 @@ body { background-color: var(--beige); }
    attendent hors du cadre. On les fait venir avec les fleches, ou en
    faisant glisser au doigt / au pave tactile. */
 .carte-fenetre {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: calc(var(--u) * 330);
+  position: relative;
+  margin: 0 auto;
   width: calc(var(--u) * 1470);
   max-width: 100%;
   overflow-x: auto;
@@ -204,19 +206,29 @@ body { background-color: var(--beige); }
 /* #les deux fleches, posees de chaque cote de la carte */
 .carte-fleche {
   position: absolute;
-  top: calc(var(--u) * 700);
+  top: calc(var(--u) * 500);
   padding: 0 calc(var(--u) * 10);
   border: none;
   background: none;
-  color: var(--brun);
-  font-size: calc(var(--u) * 54);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   z-index: 5;
   transition: opacity 0.2s;
 }
+/* triangle legerement arrondi (comme la maquette XD), en brun */
+.carte-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 38);
+  height: calc(var(--u) * 46);
+  background-color: var(--brun);
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
 .carte-fleche:hover { opacity: 0.55; }
 .carte-fleche-gauche { left: calc(var(--u) * 90); }
+.carte-fleche-gauche::before { transform: scaleX(-1); }
 .carte-fleche-droite { right: calc(var(--u) * 90); }
 
 /* une colonne de la carte */
@@ -278,8 +290,8 @@ body { background-color: var(--beige); }
   height: calc(var(--u) * 76);
   display: grid;
   place-content: center;
-  background: var(--beige);
-  border: calc(var(--u) * 5) solid var(--brun);
+  background: #fff;
+  border: none;
   border-radius: 50%;
   color: var(--brun);
   font-size: calc(var(--u) * 19);
@@ -338,7 +350,11 @@ body { background-color: var(--beige); }
 .pa3 { left: calc(var(--u) * 616);  top: calc(var(--u) * 719); width: calc(var(--u) * 91); height: calc(var(--u) * 91); }
 .pa4 { left: calc(var(--u) * 340);  top: calc(var(--u) * 732); width: calc(var(--u) * 49); height: calc(var(--u) * 48); }
 .pa5 { left: calc(var(--u) * 203);  top: calc(var(--u) * 780); width: calc(var(--u) * 99); height: calc(var(--u) * 99); }
-.pa6 { left: calc(var(--u) * 1738); top: calc(var(--u) * 340); width: calc(var(--u) * 34); height: calc(var(--u) * 66); }
+/* Les deux "bulles" a droite du texte : deux vraies bulles rondes (une
+   grande, une petite), comme les pastilles de gauche. Boites carrees +
+   border-radius 50% herite de .pastille = cercles parfaits. */
+.pa6 { left: calc(var(--u) * 1645); top: calc(var(--u) * 209); width: calc(var(--u) * 88); height: calc(var(--u) * 88); }
+.pa7 { left: calc(var(--u) * 1722); top: calc(var(--u) * 349); width: calc(var(--u) * 48); height: calc(var(--u) * 48); }
 
 /* #textes de la section */
 .ambiance-titre,
@@ -397,28 +413,32 @@ body { background-color: var(--beige); }
   background: var(--beige);
 }
 
-/* #bouteilles : posees directement sur le beige, sans plaque ni cadre
-   derriere elles (le fond des photos a ete rendu transparent). */
+/* #bouteilles : chacune est posee sur une plaque creme legerement inclinee,
+   comme dans le design d'origine. */
 .biere {
   position: absolute;
   width: calc(var(--u) * 340);
-  padding: 0;
-  background: none;
+  padding: calc(var(--u) * 16);
+  background: var(--creme);
+  border-radius: calc(var(--u) * 24);
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(0,0,0,0.12);
   transition: transform 0.3s ease;
 }
+/* sur grand ecran on garde les SIX bouteilles (3 en haut, 3 sous la carte
+   de la Lorraine). C'est seulement sur telephone qu'on n'en garde que 3. */
 /* au survol, la bouteille pivote legerement */
 .biere:hover { transform: rotate(-8deg) scale(1.04); }
 .biere-h1:hover, .biere-b1:hover { transform: rotate(-14deg) scale(1.04); }
 .biere-h3:hover, .biere-b3:hover { transform: rotate(14deg) scale(1.04); }
-/* rangee du haut (maquette : y 3942 -> -358, elles remontent dans la section
-   precedente, ce qui est voulu) */
-.biere-h1 { left: calc(var(--u) * 278);  top: calc(var(--u) * -295); transform: rotate(-6deg); }
-.biere-h2 { left: calc(var(--u) * 699);  top: calc(var(--u) * -358); }
-.biere-h3 { left: calc(var(--u) * 1144); top: calc(var(--u) * -317); transform: rotate(6deg); }
+/* les trois bouteilles : groupe centre horizontalement (page 1920 -> centre
+   960), pose dans le vide entre le bouton "Reserver" et le titre. */
+.biere-h1 { left: calc(var(--u) * 357);  top: calc(var(--u) * -325); transform: rotate(-6deg); }
+.biere-h2 { left: calc(var(--u) * 778);  top: calc(var(--u) * -388); }
+.biere-h3 { left: calc(var(--u) * 1223); top: calc(var(--u) * -347); transform: rotate(6deg); }
 /* rangee du bas (maquette : y 5277 -> 977) */
-.biere-b1 { left: calc(var(--u) * 295);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
-.biere-b2 { left: calc(var(--u) * 733);  top: calc(var(--u) * 1070); }
-.biere-b3 { left: calc(var(--u) * 1146); top: calc(var(--u) * 974);  transform: rotate(6deg); }
+.biere-b1 { left: calc(var(--u) * 374);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
+.biere-b2 { left: calc(var(--u) * 812);  top: calc(var(--u) * 1070); }
+.biere-b3 { left: calc(var(--u) * 1225); top: calc(var(--u) * 974);  transform: rotate(6deg); }
 
 /* #titre et textes (maquette : titre y 4387 -> 87) */
 .brasseurs-titre {
@@ -529,7 +549,7 @@ body { background-color: var(--beige); }
 .b2 { left: 63.7%; top: 49.0%; background: #B78EE0; }   /* Nancy */
 .b3 { left: 66.2%; top: 78.0%; background: #E08E8E; }   /* Vosges */
 .b4 { left: 18.7%; top: 48.0%; background: #8EE09B; }   /* Meuse */
-.b5 { left: 46.2%; top: 95.3%; background: #8EC4E0; }   /* Saulnois */
+.b5 { left: 45.0%; top: 84.0%; background: #8EC4E0; }   /* Saulnois */
 
 /* La capsule du survol est le visuel fourni par la designer : un fond brun
    arrondi avec la photo du brasseur deja dedans. On ne pose par-dessus que

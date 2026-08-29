@@ -16,7 +16,7 @@
 .page-espace {
   position: relative;
   margin-top: calc(var(--u) * 112);
-  height: calc(var(--u) * 3323);
+  height: calc(var(--u) * 3070);   /* moins de vide blanc sous la FAQ */
   background: var(--creme);
 }
 
@@ -30,7 +30,7 @@
 }
 
 /* #bouton remonter (maquette : y 464) */
-.bouton-remonter { top: calc(var(--u) * 352); }
+/* le bouton remonter est desormais fixe : voir commun.css */
 
 /* #titre de la page (maquette : y 319, centre) */
 .espace-titre {
@@ -190,7 +190,9 @@
   overflow: visible;
 }
 
-/* la carte rouge inclinee (maquette : x 395, y 1567, 866 x 733) */
+/* la carte de fidelite (fichier de la designer, deja incline et avec ses
+   textes manuscrits integres). Ratio 978 x 720 : a 866 de large elle fait
+   638 de haut. */
 .carte-visuel {
   position: absolute;
   left: calc(var(--u) * 395);
@@ -198,58 +200,24 @@
   width: calc(var(--u) * 866);
 }
 
-/* les deux textes manuscrits poses sur la carte */
-.carte-surtitre {
-  position: absolute;
-  left: calc(var(--u) * 866);
-  top: calc(var(--u) * 100);
-  margin: 0;
-  color: #fff;
-  font-size: calc(var(--u) * 20);
-  font-weight: 500;
-  transform: rotate(-7deg);
-}
-.carte-merci {
-  position: absolute;
-  left: calc(var(--u) * 455);
-  top: calc(var(--u) * 118);
-  width: calc(var(--u) * 800);
-  margin: 0;
-  color: #fff;
-  font-family: "Reenie Beanie", cursive;   /* police manuscrite */
-  font-size: calc(var(--u) * 67);
-  line-height: 1.1;
-  /* le texte suit exactement l'inclinaison de la carte */
-  transform: rotate(-7deg);
-  transform-origin: left center;
-}
+/* les textes manuscrits et la mention sont deja peints dans le fichier :
+   on masque les doublons CSS qui se chevauchaient. */
+.carte-surtitre, .carte-merci, .carte-mention { display: none; }
 
-/* les tampons deja obtenus, poses dans les cases de la carte */
-.tampon { position: absolute; }
-.tampon-1 { left: calc(var(--u) * 394); top: calc(var(--u) * 199); width: calc(var(--u) * 154); }
-.tampon-2 { left: calc(var(--u) * 570); top: calc(var(--u) * 212); width: calc(var(--u) * 161); }
-.tampon-3 { left: calc(var(--u) * 766); top: calc(var(--u) * 242); width: calc(var(--u) * 142); }
-.tampon-4 { left: calc(var(--u) * 950); top: calc(var(--u) * 257); width: calc(var(--u) * 149); }
-
-/* la mention en bas de la carte */
-.carte-mention {
-  position: absolute;
-  left: calc(var(--u) * 796);
-  top: calc(var(--u) * 607);
-  margin: 0;
-  color: #fff;
-  font-size: calc(var(--u) * 18);
-  font-weight: 100;
-  line-height: 1.5;
-  transform: rotate(-7deg);
-  transform-origin: left center;
-}
+/* les tampons (fleurs bleues) poses dans les 4 premieres cases du haut.
+   Positions relevees en pourcentage de la carte (x 395, largeur 866,
+   hauteur 638), comme sur la version telephone. */
+.tampon { position: absolute; width: calc(var(--u) * 124); }
+.tampon-1 { left: calc(var(--u) * 458); top: calc(var(--u) * 189); }
+.tampon-2 { left: calc(var(--u) * 614); top: calc(var(--u) * 189); }
+.tampon-3 { left: calc(var(--u) * 771); top: calc(var(--u) * 189); }
+.tampon-4 { left: calc(var(--u) * 928); top: calc(var(--u) * 189); }
 
 /* la fleche bouclee a droite de la carte (maquette : x 1326, y 1748) */
 .carte-fleche {
   position: absolute;
   left: calc(var(--u) * 1326);
-  top: calc(var(--u) * 300);   /* descendue : elle passait sur le texte */
+  top: calc(var(--u) * 430);   /* descendue sous le texte de recompense */
   width: calc(var(--u) * 244);
 }
 /* le texte de recompense, a droite de la fleche */

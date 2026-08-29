@@ -316,7 +316,9 @@
   font-weight: 700;
 }
 
-/* #carrousel : une seule carte visible a la fois, une fleche de chaque cote */
+/* #carrousel : meme mecanisme que sur grand ecran (le script brancherAvis
+   fait glisser la piste et centre la carte choisie). Ici une seule carte
+   tient a l'ecran ; les fleches font tourner. */
 .avis-carrousel {
   position: absolute;
   top: calc(var(--u) * 52);
@@ -325,57 +327,57 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--u) * 10);
+  gap: calc(var(--u) * 4);
 }
-/* Un seul avis a la fois, bien centre : la bande fait la largeur d'une
-   carte, et le "scroll-snap" recale toujours l'avis pile au milieu. */
+.avis-fleche {
+  display: block;
+  flex: 0 0 auto;
+  padding: 0 calc(var(--u) * 4);
+  border: 0;
+  background: none;
+  color: var(--rouge);
+  font-size: calc(var(--u) * 26);
+  line-height: 1;
+  cursor: pointer;
+}
 .avis-fenetre {
-  width: calc(var(--u) * 290);
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  width: calc(var(--u) * 300);
+  overflow: hidden;
+  padding: calc(var(--u) * 14) 0;
 }
-.avis-fenetre::-webkit-scrollbar { display: none; }
-.avis-piste { display: flex; gap: calc(var(--u) * 30); }
+.avis-piste {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 30);
+  width: max-content;
+  transition: transform 0.45s ease;
+}
+/* la carte reprend le visuel fourni (guillemets deja dessines dedans) */
 .avis-carte {
   position: relative;
-  flex: 0 0 calc(var(--u) * 290);
-  scroll-snap-align: center;
+  flex: 0 0 calc(var(--u) * 300);
+  height: calc(var(--u) * 160);
   margin: 0;
-  padding: calc(var(--u) * 26) calc(var(--u) * 30);
-  /* les cartes ne sont pas inclinees sur telephone */
+  padding: calc(var(--u) * 30) calc(var(--u) * 36);
+  display: flex;
+  flex-direction: column;
+  background: url("sources/fond-avis.webp") no-repeat center / 100% 100%;
+  color: #fff;
   transform: none;
-  background: var(--rouge);
-  border-radius: calc(var(--u) * 20);
-  color: #fff;
 }
-/* les gros guillemets, comme sur grand ecran */
-.avis-carte::before,
-.avis-carte::after {
-  content: "D";
-  position: absolute;
-  /* PP Formula ne dessine pas les guillemets : on prend une police de
-     secours pour ce seul caractere */
-  font-family: Georgia, "Times New Roman", serif;
-  color: #fff;
-  font-size: calc(var(--u) * 52);
-  line-height: 1;
-}
-.avis-carte::before { left: calc(var(--u) * 6);  top: calc(var(--u) * 2);   transform: rotate(180deg); }
-.avis-carte::after  { right: calc(var(--u) * 8); bottom: calc(var(--u) * -18); }
 .avis-carte blockquote {
   margin: 0;
-  font-size: calc(var(--u) * 11);
-  line-height: 1.45;
+  font-size: calc(var(--u) * 12);
+  font-weight: 400;
+  line-height: 1.4;
 }
 .avis-carte figcaption {
-  margin-top: calc(var(--u) * 8);
+  margin-top: auto;
   text-align: center;
-  font-size: calc(var(--u) * 12);
-  font-weight: 700;
+  font-size: calc(var(--u) * 15);
+  font-weight: 800;
 }
-.avis-fleche { display: none; }   /* remplacees par les fleches de glissiere */
 
 /* =========================================================================
    #bar a biere  (1612 -> 2864)
@@ -658,7 +660,7 @@
   width: 100%;
   height: calc(var(--u) * 376);
   display: flex;
-  gap: calc(var(--u) * 30);
+  gap: calc(var(--u) * 88);
   padding: 0 calc(var(--u) * 89);
   overflow-x: auto;
   scroll-behavior: smooth;
@@ -671,7 +673,6 @@
   height: 100%;
   object-fit: cover;
   border-radius: calc(var(--u) * 18);
-  scroll-snap-align: center;
   display: block;
 }
 
