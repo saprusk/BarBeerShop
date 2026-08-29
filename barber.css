@@ -430,25 +430,34 @@ body {
   width: calc(var(--u) * 812);
 }
 
-/* --- couche 1 : la photo des produits, tout au fond --- */
-.produits-photo {
-  /* maquette : 779 x 487, posee en x 221, y 2091.
-     Elle est hors du flux pour ne pas pousser le texte vers le bas. */
-  position: absolute;
-  left: calc(var(--u) * 66);
-  top: 0;
-  width: calc(var(--u) * 779);
-  height: calc(var(--u) * 487);
-  object-fit: cover;
-  object-position: center 30%;
-  border-radius: calc(var(--u) * 69);   /* meme arrondi que les prestations */
-  z-index: 0;
-}
+/* --- couche 1 : la photo des produits --- SUPPRIMEE ---
+   La designer ne veut que le rectangle rouge + son couvercle blanc, sans la
+   photo des pots au fond. */
+.produits-photo { display: none; }
 
-/* --- couche 2 : plus de vitre ---
-   Le fichier de la designer porte deja son propre voile degrade ; y ajouter
-   un flou faisait apparaitre un rectangle plus clair par-dessus. */
-.produits-vitre { display: none; }
+/* --- couche 2 : le "couvercle" blanc pose sur le haut de la carte ---
+   Rectangle blanc arrondi, centre sur le rouge, qui deborde legerement vers
+   le haut (comme le fichier de la designer). Au survol, il se souleve et
+   s'incline de 35°, le cote droit vers le haut. */
+.produits-vitre {
+  display: block;
+  position: absolute;
+  left: calc(var(--u) * 49);
+  top: calc(var(--u) * 21);
+  width: calc(var(--u) * 740);
+  height: calc(var(--u) * 82);
+  border-radius: calc(var(--u) * 34);
+  background: linear-gradient(180deg, #ffffff, #f4eee5);
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(0, 0, 0, 0.18);
+  z-index: 4;
+  /* pivot sur le bord gauche : au survol le couvercle s'ouvre comme un
+     clapet, le cote droit se souleve, sans traverser le titre. */
+  transform-origin: left center;
+  transition: transform 0.45s ease;
+}
+.produits:hover .produits-vitre {
+  transform: translateY(calc(var(--u) * -10)) rotate(-35deg);
+}
 
 /* --- couche 3 : le fond rouge fourni par la designer ---
    Le rectangle rouge de la maquette fait 844 x 342 et se pose en x 139,

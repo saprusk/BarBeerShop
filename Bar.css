@@ -341,9 +341,11 @@ body { background-color: var(--beige); }
 .pa4 { left: calc(var(--u) * 340);  top: calc(var(--u) * 732); width: calc(var(--u) * 49); height: calc(var(--u) * 48); }
 .pa5 { left: calc(var(--u) * 203);  top: calc(var(--u) * 780); width: calc(var(--u) * 99); height: calc(var(--u) * 99); }
 /* La "bulle" a droite du texte : deux fines gouttes verticales, comme dans
-   la maquette (et non un seul ovale ecrase). */
-.pa6 { left: calc(var(--u) * 1672); top: calc(var(--u) * 185); width: calc(var(--u) * 34); height: calc(var(--u) * 136); }
-.pa7 { left: calc(var(--u) * 1738); top: calc(var(--u) * 340); width: calc(var(--u) * 17); height: calc(var(--u) * 66); }
+   la maquette. On leur donne un rayon egal a leur demi-largeur : les bouts
+   sont alors de vrais demi-cercles (forme de gelule), et non les pointes
+   d'une ellipse ecrasee qui donnaient l'air "deforme". */
+.pa6 { left: calc(var(--u) * 1672); top: calc(var(--u) * 185); width: calc(var(--u) * 34); height: calc(var(--u) * 136); border-radius: calc(var(--u) * 17); }
+.pa7 { left: calc(var(--u) * 1738); top: calc(var(--u) * 340); width: calc(var(--u) * 17); height: calc(var(--u) * 66); border-radius: calc(var(--u) * 8.5); }
 
 /* #textes de la section */
 .ambiance-titre,

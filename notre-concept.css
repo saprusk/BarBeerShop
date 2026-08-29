@@ -652,10 +652,11 @@
   .produit-vignette { border-width: 3px; border-radius: 22px; }
 }
 
-/* Cassandre est recalee vers la gauche, Julie vers la droite, pour que les
-   illustrations ne se touchent pas. */
-.equipe-liste .membre:nth-child(3) { position: relative; left: calc(var(--u) * -12); }
-.equipe-liste .membre:nth-child(4) { position: relative; left: calc(var(--u) * 5); }
+/* Les illustrations de Cassandre (cheveux longs) et de Julie se chevauchaient :
+   un simple decalage ne suffisait pas. On ajoute une vraie marge avant Julie,
+   qui ecarte le duo dans le flux. Comme la rangee est centree, l'ensemble se
+   recentre tout seul. */
+.equipe-liste .membre:nth-child(4) { margin-left: calc(var(--u) * 90); }
 
 /* #galerie Instagram : chaque photo mene au compte */
 .instagram-galerie a { display: block; line-height: 0; }
