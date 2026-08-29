@@ -499,19 +499,17 @@
 /* =========================================================================
    #formules qui s'ouvrent
    Au toucher, la pastille s'allonge et laisse voir le detail de la formule.
-   Elle passe alors PAR-DESSUS les autres : ainsi rien ne se decale, et la
-   suite de la page reste a sa place.
+   Les formules situees en dessous descendent alors d'autant (gere par
+   commun.js), et la suite de la page suit : rien ne se chevauche.
    ========================================================================= */
 .formule[data-ouverte="oui"] {
   height: auto !important;
   min-height: calc(var(--u) * 104);
-  z-index: 10;
   padding: calc(var(--u) * 18) calc(var(--u) * 74) calc(var(--u) * 20) calc(var(--u) * 22);
   flex-direction: column;
   align-items: flex-start;
   border-radius: calc(var(--u) * 28);
   background: var(--brun);
-  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 20) rgba(0,0,0,0.28);
 }
 .formule[data-ouverte="oui"] .formule-liste {
   display: block;

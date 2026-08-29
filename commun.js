@@ -392,8 +392,64 @@ window.addEventListener('resize', brancherLesGlissieres);
    formules sont deja completes.
    ------------------------------------------------------------------------- */
 (function brancherFormulesTelephone() {
+  const zone = document.querySelector('.zone-brune');
   const formules = [...document.querySelectorAll('.formule')];
-  if (!formules.length) return;
+  if (!zone || !formules.length) return;
+
+  /* Tous les blocs de la zone brune poses SOUS les formules : quand une
+     formule s'ouvre, ceux qui sont plus bas descendent d'autant. On les
+     recupere par leur "offsetParent" (la zone elle-meme), et on ajoute a la
+     main la photo des produits, seule a etre logee dans la 3e formule. */
+  function collecterPile() {
+    const pile = [...zone.querySelectorAll('*')].filter(el =>
+      el.offsetParent === zone && getComputedStyle(el).position === 'absolute'
+    );
+    const photo = zone.querySelector('.formule-photo-zone');
+    if (photo && !pile.includes(photo)) pile.push(photo);
+    return pile;
+  }
+
+  let pile = [];
+  let hauteurZoneBase = 0;
+
+  function reinitialiser() {
+    pile.forEach(el => { el.style.top = ''; });
+    zone.style.height = '';
+  }
+
+  /* On releve les positions de repos (toutes formules fermees).
+     - topBase : le "top" propre a l'element (dans le repere de son parent),
+       c'est lui que l'on modifiera ;
+     - absBase : sa position absolue dans la zone, pour savoir s'il est au-
+       dessus ou au-dessous de la formule ouverte. */
+  function mesurer() {
+    formules.forEach(f => { f.dataset.ouverte = 'non'; });
+    pile = collecterPile();
+    reinitialiser();
+    const hautZone = zone.getBoundingClientRect().top;
+    pile.forEach(el => {
+      el._topBase = el.offsetTop;
+      el._absBase = el.getBoundingClientRect().top - hautZone;
+    });
+    formules.forEach(f => { f._hFermee = f.getBoundingClientRect().height; });
+    hauteurZoneBase = zone.offsetHeight;
+  }
+
+  function appliquer() {
+    if (document.documentElement.clientWidth >= BASCULE_MOBILE) { reinitialiser(); return; }
+    const ouverte = formules.find(f => f.dataset.ouverte === 'oui');
+    let extra = 0;
+    let seuil = Infinity;
+    if (ouverte) {
+      extra = ouverte.getBoundingClientRect().height - ouverte._hFermee;
+      seuil = ouverte._absBase;
+    }
+    pile.forEach(el => {
+      const decale = el._absBase > seuil ? extra : 0;
+      el.style.top = (el._topBase + decale) + 'px';
+    });
+    zone.style.height = (hauteurZoneBase + extra) + 'px';
+  }
 
   formules.forEach(formule => {
     formule.style.cursor = 'pointer';
@@ -404,12 +460,17 @@ window.addEventListener('resize', brancherLesGlissieres);
       const ouverte = formule.dataset.ouverte === 'oui';
       formules.forEach(f => { f.dataset.ouverte = 'non'; });
       formule.dataset.ouverte = ouverte ? 'non' : 'oui';
+      appliquer();
     };
     formule.addEventListener('click', basculer);
     formule.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); basculer(); }
     });
   });
+
+  window.addEventListener('load', mesurer);
+  window.addEventListener('resize', () => { mesurer(); });
+  mesurer();
 })();
 
 
