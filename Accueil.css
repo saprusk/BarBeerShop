@@ -102,7 +102,7 @@
   z-index: 3;
 }
 .accroche strong { font-weight: 700; }
-.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); }
+.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); stroke: var(--rouge); overflow: visible; }
 
 /* =========================================================================
    #concept  (1150 -> 2250)
@@ -291,6 +291,9 @@
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s;
+  /* fleches descendues de 20 px */
+  position: relative;
+  top: calc(var(--u) * 20);
 }
 .avis-fleche::before {
   content: "";
@@ -309,9 +312,9 @@
 .avis-fenetre {
   width: calc(var(--u) * 1440);
   max-width: 100%;
-  /* visible : les avis en attente debordent volontairement de chaque cote,
-     plus bas, pour donner l'impression d'une trajectoire circulaire. */
-  overflow: visible;
+  /* on ne montre que les TROIS avis du cadre : les 4e et 5e, qui attendaient
+     de chaque cote, sont masques. */
+  overflow: hidden;
   padding: calc(var(--u) * 60) 0;
 }
 
@@ -348,6 +351,7 @@
 }
 .avis-carte blockquote {
   margin: 0;
+  transform: translateX(calc(var(--u) * 6));   /* texte decale de 6px a droite */
   font-size: calc(var(--u) * 17);
   font-weight: 400;
   line-height: 1.4;

@@ -141,7 +141,7 @@ body { background-color: var(--beige); }
   z-index: 4;
 }
 .accroche strong { font-weight: 700; }
-.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--brun); }
+.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--brun); stroke: var(--brun); overflow: visible; }
 
 /* =========================================================================
    #notre carte  (1160 -> 2860)
@@ -436,9 +436,9 @@ body { background-color: var(--beige); }
 .biere-h2 { left: calc(var(--u) * 778);  top: calc(var(--u) * -388); }
 .biere-h3 { left: calc(var(--u) * 1223); top: calc(var(--u) * -347); transform: rotate(6deg); }
 /* rangee du bas (maquette : y 5277 -> 977) */
-.biere-b1 { left: calc(var(--u) * 374);  top: calc(var(--u) * 1007); transform: rotate(-6deg); }
-.biere-b2 { left: calc(var(--u) * 812);  top: calc(var(--u) * 1070); }
-.biere-b3 { left: calc(var(--u) * 1225); top: calc(var(--u) * 974);  transform: rotate(6deg); }
+.biere-b1 { left: calc(var(--u) * 374);  top: calc(var(--u) * 1017); transform: rotate(-6deg); }
+.biere-b2 { left: calc(var(--u) * 812);  top: calc(var(--u) * 1080); }
+.biere-b3 { left: calc(var(--u) * 1225); top: calc(var(--u) * 984);  transform: rotate(6deg); }
 
 /* #titre et textes (maquette : titre y 4387 -> 87) */
 .brasseurs-titre {

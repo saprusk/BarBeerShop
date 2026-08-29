@@ -38,11 +38,11 @@
     <!-- Styles : base commune, puis la version grand ecran OU la version
          telephone selon la largeur de la fenetre. La bascule se fait a
          1024 px, exactement comme dans commun.js. -->
-    <link href="base.css?v=93" rel="stylesheet">
-    <link href="commun.css?v=93" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="barber.css?v=93" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="mobile.css?v=93" rel="stylesheet" media="(max-width: 1023.98px)">
-    <link href="barber-mob.css?v=93" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="base.css?v=96" rel="stylesheet">
+    <link href="commun.css?v=96" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="barber.css?v=96" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=96" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="barber-mob.css?v=96" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
@@ -314,10 +314,10 @@
                    C122 140 78 136 30 124"
                 fill="none" stroke="currentColor" stroke-width="3"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- la pointe de la fleche, decalee de 10px vers la gauche (la
-               boucle, elle, ne bouge pas) -->
-          <path d="M30 124 L52 122 M30 124 L48 138"
-                fill="none" stroke="currentColor" stroke-width="3"
+          <!-- la pointe : un petit triangle legerement arrondi (comme la carte
+               de la Lorraine), sans toucher a la boucle -->
+          <path d="M18 124 L46 111 L46 137 Z"
+                fill="currentColor" stroke="currentColor" stroke-width="9"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
@@ -474,7 +474,7 @@
       <div class="pied-colonne pied-colonne-droite">
         <!-- #bouton newsletter : il mene a la page de modification des informations -->
         <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
-        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+        <span class="pied-reseaux-wrap"><img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux"><a class="pied-reseau-lien" href="https://www.facebook.com/?locale=fr_FR" target="_blank" rel="noopener" aria-label="Facebook" style="left:0"></a><a class="pied-reseau-lien" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" style="left:33.34%"></a><a class="pied-reseau-lien" href="https://www.tiktok.com/login?lang=fr&amp;redirect_url=https%3A%2F%2Fwww.tiktok.com%2Fupload%3Flang%3Dfr" target="_blank" rel="noopener" aria-label="TikTok" style="left:66.66%"></a></span>
       </div>
     </footer>
 
@@ -485,7 +485,7 @@
          Le fichier commun.js regle l'unite de mesure, le menu du telephone
          et la bascule jour / nuit, sur toutes les pages du site.
          ===================================================================== -->
-    <script src="commun.js?v=93"></script>
+    <script src="commun.js?v=96"></script>
     <script>
       /* #carrousel des formules
          Il ne sert que sur grand ecran : sur telephone, les cinq formules
@@ -508,6 +508,30 @@
       }
       window.addEventListener('load', calerSurLaMaquette);
       window.addEventListener('resize', calerSurLaMaquette);
+
+      /* #aide a la reservation : quand la formule a photo (Soin Signature)
+         glisse dans le tiers DROIT du cadre, sa photo debordante viendrait
+         par-dessus l'aide posee a droite. On deplace alors l'aide a gauche
+         (voir .aide-gauche dans le CSS). */
+      const aideReservation = document.querySelector('.aide-reservation');
+      const formulePhoto = document.querySelector('.formule-avec-photo');
+      function ajusterAide() {
+        if (!aideReservation || !formulePhoto || !fenetreFormules) return;
+        if (document.documentElement.clientWidth < 1024) { aideReservation.classList.remove('aide-gauche'); return; }
+        const rf = fenetreFormules.getBoundingClientRect();
+        const rp = formulePhoto.getBoundingClientRect();
+        const centrePhoto = rp.left + rp.width / 2;
+        aideReservation.classList.toggle('aide-gauche', centrePhoto > rf.left + rf.width * 0.6);
+      }
+      if (fenetreFormules) fenetreFormules.addEventListener('scroll', ajusterAide);
+      // on recontrole aussi apres chaque fleche, le temps que le defilement
+      // fluide se termine (l'evenement "scroll" ne va pas toujours jusqu'au bout)
+      ['formulePrecedente', 'formuleSuivante'].forEach(id => {
+        const bouton = document.getElementById(id);
+        if (bouton) bouton.addEventListener('click', () => { [200, 500, 800].forEach(ms => setTimeout(ajusterAide, ms)); });
+      });
+      window.addEventListener('load', ajusterAide);
+      window.addEventListener('resize', ajusterAide);
     </script>
   </body>
 </html>

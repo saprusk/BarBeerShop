@@ -129,3 +129,9 @@ body {
 
 /* ancres des boutons de reservation : on decale sous le header colle */
 #nos-formules, #notre-ambiance { scroll-margin-top: calc(var(--u) * 150); }
+
+/* #liens des reseaux sociaux du pied de page : le visuel reste une seule
+   image, mais trois zones cliquables transparentes se posent par-dessus
+   (Facebook a gauche, Instagram au centre, TikTok a droite). */
+.pied-reseaux-wrap { position: relative; display: inline-block; line-height: 0; }
+.pied-reseau-lien { position: absolute; top: 0; height: 100%; width: 33.33%; }

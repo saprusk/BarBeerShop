@@ -533,10 +533,11 @@
    centree. (rond : centre 296 / 325, diametre 560) */
 .fiche-corps img {
   position: absolute;
-  left: calc(var(--u) * 36);
-  top: calc(var(--u) * 150);
-  width: calc(var(--u) * 427);
-  height: calc(var(--u) * 427);
+  left: calc(var(--u) * 8);
+  top: calc(var(--u) * 118);
+  /* images produit agrandies */
+  width: calc(var(--u) * 490);
+  height: calc(var(--u) * 490);
   object-fit: contain;
   border: none;
   border-radius: 50%;
