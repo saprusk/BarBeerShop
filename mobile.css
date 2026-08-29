@@ -168,7 +168,9 @@ body {
   letter-spacing: calc(var(--u) * 0.5);
   padding-bottom: calc(var(--u) * 6);
   border-bottom: calc(var(--u) * 2) solid transparent;
-  justify-self: start;
+  /* le menu est centre, plus colle a gauche */
+  justify-self: center;
+  text-align: center;
 }
 .menu-mob-liens a.actif { border-bottom-color: var(--creme); }
 
@@ -299,9 +301,12 @@ html.menu-ouvert, html.menu-ouvert body { overflow: hidden; }
 }
 .pied-colonne:nth-of-type(2) p,
 .pied-colonne:nth-of-type(3) p { font-size: calc(var(--u) * 18); line-height: 1.9; }
-/* la maquette laisse respirer les horaires entre les deux etablissements */
+/* Horaires : chaque etablissement sur ses propres lignes, centre. La regle
+   "strong + br + br { display:none }" masquait par erreur le saut de ligne
+   avant "Bar a biere" et avant "Samedi" (le combinateur "+" ignore les
+   noeuds texte). On la retire et on aere avant le second etablissement. */
 .pied-colonne:nth-of-type(1) p strong { display: inline-block; }
-.pied-colonne:nth-of-type(1) p strong + br + br { display: none; }
+.pied-colonne:nth-of-type(1) p strong:nth-of-type(2) { margin-top: calc(var(--u) * 16); }
 .pied-colonne a { color: var(--creme); text-decoration: none; }
 
 /* #traits de separation entre les colonnes (maquette : 391 px de large) */
@@ -348,12 +353,24 @@ html.menu-ouvert, html.menu-ouvert body { overflow: hidden; }
   border: 0;
   background: none;
   color: var(--rouge);
-  font-size: calc(var(--u) * 20);
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
 }
-.glissiere-fleche-gauche { left: calc(var(--u) * 8); }
-.glissiere-fleche-droite { right: calc(var(--u) * 8); }
+/* triangle legerement arrondi (comme la maquette XD). La couleur vient de
+   "currentColor" : on peut donc la changer selon le contexte (ex : blanc). */
+.glissiere-fleche::before {
+  content: "";
+  display: block;
+  width: calc(var(--u) * 22);
+  height: calc(var(--u) * 26);
+  background-color: currentColor;
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+}
+.glissiere-fleche-gauche { left: calc(var(--u) * 60); }
+.glissiere-fleche-gauche::before { transform: scaleX(-1); }
+.glissiere-fleche-droite { right: calc(var(--u) * 60); }
 
 /* #bouton newsletter du pied de page : angles plus arrondis */
 .pied-newsletter { border-radius: calc(var(--u) * 24); }

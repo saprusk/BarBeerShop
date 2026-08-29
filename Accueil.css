@@ -337,7 +337,8 @@
   flex: 0 0 calc(var(--u) * 430);
   height: calc(var(--u) * 229);
   margin: 0;
-  padding: calc(var(--u) * 46) calc(var(--u) * 54) calc(var(--u) * 40);
+  /* padding gauche augmente : le texte degage le guillemet d'ouverture */
+  padding: calc(var(--u) * 46) calc(var(--u) * 58) calc(var(--u) * 40) calc(var(--u) * 90);
   display: flex;
   flex-direction: column;
   background: url("sources/fond-avis.webp") no-repeat center / 100% 100%;

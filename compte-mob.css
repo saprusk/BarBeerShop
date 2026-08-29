@@ -222,10 +222,10 @@
    (positions relevees sur le PNG : cases centrees en x 14 / 32 / 50 / 68 %,
    rangee du haut vers 37 % de hauteur). */
 .tampon { position: absolute; width: 14%; }
-.tampon-1 { left: 7%;    top: 37%; }
-.tampon-2 { left: 25.5%; top: 37%; }
-.tampon-3 { left: 43.5%; top: 37%; }
-.tampon-4 { left: 61.5%; top: 37%; }
+.tampon-1 { left: 7%;    top: 33%; }
+.tampon-2 { left: 25.5%; top: 33%; }
+.tampon-3 { left: 43.5%; top: 33%; }
+.tampon-4 { left: 61.5%; top: 33%; }
 
 /* #fleche bouclee et sa promesse (maquette : fleche en x 61, y 1983) */
 .carte-fleche {
@@ -234,7 +234,7 @@
   top: calc(var(--u) * 310);
   width: calc(var(--u) * 78);
   /* dans la maquette telephone la boucle est retournee */
-  transform: scaleY(-1);
+  transform: scaleX(-1) scaleY(-1);   /* miroir horizontal en plus */
 }
 .carte-recompense {
   position: absolute;
@@ -304,17 +304,18 @@
 .faq-item::after {
   content: "";
   position: absolute;
-  right: calc(var(--u) * 26);
-  top: calc(var(--u) * 68);
-  width: 0;
-  height: 0;
-  border-left: calc(var(--u) * 16) solid transparent;
-  border-right: calc(var(--u) * 16) solid transparent;
-  border-top: calc(var(--u) * 20) solid #fff;
+  right: calc(var(--u) * 22);
+  top: calc(var(--u) * 62);
+  width: calc(var(--u) * 30);
+  height: calc(var(--u) * 30);
+  background-color: #fff;
+  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  transform: rotate(90deg);   /* triangle arrondi pointe vers le bas */
   pointer-events: none;
   transition: transform 0.2s;
 }
-.faq-item[open]::after { transform: rotate(180deg); }
+.faq-item[open]::after { transform: rotate(270deg); }
 .faq-item p {
   margin: calc(var(--u) * 14) calc(var(--u) * 8) calc(var(--u) * 4);
   color: #fff;

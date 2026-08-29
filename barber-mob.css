@@ -297,7 +297,7 @@
   position: relative;
   margin: 0;
   min-height: calc(var(--u) * 475);
-  padding: calc(var(--u) * 84) calc(var(--u) * 34) 0;
+  padding: calc(var(--u) * 118) calc(var(--u) * 34) calc(var(--u) * 40);
   background: url("sources/fond-produits-barber-mob.webp") no-repeat center / 100% 100%;
   color: var(--creme);
 }
@@ -316,8 +316,8 @@
   line-height: 2;
 }
 .produits-fleur { position: absolute; }
-.produits-fleur-a { left: calc(var(--u) * 261); top: calc(var(--u) * 391); width: calc(var(--u) * 44); right: auto; }
-.produits-fleur-b { left: calc(var(--u) * 231); top: calc(var(--u) * 431); width: calc(var(--u) * 33); right: auto; }
+.produits-fleur-a { left: calc(var(--u) * 275); top: calc(var(--u) * 398); width: calc(var(--u) * 30); right: auto; }
+.produits-fleur-b { left: calc(var(--u) * 251); top: calc(var(--u) * 432); width: calc(var(--u) * 24); right: auto; }
 
 /* #bouton "En savoir plus" (maquette : 217 x 50 en x 52, y 2388) */
 .btn-en-savoir-plus {
@@ -366,20 +366,23 @@
   height: calc(var(--u) * 480);
   display: flex;
   gap: calc(var(--u) * 90);
-  padding: 0 calc(var(--u) * 126);
+  padding: 0;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
 }
 .equipe::-webkit-scrollbar { display: none; }
+/* chaque membre occupe toute la largeur : on n'en voit qu'un, les autres
+   n'apparaissent qu'au clic sur les fleches (comme le slider Instagram). */
 .membre {
-  flex: 0 0 calc(var(--u) * 178);
+  flex: 0 0 100%;
   scroll-snap-align: center;
   text-align: center;
 }
 .membre-illus {
   width: calc(var(--u) * 178);
   height: calc(var(--u) * 277);
+  margin: 0 auto;
   /* "contain" : l'illustration entiere reste visible, sans etre rognee */
   object-fit: contain;
   display: block;
@@ -487,8 +490,8 @@
   top: calc(var(--u) * 14);
   width: calc(var(--u) * 28);
   height: calc(var(--u) * 28);
-  border-radius: 0;
-  background: url("sources/fleur-bande.svg") no-repeat center / contain;
+  border-radius: 50%;
+  background: var(--brun);
 }
 /* le HTML alterne pastilles et textes : la premiere pastille est le 1er
    span, la deuxieme le 3e, la troisieme le 5e. */
@@ -523,3 +526,6 @@
 }
 .formule[data-ouverte="oui"] .formule-liste li { margin-bottom: calc(var(--u) * 4); }
 .formule[data-ouverte="oui"] .formule-liste li::before { content: "- "; }
+
+/* fleches du slider "professionnels" : en blanc sur le fond brun */
+.glissiere-fleche { color: var(--creme); }

@@ -261,8 +261,8 @@
   height: calc(var(--u) * 54);
   display: grid;
   place-content: center;
-  background: var(--beige);
-  border: calc(var(--u) * 3) solid var(--brun);
+  background: #fff;
+  border: none;
   border-radius: 50%;
   font-size: calc(var(--u) * 14);
   font-weight: 700;
@@ -406,7 +406,7 @@
    plaque claire (comme le design d'origine). */
 .biere {
   position: absolute;
-  width: calc(var(--u) * 120);
+  width: calc(var(--u) * 108);
   padding: calc(var(--u) * 8);
   background: var(--creme);
   border-radius: calc(var(--u) * 14);
@@ -473,8 +473,8 @@
 /* les 5 balises posees sur la carte, aux memes endroits que le grand ecran */
 .point-carte {
   position: absolute;
-  width: calc(var(--u) * 22);
-  height: calc(var(--u) * 22);
+  width: calc(var(--u) * 18);
+  height: calc(var(--u) * 18);
   border-radius: 50%;
   z-index: 2;
 }
@@ -498,8 +498,22 @@
 /* les balises sont deja sur la carte : ici, on n'affiche que les capsules,
    empilees sous la carte. La 2e brasserie violette est la meme que la 1re,
    on ne montre donc que quatre capsules. */
-.brasseur { left: calc(var(--u) * 20); }
-.brasseur::before { display: none; }
+.brasseur { left: calc(var(--u) * -55); }   /* -55 + 75 (carte) = x20 a l'ecran */
+/* la balise de couleur qui repere le brasseur, remise a gauche du nom */
+.brasseur::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--u) * 96);
+  top: calc(var(--u) * 34);
+  width: calc(var(--u) * 16);
+  height: calc(var(--u) * 16);
+  border-radius: 50%;
+  z-index: 2;
+}
+.b1::before { background: #B78EE0; }
+.b3::before { background: #E08E8E; }
+.b4::before { background: #8EE09B; }
+.b5::before { background: #8EC4E0; }
 .b1 { top: calc(var(--u) * 316); }
 .b2 { display: none; }               /* doublon violet */
 .b3 { top: calc(var(--u) * 434); }
@@ -512,9 +526,9 @@
   position: relative;
   left: 0;
   display: block;
-  width: calc(var(--u) * 390);
+  width: calc(var(--u) * 388);
   height: calc(var(--u) * 99);
-  padding: calc(var(--u) * 22) calc(var(--u) * 12) 0 calc(var(--u) * 118);
+  padding: calc(var(--u) * 22) calc(var(--u) * 12) 0 calc(var(--u) * 122);
   opacity: 1;
   visibility: visible;
   transform: none;
