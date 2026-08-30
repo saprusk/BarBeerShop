@@ -261,11 +261,18 @@
 .colonne ul {
   width: calc(var(--u) * 358);
   margin: 0 auto;
-  padding: calc(var(--u) * 18) calc(var(--u) * 18) 0;
+  padding: 0 calc(var(--u) * 18);
   list-style: none;
-  display: none;
+  /* deroulement fluide : on anime la hauteur plutot qu'un affichage sec */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding-top 0.5s ease, padding-bottom 0.5s ease;
 }
-.colonne[data-ouvert="oui"] ul { display: block; }
+.colonne[data-ouvert="oui"] ul {
+  max-height: calc(var(--u) * 4000);
+  padding-top: calc(var(--u) * 18);
+  padding-bottom: calc(var(--u) * 4);
+}
 /* Les lignes reprennent exactement l'allure du grand ecran : fond beige,
    contour marron, et le prix dans une pastille ronde a cheval sur le bord. */
 .colonne li {
@@ -530,8 +537,8 @@
 .brasseur::before {
   content: "";
   position: absolute;
-  left: calc(var(--u) * 109);
-  top: calc(var(--u) * 34);
+  left: calc(var(--u) * 247);   /* centre dans la zone brune, au-dessus du nom */
+  top: calc(var(--u) * 14);
   width: calc(var(--u) * 16);
   height: calc(var(--u) * 16);
   border-radius: 50%;
@@ -555,7 +562,7 @@
   display: block;
   width: calc(var(--u) * 388);
   height: calc(var(--u) * 99);
-  padding: calc(var(--u) * 22) calc(var(--u) * 12) 0 calc(var(--u) * 135);
+  padding: calc(var(--u) * 40) calc(var(--u) * 12) 0 calc(var(--u) * 135);
   opacity: 1;
   visibility: visible;
   transform: none;
@@ -563,7 +570,7 @@
   border: none;
   border-radius: 0;
   color: #fff;
-  text-align: left;
+  text-align: center;
   font-size: calc(var(--u) * 15);
   font-weight: 700;
 }

@@ -322,8 +322,10 @@
 /* #bouton "En savoir plus" (maquette : 217 x 50 en x 52, y 2388) */
 .btn-en-savoir-plus {
   position: absolute;
-  left: 0;
-  top: calc(var(--u) * 453);
+  /* centre sous la carte, avec un petit espace, juste avant l'equipe */
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(var(--u) * 495);
   width: calc(var(--u) * 217);
   height: calc(var(--u) * 50);
   border-radius: calc(var(--u) * 25);

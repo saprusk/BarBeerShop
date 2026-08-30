@@ -340,11 +340,17 @@ html.menu-ouvert .barre-nav-mob {
 .pied-colonne-droite { display: contents; }
 
 /* #les trois reseaux sociaux, en bas (maquette : x 55, y 766) */
-.pied-reseaux {
+/* c'est le conteneur (avec les 3 liens par-dessus) qui est positionne ;
+   l'image, elle, remplit simplement ce conteneur. */
+.pied-reseaux-wrap {
   position: absolute;
   left: calc(var(--u) * 55);
   top: calc(var(--u) * 766);
   width: calc(var(--u) * 321);
+}
+.pied-reseaux {
+  position: static;
+  width: 100%;
   height: auto;
   display: block;
 }
