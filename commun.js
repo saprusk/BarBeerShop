@@ -409,6 +409,27 @@ window.addEventListener('resize', brancherLesGlissieres);
 
 
 /* -------------------------------------------------------------------------
+   #diaporama du hero
+   Certaines pages ont un hero a plusieurs "diapos" (ex : le bar alterne
+   l'evenement et les horaires). On les fait defiler toutes les 4 secondes,
+   aussi bien sur telephone que sur grand ecran.
+   ------------------------------------------------------------------------- */
+(function brancherHeroDiapos() {
+  document.querySelectorAll('.hero-diapos').forEach(conteneur => {
+    const diapos = [...conteneur.querySelectorAll('.hero-diapo')];
+    if (diapos.length < 2) return;
+    let actif = diapos.findIndex(d => d.dataset.actif === 'oui');
+    if (actif < 0) actif = 0;
+    setInterval(() => {
+      diapos[actif].dataset.actif = 'non';
+      actif = (actif + 1) % diapos.length;
+      diapos[actif].dataset.actif = 'oui';
+    }, 4000);
+  });
+})();
+
+
+/* -------------------------------------------------------------------------
    #formules du barber sur telephone
    Une pression sur une formule l'ouvre et montre ce qu'elle contient ; une
    seule reste ouverte a la fois. Sur grand ecran, rien ne change : les
