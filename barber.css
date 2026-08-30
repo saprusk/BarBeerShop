@@ -304,8 +304,8 @@ body {
   width: calc(var(--u) * 42);
   height: calc(var(--u) * 50);
   background-color: var(--creme);
-  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
 }
 .formules-fleche-gauche::before { transform: scaleX(-1); }
 .formules-fleche:hover { opacity: 0.55; }
