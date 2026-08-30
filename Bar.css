@@ -325,6 +325,7 @@ body { background-color: var(--beige); }
 
 /* #fond de forme (maquette : le grand rond de 554 est cale sur x 80, y 2990) */
 .fond-forme-ambiance { left: calc(var(--u) * 80); top: calc(var(--u) * 130); width: calc(var(--u) * 628); }
+.fond-forme-ambiance-mob { display: none; }   /* uniquement sur telephone */
 
 /* #photos rondes
    Chaque photo est centree dans le rond du fond en laissant depasser

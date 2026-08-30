@@ -300,25 +300,25 @@
 /* Le fond de forme brun revient derriere la photo, comme sur l'accueil
    (maquette : le grand rond de 554 cale sur la photo). */
 .pastille, .rond-petit { display: none; }
-/* le fond de forme mobile fourni par la designer, pose derriere la photo */
-.fond-forme-ambiance {
-  display: block;
+/* on masque le fond brun du grand ecran : sur telephone c'est le blob de la
+   designer (fond-ambiance-mob) qui sert de fond. */
+.fond-forme-ambiance { display: none; }
+.fond-forme-ambiance-mob {
+  position: absolute;
   left: calc(var(--u) * 40);
-  top: calc(var(--u) * 548);
-  width: calc(var(--u) * 350);
+  top: calc(var(--u) * 480);
+  width: calc(var(--u) * 360);
   z-index: 0;
 }
 
-/* la photo qui reste (maquette : 246 x 193 en x 82, y 3478) */
-/* la photo est posee SUR le fond de forme brun (le PNG) : pas de contour,
-   juste des angles arrondis, et un peu plus petite pour laisser voir le brun. */
+/* la photo devient RONDE et se pose dans le grand rond du blob. */
 .rond {
   position: absolute;
-  left: calc(var(--u) * 100);
-  top: calc(var(--u) * 596);
-  width: calc(var(--u) * 230);
-  height: calc(var(--u) * 175);
-  border-radius: calc(var(--u) * 16);
+  left: calc(var(--u) * 200);
+  top: calc(var(--u) * 487);
+  width: calc(var(--u) * 162);
+  height: calc(var(--u) * 162);
+  border-radius: 50%;
   overflow: hidden;
   z-index: 1;
 }
@@ -406,7 +406,7 @@
    plaque claire (comme le design d'origine). */
 .biere {
   position: absolute;
-  width: calc(var(--u) * 108);
+  width: calc(var(--u) * 118);
   padding: calc(var(--u) * 8);
   background: var(--creme);
   border-radius: calc(var(--u) * 14);
@@ -503,7 +503,7 @@
 .brasseur::before {
   content: "";
   position: absolute;
-  left: calc(var(--u) * 96);
+  left: calc(var(--u) * 109);
   top: calc(var(--u) * 34);
   width: calc(var(--u) * 16);
   height: calc(var(--u) * 16);
@@ -528,7 +528,7 @@
   display: block;
   width: calc(var(--u) * 388);
   height: calc(var(--u) * 99);
-  padding: calc(var(--u) * 22) calc(var(--u) * 12) 0 calc(var(--u) * 122);
+  padding: calc(var(--u) * 22) calc(var(--u) * 12) 0 calc(var(--u) * 135);
   opacity: 1;
   visibility: visible;
   transform: none;

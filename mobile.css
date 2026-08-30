@@ -213,6 +213,16 @@ html.nuit .menu-mob-bascule img { filter: invert(1) brightness(0.85); }
 
 /* quand le menu est ouvert, la page derriere ne defile plus */
 html.menu-ouvert, html.menu-ouvert body { overflow: hidden; }
+/* "overflow: hidden" casse le "position: sticky" du header : une fois la page
+   scrollee, le header (donc la croix pour fermer) disparaissait. On l'epingle
+   donc en "fixed" tant que le menu est ouvert, pour qu'il reste accessible. */
+html.menu-ouvert .barre-nav-mob {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--colonne-mob);
+}
 
 /* =========================================================================
    #styles de boutons reutilisables, version telephone

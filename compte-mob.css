@@ -234,7 +234,7 @@
   top: calc(var(--u) * 310);
   width: calc(var(--u) * 78);
   /* dans la maquette telephone la boucle est retournee */
-  transform: scaleX(-1) scaleY(-1);   /* miroir horizontal en plus */
+  transform: scaleX(-1) scaleY(-1) rotate(40deg);   /* miroir horizontal en plus */
 }
 .carte-recompense {
   position: absolute;
