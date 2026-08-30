@@ -1,0 +1,6 @@
+# Fichiers systeme macOS
+.DS_Store
+
+# Dossiers de travail temporaires, hors depot
+_to_delete/
+PR-*/

@@ -106,8 +106,13 @@ body {
 
 
 /* La largeur de la colonne mobile : la maquette telephone fait 430 px.
-   Sur les grands ecrans cette variable ne sert pas. */
-:root { --colonne-mob: calc(var(--u) * 430); }
+   Sur les grands ecrans cette variable ne sert pas.
+   IMPORTANT : on la declare sur "body" et non ":root". "--u" est pose sur
+   "body" (ici en @media, et en inline par commun.js) ; comme une custom
+   property ne remonte pas vers son parent, "var(--u)" serait vide sur ":root"
+   et "--colonne-mob" invalide -> le body perdait sa largeur de 520 px entre
+   520 et 1023 px (page collee a gauche, non centree). */
+body { --colonne-mob: calc(var(--u) * 430); }
 
 /* Valeur de depart de --u, avant que commun.js ne prenne le relais.
    (On utilise "vw", qui compte aussi la barre de defilement ; le script
