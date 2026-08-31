@@ -18,6 +18,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BarBeerShop - Barber et bar à bière à Metz</title>
+    <meta name="description" content="BarBeerShop à Metz : le lieu qui réunit un salon de barbier et un bar à bières artisanales. Coupes, soins, bières lorraines et soirées à thème.">
     <link rel="icon" href="sources/Favicon-Blanc.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -25,11 +26,11 @@
     <!-- Styles : base commune, puis la version grand ecran OU la version
          telephone selon la largeur de la fenetre. La bascule se fait a
          1024 px, exactement comme dans commun.js. -->
-    <link href="base.css?v=88" rel="stylesheet">
-    <link href="commun.css?v=88" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="Accueil.css?v=88" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="mobile.css?v=88" rel="stylesheet" media="(max-width: 1023.98px)">
-    <link href="accueil-mob.css?v=88" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="base.css?v=103" rel="stylesheet">
+    <link href="commun.css?v=103" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="Accueil.css?v=103" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=103" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="accueil-mob.css?v=103" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
@@ -46,7 +47,7 @@
         <span></span>
       </button>
 
-      <a class="nav-mob-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+      <a class="nav-mob-logo" href="index.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
 
       <a class="nav-mob-compte" href="compte.html" aria-label="Mon compte">
         <img src="sources/avatar-compte.webp" alt="">
@@ -56,7 +57,7 @@
     <!-- #panneau du menu : ferme au depart, il glisse depuis la gauche -->
     <nav class="menu-mob" id="menuMobile" data-ouvert="non" aria-label="Menu principal">
       <div class="menu-mob-liens">
-        <a href="Accueil.html" class="actif" aria-current="page">ACCUEIL</a>
+        <a href="index.html" class="actif" aria-current="page">ACCUEIL</a>
         <a href="barber.html">BARBER</a>
         <a href="Bar.html">BAR</a>
         <a href="notre-concept.html">NOTRE CONCEPT</a>
@@ -78,7 +79,7 @@
          BARRE DE NAVIGATION (version complete)
          ===================================================================== -->
     <header class="barre-nav">
-      <a class="nav-logo" href="Accueil.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
+      <a class="nav-logo" href="index.html"><img src="sources/Logo.png" alt="BarBeerShop"></a>
 
       <!-- #boutons de reservation -->
       <div class="nav-reservation">
@@ -98,7 +99,7 @@
       </a>
 
       <nav class="nav-menu" aria-label="Navigation principale">
-        <a href="Accueil.html" class="actif" aria-current="page">ACCUEIL</a>
+        <a href="index.html" class="actif" aria-current="page">ACCUEIL</a>
         <a href="barber.html">BARBER</a>
         <a href="Bar.html">BAR</a>
         <a href="notre-concept.html">NOTRE<br>CONCEPT</a>
@@ -114,17 +115,32 @@
         <img src="sources/bouton-remonter.svg" alt="">
       </a>
 
-      <!-- #photo ronde de gauche : le salon -->
-      <div class="hero-rond hero-rond-gauche">
-        <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure BarBeerShop">
-      </div>
-      <!-- #photo ronde de droite : le comptoir du bar -->
-      <div class="hero-rond hero-rond-droite">
-        <img src="sources/bar-comptoir.webp" alt="Le comptoir du bar à bières">
-      </div>
+      <!-- #diaporama du hero : le concept, puis l'invitation a la soiree,
+           alternent toutes les 4 s (voir commun.js, brancherHeroDiapos). -->
+      <div class="hero-diapos" id="heroDiaposAccueil">
 
-      <!-- #titre principal -->
-      <h1 class="hero-titre">VOUS NE CONNAISSEZ<br>PAS <strong>NOTRE CONCEPT ?</strong></h1>
+        <!-- diapo 1 : le concept (deux photos rondes + titre) -->
+        <div class="hero-diapo" data-actif="oui">
+          <!-- #photo ronde de gauche : le salon -->
+          <div class="hero-rond hero-rond-gauche">
+            <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure BarBeerShop">
+          </div>
+          <!-- #photo ronde de droite : le comptoir du bar -->
+          <div class="hero-rond hero-rond-droite">
+            <img src="sources/bar-comptoir.webp" alt="Le comptoir du bar à bières">
+          </div>
+          <!-- #titre principal -->
+          <h1 class="hero-titre">VOUS NE CONNAISSEZ<br>PAS <strong>NOTRE CONCEPT ?</strong></h1>
+        </div>
+
+        <!-- diapo 2 : l'invitation a la soiree (fond photo + titre + bouton) -->
+        <div class="hero-diapo">
+          <img class="hero-fond-soiree" src="sources/accueil-soiree.webp" alt="">
+          <p class="hero-titre hero-titre-soiree">ET SI VOUS VENIEZ<br><strong>À NOTRE SOIRÉE ?</strong></p>
+          <a class="cta-1 btn-soiree-hero" href="Bar.html#notre-ambiance" style="--fond: #E13950; --texte: #FFFEF8">En savoir plus</a>
+        </div>
+
+      </div>
 
       <!-- #griffonnages decoratifs -->
       <img class="deco deco-loupe"   src="sources/loupe-paille.svg" alt="">
@@ -143,7 +159,7 @@
       <!-- #accroche qui invite a descendre -->
       <p class="accroche">
         On vous en dit plus <strong>ici</strong>
-        <svg viewBox="0 0 46 26" aria-hidden="true"><path d="M0 0h46L23 26z"/></svg>
+        <svg viewBox="0 0 46 26" aria-hidden="true"><path d="M7 5 L39 5 L23 22 Z" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></svg>
       </p>
     </section>
 
@@ -281,7 +297,7 @@
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
            euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
            minim veniam, quis <strong>nostrud exerci tation ullamcorper</strong></p>
-        <a class="cta-2 btn-voir-carte" href="Bar.html" style="--fond: #695E45; --texte: #DDCDB0">Voir notre carte</a>
+        <a class="cta-2 btn-voir-carte" href="Bar.html#carte" style="--fond: #695E45; --texte: #DDCDB0">Voir notre carte</a>
       </div>
 
       <!-- #grande photo du bar, rognee en arche -->
@@ -392,11 +408,11 @@
       <div class="pied-colonne pied-colonne-droite">
         <!-- #bouton newsletter : il mene a la page de modification des informations -->
         <a class="pied-newsletter" href="modification-compte.html">Inscrivez-vous à nôtre Newsletter …</a>
-        <img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux">
+        <span class="pied-reseaux-wrap"><img src="sources/reseaux-sociaux.svg" alt="Facebook, Instagram, TikTok" class="pied-reseaux"><a class="pied-reseau-lien" href="https://www.facebook.com/?locale=fr_FR" target="_blank" rel="noopener" aria-label="Facebook" style="left:0"></a><a class="pied-reseau-lien" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" style="left:33.34%"></a><a class="pied-reseau-lien" href="https://www.tiktok.com/login?lang=fr&amp;redirect_url=https%3A%2F%2Fwww.tiktok.com%2Fupload%3Flang%3Dfr" target="_blank" rel="noopener" aria-label="TikTok" style="left:66.66%"></a></span>
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=88"></script>
+    <script src="commun.js?v=103"></script>
   </body>
 </html>

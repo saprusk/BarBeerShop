@@ -86,8 +86,8 @@
 
 /* le salon, en haut a gauche (maquette : rond de 182 en x 10, y 248) */
 .cercle-salon {
-  left: calc(var(--u) * 10);
-  top: calc(var(--u) * 133);
+  left: calc(var(--u) * 4);
+  top: calc(var(--u) * 89);   /* recentre dans la grande bulle bleue */
   width: calc(var(--u) * 182);
   height: calc(var(--u) * 182);
   z-index: 3;
@@ -423,63 +423,64 @@
   max-height: 84vh;
   height: auto;
   overflow-y: auto;
-  margin-top: calc(var(--u) * 60);
-  padding: calc(var(--u) * 120) calc(var(--u) * 24) calc(var(--u) * 24);
+  /* la photo et la fleur sont posees DANS la carte (voir plus bas) : plus de
+     debordement vers le haut qui se faisait rogner par "overflow-y: auto". */
+  padding: calc(var(--u) * 178) calc(var(--u) * 24) calc(var(--u) * 24);
   background: var(--rouge);
   border: none;
   border-radius: calc(var(--u) * 30);
 }
 
-/* la photo, dans un rond blanc pose en haut de la carte */
+/* la photo, dans un rond blanc pose en haut de la carte (a l'interieur) */
 .fiche-corps { display: block; }
 .fiche-corps img {
   position: absolute;
   left: 50%;
-  top: calc(var(--u) * -50);
+  top: calc(var(--u) * 22);
   transform: translateX(-50%);
-  width: calc(var(--u) * 170);
-  height: calc(var(--u) * 170);
+  width: calc(var(--u) * 140);
+  height: calc(var(--u) * 140);
   object-fit: contain;
   background: #fff;
   border: calc(var(--u) * 6) solid #fff;
   border-radius: 50%;
 }
-/* la fleur "achat en ligne prochainement disponible", posee en haut a
-   droite du rond photo (comme sur grand ecran) */
+/* la fleur "achat en ligne...", en haut a gauche (a l'interieur de la carte).
+   "pointer-events: none" : elle ne bloque plus le clic sur la croix. */
 .fiche-achat {
-  display: block;
-  position: absolute;
-  left: calc(var(--u) * 236);
-  top: calc(var(--u) * -78);
-  width: calc(var(--u) * 130);
-  height: calc(var(--u) * 130);
-  margin: 0;
-  padding: 0 calc(var(--u) * 14);
   display: grid;
   place-content: center;
+  position: absolute;
+  left: calc(var(--u) * 8);
+  top: calc(var(--u) * 18);
+  width: calc(var(--u) * 116);
+  height: calc(var(--u) * 116);
+  margin: 0;
+  padding: 0 calc(var(--u) * 12);
   text-align: center;
   background: url("sources/fleur-2.svg") no-repeat center / 100% 100%;
   color: var(--noir);
   font-size: calc(var(--u) * 11);
   font-weight: 700;
   line-height: 1.25;
-  z-index: 3;
+  z-index: 2;
+  pointer-events: none;
 }
 .fiche-achat span { font-weight: 400; }
 
 .fiche-fermer {
   position: absolute;
-  right: calc(var(--u) * 16);
-  top: calc(var(--u) * 10);
-  width: calc(var(--u) * 40);
-  height: calc(var(--u) * 40);
+  right: calc(var(--u) * 14);
+  top: calc(var(--u) * 12);
+  width: calc(var(--u) * 42);
+  height: calc(var(--u) * 42);
   border: 0;
   background: none;
   color: #fff;
-  font-size: calc(var(--u) * 34);
+  font-size: calc(var(--u) * 36);
   line-height: 1;
   cursor: pointer;
-  z-index: 2;
+  z-index: 5;
 }
 
 .fiche-texte { position: static; width: auto; color: #fff; }

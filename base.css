@@ -106,8 +106,13 @@ body {
 
 
 /* La largeur de la colonne mobile : la maquette telephone fait 430 px.
-   Sur les grands ecrans cette variable ne sert pas. */
-:root { --colonne-mob: calc(var(--u) * 430); }
+   Sur les grands ecrans cette variable ne sert pas.
+   IMPORTANT : on la declare sur "body" et non ":root". "--u" est pose sur
+   "body" (ici en @media, et en inline par commun.js) ; comme une custom
+   property ne remonte pas vers son parent, "var(--u)" serait vide sur ":root"
+   et "--colonne-mob" invalide -> le body perdait sa largeur de 520 px entre
+   520 et 1023 px (page collee a gauche, non centree). */
+body { --colonne-mob: calc(var(--u) * 430); }
 
 /* Valeur de depart de --u, avant que commun.js ne prenne le relais.
    (On utilise "vw", qui compte aussi la barre de defilement ; le script
@@ -129,3 +134,9 @@ body {
 
 /* ancres des boutons de reservation : on decale sous le header colle */
 #nos-formules, #notre-ambiance { scroll-margin-top: calc(var(--u) * 150); }
+
+/* #liens des reseaux sociaux du pied de page : le visuel reste une seule
+   image, mais trois zones cliquables transparentes se posent par-dessus
+   (Facebook a gauche, Instagram au centre, TikTok a droite). */
+.pied-reseaux-wrap { position: relative; display: inline-block; line-height: 0; }
+.pied-reseau-lien { position: absolute; top: 0; height: 100%; width: 33.33%; }

@@ -326,7 +326,8 @@ if (ficheFond) {
    de fonctionner : les fleches ne font que deplacer le defilement.
    Chaque glissiere est decrite par la classe de son conteneur.
    ------------------------------------------------------------------------- */
-function brancherGlissiere(selecteurBande, selecteurElement) {
+function brancherGlissiere(selecteurBande, selecteurElement, pas) {
+  pas = pas || 1;   // de combien d'elements on avance a chaque fleche
   const bande = document.querySelector(selecteurBande);
   if (!bande || bande.dataset.glissiere === 'oui') return;
 
@@ -351,7 +352,7 @@ function brancherGlissiere(selecteurBande, selecteurElement) {
     b.className = 'glissiere-fleche glissiere-fleche-' + cote;
     b.setAttribute('aria-label', sens < 0 ? 'Précédent' : 'Suivant');
     b.innerHTML = texte;
-    b.addEventListener('click', () => { index += sens; aller(); });
+    b.addEventListener('click', () => { index += sens * pas; aller(); });
     return b;
   };
 
@@ -366,8 +367,14 @@ function brancherGlissiere(selecteurBande, selecteurElement) {
   // cadre) : ainsi elles se retrouvent pile a hauteur des elements.
   function centrerFleches() {
     const rc = cadre.getBoundingClientRect();
-    const rb = bande.getBoundingClientRect();
-    const centre = rb.top - rc.top + rb.height / 2;
+    // on centre les fleches sur la premiere IMAGE (l'illustration ou la photo)
+    // et non sur toute la bande, qui inclut aussi le nom et la description.
+    const ref = bande.querySelector('img') || bande;
+    const rr = ref.getBoundingClientRect();
+    const centre = rr.top - rc.top + rr.height / 2;
+    // Tant que l'image n'est pas mesurable (pas encore chargee), on ne fige
+    // rien : un calcul errone poserait les fleches n'importe ou.
+    if (!isFinite(centre) || rr.height === 0) return;
     [gauche, droite].forEach(f => {
       f.style.top = centre + 'px';
       f.style.transform = 'translateY(-50%)';
@@ -375,7 +382,16 @@ function brancherGlissiere(selecteurBande, selecteurElement) {
   }
   centrerFleches();
   window.addEventListener('resize', centrerFleches);
+  window.addEventListener('load', centrerFleches);   // apres chargement des images
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(centrerFleches);
+  // filet de securite : on recentre une fois la premiere image chargee
+  const premiereImage = bande.querySelector('img');
+  if (premiereImage && !premiereImage.complete) {
+    premiereImage.addEventListener('load', centrerFleches);
+  }
+  // et quelques recalculs differes, le temps que la mise en page se stabilise
+  // (les illustrations SVG ne sont pas toujours mesurables tout de suite)
+  [120, 400, 900].forEach(ms => setTimeout(centrerFleches, ms));
 }
 
 /* On ne les branche que sur telephone, et on rebranche si la fenetre change
@@ -384,10 +400,33 @@ function brancherLesGlissieres() {
   if (document.documentElement.clientWidth >= BASCULE_MOBILE) return;
   brancherGlissiere('.instagram-galerie', 'a');
   brancherGlissiere('.equipe', '.membre');
-  brancherGlissiere('.grille-produits', 'figure');
+  // la galerie produit est une grille de 3 lignes : une fleche fait donc
+  // avancer d'une COLONNE entiere, soit 3 produits d'un coup.
+  brancherGlissiere('.grille-produits', 'figure', 3);
 }
 brancherLesGlissieres();
 window.addEventListener('resize', brancherLesGlissieres);
+
+
+/* -------------------------------------------------------------------------
+   #diaporama du hero
+   Certaines pages ont un hero a plusieurs "diapos" (ex : le bar alterne
+   l'evenement et les horaires). On les fait defiler toutes les 4 secondes,
+   aussi bien sur telephone que sur grand ecran.
+   ------------------------------------------------------------------------- */
+(function brancherHeroDiapos() {
+  document.querySelectorAll('.hero-diapos').forEach(conteneur => {
+    const diapos = [...conteneur.querySelectorAll('.hero-diapo')];
+    if (diapos.length < 2) return;
+    let actif = diapos.findIndex(d => d.dataset.actif === 'oui');
+    if (actif < 0) actif = 0;
+    setInterval(() => {
+      diapos[actif].dataset.actif = 'non';
+      actif = (actif + 1) % diapos.length;
+      diapos[actif].dataset.actif = 'oui';
+    }, 4000);
+  });
+})();
 
 
 /* -------------------------------------------------------------------------

@@ -304,8 +304,8 @@ body {
   width: calc(var(--u) * 42);
   height: calc(var(--u) * 50);
   background-color: var(--creme);
-  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
 }
 .formules-fleche-gauche::before { transform: scaleX(-1); }
 .formules-fleche:hover { opacity: 0.55; }
@@ -414,6 +414,11 @@ body {
   text-align: center;
   color: var(--creme);
 }
+/* 3e etat du carrousel : la formule a photo passe a droite. On deplace alors
+   l'aide a gauche (position symetrique) et on retourne la fleche a
+   l'horizontale pour qu'elle pointe toujours vers les formules. */
+.aide-reservation.aide-gauche { left: calc(var(--u) * 120); }
+.aide-reservation.aide-gauche .aide-fleche { transform: scaleX(-1); }
 .aide-reservation p {
   margin: 0;
   font-size: calc(var(--u) * 23);

@@ -102,7 +102,59 @@
   z-index: 3;
 }
 .accroche strong { font-weight: 700; }
-.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); }
+.accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); stroke: var(--rouge); overflow: visible; }
+
+/* #diaporama du hero : le concept (diapo 1) et l'invitation a la soiree
+   (diapo 2) se superposent et s'estompent l'un dans l'autre (voir commun.js). */
+.hero-diapo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.hero-diapo[data-actif="oui"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* fond photo de la diapo "soiree" : les verres de biere dans l'ambiance du soir */
+.hero-fond-soiree {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+/* le titre de la soiree est pose sur un panneau translucide (verre depoli)
+   pour rester lisible par-dessus la photo. Il herite de .hero-titre. */
+.hero-titre-soiree {
+  top: calc(var(--u) * 460);
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: calc(var(--u) * 780);
+  padding: calc(var(--u) * 26) calc(var(--u) * 46);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(calc(var(--u) * 14));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 14));
+  border-radius: calc(var(--u) * 34);
+  z-index: 4;
+}
+/* le bouton "En savoir plus" renvoie vers l'ambiance / les soirees du bar */
+.btn-soiree-hero {
+  position: absolute;
+  top: calc(var(--u) * 700);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--u) * 240);
+  height: calc(var(--u) * 68);
+  border-radius: calc(var(--u) * 34);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  z-index: 4;
+}
 
 /* =========================================================================
    #concept  (1150 -> 2250)
@@ -291,6 +343,9 @@
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s;
+  /* fleches descendues de 20 px */
+  position: relative;
+  top: calc(var(--u) * 20);
 }
 .avis-fleche::before {
   content: "";
@@ -298,8 +353,8 @@
   width: calc(var(--u) * 34);
   height: calc(var(--u) * 40);
   background-color: var(--rouge);
-  -webkit-mask: url("sources/triangle-plein.svg") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
 }
 .avis-fleche-gauche::before { transform: scaleX(-1); }
 .avis-fleche:hover { opacity: 0.55; }
@@ -309,10 +364,13 @@
 .avis-fenetre {
   width: calc(var(--u) * 1440);
   max-width: 100%;
-  /* visible : les avis en attente debordent volontairement de chaque cote,
-     plus bas, pour donner l'impression d'une trajectoire circulaire. */
-  overflow: visible;
-  padding: calc(var(--u) * 60) 0;
+  /* on ne montre que les TROIS avis du cadre : les 4e et 5e, qui attendaient
+     de chaque cote, sont masques. */
+  overflow: hidden;
+  /* padding-bas augmente : les deux avis lateraux descendent (fan de cartes)
+     et leur bas (le nom) etait rogne par l'overflow. On abaisse la ligne de
+     coupe pour degager les noms, sans toucher au fan lui-meme. */
+  padding: calc(var(--u) * 60) 0 calc(var(--u) * 92);
 }
 
 /* La piste porte les cinq avis et glisse d'un cran a chaque fleche.
@@ -337,7 +395,8 @@
   flex: 0 0 calc(var(--u) * 430);
   height: calc(var(--u) * 229);
   margin: 0;
-  padding: calc(var(--u) * 46) calc(var(--u) * 54) calc(var(--u) * 40);
+  /* padding gauche augmente : le texte degage le guillemet d'ouverture */
+  padding: calc(var(--u) * 46) calc(var(--u) * 58) calc(var(--u) * 40) calc(var(--u) * 90);
   display: flex;
   flex-direction: column;
   background: url("sources/fond-avis.webp") no-repeat center / 100% 100%;
@@ -347,6 +406,7 @@
 }
 .avis-carte blockquote {
   margin: 0;
+  transform: translateX(calc(var(--u) * 6));   /* texte decale de 6px a droite */
   font-size: calc(var(--u) * 17);
   font-weight: 400;
   line-height: 1.4;
