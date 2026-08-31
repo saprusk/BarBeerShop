@@ -348,8 +348,8 @@
   width: calc(var(--u) * 22);
   height: calc(var(--u) * 26);
   background-color: var(--rouge);
-  -webkit-mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
 }
 .avis-fleche-gauche::before { transform: scaleX(-1); }
 .avis-fenetre {

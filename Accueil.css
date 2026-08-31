@@ -301,8 +301,8 @@
   width: calc(var(--u) * 34);
   height: calc(var(--u) * 40);
   background-color: var(--rouge);
-  -webkit-mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
 }
 .avis-fleche-gauche::before { transform: scaleX(-1); }
 .avis-fleche:hover { opacity: 0.55; }
@@ -315,7 +315,10 @@
   /* on ne montre que les TROIS avis du cadre : les 4e et 5e, qui attendaient
      de chaque cote, sont masques. */
   overflow: hidden;
-  padding: calc(var(--u) * 60) 0;
+  /* padding-bas augmente : les deux avis lateraux descendent (fan de cartes)
+     et leur bas (le nom) etait rogne par l'overflow. On abaisse la ligne de
+     coupe pour degager les noms, sans toucher au fan lui-meme. */
+  padding: calc(var(--u) * 60) 0 calc(var(--u) * 92);
 }
 
 /* La piste porte les cinq avis et glisse d'un cran a chaque fleche.

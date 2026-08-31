@@ -105,6 +105,7 @@
   font-size: calc(var(--u) * 20);
   font-weight: 700;
   line-height: 1.3;
+  color: #fff;   /* texte blanc sur l'image de fond des horaires */
 }
 
 /* #bouton "Reserver" (maquette : 221 x 66 en x 105, y 639) */
@@ -156,6 +157,8 @@
   z-index: 0;
   height: auto;
   min-height: 0;
+  /* ancre du bouton "Voir notre carte" : on degage la barre de nav collee en haut */
+  scroll-margin-top: calc(var(--u) * 135);
   padding: calc(var(--u) * 370) 0 calc(var(--u) * 70);
   background: var(--beige);
 }

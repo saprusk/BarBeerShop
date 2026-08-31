@@ -309,8 +309,8 @@
   width: calc(var(--u) * 30);
   height: calc(var(--u) * 30);
   background-color: #fff;
-  -webkit-mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
   transform: rotate(90deg);   /* triangle arrondi pointe vers le bas */
   pointer-events: none;
   transition: transform 0.2s;

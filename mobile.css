@@ -381,8 +381,8 @@ html.menu-ouvert .barre-nav-mob {
   width: calc(var(--u) * 22);
   height: calc(var(--u) * 26);
   background-color: currentColor;
-  -webkit-mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
-  mask: url("sources/triangle-plein.svg?v=97") center / contain no-repeat;
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
 }
 .glissiere-fleche-gauche { left: calc(var(--u) * 60); }
 .glissiere-fleche-gauche::before { transform: scaleX(-1); }
