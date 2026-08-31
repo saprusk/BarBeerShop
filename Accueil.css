@@ -104,6 +104,58 @@
 .accroche strong { font-weight: 700; }
 .accroche svg { width: calc(var(--u) * 46); height: calc(var(--u) * 26); fill: var(--rouge); stroke: var(--rouge); overflow: visible; }
 
+/* #diaporama du hero : le concept (diapo 1) et l'invitation a la soiree
+   (diapo 2) se superposent et s'estompent l'un dans l'autre (voir commun.js). */
+.hero-diapo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.hero-diapo[data-actif="oui"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* fond photo de la diapo "soiree" : les verres de biere dans l'ambiance du soir */
+.hero-fond-soiree {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+/* le titre de la soiree est pose sur un panneau translucide (verre depoli)
+   pour rester lisible par-dessus la photo. Il herite de .hero-titre. */
+.hero-titre-soiree {
+  top: calc(var(--u) * 460);
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: calc(var(--u) * 780);
+  padding: calc(var(--u) * 26) calc(var(--u) * 46);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(calc(var(--u) * 14));
+  -webkit-backdrop-filter: blur(calc(var(--u) * 14));
+  border-radius: calc(var(--u) * 34);
+  z-index: 4;
+}
+/* le bouton "En savoir plus" renvoie vers l'ambiance / les soirees du bar */
+.btn-soiree-hero {
+  position: absolute;
+  top: calc(var(--u) * 700);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--u) * 240);
+  height: calc(var(--u) * 68);
+  border-radius: calc(var(--u) * 34);
+  font-size: calc(var(--u) * 25);
+  font-weight: 800;
+  z-index: 4;
+}
+
 /* =========================================================================
    #concept  (1150 -> 2250)
    Les coordonnees internes sont comptees depuis 1150.

@@ -93,6 +93,16 @@
   opacity: 1;
   pointer-events: auto;
 }
+/* fond photo propre a la diapo des horaires (recouvre la photo de l'evenement) */
+.hero-fond-horaires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
 /* panneau des horaires : deux lignes centrees, sans titre ni bouton */
 .panneau-horaires {
   display: grid;

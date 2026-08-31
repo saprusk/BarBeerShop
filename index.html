@@ -26,11 +26,11 @@
     <!-- Styles : base commune, puis la version grand ecran OU la version
          telephone selon la largeur de la fenetre. La bascule se fait a
          1024 px, exactement comme dans commun.js. -->
-    <link href="base.css?v=102" rel="stylesheet">
-    <link href="commun.css?v=102" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="Accueil.css?v=102" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="mobile.css?v=102" rel="stylesheet" media="(max-width: 1023.98px)">
-    <link href="accueil-mob.css?v=102" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="base.css?v=103" rel="stylesheet">
+    <link href="commun.css?v=103" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="Accueil.css?v=103" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=103" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="accueil-mob.css?v=103" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
@@ -115,17 +115,32 @@
         <img src="sources/bouton-remonter.svg" alt="">
       </a>
 
-      <!-- #photo ronde de gauche : le salon -->
-      <div class="hero-rond hero-rond-gauche">
-        <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure BarBeerShop">
-      </div>
-      <!-- #photo ronde de droite : le comptoir du bar -->
-      <div class="hero-rond hero-rond-droite">
-        <img src="sources/bar-comptoir.webp" alt="Le comptoir du bar à bières">
-      </div>
+      <!-- #diaporama du hero : le concept, puis l'invitation a la soiree,
+           alternent toutes les 4 s (voir commun.js, brancherHeroDiapos). -->
+      <div class="hero-diapos" id="heroDiaposAccueil">
 
-      <!-- #titre principal -->
-      <h1 class="hero-titre">VOUS NE CONNAISSEZ<br>PAS <strong>NOTRE CONCEPT ?</strong></h1>
+        <!-- diapo 1 : le concept (deux photos rondes + titre) -->
+        <div class="hero-diapo" data-actif="oui">
+          <!-- #photo ronde de gauche : le salon -->
+          <div class="hero-rond hero-rond-gauche">
+            <img src="sources/salon-fauteuils.webp" alt="Le salon de coiffure BarBeerShop">
+          </div>
+          <!-- #photo ronde de droite : le comptoir du bar -->
+          <div class="hero-rond hero-rond-droite">
+            <img src="sources/bar-comptoir.webp" alt="Le comptoir du bar à bières">
+          </div>
+          <!-- #titre principal -->
+          <h1 class="hero-titre">VOUS NE CONNAISSEZ<br>PAS <strong>NOTRE CONCEPT ?</strong></h1>
+        </div>
+
+        <!-- diapo 2 : l'invitation a la soiree (fond photo + titre + bouton) -->
+        <div class="hero-diapo">
+          <img class="hero-fond-soiree" src="sources/accueil-soiree.webp" alt="">
+          <p class="hero-titre hero-titre-soiree">ET SI VOUS VENIEZ<br><strong>À NOTRE SOIRÉE ?</strong></p>
+          <a class="cta-1 btn-soiree-hero" href="Bar.html#notre-ambiance" style="--fond: #E13950; --texte: #FFFEF8">En savoir plus</a>
+        </div>
+
+      </div>
 
       <!-- #griffonnages decoratifs -->
       <img class="deco deco-loupe"   src="sources/loupe-paille.svg" alt="">
@@ -398,6 +413,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=102"></script>
+    <script src="commun.js?v=103"></script>
   </body>
 </html>
