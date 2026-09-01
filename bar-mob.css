@@ -24,7 +24,7 @@
 .hero-bar {
   position: relative;
   z-index: 1;
-  height: calc(var(--u) * 710);
+  height: calc(var(--u) * 696);   /* -14 : la carte remonte sous la mousse, plus d'espace visible */
 }
 
 /* #photo de fond (maquette : 838 de large en x -177, y 108) */
@@ -332,7 +332,7 @@
 .ambiance {
   position: relative;
   z-index: 0;
-  height: calc(var(--u) * 800);
+  height: calc(var(--u) * 820);
   background: var(--beige);
 }
 .ambiance::after {
@@ -355,7 +355,7 @@
 .fond-forme-ambiance-mob {
   position: absolute;
   left: calc(var(--u) * 40);
-  top: calc(var(--u) * 502);   /* descendu pour ne plus passer sur le bouton Reserver */
+  top: calc(var(--u) * 20);   /* l'image passe en HAUT : juste apres la carte, avant le texte */
   width: calc(var(--u) * 360);
   z-index: 0;
 }
@@ -364,7 +364,7 @@
 .rond {
   position: absolute;
   left: calc(var(--u) * 200);
-  top: calc(var(--u) * 509);   /* descendu de 22px avec le blob */
+  top: calc(var(--u) * 27);   /* la photo ronde suit le blob, en haut de la section */
   width: calc(var(--u) * 162);
   height: calc(var(--u) * 162);
   border-radius: 50%;
@@ -375,7 +375,7 @@
 
 .ambiance-titre {
   position: absolute;
-  top: calc(var(--u) * 39);
+  top: calc(var(--u) * 300);   /* sous l'image remontee en haut de section */
   left: 0;
   width: 100%;
   margin: 0;
@@ -394,12 +394,12 @@
   font-weight: 400;
   line-height: 1.7;
 }
-.ambiance-texte   { top: calc(var(--u) * 82); }
+.ambiance-texte   { top: calc(var(--u) * 343); }
 .ambiance-texte-2 { display: none; }
 
 .reserver-titre {
   position: absolute;
-  top: calc(var(--u) * 302);
+  top: calc(var(--u) * 545);
   left: 0;
   width: 100%;
   margin: 0;
@@ -410,7 +410,7 @@
 }
 .reserver-texte {
   position: absolute;
-  top: calc(var(--u) * 342);
+  top: calc(var(--u) * 585);
   left: calc(var(--u) * 35);
   width: calc(var(--u) * 360);
   margin: 0;
@@ -423,7 +423,7 @@
 .btn-reserver-table {
   position: absolute;
   left: calc(var(--u) * 125);
-  top: calc(var(--u) * 512);
+  top: calc(var(--u) * 748);   /* tout en bas, sous le texte de reservation */
   width: calc(var(--u) * 180);
   height: calc(var(--u) * 52);
   border-radius: calc(var(--u) * 26);

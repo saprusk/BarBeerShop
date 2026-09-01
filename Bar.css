@@ -24,7 +24,7 @@ body { background-color: var(--beige); }
 
 .hero-bar {
   position: relative;
-  height: calc(var(--u) * 1160);
+  height: calc(var(--u) * 1146);   /* -14 : on remonte tout de quelques px pour fermer l'espace sous la mousse */
   overflow: hidden;
   background: var(--noir);
 }

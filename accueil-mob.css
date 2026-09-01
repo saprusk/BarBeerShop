@@ -26,7 +26,7 @@
 .hero {
   position: relative;
   z-index: 1;   /* au-dessus du concept, pour que l'accroche reste visible */
-  height: calc(var(--u) * 730);
+  height: calc(var(--u) * 716);   /* -14 : la creme remonte sous la mousse, plus d'espace visible */
   background: var(--noir);
 }
 /* le fond noir va d'un bord a l'autre de l'ecran */

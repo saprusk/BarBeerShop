@@ -134,7 +134,9 @@
   z-index: 0;
   height: calc(var(--u) * 1160);
   background: var(--creme);
-  overflow: hidden;
+  /* overflow visible : le PNG "concept-mob-droite" deborde volontairement vers
+     le bas ; html a deja overflow-x hidden donc pas de scroll horizontal. */
+  overflow: visible;
 }
 
 
@@ -184,7 +186,10 @@
   position: relative;
   z-index: 0;
   height: calc(var(--u) * 1700);
-  background: var(--creme);
+  /* fond transparent : le body est deja creme (meme couleur), et cela laisse
+     voir le PNG "concept-mob-droite" qui deborde depuis la section services au
+     lieu de le recouvrir. */
+  background: transparent;
   overflow: hidden;
 }
 .produits-titre {

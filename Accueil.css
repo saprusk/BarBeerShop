@@ -21,7 +21,7 @@
 
 .hero {
   position: relative;
-  height: calc(var(--u) * 1150);
+  height: calc(var(--u) * 1136);   /* -14 : on remonte tout de quelques px pour fermer l'espace sous la mousse */
   background: var(--noir);
   overflow: hidden;
 }

@@ -230,21 +230,21 @@
 /* #fleche bouclee et sa promesse (maquette : fleche en x 61, y 1983) */
 .carte-fleche {
   position: absolute;
-  left: calc(var(--u) * 45);    /* 61 - 16 */
-  top: calc(var(--u) * 310);
-  width: calc(var(--u) * 78);
+  left: calc(var(--u) * 38);
+  top: calc(var(--u) * 304);
+  width: calc(var(--u) * 92);   /* fleche legerement agrandie */
   /* le bout de la fleche doit pointer vers le HAUT, sur la carte de fidelite
      (posee juste au-dessus) : une simple rotation d'un quart de tour suffit. */
   transform: rotate(90deg);
 }
 .carte-recompense {
   position: absolute;
-  left: calc(var(--u) * 108);
+  left: calc(var(--u) * 104);
   top: calc(var(--u) * 432);
-  width: calc(var(--u) * 262);
+  width: calc(var(--u) * 278);
   margin: 0;
   color: var(--noir);
-  font-size: calc(var(--u) * 16);
+  font-size: calc(var(--u) * 18);   /* texte de recompense agrandi */
   font-weight: 500;
   line-height: 1.5;
 }
