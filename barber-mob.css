@@ -316,8 +316,9 @@
   line-height: 2;
 }
 .produits-fleur { position: absolute; }
-.produits-fleur-a { left: calc(var(--u) * 275); top: calc(var(--u) * 398); width: calc(var(--u) * 30); right: auto; }
-.produits-fleur-b { left: calc(var(--u) * 251); top: calc(var(--u) * 432); width: calc(var(--u) * 24); right: auto; }
+/* fleurs reduites et decalees vers le haut-gauche pour ne plus depasser du fond */
+.produits-fleur-a { left: calc(var(--u) * 267); top: calc(var(--u) * 390); width: calc(var(--u) * 24); right: auto; }
+.produits-fleur-b { left: calc(var(--u) * 244); top: calc(var(--u) * 424); width: calc(var(--u) * 19); right: auto; }
 
 /* #bouton "En savoir plus" (maquette : 217 x 50 en x 52, y 2388) */
 .btn-en-savoir-plus {
@@ -337,7 +338,7 @@
    ------------------------------------------------------------------------- */
 .titre-equipe {
   position: absolute;
-  top: calc(var(--u) * 1632);
+  top: calc(var(--u) * 1682);   /* descendu : plus loin du bouton, plus pres de l'illustration */
   left: 0;
   width: 100%;
   margin: 0;
@@ -348,7 +349,7 @@
 }
 .texte-equipe {
   position: absolute;
-  top: calc(var(--u) * 1684);
+  top: calc(var(--u) * 1734);   /* suit le titre, descendu d'autant */
   left: calc(var(--u) * 35);
   width: calc(var(--u) * 360);
   margin: 0;

@@ -275,7 +275,7 @@
 .equipe-concept {
   position: relative;
   z-index: 0;
-  height: calc(var(--u) * 980);
+  height: calc(var(--u) * 860);   /* on remonte Instagram : moins de vide sous l'equipe */
   background: var(--creme);
 }
 .equipe-titre {
@@ -451,12 +451,12 @@
   display: grid;
   place-content: center;
   position: absolute;
-  left: calc(var(--u) * 8);
-  top: calc(var(--u) * 18);
-  width: calc(var(--u) * 116);
-  height: calc(var(--u) * 116);
+  left: calc(var(--u) * 4);
+  top: calc(var(--u) * 14);
+  width: calc(var(--u) * 138);   /* fleur agrandie : le texte ne deborde plus */
+  height: calc(var(--u) * 138);
   margin: 0;
-  padding: 0 calc(var(--u) * 12);
+  padding: 0 calc(var(--u) * 14);
   text-align: center;
   background: url("sources/fleur-2.svg") no-repeat center / 100% 100%;
   color: var(--noir);
@@ -477,11 +477,25 @@
   border: 0;
   background: none;
   color: #fff;
-  font-size: calc(var(--u) * 36);
+  font-size: 0;              /* on cache le glyphe : la croix est dessinee ci-dessous */
   line-height: 1;
   cursor: pointer;
   z-index: 5;
 }
+/* croix epaisse : deux barres croisees, bien plus lisibles que le caractere */
+.fiche-fermer::before,
+.fiche-fermer::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 5);
+  background: #fff;
+  border-radius: calc(var(--u) * 3);
+}
+.fiche-fermer::before { transform: translate(-50%, -50%) rotate(45deg); }
+.fiche-fermer::after  { transform: translate(-50%, -50%) rotate(-45deg); }
 
 .fiche-texte { position: static; width: auto; color: #fff; }
 .fiche-texte h3 { margin: 0 0 calc(var(--u) * 8); color: #fff; font-size: calc(var(--u) * 22); font-weight: 700; }

@@ -65,7 +65,7 @@
   left: calc(var(--u) * 25);
   top: calc(var(--u) * 248);
   width: calc(var(--u) * 379);
-  height: calc(var(--u) * 170);
+  height: calc(var(--u) * 176);   /* allonge de 6px en bas : le texte respire */
   padding: calc(var(--u) * 14) calc(var(--u) * 20);
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(calc(var(--u) * 12));
@@ -257,18 +257,20 @@
   justify-content: center;
 }
 .colonne-picto { height: calc(var(--u) * 130); width: auto; display: block; }
-/* le chevron qui indique que la categorie s'ouvre */
+/* le chevron qui indique que la categorie s'ouvre : triangle ARRONDI (meme
+   masque que toutes les fleches du site), pointe vers le bas au repos. */
 .colonne h3::after {
   content: "";
-  width: 0;
-  height: 0;
+  width: calc(var(--u) * 24);
+  height: calc(var(--u) * 22);
   margin-left: auto;
-  border-left: calc(var(--u) * 9) solid transparent;
-  border-right: calc(var(--u) * 9) solid transparent;
-  border-top: calc(var(--u) * 11) solid var(--beige);
+  background-color: var(--beige);
+  -webkit-mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  mask: url("sources/triangle-plein.svg?v=102") center / contain no-repeat;
+  transform: rotate(90deg);       /* le triangle plein pointe vers le bas */
   transition: transform 0.2s;
 }
-.colonne[data-ouvert="oui"] h3::after { transform: rotate(180deg); }
+.colonne[data-ouvert="oui"] h3::after { transform: rotate(-90deg); }   /* ouvert : pointe vers le haut */
 
 /* #liste des boissons, cachee tant que la categorie n'est pas ouverte */
 .colonne ul {
@@ -353,7 +355,7 @@
 .fond-forme-ambiance-mob {
   position: absolute;
   left: calc(var(--u) * 40);
-  top: calc(var(--u) * 480);
+  top: calc(var(--u) * 502);   /* descendu pour ne plus passer sur le bouton Reserver */
   width: calc(var(--u) * 360);
   z-index: 0;
 }
@@ -362,7 +364,7 @@
 .rond {
   position: absolute;
   left: calc(var(--u) * 200);
-  top: calc(var(--u) * 487);
+  top: calc(var(--u) * 509);   /* descendu de 22px avec le blob */
   width: calc(var(--u) * 162);
   height: calc(var(--u) * 162);
   border-radius: 50%;
@@ -520,8 +522,8 @@
 /* les 5 balises posees sur la carte, aux memes endroits que le grand ecran */
 .point-carte {
   position: absolute;
-  width: calc(var(--u) * 18);
-  height: calc(var(--u) * 18);
+  width: calc(var(--u) * 13);   /* balises de la carte reduites */
+  height: calc(var(--u) * 13);
   border-radius: 50%;
   z-index: 2;
 }
@@ -550,10 +552,10 @@
 .brasseur::before {
   content: "";
   position: absolute;
-  left: calc(var(--u) * 247);   /* centre dans la zone brune, au-dessus du nom */
-  top: calc(var(--u) * 14);
-  width: calc(var(--u) * 16);
-  height: calc(var(--u) * 16);
+  left: calc(var(--u) * 243);   /* centre dans la zone brune, au-dessus du nom */
+  top: calc(var(--u) * 10);
+  width: calc(var(--u) * 24);   /* balises des fiches brasseurs agrandies */
+  height: calc(var(--u) * 24);
   border-radius: 50%;
   z-index: 2;
 }

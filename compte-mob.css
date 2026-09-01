@@ -233,8 +233,9 @@
   left: calc(var(--u) * 45);    /* 61 - 16 */
   top: calc(var(--u) * 310);
   width: calc(var(--u) * 78);
-  /* dans la maquette telephone la boucle est retournee */
-  transform: scaleX(-1) scaleY(-1) rotate(40deg);   /* miroir horizontal en plus */
+  /* le bout de la fleche doit pointer vers le HAUT, sur la carte de fidelite
+     (posee juste au-dessus) : une simple rotation d'un quart de tour suffit. */
+  transform: rotate(90deg);
 }
 .carte-recompense {
   position: absolute;

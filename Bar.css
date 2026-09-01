@@ -79,7 +79,7 @@ body { background-color: var(--beige); }
   left: calc(var(--u) * 593);
   top: calc(var(--u) * 459);
   width: calc(var(--u) * 726);
-  min-height: calc(var(--u) * 319);
+  min-height: calc(var(--u) * 325);   /* allonge de 6px en bas : le texte respire */
   padding: calc(var(--u) * 34) calc(var(--u) * 20) calc(var(--u) * 30);
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(calc(var(--u) * 14));

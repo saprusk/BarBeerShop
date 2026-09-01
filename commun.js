@@ -326,7 +326,7 @@ if (ficheFond) {
    de fonctionner : les fleches ne font que deplacer le defilement.
    Chaque glissiere est decrite par la classe de son conteneur.
    ------------------------------------------------------------------------- */
-function brancherGlissiere(selecteurBande, selecteurElement, pas) {
+function brancherGlissiere(selecteurBande, selecteurElement, pas, indexDepart) {
   pas = pas || 1;   // de combien d'elements on avance a chaque fleche
   const bande = document.querySelector(selecteurBande);
   if (!bande || bande.dataset.glissiere === 'oui') return;
@@ -336,7 +336,7 @@ function brancherGlissiere(selecteurBande, selecteurElement, pas) {
   const elements = [...bande.querySelectorAll(':scope > ' + selecteurElement)];
   if (elements.length < 2) return;
   bande.dataset.glissiere = 'oui';
-  let index = 0;
+  let index = indexDepart || 0;   // carte affichee au chargement
 
   const aller = () => {
     index = Math.max(0, Math.min(elements.length - 1, index));
@@ -367,9 +367,13 @@ function brancherGlissiere(selecteurBande, selecteurElement, pas) {
   // cadre) : ainsi elles se retrouvent pile a hauteur des elements.
   function centrerFleches() {
     const rc = cadre.getBoundingClientRect();
-    // on centre les fleches sur la premiere IMAGE (l'illustration ou la photo)
-    // et non sur toute la bande, qui inclut aussi le nom et la description.
-    const ref = bande.querySelector('img') || bande;
+    // On centre les fleches sur l'element du MILIEU de la premiere colonne :
+    // pour un simple slider (pas = 1) c'est le premier element ; pour la
+    // galerie produit (grille de "pas" lignes) c'est la ligne du milieu, soit
+    // le 2e produit, juste apres "shampoing hydratant".
+    const idxRef = Math.floor((pas - 1) / 2);
+    const elemRef = elements[idxRef] || elements[0];
+    const ref = elemRef.querySelector('img') || elemRef;
     const rr = ref.getBoundingClientRect();
     const centre = rr.top - rc.top + rr.height / 2;
     // Tant que l'image n'est pas mesurable (pas encore chargee), on ne fige
@@ -392,6 +396,21 @@ function brancherGlissiere(selecteurBande, selecteurElement, pas) {
   // et quelques recalculs differes, le temps que la mise en page se stabilise
   // (les illustrations SVG ne sont pas toujours mesurables tout de suite)
   [120, 400, 900].forEach(ms => setTimeout(centrerFleches, ms));
+
+  // Position de depart : si on demande une autre carte que la premiere (ex :
+  // l'equipe s'ouvre sur Yves, au milieu), on deplace le defilement INTERNE de
+  // la bande sans toucher au scroll de la page. On repete apres la mise en page
+  // pour resister au "scroll-snap".
+  if (index > 0) {
+    const caler = () => {
+      const avant = bande.style.scrollBehavior;
+      bande.style.scrollBehavior = 'auto';
+      bande.scrollLeft = elements[index].offsetLeft;
+      requestAnimationFrame(() => { bande.style.scrollBehavior = avant; });
+    };
+    caler();
+    [0, 150, 500].forEach(ms => setTimeout(caler, ms));
+  }
 }
 
 /* On ne les branche que sur telephone, et on rebranche si la fenetre change
@@ -399,7 +418,7 @@ function brancherGlissiere(selecteurBande, selecteurElement, pas) {
 function brancherLesGlissieres() {
   if (document.documentElement.clientWidth >= BASCULE_MOBILE) return;
   brancherGlissiere('.instagram-galerie', 'a');
-  brancherGlissiere('.equipe', '.membre');
+  brancherGlissiere('.equipe', '.membre', 1, 1);   // ouvre sur Yves (au milieu)
   // la galerie produit est une grille de 3 lignes : une fleche fait donc
   // avancer d'une COLONNE entiere, soit 3 produits d'un coup.
   brancherGlissiere('.grille-produits', 'figure', 3);
