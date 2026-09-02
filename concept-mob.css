@@ -94,16 +94,15 @@
 }
 .cercle-salon img { left: 0; top: calc(var(--u) * -30); width: calc(var(--u) * 182); height: calc(var(--u) * 243); }
 
-/* le grand rond du bar : il remplit la grande bulle bleue en BAS A GAUCHE de la
-   composition (elle debordait a tort sur la droite auparavant). */
+/* le grand rond du bar (a droite, sous le texte d'intro, comme dans le XD) */
 .cercle-ambiance {
-  left: calc(var(--u) * -150);
-  top: calc(var(--u) * 820);
-  width: calc(var(--u) * 290);
-  height: calc(var(--u) * 290);
+  left: calc(var(--u) * 223);
+  top: calc(var(--u) * 600);
+  width: calc(var(--u) * 267);
+  height: calc(var(--u) * 267);
   z-index: 3;
 }
-.cercle-ambiance img { position: static; left: auto; top: auto; width: 100%; height: 100%; object-fit: cover; }
+.cercle-ambiance img { left: 0; top: calc(var(--u) * -45); width: calc(var(--u) * 267); height: calc(var(--u) * 356); }
 
 
 
