@@ -41,12 +41,10 @@
   z-index: 2;
 }
 /* le fond du rond de droite, en bas de "Deux services" */
-.concept-mob-droite {
-  left: calc(var(--u) * 305);   /* deborde a droite comme un accent, sans passer sur le titre */
-  top: calc(var(--u) * 1870);   /* descendu au niveau de la galerie produits */
-  width: calc(var(--u) * 284);
-  z-index: 0;
-}
+/* Le blob "droite" ne figure pas seul dans la maquette mobile (le XD n'en montre
+   pas) : les cercles tirent leur contour bleu de la composition du haut. On le
+   masque donc pour ne pas polluer la section produits. */
+.concept-mob-droite { display: none; }
 
 /* les fonds des grands ecrans, les contours et les bulles-texte ne servent
    plus : tout est deja dans le fichier ci-dessus */
@@ -154,7 +152,7 @@
 
 .services-titre {
   position: absolute;
-  left: calc(var(--u) * 136);
+  left: calc(var(--u) * 80);   /* aligne a gauche comme le XD */
   top: calc(var(--u) * 5);
   width: calc(var(--u) * 260);
   margin: 0;
@@ -204,6 +202,17 @@
   font-weight: 700;
   line-height: 1.4;
 }
+/* deux petites fleurs rouges de part et d'autre du titre (comme le XD) */
+.produits-ayur .deco.fleur-p1,
+.produits-ayur .deco.fleur-p2 {
+  display: block;
+  position: absolute;
+  width: calc(var(--u) * 44);
+  z-index: 2;
+}
+.produits-ayur .deco.fleur-p1 { left: calc(var(--u) * 300); top: calc(var(--u) * 52); }   /* en haut a droite du titre */
+.produits-ayur .deco.fleur-p2 { left: calc(var(--u) * 24);  top: calc(var(--u) * 104); }  /* en bas a gauche du titre */
+
 .produits-texte {
   position: absolute;
   left: calc(var(--u) * 72);
