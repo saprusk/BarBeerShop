@@ -169,7 +169,7 @@
   min-height: 0;
   /* ancre du bouton "Voir notre carte" : on degage la barre de nav collee en haut */
   scroll-margin-top: calc(var(--u) * 135);
-  padding: calc(var(--u) * 370) 0 calc(var(--u) * 70);
+  padding: calc(var(--u) * 370) 0 calc(var(--u) * 28);   /* moins de vide sous la carte, avant l'image */
   background: var(--beige);
 }
 .carte::after {
@@ -355,7 +355,7 @@
 .fond-forme-ambiance-mob {
   position: absolute;
   left: calc(var(--u) * 40);
-  top: calc(var(--u) * 20);   /* l'image passe en HAUT : juste apres la carte, avant le texte */
+  top: calc(var(--u) * 10);   /* l'image passe en HAUT : juste apres la carte, avant le texte */
   width: calc(var(--u) * 360);
   z-index: 0;
 }
@@ -364,7 +364,7 @@
 .rond {
   position: absolute;
   left: calc(var(--u) * 200);
-  top: calc(var(--u) * 27);   /* la photo ronde suit le blob, en haut de la section */
+  top: calc(var(--u) * 17);   /* la photo ronde suit le blob, en haut de la section */
   width: calc(var(--u) * 162);
   height: calc(var(--u) * 162);
   border-radius: 50%;

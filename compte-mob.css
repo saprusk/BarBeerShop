@@ -231,7 +231,7 @@
 .carte-fleche {
   position: absolute;
   left: calc(var(--u) * 38);
-  top: calc(var(--u) * 304);
+  top: calc(var(--u) * 258);   /* remontee au plus pres du bas de la carte */
   width: calc(var(--u) * 92);   /* fleche legerement agrandie */
   /* le bout de la fleche doit pointer vers le HAUT, sur la carte de fidelite
      (posee juste au-dessus) : une simple rotation d'un quart de tour suffit. */
