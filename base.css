@@ -71,7 +71,13 @@ html.nuit {
    ========================================================================= */
 
 html {
-  overflow-x: hidden;   /* certains elements debordent volontairement */
+  /* certains elements debordent volontairement (mousse, ronds...). On rogne
+     ce debordement horizontal pour qu'on ne puisse jamais glisser vers la
+     droite dans du vide. "clip" est plus fiable que "hidden" sur mobile
+     (iOS Safari) et ne casse pas la barre "sticky" ; "hidden" reste en
+     repli pour les navigateurs anciens. */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
