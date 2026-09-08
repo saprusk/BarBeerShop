@@ -183,48 +183,19 @@
 .produits-ayur {
   position: relative;
   z-index: 0;
-  height: calc(var(--u) * 1700);
-  /* fond transparent : le body est deja creme (meme couleur), et cela laisse
-     voir le PNG "concept-mob-droite" qui deborde depuis la section services au
-     lieu de le recouvrir. */
-  background: transparent;
+  height: calc(var(--u) * 940);   /* ne contient plus que la galerie (titre/texte dans l'image) */
+  background: var(--creme);
   overflow: hidden;
 }
-.produits-titre {
-  position: absolute;
-  left: 0;
-  top: calc(var(--u) * 80);
-  width: 100%;
-  margin: 0;
-  text-align: center;
-  color: #000;
-  font-size: calc(var(--u) * 20);
-  font-weight: 700;
-  line-height: 1.4;
-}
-/* deux petites fleurs rouges de part et d'autre du titre (comme le XD) */
-.produits-ayur .deco.fleur-p1,
-.produits-ayur .deco.fleur-p2 {
-  display: block;
-  position: absolute;
-  width: calc(var(--u) * 44);
-  z-index: 2;
-}
-.produits-ayur .deco.fleur-p1 { left: calc(var(--u) * 300); top: calc(var(--u) * 52); }   /* en haut a droite du titre */
-.produits-ayur .deco.fleur-p2 { left: calc(var(--u) * 24);  top: calc(var(--u) * 104); }  /* en bas a gauche du titre */
-
-.produits-texte {
-  position: absolute;
-  left: calc(var(--u) * 72);
-  top: calc(var(--u) * 204);
-  width: calc(var(--u) * 300);
-  margin: 0;
-  color: #000;
-  font-size: calc(var(--u) * 18);
-  font-weight: 400;
-  line-height: 1.75;
-}
-.produits-texte strong { font-weight: 700; }
+/* --- MOBILE : tout le haut du concept (bulles, photos, textes, jusqu'au titre
+   "Notre gamme") est fourni en une seule image par la designer. On masque donc
+   la composition CSS et on ne garde que la galerie produits, en HTML. --- */
+.concept-image-mob { display: block; width: 100%; height: auto; }
+.bulles-concept,
+.services { display: none; }
+.produits-titre,
+.produits-texte,
+.produits-ayur .deco { display: none; }
 
 /* #grille des produits
    La maquette telephone montre trois rangees qui defilent ensemble de
@@ -234,7 +205,7 @@
 .grille-produits {
   position: absolute;
   left: 0;
-  top: calc(var(--u) * 835);
+  top: calc(var(--u) * 40);   /* petit espace sous l'image du haut */
   width: 100%;
   display: grid;
   grid-template-rows: repeat(3, auto);

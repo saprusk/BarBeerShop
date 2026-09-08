@@ -13,6 +13,10 @@
      Pied de page ......... 5668 -> 6025   ( 357)
    ========================================================================= */
 
+/* l'image unique du haut de page n'existe que sur telephone : sur grand ecran,
+   c'est la composition CSS ci-dessous qui s'affiche. */
+.concept-image-mob { display: none; }
+
 /* Motif commun : une photo rognee en cercle.
    Le contour bleu petrole n'est plus dessine ici : il vient des fichiers
    de fond de la designer, dont les ronds sont un peu plus larges que les
