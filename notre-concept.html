@@ -24,11 +24,11 @@
     <!-- Styles : base commune, puis la version grand ecran OU la version
          telephone selon la largeur de la fenetre. La bascule se fait a
          1024 px, exactement comme dans commun.js. -->
-    <link href="base.css?v=103" rel="stylesheet">
-    <link href="commun.css?v=103" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="notre-concept.css?v=103" rel="stylesheet" media="(min-width: 1024px)">
-    <link href="mobile.css?v=103" rel="stylesheet" media="(max-width: 1023.98px)">
-    <link href="concept-mob.css?v=103" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="base.css?v=112" rel="stylesheet">
+    <link href="commun.css?v=112" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="notre-concept.css?v=112" rel="stylesheet" media="(min-width: 1024px)">
+    <link href="mobile.css?v=112" rel="stylesheet" media="(max-width: 1023.98px)">
+    <link href="concept-mob.css?v=112" rel="stylesheet" media="(max-width: 1023.98px)">
   </head>
 
   <body>
@@ -96,6 +96,13 @@
         <a href="notre-concept.html" class="actif" aria-current="page">NOTRE<br>CONCEPT</a>
       </nav>
     </header>
+
+    <!-- Version telephone : toute la partie haute du concept (bulles, photos,
+         textes, jusqu'au titre "Notre gamme") est fournie en une seule image par
+         la designer. Elle remplace la composition CSS sur mobile ; la galerie
+         produits, elle, reste en HTML interactif juste en dessous. -->
+    <img class="concept-image-mob" src="sources/concept-haut-mob.webp?v=112"
+         alt="Barber et bar à bières à Metz : notre concept, nos deux services et notre gamme de produits ayurvédiques">
 
     <!-- =====================================================================
          1. LES TROIS BULLES DU CONCEPT
@@ -486,7 +493,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="commun.js?v=103"></script>
+    <script src="commun.js?v=112"></script>
       <script>
       /* aide de mise au point : ouvre la fiche si l adresse finit par #fiche */
       if (location.hash === '#fiche') { /* AUTO_FICHE */

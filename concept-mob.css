@@ -34,19 +34,17 @@
    traverse deux sections, donc la section du haut ne rogne rien. */
 .concept-mob { display: block; position: absolute; pointer-events: none; }
 .concept-mob-tout {
-  left: calc(var(--u) * -142);
+  left: calc(var(--u) * -150);   /* decale de 8px a gauche pour degager "BAR a bieres" a droite */
   top: calc(var(--u) * 15);
   width: calc(var(--u) * 577);
   height: calc(var(--u) * 1237);
   z-index: 2;
 }
 /* le fond du rond de droite, en bas de "Deux services" */
-.concept-mob-droite {
-  left: calc(var(--u) * 250);
-  top: calc(var(--u) * 1010);
-  width: calc(var(--u) * 284);
-  z-index: 0;
-}
+/* Le blob "droite" ne figure pas seul dans la maquette mobile (le XD n'en montre
+   pas) : les cercles tirent leur contour bleu de la composition du haut. On le
+   masque donc pour ne pas polluer la section produits. */
+.concept-mob-droite { display: none; }
 
 /* les fonds des grands ecrans, les contours et les bulles-texte ne servent
    plus : tout est deja dans le fichier ci-dessus */
@@ -76,7 +74,7 @@
 
 /* le mur de briques, en haut a droite (maquette : rond de 119 en x 254, y 170) */
 .cercle-briques {
-  left: calc(var(--u) * 254);
+  left: calc(var(--u) * 246);   /* suit le decalage de 8px du fond */
   top: calc(var(--u) * 55);
   width: calc(var(--u) * 119);
   height: calc(var(--u) * 119);
@@ -86,7 +84,7 @@
 
 /* le salon, en haut a gauche (maquette : rond de 182 en x 10, y 248) */
 .cercle-salon {
-  left: calc(var(--u) * 4);
+  left: calc(var(--u) * -4);   /* suit le decalage de 8px du fond */
   top: calc(var(--u) * 89);   /* recentre dans la grande bulle bleue */
   width: calc(var(--u) * 182);
   height: calc(var(--u) * 182);
@@ -94,9 +92,9 @@
 }
 .cercle-salon img { left: 0; top: calc(var(--u) * -30); width: calc(var(--u) * 182); height: calc(var(--u) * 243); }
 
-/* le grand rond du bar (maquette : rond de 267 en x 231, y 715) */
+/* le grand rond du bar (a droite, sous le texte d'intro, comme dans le XD) */
 .cercle-ambiance {
-  left: calc(var(--u) * 231);
+  left: calc(var(--u) * 223);
   top: calc(var(--u) * 600);
   width: calc(var(--u) * 267);
   height: calc(var(--u) * 267);
@@ -134,7 +132,9 @@
   z-index: 0;
   height: calc(var(--u) * 1160);
   background: var(--creme);
-  overflow: hidden;
+  /* overflow visible : le PNG "concept-mob-droite" deborde volontairement vers
+     le bas ; html a deja overflow-x hidden donc pas de scroll horizontal. */
+  overflow: visible;
 }
 
 
@@ -152,7 +152,7 @@
 
 .services-titre {
   position: absolute;
-  left: calc(var(--u) * 136);
+  left: calc(var(--u) * 80);   /* aligne a gauche comme le XD */
   top: calc(var(--u) * 5);
   width: calc(var(--u) * 260);
   margin: 0;
@@ -183,34 +183,19 @@
 .produits-ayur {
   position: relative;
   z-index: 0;
-  height: calc(var(--u) * 1700);
+  height: calc(var(--u) * 906);   /* ne contient plus que la galerie (titre/texte dans l'image) */
   background: var(--creme);
   overflow: hidden;
 }
-.produits-titre {
-  position: absolute;
-  left: 0;
-  top: calc(var(--u) * 80);
-  width: 100%;
-  margin: 0;
-  text-align: center;
-  color: #000;
-  font-size: calc(var(--u) * 20);
-  font-weight: 700;
-  line-height: 1.4;
-}
-.produits-texte {
-  position: absolute;
-  left: calc(var(--u) * 72);
-  top: calc(var(--u) * 204);
-  width: calc(var(--u) * 300);
-  margin: 0;
-  color: #000;
-  font-size: calc(var(--u) * 18);
-  font-weight: 400;
-  line-height: 1.75;
-}
-.produits-texte strong { font-weight: 700; }
+/* --- MOBILE : tout le haut du concept (bulles, photos, textes, jusqu'au titre
+   "Notre gamme") est fourni en une seule image par la designer. On masque donc
+   la composition CSS et on ne garde que la galerie produits, en HTML. --- */
+.concept-image-mob { display: block; width: 100%; height: auto; }
+.bulles-concept,
+.services { display: none; }
+.produits-titre,
+.produits-texte,
+.produits-ayur .deco { display: none; }
 
 /* #grille des produits
    La maquette telephone montre trois rangees qui defilent ensemble de
@@ -220,7 +205,7 @@
 .grille-produits {
   position: absolute;
   left: 0;
-  top: calc(var(--u) * 835);
+  top: calc(var(--u) * 6);   /* galerie collee sous l'image du haut (espace supprime) */
   width: 100%;
   display: grid;
   grid-template-rows: repeat(3, auto);
@@ -275,7 +260,7 @@
 .equipe-concept {
   position: relative;
   z-index: 0;
-  height: calc(var(--u) * 980);
+  height: calc(var(--u) * 860);   /* on remonte Instagram : moins de vide sous l'equipe */
   background: var(--creme);
 }
 .equipe-titre {
@@ -451,12 +436,12 @@
   display: grid;
   place-content: center;
   position: absolute;
-  left: calc(var(--u) * 8);
-  top: calc(var(--u) * 18);
-  width: calc(var(--u) * 116);
-  height: calc(var(--u) * 116);
+  left: calc(var(--u) * 4);
+  top: calc(var(--u) * 14);
+  width: calc(var(--u) * 138);   /* fleur agrandie : le texte ne deborde plus */
+  height: calc(var(--u) * 138);
   margin: 0;
-  padding: 0 calc(var(--u) * 12);
+  padding: 0 calc(var(--u) * 14);
   text-align: center;
   background: url("sources/fleur-2.svg") no-repeat center / 100% 100%;
   color: var(--noir);
@@ -477,11 +462,25 @@
   border: 0;
   background: none;
   color: #fff;
-  font-size: calc(var(--u) * 36);
+  font-size: 0;              /* on cache le glyphe : la croix est dessinee ci-dessous */
   line-height: 1;
   cursor: pointer;
   z-index: 5;
 }
+/* croix epaisse : deux barres croisees, bien plus lisibles que le caractere */
+.fiche-fermer::before,
+.fiche-fermer::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 5);
+  background: #fff;
+  border-radius: calc(var(--u) * 3);
+}
+.fiche-fermer::before { transform: translate(-50%, -50%) rotate(45deg); }
+.fiche-fermer::after  { transform: translate(-50%, -50%) rotate(-45deg); }
 
 .fiche-texte { position: static; width: auto; color: #fff; }
 .fiche-texte h3 { margin: 0 0 calc(var(--u) * 8); color: #fff; font-size: calc(var(--u) * 22); font-weight: 700; }

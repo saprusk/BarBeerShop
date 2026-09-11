@@ -13,6 +13,10 @@
      Pied de page ......... 5668 -> 6025   ( 357)
    ========================================================================= */
 
+/* l'image unique du haut de page n'existe que sur telephone : sur grand ecran,
+   c'est la composition CSS ci-dessous qui s'affiche. */
+.concept-image-mob { display: none; }
+
 /* Motif commun : une photo rognee en cercle.
    Le contour bleu petrole n'est plus dessine ici : il vient des fichiers
    de fond de la designer, dont les ronds sont un peu plus larges que les
@@ -528,13 +532,12 @@
 
 .fiche-corps { display: block; }
 
-/* #la photo : posee dans le grand rond blanc mais decalee vers le BAS et la
-   GAUCHE (presque collee aux bords du rond, avec une petite marge), et non
-   centree. (rond : centre 296 / 325, diametre 560) */
+/* #la photo : centree dans le grand rond blanc.
+   (rond : centre 296 / 325, diametre 560 ; image 490 -> coin = centre - 245) */
 .fiche-corps img {
   position: absolute;
-  left: calc(var(--u) * 8);
-  top: calc(var(--u) * 118);
+  left: calc(var(--u) * 51);   /* 296 - 245 : centre horizontal du rond */
+  top: calc(var(--u) * 80);    /* 325 - 245 : centre vertical du rond */
   /* images produit agrandies */
   width: calc(var(--u) * 490);
   height: calc(var(--u) * 490);
@@ -546,9 +549,11 @@
 /* #le texte, dans le panneau rouge */
 .fiche-texte {
   position: absolute;
-  left: calc(var(--u) * 790);
+  /* bloc resserre et recentre dans le panneau rouge : les volets ne collent
+     plus au bord droit (marge equilibree gauche/droite, ~110u de chaque cote). */
+  left: calc(var(--u) * 793);
   top: calc(var(--u) * 300);
-  width: calc(var(--u) * 500);
+  width: calc(var(--u) * 460);
   color: #fff;
 }
 .fiche-texte h3 {
